@@ -1,5 +1,6 @@
 import Homepage from "./pages/Home";
 import LoginPage from "./pages/Login";
+import Welcome from "./pages/Welcome";
 
 export const Routes = [
   {
@@ -21,7 +22,7 @@ export const RoutesAuth = [
     name: "Welcome",
     path: "/welcome",
     exact: true,
-    component: LoginPage,
+    component: Welcome,
   },
   {
     name: "Login",

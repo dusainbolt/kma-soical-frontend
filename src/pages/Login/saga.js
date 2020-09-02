@@ -9,6 +9,7 @@ import {
 import { actions as actionLayout } from "../Layout/actions";
 
 import { effectAfterRequest } from "../../utils";
+import { TYPE_ANT } from "../../common";
 import api from "../../services/api";
 
 function* postLogin(action) {
@@ -17,7 +18,7 @@ function* postLogin(action) {
     const response = yield postLoginApi(action.values);
     if (response.meta.code === 0) {
       yield put(actions.postLoginSuccess(response.data));
-      yield effectAfterRequest("success", "Chào mừng đến trang quản trị", 1, "/home");
+      yield effectAfterRequest(TYPE_ANT.SUCCESS, "Chào mừng đến trang quản trị", 1, "/");
     } else {
       yield put(actions.postLoginError({}));
       yield effectAfterRequest("error", "Sai tài khoản hoặc mật khẩu", 1);
@@ -33,7 +34,7 @@ function* redirectForLogin(action) {
     yield api.setAuthRequest(action.values);
     const response = yield postAuthAdminApi();
     yield put(actions.postAuthAdminSuccess({ token: action.values }, response));
-    yield effectAfterRequest("success", "Chào mừng đến trang quản trị", 2, "/home");
+    yield effectAfterRequest("success", "Chào mừng đến trang quản trị", 2, "/");
   } catch (e) {
     yield effectAfterRequest("error", "Phiên đăng nhập hết hạn", 2);
   }

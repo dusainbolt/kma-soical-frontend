@@ -27,8 +27,8 @@ button.ant-btn {
 
 .ant-btn {
   &.btn-primary {
-    background: $primary-color-bold;
-    border-color: $primary-color-bold;
+    background: $primary-color;
+    border-color: $primary-color;
 
     &:hover,
     &:focus {
@@ -38,8 +38,8 @@ button.ant-btn {
   }
 
   &.btn-outline-primary {
-    color: $primary-color-bold;
-    border-color: $primary-color-bold;
+    color: $primary-color;
+    border-color: $primary-color;
 
     &:hover,
     &:focus {

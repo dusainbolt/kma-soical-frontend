@@ -23,7 +23,7 @@
     &--title {
       color: $green-color;
       font-weight: bold;
-      border-bottom: 2px solid $primary-color-bold;
+      border-bottom: 2px solid $primary-color;
       margin: 0 45px 35px;
       padding-bottom: 10px;
     }
@@ -49,6 +49,22 @@
       font-size: $base-font-size * 0.875;
       &:hover {
         background-color: $purple-color-bold;
+      }
+    }
+  }
+}
+
+.welcome{
+  position: relative;
+  .my-row{
+    &--col-height:first-child{
+      height: 100vh;
+      background-color: $primary-color;
+    }
+    &--col-height{
+      >h1{
+      line-height: 32px;
+      font-weight: 200;
       }
     }
   }

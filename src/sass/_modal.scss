@@ -20,8 +20,8 @@
         padding: 0 0px 5px;
         font-weight: 600;
         font-size: 23px;
-        color: $primary-color-bold;
-        border-bottom: 2px solid $primary-color-bold;
+        color: $primary-color;
+        border-bottom: 2px solid $primary-color;
       }
     }
     &__title-null{
@@ -29,7 +29,7 @@
     }
     &__modal-detail{
       padding: 0px 15px 15px 15px;
-      color: $primary-color-bold;
+      color: $primary-color;
       &--title{
         font-weight: 600;
         font-size: 18px;
@@ -74,7 +74,7 @@
         text-align: center;
       }
       &--title.ant-typography {
-        color: $primary-color-bold;
+        color: $primary-color;
         margin-bottom: 25px;
       }
     }
