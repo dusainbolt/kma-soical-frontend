@@ -1,0 +1,32 @@
+{
+  "landing_page": {
+    "hello": "WellComeTo Du App Website",
+    "why_title": "WHY CHOOSE US",
+    "why_title_1": "COMMITMENT",
+    "why_title_2": "QUALITY",
+    "why_title_3": "CUSTOMER SATISFACTION",
+    "why_title_4": "INNOVATION",
+    "why_title_5": "SAFE & FAST",
+    "why_title_6": "QUICK SUPPORT",
+    "label_birthday": "Birthday",
+    "why_description_1": "The analogies and problems used in these experiments were not specific to any domain of expertise and used fantasy problems relying only on linguistic descriptions.",
+    "why_description_2": "The analogies and problems used in these experiments were not specific to any domain of expertise and used fantasy problems relying only on linguistic descriptions.",
+    "why_description_3": "The analogies and problems used in these experiments were not specific to any domain of expertise and used fantasy problems relying only on linguistic descriptions.",
+    "why_description_4": "The analogies and problems used in these experiments were not specific to any domain of expertise and used fantasy problems relying only on linguistic descriptions.",
+    "why_description_5": "The analogies and problems used in these experiments were not specific to any domain of expertise and used fantasy problems relying only on linguistic descriptions.",
+    "why_description_6": "The analogies and problems used in these experiments were not specific to any domain of expertise and used fantasy problems relying only on linguistic descriptions."
+  },
+  "development_process": {
+    "process_title": "DEVELOPMENT PROCESS"
+  },
+  "language": {
+    "value": "en"
+  },
+  "header": {
+    "language_en": "English",
+    "language_vn": "Vietnamese",
+    "menu_home": "Home",
+    "menu_blog": "Timeline",
+    "menu_app": "App"
+  }
+}

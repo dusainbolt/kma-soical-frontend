@@ -1,0 +1,32 @@
+
+
+/* Color */
+$white-color: #fff;
+$black-color: #000;
+$purple-color-bold: #8145f0;
+$purple-color-light: #b896f6;
+$primary-color-bold: #4961ea;
+$primary-color-light: #7487f7e6;
+$green-color: #04d786;
+$green-color-light: #56ecb3;
+$gray-color-bold: #9fafc1;
+$gray-color-light: #c9d3dd;
+$red-color: #f76060;
+$disabled-color: #e5e8ea;
+$input-bg-color: #f0f2f5;
+$footer-color: #fbfbfb;
+$disabled-color-light: #e0e3e4;
+$black-color-light: #777;
+
+.white-color {
+  color: $white-color;
+}
+
+/* Typography */
+$base-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+  "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$base-font-size: 14px;
+$base-font-title: 16px;
+$base-font-large: 18px;
+$box-shadow-primary: 0 0 10px 0 rgba(15, 121, 255, 0.3);
+$box-shadow: 10px 10px 32px -8px rgba(0, 0, 0, 0.11);

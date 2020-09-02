@@ -1,0 +1,70 @@
+.header {
+  height: 64px;
+  display: flex;
+  &__icon {
+    padding: 20px;
+    font-size: 25px;
+    box-shadow: 1px 0 4px #ddd;
+  }
+  &__actor {
+    width: 100%;
+    padding: 0 20px 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &--logo.ant-typography {
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+    &--profile {
+      display: flex;
+      align-items: center;
+      span {
+        font-size: 18px;
+      }
+      .profile {
+        &__icon {
+          &--message {
+            margin-right: 15px;
+            font-size: 20px;
+            font-size: 23px;
+          }
+          &--avatar {
+            cursor: pointer;
+          }
+        }
+        &__avatar {
+          padding: 0;
+          border: none;
+          outline: none;
+          border-radius: 100%;
+        }
+      }
+    }
+  }
+}
+
+.list {
+  &__profile {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  &__item {
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    &--icon {
+      margin-right: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+
+div.ant-popover-inner {
+  border-radius: 5px;
+}

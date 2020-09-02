@@ -1,0 +1,63 @@
+button {
+  color: $white-color;
+  padding: 8px 15px;
+  border: none;
+  outline: none;
+  transition: background-color .3s;
+  transition: border-color .3s;
+  font-family: $base-font-family;
+  cursor: pointer;
+}
+
+button.ant-btn {
+  border-radius: 100px;
+  color: $white-color;
+  min-width: 130px;
+  height: 40px;
+  >span {
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  &:hover,
+  &:focus {
+    color: $white-color;
+  }
+}
+
+.ant-btn {
+  &.btn-primary {
+    background: $primary-color-bold;
+    border-color: $primary-color-bold;
+
+    &:hover,
+    &:focus {
+      background: $primary-color-light;
+      border-color: $primary-color-light;
+    }
+  }
+
+  &.btn-outline-primary {
+    color: $primary-color-bold;
+    border-color: $primary-color-bold;
+
+    &:hover,
+    &:focus {
+      color: $white-color;
+      background: $purple-color-light;
+      border-color: $purple-color-light;
+    }
+  }
+
+  &.btn-green {
+    color: $white-color;
+    border-color: $green-color;
+    background-color: $green-color;
+
+    &:hover,
+    &:focus {
+      border-color: $green-color-light;
+      background-color: $green-color-light;
+    }
+  }
+}
