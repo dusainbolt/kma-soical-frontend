@@ -29,11 +29,11 @@
       background-color: $primary-color;
       padding: 15px;
       font-weight: 700;
-      font-size: $base-font-title-small;
+      font-size: $font-title-small;
       color: $white-color;
       border-radius: 30px;
       &__icon {
-        font-size: $base-font-title-small;
+        font-size: $font-title-small;
       }
       &:hover {
         color: $white-color;

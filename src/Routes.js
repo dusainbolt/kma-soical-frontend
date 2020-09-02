@@ -1,6 +1,7 @@
 import Homepage from "./pages/Home";
 import LoginPage from "./pages/Login";
-import Welcome from "./pages/Welcome";
+import RegisterPage from "./pages/Register";
+import WelcomePage from "./pages/Welcome";
 
 export const Routes = [
   {
@@ -22,7 +23,7 @@ export const RoutesAuth = [
     name: "Welcome",
     path: "/welcome",
     exact: true,
-    component: Welcome,
+    component: WelcomePage,
   },
   {
     name: "Login",
@@ -34,12 +35,6 @@ export const RoutesAuth = [
     name: "Register",
     path: "/register",
     exact: true,
-    component: LoginPage,
-  },
-  {
-    name: "ForgotPassword",
-    path: "/forgot-password",
-    exact: true,
-    component: LoginPage,
+    component: RegisterPage,
   },
 ];

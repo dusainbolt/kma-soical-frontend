@@ -1,4 +1,6 @@
-input, textarea, select {
+input,
+textarea,
+select {
   padding: 5px;
   outline: none;
   box-sizing: border-box;
@@ -7,26 +9,38 @@ input, textarea, select {
 }
 
 input::placeholder {
-  font-size: $base-font-size * 0.75;
+  font-size: $font-size * 0.75;
   color: $gray-color-bold;
 }
 
-.input{
-  .ant-input-affix-wrapper,  input.ant-input, textarea.ant-input{
-    min-height: 40px;
+.input {
+  margin-bottom: 10px;
+
+  .ant-input-affix-wrapper,
+  input.ant-input,
+  textarea.ant-input {
+    min-height: 32px;
     border: none;
     font-size: 16px;
     background-color: #f0f2f5;
     border-radius: 5px;
   }
+
   .ant-input-affix-wrapper:focus,
   .ant-input:hover,
-  .ant-input-affix-wrapper:hover, .ant-input-affix-wrapper-focused{
-    border-color: $primary-color-light;
+  .ant-input-affix-wrapper:hover,
+  .ant-input-affix-wrapper-focused {
+    border-color: $primary-color;
     border-right-width: 2px !important;
   }
-  .ant-input-affix-wrapper{
+
+  .ant-input-affix-wrapper-focused {
+    box-shadow: 0 0 0 2px rgba(252, 142, 0, 0.55);
+  }
+
+  .ant-input-affix-wrapper {
     height: auto;
+
     >input {
       font-size: 16px;
 
@@ -37,11 +51,111 @@ input::placeholder {
   }
 }
 
+div.ant-picker {
+  padding: 5px;
+  outline: none;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: none;
+  background-color: #f0f2f5;
+  border-radius: 5px;
+  width: 100%;
+  font-size: $font-size;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  min-height: 32px;
+
+  &.ant-picker-focused {
+    box-shadow: 0 0 0 2px $primary-color;
+    border-right-width: 2px !important;
+
+    input {
+      min-height: 32px;
+    }
+  }
+
+  .ant-picker-input {
+    input {
+      min-height: 32px;
+    }
+  }
+
+  .ant-picker-suffix,
+  .ant-picker-clear {
+    color: #333;
+    padding-right: 5px;
+    background-color: transparent;
+
+    >span {
+      font-size: $font-size;
+    }
+  }
+
+  input::placeholder {
+    font-size: $font-size * 0.85;
+  }
+}
+
+.date-picker {
+  div.ant-picker.ant-picker-focused {
+    border-color: $primary-color;
+  }
+}
+
+.radio {
+  .ant-radio-group {
+    &.ant-radio-group-solid {
+      display: flex;
+    }
+
+    label.ant-radio-button-wrapper-checked, label.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      color: $primary-color;
+      background: $primary-color-light;
+      background-color: $primary-color-light;
+      border-color: $primary-color;
+      border-left: 1px solid $primary-color;
+      &:hover {
+        color: $primary-color;
+        background: $primary-color-light;
+        border-color: $primary-color;
+      }
+    }
+    label.ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within{
+      box-shadow: $box-shadow;
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before{
+      background-color: $primary-color-light;
+    }
+  }
+
+  .ant-radio-button-wrapper {
+    width: 100%;
+    border: 1px solid $primary-color;
+
+    >span:last-child {
+      font-size: $font-size;
+    }
+
+    color: $primary-color;
+
+    &:hover {
+      color: $primary-color;
+      background: $primary-color-light;
+    }
+  }
+
+  .ant-radio-button-wrapper:first-child {
+    border-left: 1px solid $primary-color;
+  }
+}
+
+
 .required {
   display: block;
   text-align: left;
   color: $red-color;
-  &--submit{
+
+  &--submit {
     text-align: center;
     margin-bottom: 10px;
     font-size: 14px;
@@ -54,6 +168,7 @@ span.error-field {
   outline: 0;
   box-shadow: 0 0 0 1px rgba(255, 0, 0, 0.13);
   margin-bottom: 3px;
+
   &:hover {
     border-color: #ff2121;
     box-shadow: 0 0 0 1px rgba(247, 0, 0, 0.23);

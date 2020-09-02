@@ -6,7 +6,8 @@ $black-color: #000;
 $purple-color-bold: #8145f0;
 $purple-color-light: #b896f6;
 $primary-color: #fea700;
-$primary-color-light: #7487f7e6;
+$primary-color-bold: #e79e13;
+$primary-color-light: #fff6dd;
 $green-color: #04d786;
 $green-color-light: #56ecb3;
 $gray-color-bold: #9fafc1;
@@ -18,17 +19,27 @@ $footer-color: #fbfbfb;
 $disabled-color-light: #e0e3e4;
 $black-color-light: #777;
 $orange-color: #ffb13d;
+$bg-color: #e9ebee;
 
 .white-color {
   color: $white-color;
 }
 
 /* Typography */
-$base-font-family: "Montserrat", "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-  "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-$base-font-size: 14px;
-$base-font-title-small: 16px;
-$base-font-title-medium: 18px;
-$base-font-title-large: 20px;
+$font-family: "SF Pro Text",-apple-system,BlinkMacSystemFont,Arial,Segoe UI,Roboto,"Helvetica Neue",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+// $font-family: Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+$font-small: 12px;
+$font-size: 14px;
+$font-title-small: 16px;
+$font-title-medium: 18px;
+$font-title-large: 20px;
+$font-medium-small: 22px;
+$font-medium: 24px;
+$font-heading-small: 25px;
+$font-heading-medium: 29px;
+$font-heading-large: 33px;
+
 $box-shadow-primary: 0 0 10px 0 rgba(15, 121, 255, 0.3);
 $box-shadow: 10px 10px 32px -8px rgba(0, 0, 0, 0.11);
+$box-shadow-hover: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
+$box-shadow-btn: 0px 1px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
