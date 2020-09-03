@@ -4,6 +4,7 @@ import { put } from "redux-saga/effects";
 import { TIME_UTC_FORMAT, DATE_UTC_FORMAT, TYPE_DATE_TIME } from "../common";
 import showMessage from "../components/Message/index";
 import moment from "moment";
+import { getI18n } from "react-i18next";
 
 export function getTimeNowUnix() {
   return Math.round(new Date().getTime() / 1000);
@@ -85,13 +86,102 @@ export function genderTimeCount(timeNumber) {
     return "now";
   } else if (duration > 60000 && duration < 3600000) {
     return now.diff(myTime, "minutes") + " minutes";
-  } else if (duration > 3600000 && duration < 86400000){
+  } else if (duration > 3600000 && duration < 86400000) {
     return now.diff(myTime, "hours") + " hours";
-  } else if (duration > 86400000 && duration < 604800000){
+  } else if (duration > 86400000 && duration < 604800000) {
     return now.diff(myTime, "days") + " days";
-  } else if( duration > 604800000){
+  } else if (duration > 604800000) {
     return moment.unix(timeNumber).format(DATE_UTC_FORMAT);
-  }else{
+  } else {
     return moment.unix(timeNumber).format(DATE_UTC_FORMAT);
   }
 }
+
+export function validateNumber(value) {
+  if (!value) return true;
+  var re = /^[0-9]+$/;
+  return re.test(value);
+}
+
+export function onlyNumberCharUnder(value) {
+  if (!value) return true;
+  var re = /^[a-z0-9_]+$/;
+  return re.test(value);
+}
+
+export const blockSpecialCharInUnder = (setFieldValue, name) => e => {
+  let value = e.target.value;
+  if (!onlyNumberCharUnder(value) || value.includes("__")) return;
+  setFieldValue(name, value);
+};
+
+export function onlyNumberChar(value) {
+  if (!value) return true;
+  var re = /^[a-zA-Z0-9]+$/;
+  return re.test(value);
+}
+
+export const blockSpecialChar = (setFieldValue, name) => e => {
+  let value = e.target.value;
+  if (!onlyNumberChar(value)) return;
+  setFieldValue(name, value.toUpperCase());
+};
+
+export const blockSpace = (setFieldValue, values, fieldName) => e => {
+  console.log("->>>>>>>>", values);
+  let value = e.target.value;
+  if ((!values[fieldName].trim() && !value.trim()) || value.includes("  ")) {
+    return;
+  }
+  setFieldValue(fieldName, value);
+};
+
+function removeAscent(str) {
+  if (str === null || str === undefined) return str;
+  str = str.toLowerCase();
+  str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+  str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+  str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+  str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+  str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+  str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+  str = str.replace(/đ/g, "d");
+  return str;
+}
+
+function isNameVN(string) {
+  if(!string) return true;
+  var re = /^[a-z ]+$/;
+  return re.test(removeAscent(string));
+}
+
+export const onlyNameVN = (setFieldValue, values, fieldName) => e => {
+  let value = e.target.value;
+  if ((!values[fieldName].trim() && !value.trim() || value.includes("  ") || !isNameVN(value))) {
+    return;
+  }
+  setFieldValue(fieldName, value);
+};
+
+export function getSelectLocalize(values, localize) {
+  if (!values.length) return [];
+  return values.map(value => {
+    return {
+      value,
+      label: getI18n().t(`${localize}${value}`),
+    };
+  });
+}
+
+export const onChangeValueFormik = (setFieldValue, name) => value => {
+  setFieldValue(name, value);
+};
+
+export const disableFeatureDate = () => (current) => {
+  const currentDate = moment(Date.now());
+  return current > currentDate;
+};
+
+export const getDefaultValueDate = stringdate => {
+  return moment(stringdate, DATE_UTC_FORMAT); 
+};

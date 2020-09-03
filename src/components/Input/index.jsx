@@ -4,7 +4,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 
 export default function Input({
   field,
-  form: { touched, errors },
+  form: { submitCount, errors },
   labelTitle,
   countRows,
   type,
@@ -13,7 +13,7 @@ export default function Input({
   callHandleIcon,
   ...props
 }) {
-  const errorValidate = errors[field.name] && touched[field.name];
+  const errorValidate = errors[field.name] && submitCount > 0;
   const classError = showError && errorValidate ? "error-field" : "";
   return (
     <div className="input">

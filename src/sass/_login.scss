@@ -111,7 +111,7 @@
     &__col-height:last-child {
       height: 60vh;
       &.register{
-        height: 100vh;
+        min-height: 950px;
       }
     }
     &__select-wrapper{

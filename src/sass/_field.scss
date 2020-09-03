@@ -62,7 +62,6 @@ div.ant-picker {
   width: 100%;
   font-size: $font-size;
   padding-left: 10px;
-  margin-bottom: 10px;
   min-height: 32px;
 
   &.ant-picker-focused {
@@ -97,6 +96,7 @@ div.ant-picker {
 }
 
 .date-picker {
+  margin-bottom: 10px;
   div.ant-picker.ant-picker-focused {
     border-color: $primary-color;
   }

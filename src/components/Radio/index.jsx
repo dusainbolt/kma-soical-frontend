@@ -2,7 +2,7 @@ import React from "react";
 import { Radio } from "antd";
 function RadioCheck({
   field,
-  form: { touched, errors },
+  form: { submitCount, errors },
   labelTitle,
   required,
   wrapperClass,
@@ -16,7 +16,7 @@ function RadioCheck({
         </label>
       )}
       <Radio.Group {...props} />
-      {errors[field.name] && touched[field.name] && (
+      {errors[field.name] && submitCount > 0 && (
         <span className="required">{errors[field.name]}</span>
       )}
     </div>

@@ -72,3 +72,6 @@ export const TYPE_ANT = {
   ERROR: "error",
   WARNING: "warning",
 };
+
+
+export const VALUE_GENDER = [1,2,3];
