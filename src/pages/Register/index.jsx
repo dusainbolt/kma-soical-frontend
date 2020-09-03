@@ -14,7 +14,8 @@ import {
   onlyNameVN,
   getSelectLocalize,
   disableFeatureDate,
-  getDefaultValueDate
+  getDefaultValueDate,
+  checkCodeStudent,
 } from "../../utils";
 import { browserHistory } from "../../utils/history";
 import { Row, Col } from "antd";
@@ -24,6 +25,7 @@ import { useState } from "react";
 import { VALUE_GENDER } from "../../common";
 import DatePicker from "../../components/DatePicker";
 import Dot from "../../components/Dot";
+import FadeIn from "react-fade-in";
 
 function Register() {
   const token = useSelector(state => state.loginReducer.auth?.token);
@@ -36,15 +38,20 @@ function Register() {
     rePassword: "",
     gender: "",
   };
+
   const { t } = useTranslation();
   const [onSubmit, setOnSubmit] = useState(false);
+
   const validate = Yup.object({
     email: Yup.string()
       .required(t("txt.msg_required", { name: t("txt.val_email") }))
       .email(t("txt.msg_format_email")),
     userName: Yup.string()
       .required(t("txt.msg_required", { name: t("txt.user_name") }))
-      .matches(/^(?=.*[a-z])[a-z0-9_]{5,21}$/, t("txt.msg_only_char_num", { name: t("txt.user_name") })),
+      .matches(
+        /^(?=.*[a-z])[a-z0-9_]{5,21}$/,
+        t("txt.msg_only_char_num", { name: t("txt.user_name") })
+      ),
     fullName: Yup.string()
       .required(t("txt.msg_required", { name: t("txt.full_name") }))
       .matches(/^.{8,25}$/, t("txt.msg_only_full_name", { name: t("txt.full_name") })),
@@ -57,12 +64,11 @@ function Register() {
     rePassword: Yup.string()
       .required(t("txt.msg_required", { name: t("txt.val_password") }))
       .oneOf([Yup.ref("password"), null], "Mật khẩu xác nhận không trùng khớp"),
-    birthday: Yup.string().required(t("txt.msg_required_select", { name: t("txt.birthday") })),
+    birthday: Yup.mixed().required(t("txt.msg_required_select", { name: t("txt.birthday") })),
     gender: Yup.string().required(t("txt.msg_required_select", { name: t("txt.gender") })),
   });
 
   const submitRegister = values => {
-    console.log("->>>>>>>>.", values);
     setOnSubmit(true);
   };
 
@@ -83,83 +89,84 @@ function Register() {
           <Col className="welcome__col-height register" xs={24} sm={24} md={24} lg={12}></Col>
           <Col className="welcome__col-height register" xs={24} sm={24} md={24} lg={12}>
             <div className="welcome__select-wrapper">
-              <div className="login__logo">
-                <img className="" src={logo} alt="logo" />
-              </div>
-              <div className="login--form">
-                <Field
-                  name="email"
-                  maxLength={150}
-                  placeholder={t("txt.val_email")}
-                  component={Input}
-                />
-                <Field
-                  name="userName"
-                  onChange={blockSpecialCharInUnder(setFieldValue, "userName")}
-                  placeholder={t("txt.user_name")}
-                  component={Input}
-                  maxLength={20}
-                />
-                <Field
-                  name="fullName"
-                  onChange={onlyNameVN(setFieldValue, values, "fullName")}
-                  placeholder={t("txt.full_name")}
-                  component={Input}
-                  maxLength={25}
-                />
-                <Field
-                  name="codeStudent"
-                  onChange={blockSpecialChar(setFieldValue, "codeStudent")}
-                  placeholder={t("txt.code_std")}
-                  component={Input}
-                  maxLength={8}
-                />
-                <Field
-                  name="password"
-                  type="password"
-                  placeholder={t("txt.val_password")}
-                  component={Input}
-                />
-                <Field
-                  name="rePassword"
-                  type="password"
-                  placeholder={t("txt.re_password")}
-                  component={Input}
-                />
-                <Field
-                  name="birthday"
-                  placeholder={t("txt.birthday")}
-                  defaultValue={getDefaultValueDate("18/11/1999")}
-                  showToday={false}
-                  onChange={onChangeValueFormik(setFieldValue, "birthday")}
-                  disabledDate={disableFeatureDate()}
-                  component={DatePicker}
-                />
-                <Field
-                  name="gender"
-                  options={getSelectLocalize(VALUE_GENDER, "txt.gender_")}
-                  onChange={onChangeValueGender(setFieldValue)}
-                  value={values.gender}
-                  optionType="button"
-                  buttonStyle="solid"
-                  component={RadioCheck}
-                />
-              </div>
-              <div className="welcome__buttons">
-                {onSubmit ? (
-                  <Dot className="welcome__buttons--loading" />
-                ) : (
-                  <ButtonCommon
-                    onClick={handleSubmit}
-                    className="btn-primary login__btn-submit"
-                    title={t("txt.register")}
+              <FadeIn delay={300}>
+                <div className="login__logo">
+                  <img className="" src={logo} alt="logo" />
+                </div>
+                <div className="login--form">
+                  <Field
+                    name="email"
+                    maxLength={150}
+                    placeholder={t("txt.val_email")}
+                    component={Input}
                   />
-                )}
-              </div>
-              <div className="login__form-select">
-                <label>{t("txt.use_account")}</label>
-                <ButtonCommon onlyLink title={t("txt.btn_login")} to="/login"></ButtonCommon>
-              </div>
+                  <Field
+                    name="userName"
+                    onChange={blockSpecialCharInUnder(setFieldValue, "userName")}
+                    placeholder={t("txt.user_name")}
+                    component={Input}
+                    maxLength={20}
+                  />
+                  <Field
+                    name="fullName"
+                    onChange={onlyNameVN(setFieldValue, values, "fullName")}
+                    placeholder={t("txt.full_name")}
+                    component={Input}
+                    maxLength={25}
+                  />
+                  <Field
+                    name="codeStudent"
+                    onChange={checkCodeStudent(setFieldValue, "codeStudent")}
+                    placeholder={t("txt.code_std")}
+                    component={Input}
+                    maxLength={8}
+                  />
+                  <Field
+                    name="password"
+                    type="password"
+                    placeholder={t("txt.val_password")}
+                    component={Input}
+                  />
+                  <Field
+                    name="rePassword"
+                    type="password"
+                    placeholder={t("txt.re_password")}
+                    component={Input}
+                  />
+                  <Field
+                    name="birthday"
+                    placeholder={t("txt.birthday")}
+                    showToday={false}
+                    onChange={onChangeValueFormik(setFieldValue, "birthday")}
+                    disabledDate={disableFeatureDate()}
+                    component={DatePicker}
+                  />
+                  <Field
+                    name="gender"
+                    options={getSelectLocalize(VALUE_GENDER, "txt.gender_")}
+                    onChange={onChangeValueGender(setFieldValue)}
+                    value={values.gender}
+                    optionType="button"
+                    buttonStyle="solid"
+                    component={RadioCheck}
+                  />
+                </div>
+                <div className="welcome__buttons">
+                  {onSubmit ? (
+                    <Dot className="welcome__buttons--loading" />
+                  ) : (
+                    <ButtonCommon
+                      onClick={handleSubmit}
+                      className="btn-primary login__btn-submit"
+                      title={t("txt.register")}
+                    />
+                  )}
+                </div>
+                <div className="login__form-select">
+                  <label>{t("txt.use_account")}</label>
+                  <ButtonCommon onlyLink title={t("txt.btn_login")} to="/login"></ButtonCommon>
+                </div>
+              </FadeIn>
             </div>
           </Col>
         </Row>

@@ -67,14 +67,14 @@ export function convertDateTime(timeNumber, type = "") {
   const timeConvert = moment.unix(timeNumber).format(TIME_UTC_FORMAT.TYPE_2);
   const dateConvert = moment.unix(timeNumber).format(DATE_UTC_FORMAT);
   switch (type) {
-  case TYPE_DATE_TIME.DATE:
-    return dateConvert;
-  case TYPE_DATE_TIME.TIME:
-    return timeConvert;
-  case TYPE_DATE_TIME.TIME_AND_DATE:
-    return dateConvert + " " + timeConvert;
-  default:
-    return dateConvert;
+    case TYPE_DATE_TIME.DATE:
+      return dateConvert;
+    case TYPE_DATE_TIME.TIME:
+      return timeConvert;
+    case TYPE_DATE_TIME.TIME_AND_DATE:
+      return dateConvert + " " + timeConvert;
+    default:
+      return dateConvert;
   }
 }
 
@@ -127,6 +127,24 @@ export const blockSpecialChar = (setFieldValue, name) => e => {
   setFieldValue(name, value.toUpperCase());
 };
 
+export const checkCodeStudent = (setFieldValue, name) => e => {
+  let value = e.target.value.toUpperCase();
+  if (!onlyNumberChar(value) || !validateCodeStudent(value)) return;
+  setFieldValue(name, value);
+};
+
+export const validateCodeStudent = value => {
+  let arr = value.split("");
+  let check = true;
+  if ((value.length === 1)) {
+    check = arr[0] === "A" || arr[0] === "C" || arr[0] === "D";
+  } else if ((value.length === 2)) {
+    const code = arr[0] + arr[1];
+    check = code === "AT" || code === "CT" || code === "DT";
+  }
+  return check;
+};
+
 export const blockSpace = (setFieldValue, values, fieldName) => e => {
   console.log("->>>>>>>>", values);
   let value = e.target.value;
@@ -150,14 +168,14 @@ function removeAscent(str) {
 }
 
 function isNameVN(string) {
-  if(!string) return true;
+  if (!string) return true;
   var re = /^[a-z ]+$/;
   return re.test(removeAscent(string));
 }
 
 export const onlyNameVN = (setFieldValue, values, fieldName) => e => {
   let value = e.target.value;
-  if ((!values[fieldName].trim() && !value.trim() || value.includes("  ") || !isNameVN(value))) {
+  if ((!values[fieldName].trim() && !value.trim()) || value.includes("  ") || !isNameVN(value)) {
     return;
   }
   setFieldValue(fieldName, value);
@@ -177,11 +195,15 @@ export const onChangeValueFormik = (setFieldValue, name) => value => {
   setFieldValue(name, value);
 };
 
-export const disableFeatureDate = () => (current) => {
+export const disableFeatureDate = () => current => {
   const currentDate = moment(Date.now());
   return current > currentDate;
 };
 
 export const getDefaultValueDate = stringdate => {
-  return moment(stringdate, DATE_UTC_FORMAT); 
+  return moment(stringdate, DATE_UTC_FORMAT);
 };
+
+export function setValueDate(values, name) {
+  return values[name] ? moment(values[name]) : "";
+}
