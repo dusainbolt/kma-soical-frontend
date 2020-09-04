@@ -2,7 +2,8 @@ import { browserHistory } from "./history";
 import { actions as actionLayout } from "../pages/Layout/actions";
 import { put } from "redux-saga/effects";
 import { TIME_UTC_FORMAT, DATE_UTC_FORMAT, TYPE_DATE_TIME } from "../common";
-import showMessage from "../components/Message/index";
+import showMessage from "../components/Message";
+import showNotify from "../components/Notification";
 import moment from "moment";
 import { getI18n } from "react-i18next";
 
@@ -40,6 +41,10 @@ export function* effectAfterRequest(typeMsg, msg, typeHide = 0, redirect = "") {
   if (msg) yield showMessage(typeMsg, msg);
 }
 
+export function* showNotifyRequest(typeMsg, title, content){
+  yield showNotify(typeMsg, title, content);
+}
+
 export function showTopHeader(header) {
   header.style.boxShadow = "1px 1px 5px #ddd";
   header.style.position = "fixed";
@@ -67,16 +72,20 @@ export function convertDateTime(timeNumber, type = "") {
   const timeConvert = moment.unix(timeNumber).format(TIME_UTC_FORMAT.TYPE_2);
   const dateConvert = moment.unix(timeNumber).format(DATE_UTC_FORMAT);
   switch (type) {
-    case TYPE_DATE_TIME.DATE:
-      return dateConvert;
-    case TYPE_DATE_TIME.TIME:
-      return timeConvert;
-    case TYPE_DATE_TIME.TIME_AND_DATE:
-      return dateConvert + " " + timeConvert;
-    default:
-      return dateConvert;
+  case TYPE_DATE_TIME.DATE:
+    return dateConvert;
+  case TYPE_DATE_TIME.TIME:
+    return timeConvert;
+  case TYPE_DATE_TIME.TIME_AND_DATE:
+    return dateConvert + " " + timeConvert;
+  default:
+    return dateConvert;
   }
 }
+
+export const convertStringDate = (value, format) => {
+  return value.unix();
+};
 
 export function genderTimeCount(timeNumber) {
   var now = moment(new Date()); //todays date

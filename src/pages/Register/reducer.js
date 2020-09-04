@@ -1,49 +1,70 @@
 import { ActionTypes } from "./actions";
 
 const DEFAULT_STATE = {
-  isLoadingChangePassword: false,
-  auth: {},
-  userDetail: {},
+  loadingRegister: false,
+  userNew: {},
+  errorDuplicate: {
+    email: false,
+    userName: false,
+    codeStudent: false,
+  },
+  loadingDuplicate: {
+    email: false,
+    userName: false,
+    codeStudent: false,
+  }
 };
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-  case ActionTypes.POST_LOGIN_SUCCESS:
+  case ActionTypes.POST_REGISTER_START:
     return {
       ...state,
-      auth: action.payload,
-    };
-  case ActionTypes.POST_LOGIN_ERROR:
-    return {
-      ...state,
-    };
-  case ActionTypes.POST_AUTH_SUCCESS:
-    return {
-      ...state,
-      auth: action.payload.token,
-      userDetail: action.payload.data,
-    };
-  case ActionTypes.POST_AUTH_ERROR:
-    return {
-      ...state,
-      auth: action.payload,
-    };
-  case ActionTypes.POST_CHANGE_PASSWORD_START:
-    return {
-      ...state,
-      isLoadingChangePassword: false,
+      loadingRegister: true,
     };  
-  case ActionTypes.POST_CHANGE_PASSWORD_SUCCESS:
+  case ActionTypes.POST_REGISTER_SUCCESS:
     return {
       ...state,
-      userDetail: action.payload.data,
-      isLoadingChangePassword: true,
+      userNew: action.payload.data,
+      loadingRegister: false,
     };
-  case ActionTypes.POST_CHANGE_PASSWORD_ERROR:
+  case ActionTypes.POST_REGISTER_ERROR:
     return {
       ...state,
-      isLoadingChangePassword: false,
+      loadingRegister: false,
     };
+  case ActionTypes.GET_EMPTY_USER_START:
+    return {
+      ...state,
+      loadingDuplicate: {
+        ...state.loadingDuplicate,
+        [action.params.type]: true,
+      }
+    };  
+  case ActionTypes.GET_EMPTY_USER_SUCCESS:
+    return {
+      ...state,
+      loadingDuplicate: {
+        ...state.loadingDuplicate,
+        [action.payload]: false,
+      },
+      errorDuplicate: {
+        ...state.errorDuplicate,
+        [action.payload]: false,
+      }
+    };
+  case ActionTypes.GET_EMPTY_USER_ERROR:
+    return {
+      ...state,
+      loadingDuplicate: { 
+        ...state.loadingDuplicate,
+        [action.payload]: false,
+      },
+      errorDuplicate: {
+        ...state.errorDuplicate,
+        [action.payload]: true,
+      }  
+    };  
   default:
     return state;
   }

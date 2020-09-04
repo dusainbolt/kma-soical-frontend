@@ -1,6 +1,7 @@
 import React from "react";
 import { Input as InputField } from "antd";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { EyeInvisibleOutlined, EyeTwoTone, SyncOutlined, WarningOutlined } from "@ant-design/icons";
+import { useTranslation } from "react-i18next";
 
 export default function Input({
   field,
@@ -8,6 +9,9 @@ export default function Input({
   labelTitle,
   countRows,
   type,
+  loadingSearch,
+  errorSearch,
+  IconSearch,
   showError = true,
   Icon,
   callHandleIcon,
@@ -15,6 +19,7 @@ export default function Input({
 }) {
   const errorValidate = errors[field.name] && submitCount > 0;
   const classError = showError && errorValidate ? "error-field" : "";
+  const { t } = useTranslation();
   return (
     <div className="input">
       {labelTitle && <label>{labelTitle}</label>}
@@ -23,9 +28,7 @@ export default function Input({
           className={classError}
           {...field}
           {...props}
-          iconRender={visible =>
-            visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-          }
+          iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
         />
       )}
       {!type && <InputField className={classError} allowClear {...field} {...props} />}
@@ -38,10 +41,18 @@ export default function Input({
           {...props}
         />
       )}
-      { Icon ? <Icon className="input__icon" onClick={callHandleIcon} /> : ""}
-      {errorValidate && showError &&  (
-        <span className="required">{errors[field.name]}</span>
+      {loadingSearch && <SyncOutlined spin className="input__icon-search" />}
+      {errorSearch && (
+        <>
+          <WarningOutlined className="input__icon-search error" />
+          <span className="required">{t(`txt.duplicate_${field.name}`)}</span>
+        </>
       )}
+      {!errorSearch && IconSearch && !errorValidate && field.value && (
+        <IconSearch className="input__icon-search success" />
+      )}
+      {Icon && <Icon className="input__icon" onClick={callHandleIcon} />}
+      {errorValidate && showError && <span className="required">{errors[field.name]}</span>}
     </div>
   );
 }

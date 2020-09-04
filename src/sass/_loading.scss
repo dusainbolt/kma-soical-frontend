@@ -76,6 +76,29 @@
   }
 }
 
+.event-notify{
+  &.ant-notification-notice {
+    padding: 16px 14px;
+    line-height: 1.5715;
+    border-radius: 8px;
+    width: unset;
+  }
+  &__logo{
+    width: 40px;
+    margin-left: -5px;
+  }
+  .ant-notification-notice-close{
+    background-color: $disabled-color-light;
+    padding: 3px;
+    border-radius: 50px;
+    top: 15px;
+    right: 13px;
+  }
+  .ant-notification-notice-message{
+    color: $primary-color;
+  }
+}
+
 @keyframes dot {
   0% {
     transform: translateY(0);
@@ -85,5 +108,13 @@
   }
   100% {
     transform: translateY(5px);
+  }
+}
+
+@media(max-width: 476px){
+  .event-notify{
+    &.ant-notification-notice {
+      margin-right: -15px;
+    }
   }
 }

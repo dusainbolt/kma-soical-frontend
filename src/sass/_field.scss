@@ -15,7 +15,7 @@ input::placeholder {
 
 .input {
   margin-bottom: 10px;
-
+  position: relative;
   .ant-input-affix-wrapper,
   input.ant-input,
   textarea.ant-input {
@@ -46,6 +46,25 @@ input::placeholder {
 
       &::placeholder {
         font-size: 13px;
+      }
+    }
+  }
+  &__icon-search{
+    position: absolute;
+    right: 30px;
+    top: 12px;
+    font-size: 15px;
+    >svg {
+      color: $primary-color;
+    }
+    &.error{
+      >svg {
+        color: $red-color;
+      }
+    }
+    &.success{
+      >svg{
+        color: $green-color;
       }
     }
   }

@@ -7,6 +7,8 @@
     "msg_only_code_student": "{{name}} phải có đúng 8 ký tự và bắt đầu AT,CT,DT",
     "msg_only_password": "{{name}} chứa 6-21 ký tự",
     "msg_required_select": "{{name}} chưa được chọn",
+    "msg_500_error": "Có sự cố sảy ra",
+    "msg_500_content": "Server không phản hồi, vui lỏng kiểm tra lại đường truyền",
     "val_password": "Mật khẩu",
     "val_email": "Email",
     "full_name": "Họ tên",
