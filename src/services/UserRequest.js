@@ -11,3 +11,7 @@ export const getEmptyUserAPI = params => {
 export const postConfirmCodeAPI = body => {
   return api.post("/user/confirm_code", body);
 };
+
+export const postLoginAPI = body => {
+  return api.post("/user/login", body);
+};

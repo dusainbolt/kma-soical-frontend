@@ -11,7 +11,7 @@ import { actions } from "../Login/actions";
 const { Header, Content, Sider } = Layout;
 
 function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
-  const token = useSelector(state => state.loginReducer.auth?.token);
+  const token = useSelector(state => state.loginReducer.token);
   const [collapsed, setCollapsed] = useState(true);
   const dispatch = useDispatch();
 
@@ -24,12 +24,10 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   };
 
   useEffect(() => {
-    if (token) {
-      dispatch(actions.postAuthAdminStart(token));
-    } else {
+    if (!token) {
       browserHistory.push("/welcome");
     }
-  }, []);
+  }, [token]);
 
   return (
     <Route

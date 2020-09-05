@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Formik, Field } from "formik";
-import { connect, useSelector } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import { withTranslation, useTranslation } from "react-i18next";
 import logo from "../../common/image/logo.png";
 import * as Yup from "yup";
@@ -15,18 +15,18 @@ import Dot from "../../components/Dot";
 import LazyLoading from "../../components/LazyLoadingImg";
 
 function Login() {
-  const token = useSelector(state => state.loginReducer.auth?.token);
-  const initialValues = { email: "", password: "" };
+  const token = useSelector(state => state.loginReducer.token);
+  const isLoadingLogin = useSelector(state => state.loginReducer.isLoadingLogin);
+  const dispatch = useDispatch();
+  const initialValues = { uniqueUser: "", password: "" };
   const { t } = useTranslation();
-  const [onSubmit, setOnSubmit] = useState(false);
   const validate = Yup.object({
-    email: Yup.string().required(t("txt.msg_required", { name: t("txt.val_email") })),
+    uniqueUser: Yup.string().required(t("txt.msg_required_unique_login")),
     password: Yup.string().required(t("txt.msg_required", { name: t("txt.val_password") })),
   });
 
   const submitLogin = values => {
-    console.log("->>>>>>>>.", values);
-    setOnSubmit(true);
+    dispatch(actions.postLoginStart(values));
   };
 
   useEffect(() => {
@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <Formik initialValues={initialValues} onSubmit={submitLogin} validationSchema={validate}>
-      {({ handleSubmit, handleReset, setFieldValue, values }) => (
+      {({ handleSubmit, values }) => (
         <Row className="welcome login">
           <Col className="welcome__col-height" xs={24} sm={24} md={24} lg={12}></Col>
           <Col className="welcome__col-height" xs={24} sm={24} md={24} lg={12}>
@@ -46,7 +46,7 @@ function Login() {
                 <LazyLoading src={logo} className="logo" alt="logo" />
               </div>
               <div className="login--form">
-                <Field name="email" placeholder={t("txt.val_email")} component={Input} />
+                <Field name="uniqueUser" placeholder={t("txt.user_name_or_code")} component={Input} />
                 <Field
                   type="password"
                   name="password"
@@ -56,7 +56,7 @@ function Login() {
                 <span className="login__label">{t("txt.forgot_pass")}</span>
               </div>
               <div className="welcome__buttons">
-                {onSubmit ? (
+                {isLoadingLogin ? (
                   <Dot className="welcome__buttons--loading" />
                 ) : (
                   <ButtonCommon
