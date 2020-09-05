@@ -41,8 +41,13 @@ export function* effectAfterRequest(typeMsg, msg, typeHide = 0, redirect = "") {
   if (msg) yield showMessage(typeMsg, msg);
 }
 
-export function* showNotifyRequest(typeMsg, title, content){
-  yield showNotify(typeMsg, title, content);
+export function* showNotifyRequest(title, content, urlAction, typeMsg){
+  yield showNotify(title, content, urlAction, typeMsg);
+}
+
+
+export function showNotifyNormal(title, content, urlAction, typeMsg){
+  showNotify(title, content, urlAction, typeMsg);
 }
 
 export function showTopHeader(header) {
@@ -130,6 +135,15 @@ export function onlyNumberChar(value) {
   return re.test(value);
 }
 
+export const onlyNumber = (setFieldValue, name) => e => {
+  let value = e.target.value;
+  console.log(value);
+  if (!validateNumber(value)) return;
+  setFieldValue(name, value);
+};
+
+
+
 export const blockSpecialChar = (setFieldValue, name) => e => {
   let value = e.target.value;
   if (!onlyNumberChar(value)) return;
@@ -216,3 +230,7 @@ export const getDefaultValueDate = stringdate => {
 export function setValueDate(values, name) {
   return values[name] ? moment(values[name]) : "";
 }
+
+export const getUrlRedirectEmail = email => {
+  return `https://mail.google.com/mail/u/${email}/#inbox`;
+};

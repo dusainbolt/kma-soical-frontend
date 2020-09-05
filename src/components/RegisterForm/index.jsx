@@ -159,6 +159,7 @@ export default function FormRegister({
               <Dot className="welcome__buttons--loading" />
             ) : (
               <ButtonCommon
+                iconSend
                 onClick={handleSubmit}
                 className="btn-primary login__btn-submit"
                 title={t("txt.register")}

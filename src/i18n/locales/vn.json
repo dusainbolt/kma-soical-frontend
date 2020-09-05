@@ -8,12 +8,14 @@
     "msg_only_password": "{{name}} chứa 6-21 ký tự",
     "msg_required_select": "{{name}} chưa được chọn",
     "msg_500_error": "Có sự cố sảy ra",
-    "msg_500_content": "Server không phản hồi, vui lỏng kiểm tra lại đường truyền",
+    "msg_500_content": "Server không phản hồi, vui lỏng kiểm tra lại sự kiện hoặc đường truyền.",
     "val_password": "Mật khẩu",
     "val_email": "Email",
     "full_name": "Họ tên",
     "gender_1": "Nam",
+    "sendCode": "Mã xác nhận",
     "gender_2": "Nữ",
+    "confirm": "Xác nhận",
     "gender_3": "Khác",
     "user_name": "Tên đăng nhập",
     "code_std": "Mã sinh viên",
@@ -24,6 +26,10 @@
     "not_account": "Bạn chưa có tài khoản?",
     "register": "Đăng ký",
     "use_account": "Bạn đã có tài khoản?",
+    "msg_register_title": "Đăng ký thành công",
+    "msg_register_content": "Hệ thống đã gửi mã xác nhận vào email vui lòng kiểm tra",
+    "confirm_title_CONFIRM_REGISTER": "Xác minh thành công",
+    "confirm_content_CONFIRM_REGISTER": "Bây giờ bạn có thể đăng nhập và tham gia cùng cộng đồng KMA nhé.",
     "forgot_pass": "Quên mật khẩu?"
   }
 }

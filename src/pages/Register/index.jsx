@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import logo from "../../common/image/logo.png";
+import { CONFIRM } from "../../common";
 import { useEffect } from "react";
 import { browserHistory } from "../../utils/history";
 import { Row, Col } from "antd";
@@ -10,7 +11,7 @@ import LazyLoad from "../../components/LazyLoadingImg";
 import FadeIn from "react-fade-in";
 import { actions } from "./actions";
 import RegisterForm from "../../components/RegisterForm";
-import { useCallback } from "react";
+import ConfirmCode from "../ConfirmCodeForm";
 
 function Register() {
   const token = useSelector(state => state.loginReducer.auth?.token);
@@ -22,9 +23,9 @@ function Register() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  const submitRegister = values => {
+  const submitRegister = useCallback(values => {
     dispatch(actions.postRegisterStart(values));
-  };
+  }, []);
 
   useEffect(() => {
     if (token) {
@@ -32,10 +33,9 @@ function Register() {
     }
   }, [token]);
 
-  const onSearchUser = useCallback(params=>{
+  const onSearchUser = useCallback(params => {
     dispatch(actions.getEmptyUserStart(params));
-  },[]);
-
+  }, []);
 
   return (
     <Row className="welcome login">
@@ -47,13 +47,18 @@ function Register() {
               <LazyLoad src={logo} className="logo" alt="logo" />
             </div>
             <div className="login--form">
-              <RegisterForm
-                callbackRegister={submitRegister}
-                callbackEmptyUser={onSearchUser}
-                loadingDuplicate={loadingDuplicate}
-                loadingRegister={loadingRegister}
-                errorDuplicate={errorDuplicate}
-              />
+              {!userNew?.userName && (
+                <RegisterForm
+                  callbackRegister={submitRegister}
+                  callbackEmptyUser={onSearchUser}
+                  loadingDuplicate={loadingDuplicate}
+                  loadingRegister={loadingRegister}
+                  errorDuplicate={errorDuplicate}
+                />
+              )}
+              {userNew?.userName && (
+                <ConfirmCode type={CONFIRM.REGISTER} userName={userNew.userName} />
+              )}
             </div>
             <div className="login__form-select">
               <label>{t("txt.use_account")}</label>

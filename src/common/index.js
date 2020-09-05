@@ -26,6 +26,10 @@ export const PARAMS = {
   VOTE: "vote",
 };
 
+export const CONFIRM = {
+  REGISTER: "CONFIRM_REGISTER",
+};
+
 export const validateFormChangePassword = Yup.object({
   [PARAMS.PASSWORD]: Yup.string()
     .required(getI18n().t("Vui lòng nhập mật khẩu cũ"))

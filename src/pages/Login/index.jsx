@@ -12,6 +12,7 @@ import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";
 import { useState } from "react";
 import Dot from "../../components/Dot";
+import LazyLoading from "../../components/LazyLoadingImg";
 
 function Login() {
   const token = useSelector(state => state.loginReducer.auth?.token);
@@ -42,18 +43,24 @@ function Login() {
           <Col className="welcome__col-height" xs={24} sm={24} md={24} lg={12}>
             <div className="welcome__select-wrapper">
               <div className="login__logo">
-                <img className="" src={logo} alt="logo" />
+                <LazyLoading src={logo} className="logo" alt="logo" />
               </div>
               <div className="login--form">
                 <Field name="email" placeholder={t("txt.val_email")} component={Input} />
-                <Field type="password" name="password" placeholder={t("txt.val_password")} component={Input} />
+                <Field
+                  type="password"
+                  name="password"
+                  placeholder={t("txt.val_password")}
+                  component={Input}
+                />
                 <span className="login__label">{t("txt.forgot_pass")}</span>
               </div>
               <div className="welcome__buttons">
                 {onSubmit ? (
-                  <Dot className="welcome__buttons--loading"/>
+                  <Dot className="welcome__buttons--loading" />
                 ) : (
                   <ButtonCommon
+                    iconSend
                     onClick={handleSubmit}
                     className="btn-primary login__btn-submit"
                     title={t("txt.btn_login")}

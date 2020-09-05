@@ -4,6 +4,10 @@ export const postRegisterAPI = body => {
   return api.post("/user/signup", body);
 };
 
-export const getEmptyUserAPI = body => {
-  return api.get("/user/user_empty", body);
+export const getEmptyUserAPI = params => {
+  return api.get("/user/user_empty", params);
+};
+
+export const postConfirmCodeAPI = body => {
+  return api.post("/user/confirm_code", body);
 };
