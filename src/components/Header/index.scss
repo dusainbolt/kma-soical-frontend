@@ -1,12 +1,7 @@
 .header {
   height: 64px;
   display: flex;
-  &__icon {
-    padding: 20px;
-    font-size: 25px;
-    box-shadow: 1px 0 4px #ddd;
-  }
-  &__actor {
+  &__user {
     width: 100%;
     padding: 0 20px 0 30px;
     display: flex;

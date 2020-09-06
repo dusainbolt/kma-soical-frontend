@@ -1,12 +1,18 @@
 .layout {
   .layout__header {
     padding: 0;
-    box-shadow: 0 4px 10px #ddd;
     background-color: #fff;
     z-index: 9;
+    border-bottom: solid 1px #ddd;
   }
   .site-layout {
     height: calc(100vh - 65px);
     overflow: hidden;
+  }
+  &__side-bg{
+    background-color: transparent !important;
+    .layout-page-sider-menu{
+      background-color: transparent !important;
+    }
   }
 }

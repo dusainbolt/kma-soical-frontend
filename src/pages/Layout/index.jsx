@@ -5,6 +5,9 @@ import { Layout } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import CommonHeader from "../../components/Header";
 import Sidebar from "../../components/SlideBar";
+import SideBarEvent from "../../components/SideBarEvent";
+import SideBarMessage from "../../components/SideBarMessage";
+
 import "./index.scss";
 import { actions } from "./actions";
 import api from "../../services/api";
@@ -13,15 +16,11 @@ const { Header, Content, Sider } = Layout;
 
 function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const token = useSelector(state => state.loginReducer.token);
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
 
   const toggleMenu = () => {
     setCollapsed(!collapsed);
-  };
-
-  const onClickContent = () => {
-    setCollapsed(true);
   };
 
   const onLogoutUser = useCallback(()=>{
@@ -49,9 +48,15 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <Sider trigger={null} collapsible collapsed={collapsed}>
                 <Sidebar />
               </Sider>
-              <Content onClick={onClickContent} className="site-layout-background">
+              <Content className="site-layout-background">
                 <Mycomponent {...routeProps} />
               </Content>
+              <Sider className="layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
+                <SideBarEvent />
+              </Sider>
+              <Sider trigger={null} collapsible collapsed={collapsed}>
+                <SideBarMessage />
+              </Sider>
             </Layout>
           </Layout>
         );

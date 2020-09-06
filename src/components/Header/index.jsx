@@ -69,12 +69,11 @@ function CommonHeader({ callbackLogout, toggleMenu }) {
 
   return (
     <div className="header">
-      <MenuOutlined className="header__icon" onClick={toggleMenu} />
-      <div className="header__actor">
-        <Paragraph className="header__actor--logo" level={4}>
+      <div className="header__user">
+        <Paragraph className="header__user--logo" level={4}>
           <img width="140" height="55" src={LogoHeader} alt="avatar" />
         </Paragraph>
-        <div className="header__actor--profile">
+        <div className="header__user--profile">
           <MessageFilled className="profile__icon--message" />
           <Popover
             placement="bottomRight"
