@@ -2,6 +2,7 @@ export const ActionTypes = {
   POST_REGISTER_START: "POST_REGISTER_START",
   POST_REGISTER_SUCCESS: "POST_REGISTER_SUCCESS",
   POST_REGISTER_ERROR: "POST_REGISTER_ERROR",
+  POST_REGISTER_CODE: "POST_REGISTER_CODE",
   GET_EMPTY_USER_START: "GET_EMPTY_USER_START",
   GET_EMPTY_USER_SUCCESS: "GET_EMPTY_USER_SUCCESS",
   GET_EMPTY_USER_ERROR: "GET_EMPTY_USER_ERROR",
@@ -24,6 +25,12 @@ export const actions = {
     return {
       type: ActionTypes.POST_REGISTER_ERROR,
       payload: error,
+    };
+  },
+  postRegisterCode: function (data) {
+    return {
+      type: ActionTypes.POST_REGISTER_CODE,
+      payload: data,
     };
   },
   getEmptyUserStart: function (params) {

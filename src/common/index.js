@@ -79,3 +79,4 @@ export const TYPE_ANT = {
 
 
 export const VALUE_GENDER = [1,2,3];
+export const VALUE_STATUS = [1,2,3];

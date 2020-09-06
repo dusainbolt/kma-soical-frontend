@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest, delay, takeEvery } from "redux-saga/effects";
 import { actions, ActionTypes } from "./actions";
 import { postRegisterAPI, getEmptyUserAPI } from "../../services/UserRequest";
 
@@ -39,5 +39,5 @@ function* getEmptyUser(action) {
 
 export function* watchRegister() {
   yield takeLatest(ActionTypes.POST_REGISTER_START, register);
-  yield takeLatest(ActionTypes.GET_EMPTY_USER_START, getEmptyUser);
+  yield takeEvery(ActionTypes.GET_EMPTY_USER_START, getEmptyUser);
 }

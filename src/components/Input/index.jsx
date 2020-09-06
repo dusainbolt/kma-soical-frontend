@@ -42,13 +42,13 @@ export default function Input({
         />
       )}
       {loadingSearch && <SyncOutlined spin className="input__icon-search" />}
-      {errorSearch && (
+      {errorSearch && !loadingSearch && (
         <>
           <WarningOutlined className="input__icon-search error" />
           <span className="required">{t(`txt.duplicate_${field.name}`)}</span>
         </>
       )}
-      {!errorSearch && IconSearch && !errorValidate && field.value && (
+      {!errorSearch && IconSearch && !loadingSearch && !errorValidate && field.value && (
         <IconSearch className="input__icon-search success" />
       )}
       {Icon && <Icon className="input__icon" onClick={callHandleIcon} />}

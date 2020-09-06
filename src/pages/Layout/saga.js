@@ -5,16 +5,19 @@ import { postLogoutAPI } from "../../services/UserRequest";
 import { showNotifyRequest } from "../../utils";
 
 function* postLogout(action) {
+  yield put(actions.showLoadingAuth());
   try {
     const response = yield postLogoutAPI(action.body);
-    yield console.log("----------------->", response);
     if (response.meta.code === 0) {
       yield put(actions.postLogoutSuccess());
+      yield put(actions.hideLoadingAuth());
     } else {
       yield put(actions.postLogoutError());
+      yield put(actions.hideLoadingAuth());
     }
   } catch (e) {
     yield put(actions.postLogoutError());
+    yield put(actions.hideLoadingAuth());
     yield showNotifyRequest("msg_500_error", "msg_500_content");
   }
 }
