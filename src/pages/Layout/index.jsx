@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Route } from "react-router-dom";
 import { browserHistory } from "../../utils/history";
 import { Layout } from "antd";
@@ -6,7 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import CommonHeader from "../../components/Header";
 import Sidebar from "../../components/SlideBar";
 import "./index.scss";
-import { actions } from "../Login/actions";
+import { actions } from "./actions";
+import api from "../../services/api";
 
 const { Header, Content, Sider } = Layout;
 
@@ -23,9 +24,15 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     setCollapsed(true);
   };
 
+  const onLogoutUser = useCallback(()=>{
+    dispatch(actions.postLogoutStart({ token }));
+  },[]);
+
   useEffect(() => {
     if (!token) {
       browserHistory.push("/welcome");
+    }else{
+      api.setAuthRequest(token);
     }
   }, [token]);
 
@@ -36,7 +43,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
         return (
           <Layout className="layout">
             <Header className="layout__header">
-              <CommonHeader toggleMenu={toggleMenu} />
+              <CommonHeader callbackLogout={onLogoutUser} toggleMenu={toggleMenu} />
             </Header>
             <Layout className="site-layout">
               <Sider trigger={null} collapsible collapsed={collapsed}>

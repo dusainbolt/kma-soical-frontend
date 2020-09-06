@@ -15,3 +15,7 @@ export const postConfirmCodeAPI = body => {
 export const postLoginAPI = body => {
   return api.post("/user/login", body);
 };
+
+export const postLogoutAPI = body => {
+  return api.post("/user/logout", body);
+};

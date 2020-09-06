@@ -46,10 +46,16 @@ function Login() {
                 <LazyLoading src={logo} className="logo" alt="logo" />
               </div>
               <div className="login--form">
-                <Field name="uniqueUser" placeholder={t("txt.user_name_or_code")} component={Input} />
+                <Field
+                  onPressEnter={handleSubmit}
+                  name="uniqueUser"
+                  placeholder={t("txt.user_name_or_code")}
+                  component={Input}
+                />
                 <Field
                   type="password"
                   name="password"
+                  onPressEnter={handleSubmit}
                   placeholder={t("txt.val_password")}
                   component={Input}
                 />

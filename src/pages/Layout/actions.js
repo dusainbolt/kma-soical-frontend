@@ -3,6 +3,9 @@ export const ActionTypes = {
   HIDE_LOADING_AUTH: "HIDE_LOADING_AUTH",
   SHOW_LOADING_EVENT: "SHOW_LOADING_EVENT",
   HIDE_LOADING_EVENT: "HIDE_LOADING_EVENT",
+  POST_LOGOUT_START: "POST_LOGOUT_START",
+  POST_LOGOUT_SUCCESS: "POST_LOGOUT_SUCCESS",
+  POST_LOGOUT_ERROR: "POST_LOGOUT_ERROR",
 };
 
 export const actions = {
@@ -24,6 +27,22 @@ export const actions = {
   hideLoadingEvent: function () {
     return {
       type: ActionTypes.HIDE_LOADING_EVENT,
+    };
+  },
+  postLogoutStart: function (body) {
+    return {
+      type: ActionTypes.POST_LOGOUT_START,
+      body
+    };
+  },
+  postLogoutSuccess: function () {
+    return {
+      type: ActionTypes.POST_LOGOUT_SUCCESS,
+    };
+  },
+  postLogoutError: function () {
+    return {
+      type: ActionTypes.POST_LOGOUT_ERROR,
     };
   },
 };

@@ -1,5 +1,5 @@
 import { ActionTypes } from "./actions";
-
+import { ActionTypes as ActionHeader } from "../Layout/actions";
 const DEFAULT_STATE = {
   token: "",
   userDetail: {},
@@ -28,6 +28,12 @@ export default (state = DEFAULT_STATE, action) => {
       isLoadingLogin: false,
       errorLogin: action.payload
     };
+  case ActionHeader.POST_LOGOUT_SUCCESS:
+    return {
+      ...state,
+      token: "",
+      userDetail: {},
+    };  
   default:
     return state;
   }

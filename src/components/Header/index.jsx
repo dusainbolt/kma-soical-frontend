@@ -12,7 +12,7 @@ import { useCallback } from "react";
 
 const { Paragraph } = Typography;
 
-function CommonHeader({ toggleMenu }) {
+function CommonHeader({ callbackLogout, toggleMenu }) {
   const { t } = useTranslation();
   const token = useSelector(state => state.loginReducer.auth?.token);
   const userDetail = useSelector(state => state.loginReducer.userDetail);
@@ -22,16 +22,6 @@ function CommonHeader({ toggleMenu }) {
   const [visiblePopover, setVisiblePopover] = useState(false);
   const [visibleModal, setVisibleModal] = useState(false);
 
-  const list = (
-    <ul className="list__profile">
-      <li className="list__item" onClick={() => openModalChangePassword()}>
-        <UserOutlined className="list__item--icon" /> Change Password
-      </li>
-      <li onClick={() => logout()} className="list__item">
-        <LogoutOutlined className="list__item--icon" /> Log Out
-      </li>
-    </ul>
-  );
 
   const openModalChangePassword = () => {
     handleVisibleChange();
@@ -39,12 +29,23 @@ function CommonHeader({ toggleMenu }) {
   };
 
   const logout = () => {
-    dispatch(actions.postAuthAdminStart(token));
+    callbackLogout();
   };
 
   const hideModal = () => {
     setVisibleModal(false);
   };
+
+  const list = (
+    <ul className="list__profile">
+      <li className="list__item" onClick={() => openModalChangePassword()}>
+        <UserOutlined className="list__item--icon" /> Change Password
+      </li>
+      <li onClick={logout} className="list__item">
+        <LogoutOutlined className="list__item--icon" /> Log Out
+      </li>
+    </ul>
+  );
 
   const handleVisibleChange = () => {
     setVisiblePopover(!visiblePopover);

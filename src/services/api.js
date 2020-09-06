@@ -27,7 +27,7 @@ class AxiosServer {
   handelError(error) {
     if (error.response && error.response.status === 401) {
       localStorage.removeItem("persist:root");
-      browserHistory.push("/bautroixanh/login");
+      browserHistory.push("/welcome");
     }
     if (error.response && error.response.status === 400) {
       return error.response.data;
