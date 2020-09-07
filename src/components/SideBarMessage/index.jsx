@@ -3,7 +3,6 @@ import { Menu } from "antd";
 import { Routes } from "../../Routes";
 import { browserHistory } from "../../utils/history";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-import "./index.scss";
 
 const icons = {
   manager: UserOutlined,
