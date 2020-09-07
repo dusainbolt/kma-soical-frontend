@@ -41,3 +41,11 @@
 .flex-group{
   display: flex;
 }
+
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary-color; 
+}

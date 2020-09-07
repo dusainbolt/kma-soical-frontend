@@ -51,7 +51,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <Content className="site-layout-background">
                 <Mycomponent {...routeProps} />
               </Content>
-              <Sider className="layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
+              <Sider className="site-layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
                 <SideBarEvent />
               </Sider>
               <Sider trigger={null} collapsible collapsed={collapsed}>
