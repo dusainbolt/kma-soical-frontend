@@ -45,7 +45,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <CommonHeader callbackLogout={onLogoutUser} toggleMenu={toggleMenu} />
             </Header>
             <Layout className="site-layout">
-              <Sider trigger={null} collapsible collapsed={collapsed}>
+              <Sider className="site-layout__side-left" trigger={null} collapsible collapsed={collapsed}>
                 <Sidebar />
               </Sider>
               <Content className="site-layout-background">
@@ -54,7 +54,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <Sider className="site-layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
                 <SideBarEvent />
               </Sider>
-              <Sider trigger={null} collapsible collapsed={collapsed}>
+              <Sider  className="site-layout__side-mess" trigger={null} collapsible collapsed={collapsed}>
                 <SideBarMessage />
               </Sider>
             </Layout>

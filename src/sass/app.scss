@@ -1,7 +1,6 @@
 @import "./variable";
 @import "./layout";
 @import "__sidebarMenu";
-@import "__sidebarEvent";
 @import "./field";
 @import "./loading";
 @import "./_login";
@@ -9,6 +8,7 @@
 @import "./_modal";
 @import "./_button";
 @import "./_notFound";
+@import "./_home";
 /* Common style */
 
 #components-layout-demo-custom-trigger .trigger {

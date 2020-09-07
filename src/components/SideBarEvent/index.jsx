@@ -11,7 +11,6 @@ const icons = {
 };
 
 function Sidebar() {
-
   const renderMenu = () => {
     let menu = null;
     menu = Routes.map((item, index) => {
@@ -42,9 +41,14 @@ function Sidebar() {
   };
 
   return (
-    <Menu mode="inline" theme="light" className="layout-page-sider-menu">
-      {renderMenu()}
-    </Menu>
+    // <Menu mode="inline" theme="light" className="layout-page-sider-menu">
+    //   {renderMenu()}
+    // </Menu>
+    <div className="side-event">
+      <div className="side-event__notify"></div>
+      <div className="side-event__top-dashboard"></div>
+      <div></div>
+    </div>
   );
 }
 

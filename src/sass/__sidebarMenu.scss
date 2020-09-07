@@ -4,6 +4,7 @@
   border-radius: 6px;
   margin: 16px;
 }
+
 .sider-trigger {
   position: absolute;
   top: 15px;
@@ -16,10 +17,12 @@
   background: #404040;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
+
   .anticon {
     line-height: 25px;
   }
 }
+
 .ant-layout-sider-collapsed .ant-menu .anticon {
   font-size: 16px;
   margin-left: 8px;
@@ -29,9 +32,7 @@
   display: none;
 }
 
-.ant-layout-sider-collapsed
-  .ant-menu-submenu-vertical
-  > .ant-menu-submenu-title:after {
+.ant-layout-sider-collapsed .ant-menu-submenu-vertical>.ant-menu-submenu-title:after {
   display: none;
 }
 
@@ -44,26 +45,34 @@
 }
 
 .site-layout {
-  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected{
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background-color: $primary-color-light;
     color: $primary-color;
-    &::after{
-      border-right-color: $primary-color;
+
+    &::after {
+      border-right: 3px solid $primary-color;
     }
   }
+
+  .ant-menu-inline .ant-menu-item::after {
+    border-right: 3px solid $primary-color;
+  }
+
   .ant-layout-sider {
     max-width: 300px !important;
     min-width: 300px !important;
     width: unset !important;
     background-color: white;
   }
+
   .ant-menu-inline-collapsed {
-    > .ant-menu-item .anticon {
+    >.ant-menu-item .anticon {
       line-height: 20px;
       height: 20px;
       width: 20px;
     }
   }
+
   ul.layout-page-sider-menu {
     box-shadow: 1px 0 4px white;
     border-right: none;
@@ -71,18 +80,22 @@
     height: 100%;
     padding-top: 20px;
     width: 300px;
-    > li {
+
+    >li {
       padding: 0 24px;
       display: flex;
       align-items: center;
-      > span {
+
+      >span {
         svg {
           font-size: 20px;
         }
+
         &:not(.anticon) {
           font-size: 16px;
         }
       }
+
       &.ant-menu-item-active {
         color: rgba(0, 0, 0, 0.65);
         background-color: $bg-site-layout;
@@ -91,13 +104,27 @@
   }
 }
 
-.side-event{
-  .ant-menu-item{
+.layout {
+  .site-layout {
+    &__side-mess {
+      max-width: 250px !important;
+      min-width: 250px !important;
+    }
+    &__side-bg{
+      max-width: 350px !important;
+      min-width: 350px !important;
+    }
+  }
+}
+
+.side-event {
+  .ant-menu-item {
     font-size: 16px;
     font-weight: 600;
     transition: background-color .3s;
   }
-  &__info{
+
+  &__info {
     display: flex;
     background-color: $bg-site-layout;
     width: 270px;
@@ -105,22 +132,73 @@
     height: 70px;
     border-radius: 20px;
     margin-bottom: 25px;
-    &--avatar{
+
+    &--avatar {
       width: 50px;
       margin: 10px 0 0 20px;
       border-radius: 50%;
     }
-    &--text{
+
+    &--text {
       margin-left: 20px;
       margin-top: 25px;
-      padding: 0 ;
-      h3{
+      padding: 0;
+
+      h3 {
         font-weight: 600;
         margin-bottom: 20px;
       }
-      >span{
+
+      >span {
         font-size: $font-size;
         margin-top: 15px;
+      }
+    }
+  }
+
+  &__notify {
+    max-height: 55vh;
+    min-height: 45vh;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 25px;
+  }
+
+  &__top-dashboard{
+    max-height: 50vh;
+    min-height: 40vh;
+    background-color: white;
+    border-radius: 8px;
+    margin-top: 25px;
+  }
+}
+
+.site-layout {
+  &__side-bg {
+    margin-right: 30px;
+    background-color: transparent !important;
+    ul.layout-page-sider-menu {
+      background-color: transparent;
+      box-shadow: unset;
+    }
+  }
+}
+
+@media(max-width: $width-pc){
+  .layout {
+    .site-layout {
+      &__side-mess, &__side-bg{
+        display: none;
+      }
+    }
+  }
+}
+
+@media(max-width: $with-tablet){
+  .layout {
+    .site-layout {
+      &__side-mess, &__side-left, &__side-bg{
+        display: none;
       }
     }
   }

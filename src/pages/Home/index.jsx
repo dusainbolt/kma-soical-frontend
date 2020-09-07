@@ -1,9 +1,11 @@
 import React from "react";
 import { Row } from "antd";
 import NotFound from "../NotFound";
+import FormAddNew from "../../components/FormAddNew";
 function Home() {
   return (
-    <Row className="not-found" justify="center">
+    <Row className="" justify="center">
+      <FormAddNew />
       <div>Day la home page</div>
       <NotFound />
       <NotFound />
