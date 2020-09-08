@@ -15,10 +15,9 @@ function* postLogout(action) {
       yield put(actions.postLogoutError());
       yield put(actions.hideLoadingAuth());
     }
-  } catch (e) {
+  } catch (e) {    
     yield put(actions.postLogoutError());
     yield put(actions.hideLoadingAuth());
-    yield showNotifyRequest("msg_500_error", "msg_500_content");
   }
 }
 

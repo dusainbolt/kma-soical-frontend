@@ -7,10 +7,11 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const token = useSelector(state => state.loginReducer.token);
 
   useEffect(() => {
+    console.log(token);
     if (token) {
       browserHistory.push("/");
     }
-  }, []);
+  }, [token]);
 
   return (
     <Route
