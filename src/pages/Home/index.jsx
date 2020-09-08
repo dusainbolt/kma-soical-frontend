@@ -6,7 +6,7 @@ function Home() {
   return (
     <Row className="" justify="center">
       <FormAddNew />
-      <div>Day la home page</div>
+     
       <NotFound />
       <NotFound />
       <NotFound />

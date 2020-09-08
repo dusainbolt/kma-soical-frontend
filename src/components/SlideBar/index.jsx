@@ -45,7 +45,7 @@ function Sidebar() {
     <Menu mode="inline" theme="light" className="side-event layout-page-sider-menu">
       <div className="side-event__info">
         <LazyloadImg
-          className="side-event__info--avatar"
+          className="side-event__info--avatar avatar"
           src="https://www.w3schools.com/howto/img_avatar.png"
           alt="avatar"
         />

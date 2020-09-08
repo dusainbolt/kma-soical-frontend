@@ -21,6 +21,8 @@ $black-color-light: #777;
 $orange-color: #ffb13d;
 $bg-color: #e9ebee;
 $bg-site-layout: #f7f7f8;
+$bg-site-light: #e4e4e7;
+$line-color: #cbcbcb;
 .white-color {
   color: $white-color;
 }
@@ -43,6 +45,7 @@ $box-shadow-primary: 0 0 10px 0 rgba(15, 121, 255, 0.3);
 $box-shadow: 10px 10px 32px -8px rgba(0, 0, 0, 0.11);
 $box-shadow-hover: 0px 2px 4px -1px rgba(0,0,0,0.2), 0px 4px 5px 0px rgba(0,0,0,0.14), 0px 1px 10px 0px rgba(0,0,0,0.12);
 $box-shadow-btn: 0px 1px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+$box-shadow-card: rgb(228, 228, 228) 0px 0px 10px;
 
 $width-pc: 1200px;
 $with-mac-pro: 992px;

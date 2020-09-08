@@ -3,8 +3,7 @@ button {
   padding: 8px 15px;
   border: none;
   outline: none;
-  transition: background-color .3s;
-  transition: border-color .3s;
+  transition: .3s;
   font-family: $font-family;
   cursor: pointer;
 }

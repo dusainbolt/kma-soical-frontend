@@ -1,4 +1,68 @@
 .form-new{
-  height: 300px;
-  background-color: white;
+  &__wrapper{
+    height: 115px;
+    background-color: white;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: $box-shadow-card;
+  }
+  &__action{
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    >div{
+      flex-grow: 3;
+      font-weight: 600;
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 5px;
+      border-radius: 8px;
+      transition: .3s;
+      cursor: pointer;
+      &:hover{
+        background-color: $bg-site-layout;
+      }
+      >span.anticon{
+        font-size: $font-title-small * 1.4;
+        margin-right: 5px;
+        height: max-content;
+        margin-top: 7px;
+        >svg{
+          color: $primary-color;
+        }
+      }
+      >span.action-text{
+        font-size: $font-title-small;
+        line-height: 40px;
+      }
+    }
+  }
+  &__input{
+    height: 60px;
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: solid thin $line-color; 
+    &--field{
+      width: 100%;
+      margin-left: 10px;
+      background-color: $bg-site-layout;
+      border-radius: 50px;
+      padding: 8px 15px;
+      cursor: pointer;
+      transition: .3s;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &:hover{
+        background-color: $bg-site-light;
+      }
+    }
+  }
+  &__avatar{
+    width: 40px;
+    border-radius: 50%;
+  }
 }

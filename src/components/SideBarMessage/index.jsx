@@ -10,7 +10,7 @@ const icons = {
   contact: UploadOutlined,
 };
 
-function Sidebar() {
+function SidebarMessage() {
 
   const renderMenu = () => {
     let menu = null;
@@ -48,4 +48,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default SidebarMessage;

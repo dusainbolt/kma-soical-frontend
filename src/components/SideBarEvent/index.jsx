@@ -10,7 +10,7 @@ const icons = {
   contact: UploadOutlined,
 };
 
-function Sidebar() {
+function SidebarEvent() {
   const renderMenu = () => {
     let menu = null;
     menu = Routes.map((item, index) => {
@@ -52,4 +52,4 @@ function Sidebar() {
   );
 }
 
-export default Sidebar;
+export default SidebarEvent;
