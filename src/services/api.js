@@ -2,7 +2,8 @@ import axios from "axios";
 import { browserHistory } from "../utils/history";
 import { store } from "../redux/configStore";
 import { actions } from "../pages/Layout/actions";
-
+import showNotification  from "../components/Notification";
+import { ERROR_NETWORK } from "../common";
 class AxiosServer {
   constructor() {
     const instance = axios.create();
@@ -23,10 +24,17 @@ class AxiosServer {
     return `${process.env.REACT_APP_API_URL}/api` + url;
   }
   handelSuccess(response) {
+    if(response.data.meta.code !== 0){
+      const msg = response.data.meta?.msg;
+      if(msg){
+        showNotification(`notify_${msg}_title`,`notify_${msg}_content`);
+      }
+    }
     return response.data;
   }
 
   handelError(error) {
+    console.log(error);
     if (error.response && error.response.status === 401) {
       const promiseList = [];
       promiseList.push(localStorage.removeItem("persist:root"));
@@ -34,12 +42,12 @@ class AxiosServer {
       promiseList.push(browserHistory.push("/welcome"));
       Promise.all(promiseList)
         .then(resolvedList => {})
-        .catch(error => {});
-      // localStorage.removeItem("persist:root");
-      // browserHistory.push("/welcome");
-    }
+        .catch(error => {});    }
     if (error.response && error.response.status === 400) {
       return error.response.data;
+    }
+    if(!error.response || error.response.status === 500){
+      showNotification(ERROR_NETWORK.TITLE, ERROR_NETWORK.CONTENT);
     }
     return Promise.reject(error);
   }

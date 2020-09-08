@@ -9,10 +9,10 @@ function* postConfirmCode(action) {
     if (response.meta.code === 0) {
       yield put(actions.postConfirmCodeSuccess(response.data));
     } else {
-      yield put(actions.postConfirmCodeError({}));
+      yield put(actions.postConfirmCodeError());
     }
   } catch (e) {
-    yield showNotifyRequest("msg_500_error", "msg_500_content");
+    yield put(actions.postConfirmCodeError());
   }
 }
 

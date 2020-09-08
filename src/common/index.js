@@ -30,6 +30,16 @@ export const CONFIRM = {
   REGISTER: "CONFIRM_REGISTER",
 };
 
+export const ERROR_NETWORK = {
+  TITLE: "msg_500_error",
+  CONTENT: "msg_500_content",
+};
+
+export const KEY_NOTIFY = {
+  REGISTER_TITLE: "msg_register_title",
+  REGISTER_CONTENT: "msg_register_content",
+};
+
 export const validateFormChangePassword = Yup.object({
   [PARAMS.PASSWORD]: Yup.string()
     .required(getI18n().t("Vui lòng nhập mật khẩu cũ"))

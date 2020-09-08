@@ -20,10 +20,9 @@ function* postLogin(action) {
       }
     } else {
       yield put(actions.postLoginError());
-      yield showNotifyRequest(`msg_title_${response.meta.msg}`, `msg_content_${response.meta.msg}`);
     }
   } catch (e) {
-    yield showNotifyRequest("msg_500_error", "msg_500_content");
+    yield put(actions.postLoginError());
   }
 }
 
