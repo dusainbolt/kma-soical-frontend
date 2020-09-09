@@ -234,3 +234,7 @@ export function setValueDate(values, name) {
 export const getUrlRedirectEmail = email => {
   return `https://mail.google.com/mail/u/${email}/#inbox`;
 };
+
+export const getLastName = fullName => {
+  return fullName.split(" ").pop();
+};

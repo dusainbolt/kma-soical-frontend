@@ -28,9 +28,6 @@
         margin-right: 5px;
         height: max-content;
         margin-top: 7px;
-        >svg{
-          color: $primary-color;
-        }
       }
       >span.action-text{
         font-size: $font-title-small;
@@ -64,5 +61,57 @@
   &__avatar{
     width: 40px;
     border-radius: 50%;
+  }
+}
+
+.form-feed{
+  width: 100%;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: $box-shadow-card;
+  margin: 20px 0;
+  &__top {
+    width: 100%;
+    padding: 15px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    img{
+      width: 45px;
+      border-radius: 50%;
+    }
+    &--info{
+      margin-left: 5px;
+      line-height: 18px;
+    }
+    &--name{
+      font-size: $font-title-small;
+      font-weight: bold;
+    }
+    &--i-security{
+      >svg{
+        color: $black-color-light; 
+      }
+    };
+    &--i-action{
+      margin-left: auto;
+      margin-top: -25px;
+      font-size: $font-title-medium;
+      cursor: pointer;
+    }
+  }
+  &__caption {
+    padding: 0 15px;
+    word-break: break-word;
+  }
+  &__content{
+    padding: 0 15px;
+    &--img{
+      max-height: 800px;
+      overflow: hidden;
+    }
+    img.one-img{
+      width: 100%;
+    }
   }
 }

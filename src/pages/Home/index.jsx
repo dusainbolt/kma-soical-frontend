@@ -2,14 +2,14 @@ import React from "react";
 import { Row } from "antd";
 import NotFound from "../NotFound";
 import FormAddNew from "../../components/FormAddNew";
+import News from "../../components/News";
+
 function Home() {
   return (
     <Row className="" justify="center">
       <FormAddNew />
-     
-      <NotFound />
-      <NotFound />
-      <NotFound />
+      <News />
+
       <NotFound />
       <NotFound />
     </Row>

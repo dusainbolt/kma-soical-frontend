@@ -6,6 +6,7 @@ import LayoutAuth from "./pages/AuthCommon";
 import { Routes, RoutesAuth } from "./Routes";
 import AuthLoading from "./components/Loading/AuthenLoading";
 import EventLoading from "./components/Loading/EventLoading";
+import SimpleReactLightbox from "simple-react-lightbox";
 import NotFound from "./pages/NotFound";
 import "./App.css";
 import "./sass/app.scss";
@@ -32,15 +33,17 @@ function App() {
 
   return (
     <div className="App">
-      <AuthLoading isLoading={layout.isLoadingAuth} />
-      <EventLoading isLoading={layout.isLoadingEvent} />
-      <Router history={browserHistory}>
-        <Switch>
-          {renderLayout(Routes, LayoutAdmin)}
-          {renderLayout(RoutesAuth, LayoutAuth)}
-          <Route component={NotFound} />
-        </Switch>
-      </Router>
+      <SimpleReactLightbox>
+        <AuthLoading isLoading={layout.isLoadingAuth} />
+        <EventLoading isLoading={layout.isLoadingEvent} />
+        <Router history={browserHistory}>
+          <Switch>
+            {renderLayout(Routes, LayoutAdmin)}
+            {renderLayout(RoutesAuth, LayoutAuth)}
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
+      </SimpleReactLightbox>
     </div>
   );
 }

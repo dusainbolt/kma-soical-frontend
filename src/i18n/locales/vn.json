@@ -37,6 +37,7 @@
     "notify_codeStudent_content": "Mã sinh viên đang nhập đã được sử dụng",
     "notify_login_fail_title": "Lỗi đăng nhập",
     "notify_login_fail_content": "Vui lòng kiềm tra lại thông tin đăng nhập",
+    "place_holder_add_new": "{{name}} ơi, ban đang nghĩ gì thế",
     "register": "Đăng ký",
     "use_account": "Bạn đã có tài khoản?",
     "msg_register_title": "Đăng ký thành công",
