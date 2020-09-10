@@ -12,7 +12,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     }
   }, [token]);
 
-  return (
+  return (  
     <Route
       {...remainProps}
       render={routeProps => {
