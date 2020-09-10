@@ -1,13 +1,14 @@
 import React from "react";
 import LazyloadImg from "../LazyLoadingImg";
-import { GlobalOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { GlobalOutlined, EllipsisOutlined, HeartFilled } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { getLastName } from "../../utils";
 import logo from "../../common/image/logo.png";
 import logo1 from "../../common/image/LogoSidebar.png";
 import logo2 from "../../common/image/error-404.png";
 import Gallery from "react-grid-gallery";
-
+// import logo3 from "../../common/image/video-1594221922.mp4";
+import { Player } from "video-react";
 import { useState } from "react";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 
@@ -62,59 +63,83 @@ function FormAddNew() {
   const IMAGES = [
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
+      thumbnailWidth: 420,
       thumbnailHeight: 212,
     },
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
+      thumbnailWidth: 420,
       thumbnailHeight: 212,
     },
-
     {
-      thumbnail: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
-      thumbnailWidth: 320,
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 420,
       thumbnailHeight: 212,
     },
-    // {
-    //   thumbnail: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
-    //   thumbnailWidth: 320,
-    //   thumbnailHeight: 212,
-    // },
-    // {
-    //   thumbnail: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
-    //   thumbnailWidth: 320,
-    //   thumbnailHeight: 212,
-    // },
+    {
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 420,
+      thumbnailHeight: 212,
+    },
+    {
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 420,
+      thumbnailHeight: 212,
+    },
+    {
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 420,
+      thumbnailHeight: 212,
+    },
   ];
+
+  const renderContentTop = () => {
+    return (
+      <div className="form-feed__top">
+      <LazyloadImg src="https://www.w3schools.com/howto/img_avatar.png" alt="avatar" />
+      <div className="form-feed__top--info">
+        <div className="form-feed__top--name">Du sainbolt</div>
+        <span className="form-feed__top--time">
+          1 Giờ <GlobalOutlined className="form-feed__top--i-security" />
+        </span>
+      </div>
+      <EllipsisOutlined className="form-feed__top--i-action" onClick={() => openLightbox()} />
+    </div>
+    );
+  };
+
+  const renderContentLikeShare = () => {
+
+  };
 
   return (
     <div className="form-feed">
-      <div className="form-feed__top">
-        <LazyloadImg src="https://www.w3schools.com/howto/img_avatar.png" alt="avatar" />
-        <div className="form-feed__top--info">
-          <div className="form-feed__top--name">Du sainbolt</div>
-          <span className="form-feed__top--time">
-            1 Giờ <GlobalOutlined className="form-feed__top--i-security" />
-          </span>
-        </div>
-        <EllipsisOutlined className="form-feed__top--i-action" onClick={() => openLightbox()} />
-      </div>
+     {renderContentTop()}
       <div className="form-feed__caption">sddddddddddddddddddddddddddddddddddddddddddddddd</div>
       {/* <Lightbox images={images} /> */}
       {/* {renderContentImg()} */}
       {/* <SRLWrapper options={options} images={images} /> */}
       <SRLWrapper options={options} images={images} />
       <div className="form-feed__content">
-        {/* <div className="form-feed__content--img">
+        <div className="form-feed__content--img">
           <img className="one-img" src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg" alt="img"/>
-        </div> */}
-        <Gallery
+        </div>
+        {/* <Gallery
           onClickThumbnail={() => openLightbox(1)}
           enableLightbox={false}
           enableImageSelection={false}
           images={IMAGES}
-        />
+        /> */}
+        
+        {/* <Player
+          playsInline
+          poster="/assets/poster.png"
+          src={logo3}
+        /> */}
+      </div>
+      <div className="form-feed__like-share">
+        <HeartFilled />
+        <div className="like-info">Lê Huy Du, Nguyễn Thị Bình  và 150 người khác</div>
       </div>
     </div>
   );

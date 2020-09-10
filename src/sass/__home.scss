@@ -105,13 +105,28 @@
     word-break: break-word;
   }
   &__content{
-    padding: 0 15px;
+    // padding: 0 15px;
     &--img{
-      max-height: 800px;
+      // max-height: 500px;
       overflow: hidden;
     }
     img.one-img{
       width: 100%;
+    }
+  }
+  &__like-share{
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    span.anticon-heart{
+      color: white;
+      padding: 4px 3px 3px 4px;
+      font-size: 10px;
+      border-radius: 50%;
+      background-color: red;
+    }
+    div.like-info{
+      margin-left: 5px;
     }
   }
 }

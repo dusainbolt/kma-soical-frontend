@@ -9,6 +9,7 @@
 @import "./_button";
 @import "./_notFound";
 @import "./_home";
+@import "~video-react/styles/scss/video-react";
 /* Common style */
 
 #components-layout-demo-custom-trigger .trigger {
@@ -70,4 +71,10 @@ span.anticon-video-camera{
 
 span.anticon-edit{
   color: $primary-color;
+}
+
+@media(max-width: $with-mobile){
+  .site-layout .site-layout-background {
+    padding: 15px;
+  }
 }
