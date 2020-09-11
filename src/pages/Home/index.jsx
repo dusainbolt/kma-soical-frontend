@@ -10,13 +10,13 @@ function Home() {
   return (
     <div>
       <FormAddNew />
-      <Lazyload placeholder={<FormAddNew />} height={500} debounce={500}>
-        <FadeIn delay={100} transitionDuration={400}>
+      <Lazyload placeholder={<FormAddNew />} height={500} throttle={400}>
+        <FadeIn delay={100} transitionDuration={500}>
           <News />
         </FadeIn>
       </Lazyload>
-      <Lazyload placeholder={<FormAddNew />} height={500} debounce={500}>
-        <FadeIn delay={100} transitionDuration={400}>
+      <Lazyload placeholder={<FormAddNew />} height={500} throttle={400}>
+        <FadeIn delay={100} transitionDuration={500}>
           <News />
         </FadeIn>
       </Lazyload>

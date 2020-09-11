@@ -41,7 +41,7 @@ function CommentPost({ className = "" }) {
         actions={actions}
         author={<a>Han Solo</a>}
         avatar={
-          <Avatar
+          <img
             src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
             alt="Han Solo"
           />
@@ -65,7 +65,7 @@ function CommentPost({ className = "" }) {
       <Formik validationSchema={validateMessage} initialValues={initialVales}>
         {formik => (
           <div className="form-feed__bottom">
-            <LazyloadImg
+            <img
               className="form-feed__bottom--img"
               src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
               alt="avatar"
