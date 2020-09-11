@@ -41,6 +41,7 @@
   box-shadow: 1px 0 4px white;
   border-right: none;
   height: 100%;
+  
   background-color: white;
 }
 
@@ -80,6 +81,7 @@
     height: 100%;
     padding-top: 20px;
     width: 300px;
+    position: fixed;
 
     >li {
       padding: 0 24px;

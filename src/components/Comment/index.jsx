@@ -2,7 +2,13 @@ import React, { createElement, useState } from "react";
 import { Comment, Tooltip, Avatar } from "antd";
 import moment from "moment";
 import { validateMessage } from "../../common";
-import { DislikeOutlined, LikeOutlined, DislikeFilled, LikeFilled, SendOutlined } from "@ant-design/icons";
+import {
+  DislikeOutlined,
+  LikeOutlined,
+  DislikeFilled,
+  LikeFilled,
+  SendOutlined,
+} from "@ant-design/icons";
 import LazyloadImg from "../LazyLoadingImg";
 import Input from "../Input";
 import logo1 from "../../common/image/LogoSidebar.png";
@@ -17,7 +23,6 @@ function CommentPost({ className = "" }) {
   };
 
   const initialVales = { message: "" };
-
 
   const actions = [
     <Tooltip key="comment-basic-like" title="Like">
@@ -44,8 +49,8 @@ function CommentPost({ className = "" }) {
         content={
           <p>
             "Chắc hẳn anh em khi tham gia dự án, cũng đều nghe về khái niệm UI/UX rồi đúng không ?
-            Nhưng đối với một số bạn mới đi làm, và Inputcó thể đang chập chững bước vào nghề thì có thể
-            cũng chưa nghe qua về khái niệm này.
+            Nhưng đối với một số bạn mới đi làm, và Inputcó thể đang chập chững bước vào nghề thì có
+            thể cũng chưa nghe qua về khái niệm này.
           </p>
         }
       >
@@ -60,17 +65,19 @@ function CommentPost({ className = "" }) {
       <Formik validationSchema={validateMessage} initialValues={initialVales}>
         {formik => (
           <div className="form-feed__bottom">
-                      <Avatar
-            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            alt="Han Solo"
-          />
+            <LazyloadImg
+              className="form-feed__bottom--img"
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              alt="avatar"
+            />
             <Field
               name="message"
               component={Input}
               maxLength={255}
               showError={false}
+              className="form-feed__bottom--comment"
               placeholder={"Enter message..."}
-              autoSize={true}
+              autoSize
               onPressEnter={formik.handleSubmit}
               Icon={SendOutlined}
               callHandleIcon={formik.handleSubmit}

@@ -8,25 +8,19 @@ import FadeIn from "react-fade-in";
 
 function Home() {
   return (
-    <>
-      {/* <FormAddNew /> */}
-      <Lazyload height={200}  offset={100} throttle={400}>
-        <News />
-      </Lazyload >
-      <Lazyload height={200}  offset={100} throttle={400}>
-        <News />
-      </Lazyload >
-      <Lazyload height={200}  offset={100} throttle={400}>
-        <News />
-      </Lazyload >
-      <Lazyload height={200}  offset={100} throttle={400}>
-        <News />
-      </Lazyload >
-      <Lazyload height={200}  offset={100} throttle={400}>
-        <News />
-      </Lazyload >
-
-    </>
+    <div>
+      <FormAddNew />
+      <Lazyload placeholder={<FormAddNew />} height={500} debounce={500}>
+        <FadeIn delay={100} transitionDuration={400}>
+          <News />
+        </FadeIn>
+      </Lazyload>
+      <Lazyload placeholder={<FormAddNew />} height={500} debounce={500}>
+        <FadeIn delay={100} transitionDuration={400}>
+          <News />
+        </FadeIn>
+      </Lazyload>
+    </div>
   );
 }
 

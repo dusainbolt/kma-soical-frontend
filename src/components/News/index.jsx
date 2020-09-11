@@ -13,7 +13,7 @@ import logo from "../../common/image/logo.png";
 import logo1 from "../../common/image/LogoSidebar.png";
 import logo2 from "../../common/image/error-404.png";
 import Gallery from "react-grid-gallery";
-// import logo3 from "../../common/image/video-1594221922.mp4";
+import logo3 from "../../common/image/Kazam_screencast_00000.mp4";
 import { Player } from "video-react";
 import { useState } from "react";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
@@ -145,11 +145,11 @@ function FormAddNew() {
           enableImageSelection={false}
           images={IMAGES}
         /> */}
-        {/* 
-        <Player
+        
+        {/* <Player
           playsInline
-          poster="/assets/poster.png"
-          src="https://doc-0o-as-docs.googleusercontent.com/docs/securesc/nlfpb0ddpjdti0td30vtrt9f85sh0i68/44fbrlgapt6i0koe0sh88elgd67886nb/1599746175000/00772884522898558675/00772884522898558675/1WBfUg_PJ1cQGiixtBzz3hkDZ4t_QxAdE?authuser=0&nonce=oiing4gohnv5c&user=00772884522898558675&hash=esdsadhr0ta1miltai6ad0naf0ntu417"
+          // poster="/assets/poster.png"
+          src={logo3}
         /> */}
       </div>
       <div className="form-feed__like-share">

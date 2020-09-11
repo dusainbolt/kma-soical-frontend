@@ -7,10 +7,12 @@
     background-color: #fff;
     z-index: 9;
     border-bottom: solid 1px #ddd;
+    width: 100%;
+    position: fixed;
   }
   .site-layout {
-    height: calc(100vh - 65px);
     overflow: hidden;
+    margin-top: 64px;
   }
   &__side-bg{
     background-color: transparent !important;
