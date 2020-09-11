@@ -13,7 +13,7 @@ import logo from "../../common/image/logo.png";
 import logo1 from "../../common/image/LogoSidebar.png";
 import logo2 from "../../common/image/error-404.png";
 import Gallery from "react-grid-gallery";
-import logo3 from "../../common/image/Kazam_screencast_00000.mp4";
+// import logo3 from "../../common/image/Kazam_screencast_00000.mp4";
 import { Player } from "video-react";
 import { useState } from "react";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
