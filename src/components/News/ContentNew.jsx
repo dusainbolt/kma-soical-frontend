@@ -17,7 +17,6 @@ import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { Row, Col } from "antd";
 
 function ContentNew() {
-
   const { openLightbox } = useLightbox();
 
   const images = [
@@ -63,41 +62,63 @@ function ContentNew() {
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
       thumbnailWidth: 320,
-      thumbnailHeight: 212
+      thumbnailHeight: 212,
     },
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
       thumbnailWidth: 320,
-      thumbnailHeight: 212
+      thumbnailHeight: 212,
     },
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
       thumbnailWidth: 320,
-      thumbnailHeight: 212
+      thumbnailHeight: 212,
     },
-    // {
-    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-    //   thumbnailWidth: 316,
-    //   thumbnailHeight: 212
-    // },
-    // {
-    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-    //   thumbnailWidth: 316,
-    //   thumbnailHeight: 212
-    // },
+    {
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
+    },
     // {
     //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
     //   thumbnailWidth: 320,
     //   thumbnailHeight: 212,
     // },
-    // {
-    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-    //   thumbnailWidth: 420,
-    //   thumbnailHeight: 212,
-    // },
   ];
 
-  
+  const spanGalley = [
+    {
+      one: 12,
+      item: 12,
+    },
+    {
+      one: 24,
+      item: 12,
+    },
+    {
+      one: 24,
+      item: 8,
+    }
+  ];
+
+  const renderContentImage = dataImg => {
+    return IMAGES.map((item, index) => {
+      console.log(item);
+      let spanList = IMAGES.length === 2 ? spanGalley[0] : spanGalley[1];
+      spanList = IMAGES.length > 3 ? spanGalley[2] : spanList;
+      const span = !index ? spanList.one : spanList.item;
+      return (
+        <Col key={index} className="form-feed__img col-3-img" span={span}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+      );
+    });
+  };
+
 
   return (
     <>
@@ -107,22 +128,22 @@ function ContentNew() {
       {/* <SRLWrapper options={options} images={images} /> */}
       <SRLWrapper options={options} images={images} />
       <div className="form-feed__content">
-        <Row className="form-feed__content--img"  onClick={openLightbox}>
-          <Col span={24}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-          </Col>
-
-                  {/* <Gallery
+        <Row className="form-feed__content--img" onClick={openLightbox}>
+          {/* <Col span={24}>
+            <img
+              className="one-img img-hover"
+              src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+              alt="img"
+            />
+          </Col> */}
+          {renderContentImage()}
+          {/* <Gallery
         onClickThumbnail={() => openLightbox(1)}
         enableLightbox={false}
         enableImageSelection={false}
         images={IMAGES}
       /> */}
-{/* <Col className="form-feed__img col-3-img" span={24}>
+          {/* <Col className="form-feed__img col-3-img" span={24}>
           <img
             className="one-img img-hover"
             src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
@@ -160,8 +181,7 @@ function ContentNew() {
           />
         </Col> */}
 
-
-{/* <Col className="form-feed__img col-4-img" span={24}>
+          {/* <Col className="form-feed__img col-4-img" span={24}>
           <img
             className="one-img img-hover"
             src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
@@ -191,7 +211,7 @@ function ContentNew() {
             alt="img"
           />
         </Col> */}
-{/* 
+          {/* 
 <Col className="form-feed__img col-3-img" span={24}>
           <img
             className="one-img img-hover"
@@ -229,11 +249,7 @@ function ContentNew() {
             alt="img"
           />
         </Col> */}
-
-
         </Row>
-
-
 
         {/* <Player
         playsInline
@@ -244,6 +260,5 @@ function ContentNew() {
     </>
   );
 }
-
 
 export default ContentNew;
