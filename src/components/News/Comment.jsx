@@ -13,6 +13,7 @@ import LazyloadImg from "../LazyLoadingImg";
 import Input from "../Input";
 import logo1 from "../../common/image/LogoSidebar.png";
 import { Formik, Field } from "formik";
+import { REP_COMMENT } from "../../common";
 function CommentPost({ className = "" }) {
   const [likes, setLikes] = useState(0);
   const [action, setAction] = useState(null);
@@ -35,8 +36,10 @@ function CommentPost({ className = "" }) {
     <span key="comment-basic-reply-to">20 gio</span>,
   ];
 
-  const renderCommentItem = child => {
+  const renderCommentItem = (child, type) => {
+    console.log(type);
     return (
+      <>
       <Comment
         actions={actions}
         author={<a>Han Solo</a>}
@@ -55,13 +58,42 @@ function CommentPost({ className = "" }) {
         }
       >
         {child}
+        {child}
+        {child}
+        {child}
+        {type ===  REP_COMMENT && <Formik validationSchema={validateMessage} initialValues={initialVales}>
+        {formik => (
+          <div className="form-feed__bottom">
+            <img
+              className="form-feed__bottom--img"
+              src="https://www.w3schools.com/howto/img_avatar.png"
+              alt="avatar"
+            />
+            <Field
+              name="message"
+              component={Input}
+              maxLength={255}
+              showError={false}
+              className="form-feed__bottom--comment"
+              placeholder={"Enter message..."}
+              autoSize
+              onPressEnter={formik.handleSubmit}
+              Icon={SendOutlined}
+              callHandleIcon={formik.handleSubmit}
+              type="textarea"
+            />
+          </div>
+        )}
+      </Formik>
+    }
       </Comment>
+      </>
     );
   };
 
   return (
     <div className="form-feed__comment">
-      {renderCommentItem(renderCommentItem())}
+      {renderCommentItem(renderCommentItem(), REP_COMMENT)}
       <Formik validationSchema={validateMessage} initialValues={initialVales}>
         {formik => (
           <div className="form-feed__bottom">

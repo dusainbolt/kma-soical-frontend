@@ -87,6 +87,7 @@ export const TYPE_ANT = {
   WARNING: "warning",
 };
 
+export const REP_COMMENT = "rep_comment";
 export const END_MOBILE_PIXEL = 576;
 
 export const VALUE_GENDER = [1,2,3];
