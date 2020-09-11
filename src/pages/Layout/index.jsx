@@ -7,7 +7,7 @@ import CommonHeader from "../../components/Header";
 import Sidebar from "../../components/SlideBar";
 import SideBarEvent from "../../components/SideBarEvent";
 import SideBarMessage from "../../components/SideBarMessage";
-
+import { END_MOBILE_PIXEL } from "../../common";
 import "./index.scss";
 import { actions } from "./actions";
 import api from "../../services/api";
@@ -34,6 +34,21 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
       api.setAuthRequest(token);
     }
   }, [token]);
+
+  useEffect(() => {
+    // componentDidMount events
+    updateDimensions();
+    window.addEventListener("resize", updateDimensions);
+    return () => {
+      // componentWillUnmount events
+      window.removeEventListener("resize", updateDimensions);
+    };
+  }, []);
+
+  const updateDimensions = () => {
+    const isMobileCheck = window.innerWidth < END_MOBILE_PIXEL;
+    dispatch(actions.changeScreenPixel(isMobileCheck));
+  };
 
   return (
     <Route

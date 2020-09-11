@@ -3,6 +3,7 @@ import { ActionTypes } from "./actions";
 const DEFAULT_STATE = {
   isLoadingAuth: false,
   isLoadingEvent: false,
+  isMobile: false,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -27,6 +28,11 @@ export default (state = DEFAULT_STATE, action) => {
       ...state,
       isLoadingEvent: false,
     };
+  case ActionTypes.CHANGE_SCREEN_PIXEL: 
+    return {
+      ...state,
+      isMobile: action.conditionPixel
+    }; 
   default:
     return state;
   }

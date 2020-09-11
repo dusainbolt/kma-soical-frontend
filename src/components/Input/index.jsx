@@ -36,7 +36,6 @@ export default function Input({
         <InputField.TextArea
           className={classError}
           rows={countRows}
-          allowClear
           {...field}
           {...props}
         />

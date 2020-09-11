@@ -10,7 +10,7 @@ select {
 
 input::placeholder {
   font-size: $font-size * 0.75;
-  color: $gray-color-bold;
+  color: $black-color-light;
 }
 
 .input {
@@ -23,7 +23,6 @@ input::placeholder {
     border: none;
     font-size: 16px;
     background-color: #f0f2f5;
-    border-radius: 5px;
   }
 
   .ant-input-affix-wrapper:focus,
@@ -41,11 +40,17 @@ input::placeholder {
   .ant-input-affix-wrapper {
     height: auto;
 
-    >input {
+    >input, >textarea {
       font-size: 16px;
 
       &::placeholder {
-        font-size: 13px;
+        font-size: 15px;
+        color: $black-color-light;
+      }
+      &:focus{
+        &::placeholder {
+          color: $gray-color-bold;
+        }
       }
     }
   }

@@ -120,18 +120,19 @@
 
   &__caption {
     padding: 0 15px;
+    margin-bottom: 5px;
     word-break: break-word;
   }
 
   &__content {
 
-    // padding: 0 15px;
     &--img {
-      max-height: 500px;
+      max-height: 700px;
       overflow: hidden;
     }
 
     img.one-img {
+      transform: translateX(0%) translateY(-5%);
       width: 100%;
     }
   }
@@ -152,14 +153,21 @@
     div.like-info {
       margin-left: 5px;
       cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 70%;
 
       &:hover {
         text-decoration: underline;
       }
     }
-
     label.comment-info {
       margin-left: auto;
+      
+    }
+    div.like-info:hover, label.comment-info:hover{
+      text-decoration: underline;
     }
   }
 
@@ -199,6 +207,10 @@
     margin: 0 15px;
     padding-top: 5px;
 
+    .comment-action{
+      margin-left: 3px;
+    }
+
     .ant-comment-inner {
       padding: 5px 0;
     }
@@ -230,10 +242,6 @@
       margin-right: 5px;
     }
 
-    // .ant-comment-content{
-    //   border-radius: 10px;
-    //   overflow: hidden;
-    // }
   }
 
   &__bottom {
@@ -241,7 +249,7 @@
     width: 100%;
     display: flex;
     position: relative;
-
+    margin-top: 10px;
     &--img {
       width: 40px;
       height: 40px;
@@ -249,28 +257,34 @@
       border-radius: 50%;
     }
 
-    // &--comment{
-    //   min-height: 35px !important;
-    // }
+    &--comment.ant-input,
+    .ant-input-affix-wrapper {
+      border-radius: 25px;
+      resize: none;    
+      padding: 8px 20px;  
+      padding-right: 50px;
+      &:focus{
+        box-shadow: unset;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 0px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: $primary-color; 
+    }
 
     .input {
       width: 100%;
       position: relative;
 
-      // .ant-input-affix-wrapper,
-      // textarea.ant-input {
-      //   resize: none;
-      //   padding: 10px 20px;
-      //   padding-right: 50px;
-      //   border-radius: 25px;
-      //   // height: 35px;
-      // }
-
       &__icon {
         position: absolute;
         right: 20px;
-        font-size: 25px;
-        bottom: 9px;
+        font-size: 22px;
+        bottom: 10px;
         color: $primary-color-bold;
 
         &:hover {

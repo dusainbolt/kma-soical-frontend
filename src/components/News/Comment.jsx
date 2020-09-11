@@ -67,7 +67,7 @@ function CommentPost({ className = "" }) {
           <div className="form-feed__bottom">
             <img
               className="form-feed__bottom--img"
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              src="https://www.w3schools.com/howto/img_avatar.png"
               alt="avatar"
             />
             <Field

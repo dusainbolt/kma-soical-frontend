@@ -6,6 +6,7 @@ export const ActionTypes = {
   POST_LOGOUT_START: "POST_LOGOUT_START",
   POST_LOGOUT_SUCCESS: "POST_LOGOUT_SUCCESS",
   POST_LOGOUT_ERROR: "POST_LOGOUT_ERROR",
+  CHANGE_SCREEN_PIXEL: "CHANGE_SCREEN_PIXEL"
 };
 
 export const actions = {
@@ -45,5 +46,11 @@ export const actions = {
       type: ActionTypes.POST_LOGOUT_ERROR,
     };
   },
+  changeScreenPixel: function (conditionPixel) {
+    return {
+      type: ActionTypes.CHANGE_SCREEN_PIXEL,
+      conditionPixel,
+    };
+  }
 };
 

@@ -59,6 +59,10 @@
     background-color: $primary-color;
   }
 
+  .ant-input-affix-wrapper, .ant-input{
+    border-radius: 5px;
+  }
+
   &__col-height {
     position: relative;
   }
