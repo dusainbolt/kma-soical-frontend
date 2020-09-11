@@ -14,6 +14,7 @@ import logo1 from "../../common/image/LogoSidebar.png";
 import logo2 from "../../common/image/error-404.png";
 import Gallery from "react-grid-gallery";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
+import { Row, Col } from "antd";
 
 function ContentNew() {
 
@@ -61,35 +62,42 @@ function ContentNew() {
   const IMAGES = [
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 420,
-      thumbnailHeight: 212,
+      thumbnailWidth: 320,
+      thumbnailHeight: 212
     },
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 420,
-      thumbnailHeight: 212,
+      thumbnailWidth: 320,
+      thumbnailHeight: 212
     },
     {
       thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 420,
-      thumbnailHeight: 212,
+      thumbnailWidth: 320,
+      thumbnailHeight: 212
     },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 420,
-      thumbnailHeight: 212,
-    },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 420,
-      thumbnailHeight: 212,
-    },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 420,
-      thumbnailHeight: 212,
-    },
+    // {
+    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+    //   thumbnailWidth: 316,
+    //   thumbnailHeight: 212
+    // },
+    // {
+    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+    //   thumbnailWidth: 316,
+    //   thumbnailHeight: 212
+    // },
+    // {
+    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+    //   thumbnailWidth: 320,
+    //   thumbnailHeight: 212,
+    // },
+    // {
+    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+    //   thumbnailWidth: 420,
+    //   thumbnailHeight: 212,
+    // },
   ];
+
+  
 
   return (
     <>
@@ -99,19 +107,133 @@ function ContentNew() {
       {/* <SRLWrapper options={options} images={images} /> */}
       <SRLWrapper options={options} images={images} />
       <div className="form-feed__content">
-        <div className="form-feed__content--img">
+        <Row className="form-feed__content--img"  onClick={openLightbox}>
+          <Col span={24}>
           <img
             className="one-img img-hover"
             src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
             alt="img"
           />
-        </div>
-        {/* <Gallery
+          </Col>
+
+                  {/* <Gallery
         onClickThumbnail={() => openLightbox(1)}
         enableLightbox={false}
         enableImageSelection={false}
         images={IMAGES}
       /> */}
+{/* <Col className="form-feed__img col-3-img" span={24}>
+          <img
+            className="one-img img-hover"
+            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
+            alt="img"
+          />
+        </Col>
+        <Col className="form-feed__img col-3-img" span={24}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+
+        <Col className="form-feed__img col-3-img" span={24}>
+          <img
+            className="one-img img-hover"
+            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
+            alt="img"
+          />
+        </Col>
+        <Col span={12}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+
+        <Col span={12}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col> */}
+
+
+{/* <Col className="form-feed__img col-4-img" span={24}>
+          <img
+            className="one-img img-hover"
+            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
+            alt="img"
+          />
+        </Col>
+        <Col className="form-feed__img col-4-img" span={8}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+
+        <Col className="form-feed__img col-4-img" span={8}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+
+        <Col className="form-feed__img col-4-img" span={8}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col> */}
+{/* 
+<Col className="form-feed__img col-3-img" span={24}>
+          <img
+            className="one-img img-hover"
+            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
+            alt="img"
+          />
+        </Col>
+        <Col className="form-feed__img col-4-img" span={12}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+
+        <Col className="form-feed__img col-4-img" span={12}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+
+        <Col className="form-feed__img col-4-img" span={12}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col>
+        <Col className="form-feed__img col-4-img" span={12}>
+          <img
+            className="one-img img-hover"
+            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
+            alt="img"
+          />
+        </Col> */}
+
+
+        </Row>
+
+
 
         {/* <Player
         playsInline
@@ -122,5 +244,6 @@ function ContentNew() {
     </>
   );
 }
+
 
 export default ContentNew;

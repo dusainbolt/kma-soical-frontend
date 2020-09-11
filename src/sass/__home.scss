@@ -132,7 +132,6 @@
     }
 
     img.one-img {
-      transform: translateX(0%) translateY(-5%);
       width: 100%;
     }
   }
@@ -224,6 +223,7 @@
       .ant-comment-content-author-name a {
         color: $black-color;
         font-weight: 600;
+        font-size: $font-small_1;
       }
     }
 
@@ -291,6 +291,14 @@
           color: $primary-color-light;
         }
       }
+    }
+  }
+  &__img{
+    &.col-3-img{
+      max-height: 400px; 
+    }
+    &.col-4-img{
+      max-height: 350px; 
     }
   }
 }

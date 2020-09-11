@@ -36,10 +36,11 @@ function CommentPost({ className = "" }) {
         <span className="comment-action">{likes}</span>
       </span>
     </Tooltip>,
-    <span onClick={changeRepCommentId(1)} key="comment-basic-reply-to">Trả lời</span>,
+    <span onClick={changeRepCommentId(1)} key="comment-basic-reply-to">
+      Trả lời
+    </span>,
     <span key="comment-basic-reply-to">20 gio</span>,
   ];
-  
 
   const renderCommentItem = (child, type) => {
     console.log(type);
@@ -50,8 +51,8 @@ function CommentPost({ className = "" }) {
           author={<Link>Du sainbolt</Link>}
           avatar={
             <img
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt="Han Solo"
+              src="https://i.pinimg.com/474x/df/a3/30/dfa330b9b18a760b688af707b9b3f0af.jpg"
+              alt="du sainbolt"
             />
           }
           content={
@@ -72,6 +73,7 @@ function CommentPost({ className = "" }) {
                 <div className="form-feed__bottom">
                   <img
                     className="form-feed__bottom--img"
+                    
                     src="https://www.w3schools.com/howto/img_avatar.png"
                     alt="avatar"
                   />
