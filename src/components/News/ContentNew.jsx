@@ -8,14 +8,15 @@ import {
   MessageOutlined,
 } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { getLastName } from "../../utils";
+import { getLastName, getSpanList } from "../../utils";
 import logo from "../../common/image/logo.png";
 import logo1 from "../../common/image/LogoSidebar.png";
 import logo2 from "../../common/image/error-404.png";
 import Gallery from "react-grid-gallery";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { Row, Col } from "antd";
-
+import { SPAN_GALLEY } from "../../common";
+import { Player } from "video-react";
 function ContentNew() {
   const { openLightbox } = useLightbox();
 
@@ -79,183 +80,54 @@ function ContentNew() {
       thumbnailWidth: 320,
       thumbnailHeight: 212,
     },
-    // {
-    //   thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-    //   thumbnailWidth: 320,
-    //   thumbnailHeight: 212,
-    // },
-  ];
-
-  const spanGalley = [
     {
-      one: 12,
-      item: 12,
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
     },
     {
-      one: 24,
-      item: 12,
+      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
+      thumbnailWidth: 320,
+      thumbnailHeight: 212,
     },
-    {
-      one: 24,
-      item: 8,
-    }
   ];
 
   const renderContentImage = dataImg => {
     return IMAGES.map((item, index) => {
-      console.log(item);
-      let spanList = IMAGES.length === 2 ? spanGalley[0] : spanGalley[1];
-      spanList = IMAGES.length > 3 ? spanGalley[2] : spanList;
+      const spanList = getSpanList(IMAGES.length);
       const span = !index ? spanList.one : spanList.item;
-      return (
-        <Col key={index} className="form-feed__img col-3-img" span={span}>
+      const lengthList = IMAGES.length > 5 ? true : false;
+      return index < 5 ? (
+        <Col
+          key={index}
+          className={`form-feed__img col-${IMAGES.length > 3 ? 4 : 3}-img`}
+          span={span}
+        >
           <img
             className="one-img img-hover"
             src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
             alt="img"
           />
+          {index === 4 && lengthList && <div className="form-feed__more-img-wrapper">+5 Anh</div>}
         </Col>
-      );
+      ) : null;
     });
   };
-
 
   return (
     <>
       <div className="form-feed__caption">sddddddddddddddddddddddddddddddddddddddddddddddd</div>
-      {/* <Lightbox images={images} /> */}
-      {/* {renderContentImg()} */}
-      {/* <SRLWrapper options={options} images={images} /> */}
-      <SRLWrapper options={options} images={images} />
       <div className="form-feed__content">
         <Row className="form-feed__content--img" onClick={openLightbox}>
-          {/* <Col span={24}>
-            <img
-              className="one-img img-hover"
-              src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-              alt="img"
-            />
-          </Col> */}
+          <SRLWrapper options={options} images={images} />
           {renderContentImage()}
-          {/* <Gallery
-        onClickThumbnail={() => openLightbox(1)}
-        enableLightbox={false}
-        enableImageSelection={false}
-        images={IMAGES}
-      /> */}
-          {/* <Col className="form-feed__img col-3-img" span={24}>
-          <img
-            className="one-img img-hover"
-            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
-            alt="img"
-          />
-        </Col>
-        <Col className="form-feed__img col-3-img" span={24}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col>
-
-        <Col className="form-feed__img col-3-img" span={24}>
-          <img
-            className="one-img img-hover"
-            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
-            alt="img"
-          />
-        </Col>
-        <Col span={12}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col>
-
-        <Col span={12}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col> */}
-
-          {/* <Col className="form-feed__img col-4-img" span={24}>
-          <img
-            className="one-img img-hover"
-            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
-            alt="img"
-          />
-        </Col>
-        <Col className="form-feed__img col-4-img" span={8}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col>
-
-        <Col className="form-feed__img col-4-img" span={8}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col>
-
-        <Col className="form-feed__img col-4-img" span={8}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col> */}
-          {/* 
-<Col className="form-feed__img col-3-img" span={24}>
-          <img
-            className="one-img img-hover"
-            src="https://i.pinimg.com/564x/35/09/33/3509331600a792d6918a366390e07a81.jpg"
-            alt="img"
-          />
-        </Col>
-        <Col className="form-feed__img col-4-img" span={12}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col>
-
-        <Col className="form-feed__img col-4-img" span={12}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col>
-
-        <Col className="form-feed__img col-4-img" span={12}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col>
-        <Col className="form-feed__img col-4-img" span={12}>
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-        </Col> */}
         </Row>
-
         {/* <Player
-        playsInline
-        // poster="/assets/poster.png"
-        src={logo3}
-      /> */}
+          playsInline
+          src={
+            "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_60fps_stereo_abl.mp4"
+          }
+        /> */}
       </div>
     </>
   );

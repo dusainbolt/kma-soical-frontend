@@ -57,8 +57,7 @@ export const validateFormChangePassword = Yup.object({
 });
 
 export const validateMessage = Yup.object({
-  message: Yup.string()
-    .required()
+  message: Yup.string().required(),
 });
 
 export const validateLoginCommon = Yup.object({
@@ -90,5 +89,24 @@ export const TYPE_ANT = {
 export const REP_COMMENT = "rep_comment";
 export const END_MOBILE_PIXEL = 576;
 
-export const VALUE_GENDER = [1,2,3];
-export const VALUE_STATUS = [1,2,3];
+export const VALUE_GENDER = [1, 2, 3];
+export const VALUE_STATUS = [1, 2, 3];
+
+export const SPAN_GALLEY = {
+  COL_12_12: {
+    one: 12,
+    item: 12,
+  },
+  COL_24_12: {
+    one: 24,
+    item: 12,
+  },
+  COL_24_8: {
+    one: 24,
+    item: 8,
+  },
+  COL_24_6: {
+    one: 24,
+    item: 6,
+  },
+};

@@ -1,7 +1,7 @@
 import { browserHistory } from "./history";
 import { actions as actionLayout } from "../pages/Layout/actions";
 import { put } from "redux-saga/effects";
-import { TIME_UTC_FORMAT, DATE_UTC_FORMAT, TYPE_DATE_TIME } from "../common";
+import { TIME_UTC_FORMAT, DATE_UTC_FORMAT, TYPE_DATE_TIME, SPAN_GALLEY } from "../common";
 import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
 import moment from "moment";
@@ -169,7 +169,6 @@ export const validateCodeStudent = value => {
 };
 
 export const blockSpace = (setFieldValue, values, fieldName) => e => {
-  console.log("->>>>>>>>", values);
   let value = e.target.value;
   if ((!values[fieldName].trim() && !value.trim()) || value.includes("  ")) {
     return;
@@ -238,3 +237,19 @@ export const getUrlRedirectEmail = email => {
 export const getLastName = fullName => {
   return fullName.split(" ").pop();
 };
+
+export const getSpanList = length=>{
+  switch (length) {
+  case 2:
+    return SPAN_GALLEY.COL_12_12;
+  case 1:  
+  case 3:
+    return SPAN_GALLEY.COL_24_12;
+  case 4: 
+    return SPAN_GALLEY.COL_24_8;
+  case 5:
+    return SPAN_GALLEY.COL_24_6;    
+  default:
+    return SPAN_GALLEY.COL_24_6;
+  }
+}
