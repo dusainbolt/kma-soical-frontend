@@ -13,6 +13,7 @@
     "msg_500_content": "Server không phản hồi, vui lỏng kiểm tra lại sự kiện hoặc đường truyền.",
     "val_password": "Mật khẩu",
     "val_email": "Email",
+    "msg_401_content": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại để tiếp tục sử dụng.",
     "duplicate_email": "Email đã được sử dụng.",
     "duplicate_userName": "Tên đăng nhập đã được sử dụng.",
     "duplicate_codeStudent": "Mã sinh viên đã được sử dụng.",

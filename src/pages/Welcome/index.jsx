@@ -1,10 +1,15 @@
-import React, { memo } from "react";
+import React from "react";
 import logo from "../../common/image/logo.png";
 import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";
+import { useEffect } from "react";
+import { browserHistory } from "../../utils/history";
+import { useSelector } from "react-redux";
+import api from "../../services/api";
 
 function Welcome() {
-  return (
+  
+  return ( 
     <Row className="welcome">
       <Col className="welcome__col-height" xs={24} sm={24} md={24} lg={12}>
       </Col>
@@ -22,7 +27,8 @@ function Welcome() {
         </div>
       </Col>
     </Row>
+  
   );
 }
 
-export default memo(Welcome);
+export default Welcome;

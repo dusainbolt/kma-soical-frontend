@@ -14,7 +14,6 @@ import RegisterForm from "../../components/RegisterForm";
 import ConfirmCode from "../ConfirmCodeForm";
 
 function Register() {
-  const token = useSelector(state => state.loginReducer.auth?.token);
   const loadingDuplicate = useSelector(state => state.registerReducer.loadingDuplicate);
   const loadingRegister = useSelector(state => state.registerReducer.loadingRegister);
   const errorDuplicate = useSelector(state => state.registerReducer.errorDuplicate);
@@ -26,12 +25,6 @@ function Register() {
   const submitRegister = useCallback(values => {
     dispatch(actions.postRegisterStart(values));
   }, []);
-
-  useEffect(() => {
-    if (token) {
-      browserHistory.push("/");
-    }
-  }, [token]);
 
   const onSearchUser = useCallback(params => {
     dispatch(actions.getEmptyUserStart(params));

@@ -79,7 +79,23 @@
   border-radius: 8px;
   box-shadow: $box-shadow-card;
   margin: 20px 0;
-
+  &.skeleton{
+    padding: 15px;
+    position: relative;
+    .ant-skeleton-element{
+      width: 100%;
+    }
+    .ant-skeleton-input{
+      margin-top: 15px;
+      height: 400px;
+      width: 100%;
+    }
+    .dot-loading {
+      position: absolute;
+      left: calc(50% - 20px);
+      top: 60%;
+    }
+  }
   &__top {
     width: 100%;
     padding: 15px;
@@ -129,10 +145,50 @@
     &--img {
       max-height: 700px;
       overflow: hidden;
+      .ant-col-12:first-child{
+        margin-bottom: -1px;
+        border-right: 1px solid white;
+      }
+      .ant-col-12:last-child{
+        border-left: 1px solid white;
+        margin-bottom: -1px;
+      }
+      .ant-col-8, .ant-col-6{
+        border-right: 1px solid white;
+        margin-bottom: -1px;
+      }
+      .ant-col-8:last-child, .ant-col-6:last-child{
+        border-right: unset;
+      }
     }
 
     img.one-img {
       width: 100%;
+    }
+
+    .video-react .video-react-big-play-button{
+      left: 50%;
+      top: 45%;
+      transform: translate(-50%, 0);
+      border-color: $primary-color;
+      background-color: transparent;
+    }
+    .video-react{
+      &:hover{
+        .video-react-big-play-button{
+          border-color: $primary-color;
+          background-color: rgba(43, 51, 63, 0.7);
+        }
+      }
+      .video-react-volume-level, .video-react-play-progress{
+        background: $primary-color;
+      }
+    }
+    .video-react .video-react-slider-horizontal .video-react-volume-level:before, .video-react .video-react-play-progress:before, .video-react .video-react-control:before, .video-react-icon-play-arrow:before, .video-react .video-react-big-play-button:before, .video-react .video-react-play-control:before, .video-react .video-react-bezel .video-react-bezel-icon-play:before{
+      color: $primary-color;  
+    }
+    .video-react .video-react-control-bar{
+      background-color: rgba(43, 51, 63, 0.28);
     }
   }
 
@@ -254,7 +310,7 @@
       width: 40px;
       height: 40px;
       margin-right: 5px;
-      border-radius: 50%;
+      border-radius: 50%
     }
 
     &--comment.ant-input,
@@ -316,4 +372,18 @@
     font-weight: bold;
     color: white;
   }
+}
+
+@media(max-width: $with-mobile){
+.form-feed{
+  &__img{
+    position: relative;
+    &.col-3-img{
+      max-height: 250px; 
+    }
+    &.col-4-img{
+      max-height: 250px; 
+    }
+  }
+}
 }

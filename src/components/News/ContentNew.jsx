@@ -12,12 +12,12 @@ import { getLastName, getSpanList } from "../../utils";
 import logo from "../../common/image/logo.png";
 import logo1 from "../../common/image/LogoSidebar.png";
 import logo2 from "../../common/image/error-404.png";
-import Gallery from "react-grid-gallery";
+// import Gallery from "react-grid-gallery";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { Row, Col } from "antd";
 import { SPAN_GALLEY } from "../../common";
 import { Player } from "video-react";
-function ContentNew() {
+function ContentNew({ type = false }) {
   const { openLightbox } = useLightbox();
 
   const images = [
@@ -118,16 +118,19 @@ function ContentNew() {
     <>
       <div className="form-feed__caption">sddddddddddddddddddddddddddddddddddddddddddddddd</div>
       <div className="form-feed__content">
+        <SRLWrapper options={options} images={images} />
         <Row className="form-feed__content--img" onClick={openLightbox}>
-          <SRLWrapper options={options} images={images} />
-          {renderContentImage()}
+          {!type && renderContentImage()}
         </Row>
-        {/* <Player
-          playsInline
-          src={
-            "http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_60fps_stereo_abl.mp4"
-          }
-        /> */}
+        {type && (
+          <Player
+            playsInline
+            poster="https://i.pinimg.com/736x/6c/d3/38/6cd3383fa546a1d8d53d58191e500249.jpg"
+            src={
+              "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4"
+            }
+          />
+        )}
       </div>
     </>
   );

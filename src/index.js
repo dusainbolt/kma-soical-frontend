@@ -13,7 +13,7 @@ import "antd/dist/antd.css";
 
 const onBeforeLift = store => () => {
   const { loginReducer } = store.getState();
-  api.setAuthRequest(loginReducer.userDetail?.token);
+  api.setAuthRequest(loginReducer?.token);
 };
 
 ReactDOM.render(

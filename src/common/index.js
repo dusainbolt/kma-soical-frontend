@@ -35,6 +35,11 @@ export const ERROR_NETWORK = {
   CONTENT: "msg_500_content",
 };
 
+export const ERROR_AUTH = {
+  TITLE: "notify_login_fail_title",
+  CONTENT: "msg_401_content",
+};
+
 export const KEY_NOTIFY = {
   REGISTER_TITLE: "msg_register_title",
   REGISTER_CONTENT: "msg_register_content",

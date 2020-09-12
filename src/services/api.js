@@ -3,7 +3,7 @@ import { browserHistory } from "../utils/history";
 import { store } from "../redux/configStore";
 import { actions } from "../pages/Layout/actions";
 import showNotification  from "../components/Notification";
-import { ERROR_NETWORK } from "../common";
+import { ERROR_NETWORK, ERROR_AUTH } from "../common";
 class AxiosServer {
   constructor() {
     const instance = axios.create();
@@ -40,9 +40,11 @@ class AxiosServer {
       promiseList.push(localStorage.removeItem("persist:root"));
       promiseList.push(store.dispatch(actions.postLogoutSuccess()));
       promiseList.push(browserHistory.push("/welcome"));
+      promiseList.push(showNotification(ERROR_AUTH.TITLE, ERROR_AUTH.CONTENT));
       Promise.all(promiseList)
         .then(resolvedList => {})
-        .catch(error => {});    }
+        .catch(error => {});    
+    }
     if (error.response && error.response.status === 400) {
       return error.response.data;
     }

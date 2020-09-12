@@ -32,6 +32,9 @@
 
 .site-layout .site-layout-background {
   padding: 25px;
+  overflow-x: unset !important;
+  min-height: 100vh;
+  padding-top: 89px;
   background: $bg-site-layout;
 }
 .site-layout-web-background {
@@ -47,11 +50,15 @@
 }
 
 ::-webkit-scrollbar {
-  width: 1px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: $primary-color; 
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .avatar{
@@ -80,5 +87,6 @@ span.anticon-edit{
 @media(max-width: $with-mobile){
   .site-layout .site-layout-background {
     padding: 15px;
+    padding-top: 17%;
   }
 }

@@ -12,7 +12,6 @@ import { getLastName } from "../../utils";
 import logo from "../../common/image/logo.png";
 import logo1 from "../../common/image/LogoSidebar.png";
 import logo2 from "../../common/image/error-404.png";
-import Gallery from "react-grid-gallery";
 // import logo3 from "../../common/image/Kazam_screencast_00000.mp4";
 import { Player } from "video-react";
 import { useState } from "react";
@@ -25,18 +24,16 @@ import ActionNew from "./ActionNew";
 import ContentNew from "./ContentNew";
 
 
-function FormAddNew() {
+function FormAddNew({type = false}) {
   const { t } = useTranslation();
   const isMobile = useSelector(state => state.layoutReducer.isMobile);
   const [visibleLightBox, setVisibleLightBox] = useState(true);
   const { openLightbox } = useLightbox();
 
-
-
   return (
     <div className="form-feed">
       <PostTop />
-      <ContentNew />
+      <ContentNew type={type}/>
       <LikeInfo />
       <ActionNew />
       <Comment />

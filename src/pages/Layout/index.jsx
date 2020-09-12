@@ -31,6 +31,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     if (!token) {
       browserHistory.push("/welcome");
     }else{
+      console.log("---------------------->Token", token);
       api.setAuthRequest(token);
     }
   }, [token]);

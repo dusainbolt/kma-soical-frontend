@@ -11,9 +11,9 @@ import { VALUE_STATUS, CONFIRM } from "../../common";
 import LoginForm from "../../components/LoginForm";
 import ConfirmCode from "../ConfirmCodeForm";
 import LazyLoading from "../../components/LazyLoadingImg";
+import api from "../../services/api";
 
 function Login() {
-  const token = useSelector(state => state.loginReducer.token);
   const isLoadingLogin = useSelector(state => state.loginReducer.isLoadingLogin);
 
   const dispatch = useDispatch();
@@ -22,12 +22,6 @@ function Login() {
   const submitLogin = values => {
     dispatch(actions.postLoginStart(values));
   };
-
-  useEffect(() => {
-    if (token) {
-      browserHistory.push("/");
-    }
-  }, [token]);
 
   return (
     <Row className="welcome login">

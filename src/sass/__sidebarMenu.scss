@@ -116,6 +116,9 @@
       max-width: 20% !important;
       min-width: 20% !important;
     }
+    &__side-left, &__side-mess, &__side-bg{
+      padding-top: 64px;
+    }
   }
 }
 
@@ -208,4 +211,5 @@
       }
     }
   }
+
 }
