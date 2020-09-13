@@ -48,7 +48,17 @@
     "forgot_pass": "Quên mật khẩu?"
   },
   "news_feed": {
-    "image": "Ảnh"
+    "image": "Ảnh",
+    "video": "Video",
+    "status":"Trạng thái",
+    "image_upper": "ảnh",
+    "to": "tới",
+    "video_upper": "video",
+    "status_upper": "trạng thái",
+    "comment": "bình luận",
+    "and": "và",
+    "other_people": "người khác",
+    "note_shared": "Đã chia sẻ"
   },
   "time" : {
     "day": "ngày",

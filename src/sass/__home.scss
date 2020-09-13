@@ -116,9 +116,25 @@
     &--name {
       font-size: $font-title-small;
       font-weight: bold;
+      >span{
+        color: $black-color-text;
+        font-size: $font-size;
+        font-weight: 300;
+        >b{
+          color: $black-color;
+          font-weight: 600;
+        }
+      }
+    }
+
+    &--time {
+      font-size: $font-small_1;
+      font-weight: bold;
+      color: $black-color-text;
     }
 
     &--i-security {
+      margin-left: 3px;
       >svg {
         color: $black-color-light;
       }
@@ -140,20 +156,27 @@
     word-break: break-word;
   }
 
+  &__tag{
+    margin: 10px 0;
+  }
+
   &__content {
 
     &--img {
       max-height: 700px;
       overflow: hidden;
       .ant-col-12:first-child, .ant-col-8, .ant-col-6{
-        border-right: 1px solid white;
+        border-right: 2px solid white;
       }
       .ant-col-12:last-child{
-        border-left: 1px solid white;
+        border-left: 2px solid white;
       }
 
       .ant-col-8:last-child, .ant-col-6:last-child{
         border-right: unset;
+      }
+      .ant-col-8, .ant-col-6, .ant-col-12{
+        border-top: 2px solid white;
       }
       .ant-col-12, .ant-col-8, .ant-col-6{
         .lazyload-wrapper, .lazyload-wrapper >div, .lazyload-wrapper >div>div ,img{
@@ -199,7 +222,7 @@
 
     span.anticon-heart {
       color: white;
-      padding: 4px 3px 3px 4px;
+      padding: 4px;
       font-size: 10px;
       border-radius: 50%;
       background-color: red;
@@ -223,6 +246,7 @@
     }
     div.like-info:hover, label.comment-info:hover{
       text-decoration: underline;
+      cursor: pointer;
     }
   }
 

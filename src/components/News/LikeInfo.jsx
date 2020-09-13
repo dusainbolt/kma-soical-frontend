@@ -7,15 +7,13 @@ import {
   MessageOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-function LikeInfo() {
+function LikeInfo({ totalLike, noteLike, noteComment, index, toggleComment }) {
   const isMobile = useSelector(state => state.layoutReducer.isMobile);
   return (
     <div className="form-feed__like-share">
       <HeartFilled />
-      <div className="like-info">
-        {isMobile ? "164" : "Lê Huy Du, Nguyễn Thị Bình và 150 người khác"}
-      </div>
-      <label className="comment-info">5 Binh luan</label>
+      <div className="like-info">{isMobile ? totalLike : noteLike}</div>
+      <label onClick={() => toggleComment(index)} className="comment-info">{noteComment}</label>
     </div>
   );
 }

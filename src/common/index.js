@@ -139,8 +139,8 @@ export const OPTION_LiGHTBOX = {
     // captionTextTransform: "uppercase",
   },
   progressBar: {
-    backgroundColor: "#fea700",
-    fillColor: "#000000",
+    backgroundColor: "#f2f2f2",
+    fillColor: "#fea700",
     height: "3px",
     showProgressBar: true,
   },

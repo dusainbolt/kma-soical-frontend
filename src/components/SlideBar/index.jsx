@@ -4,6 +4,8 @@ import { Routes } from "../../Routes";
 import { browserHistory } from "../../utils/history";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined, AppstoreFilled } from "@ant-design/icons";
 import LazyloadImg from "../LazyLoadingImg";
+import { useSelector } from "react-redux";
+import avatarDefault from "../../common/image/avatar-default.png";
 
 const icons = {
   manager: UserOutlined,
@@ -12,6 +14,10 @@ const icons = {
 };
 
 function Sidebar() {
+
+  const userDetail = useSelector(state => state.loginReducer.userDetail);
+
+
   const renderMenu = () => {
     let menu = null;
     menu = Routes.map((item, index) => {
@@ -46,12 +52,12 @@ function Sidebar() {
       <div className="side-event__info">
         <LazyloadImg
           className="side-event__info--avatar avatar"
-          src="https://www.w3schools.com/howto/img_avatar.png"
+          src={userDetail?.avatarUrl ? userDetail.avatarUrl : avatarDefault}
           alt="avatar"
         />
         <div className="side-event__info--text">
-          <h3>Du sainbolt</h3>
-          <span>@dusainbolt</span>
+          <h3>{userDetail?.get_user_info?.fullName}</h3>
+          <span>@{userDetail?.userName}</span>
         </div>
       </div>
       {/* {renderMenu()} */}

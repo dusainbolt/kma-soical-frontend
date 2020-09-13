@@ -11,13 +11,17 @@ import LikeInfo from "../../components/News/LikeInfo";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
 import { OPTION_LiGHTBOX } from "../../common";
-import { genderContent } from "../../utils";
+import { getArrayImg, renderNotePost, renderNoteLike, renderNoteComment } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useMemo } from "react";
+import avatarDefault from "../../common/image/avatar-default.png";
 
 function Home() {
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
+  const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
+  const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
+  const avatarUrl = avatarReducer ? avatarReducer : avatarDefault;
   const dispatch = useDispatch();
   const { openLightbox } = useLightbox();
   const [limit, setLimit] = useState(10);
@@ -25,6 +29,8 @@ function Home() {
   const [isView, setIsView] = useState(false);
   const [indexIMG, setIndexIMG] = useState(0);
   const [countView, setCountView] = useState(1);
+  const [viewComment, setViewComment] = useState({});
+
   useEffect(() => {
     dispatch(actions.getNewFeedStart({ limit }));
   }, [limit]);
@@ -46,7 +52,7 @@ function Home() {
   );
 
   useEffect(() => {
-    if(isView && listIMGView.length){
+    if (isView && listIMGView.length) {
       setTimeout(() => {
         openLightbox(indexIMG);
       });
@@ -57,13 +63,23 @@ function Home() {
     setIsView(false);
   };
 
-  const renderLightBox = useMemo(()=>{
+  const renderLightBox = useMemo(() => {
     let result = [];
-    for(let i = 1; i <= countView; i++){
-      result.push(<SRLWrapper onLightboxClosed={oncloseLightBox} options={OPTION_LiGHTBOX} images={listIMGView} />);
+    for (let i = 1; i <= countView; i++) {
+      result.push(
+        <SRLWrapper
+          onLightboxClosed={oncloseLightBox}
+          options={OPTION_LiGHTBOX}
+          images={listIMGView}
+        />
+      );
     }
     return result;
-  },[listIMGView]);
+  }, [listIMGView]);
+
+  const toggleViewComment = index => {
+    setViewComment({ ...viewComment, [index]: !viewComment?.[index] });
+  };
 
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
@@ -72,20 +88,28 @@ function Home() {
           <FadeIn delay={100} transitionDuration={500}>
             <div className="form-feed">
               <PostTop
-                avatarUrl={item.avatarUrl}
+                avatarUrl={item.avatarUrl ? item.avatarUrl : avatarDefault}
                 fullName={item.fullName}
                 created_at={item.created_at}
+                note={renderNotePost(item.type, item.content, item.subjectName)}
               />
               <ContentNew
                 caption={item.caption}
                 callbackViewImg={onViewImg}
                 avatarUrl={item.avatarUrl}
-                content={genderContent(item.content, item.type)}
+                tags={item.tag.split(",")}
+                content={getArrayImg(item.content, item.type)}
                 type={item.type}
               />
-              <LikeInfo itemNews={item} />
+              <LikeInfo
+                toggleComment={toggleViewComment}
+                totalLike={item.totalLike}
+                noteLike={renderNoteLike(item.totalLike, item.userLike)}
+                noteComment={renderNoteComment(item.totalComment)}
+                index={item.id}
+              />
               <ActionNew itemNews={item} />
-              <Comment itemNews={item} />
+              { viewComment?.[item.id] && <Comment itemNews={item} /> }
             </div>
           </FadeIn>
         </Lazyload>
@@ -95,7 +119,9 @@ function Home() {
 
   return (
     <div>
-      <FormAddNew />
+      <FormAddNew
+        fullName={fullName}
+        avatarUrl={avatarUrl}/>
       {isView && renderLightBox}
       {listNewFeed.length !== 0 && renderListNewFeed()}
       {isLoadingNewFeed && <SkeletonNewFeed />}

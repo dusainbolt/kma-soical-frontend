@@ -1,3 +1,4 @@
+import React from "react";
 import { browserHistory } from "./history";
 import { actions as actionLayout } from "../pages/Layout/actions";
 import { put } from "redux-saga/effects";
@@ -253,7 +254,7 @@ export const getUrlRedirectEmail = email => {
 };
 
 export const getLastName = fullName => {
-  return fullName.split(" ").pop();
+  return fullName?.split(" ").pop();
 };
 
 export const getSpanList = length=>{
@@ -272,6 +273,26 @@ export const getSpanList = length=>{
   }
 };
 
-export const genderContent = (content, type) => {
+export const getArrayImg = (content, type) => {
   return type === TYPE_FEED.IMAGE ? content.split(",") : content; 
+};
+
+export const renderNotePost = (type, content, subjectName) => {
+  const contentStart = i8().t("news_feed.note_shared");
+  switch (type) {
+  case TYPE_FEED.IMAGE:
+    return <span>{`${contentStart} ${getArrayImg(content, type).length} ${i8().t("news_feed.image_upper")} ${i8().t("news_feed.to")} `}<b>{subjectName}</b></span>;
+  case TYPE_FEED.VIDEO:
+    return <span>{`${contentStart} ${i8().t("news_feed.video_upper")} ${i8().t("news_feed.to")} `}<b>{subjectName}</b></span>;
+  default:
+    return <span>{`${contentStart} ${i8().t("news_feed.status_upper")} ${i8().t("news_feed.to")} `}<b>{subjectName}</b></span>;
+  }
+};
+
+export const renderNoteLike = (total, userLike) => {
+  return total > 9 ? `${userLike} ${i8().t("news_feed.and")} ${total} ${i8().t("news_feed.other_people")}` : total;
+};
+
+export const renderNoteComment = total => {
+  return `${total} ${i8().t("news_feed.comment")}`;
 };
