@@ -1,24 +1,18 @@
 import React from "react";
-import {
-  GlobalOutlined,
-  EllipsisOutlined,
-  HeartFilled,
-  HeartOutlined,
-  MessageOutlined,
-} from "@ant-design/icons";
-import { useSelector } from "react-redux";
-function PostTop() {
-  const isMobile = useSelector(state => state.layoutReducer.isMobile);
+import { GlobalOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { genderTimeCountNewFeed } from "../../utils";
+
+function PostTop({ avatarUrl, fullName, created_at }) {
   return (
     <div className="form-feed__top">
-      <img className="avatar" src="https://www.w3schools.com/howto/img_avatar.png" alt="avatar" />
+      <img className="avatar" src={avatarUrl} alt="avatar" />
       <div className="form-feed__top--info">
-        <div className="form-feed__top--name">Du sainbolt</div>
+        <div className="form-feed__top--name">{fullName}</div>
         <span className="form-feed__top--time">
-          1 Giờ <GlobalOutlined className="form-feed__top--i-security" />
+          {genderTimeCountNewFeed(created_at)} <GlobalOutlined className="form-feed__top--i-security" />
         </span>
       </div>
-      <EllipsisOutlined className="form-feed__top--i-action" onClick={() => console.log("ok") } />
+      <EllipsisOutlined className="form-feed__top--i-action" onClick={() => console.log("ok")} />
     </div>
   );
 }

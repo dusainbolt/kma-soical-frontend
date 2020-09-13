@@ -145,20 +145,20 @@
     &--img {
       max-height: 700px;
       overflow: hidden;
-      .ant-col-12:first-child{
-        margin-bottom: -1px;
+      .ant-col-12:first-child, .ant-col-8, .ant-col-6{
         border-right: 1px solid white;
       }
       .ant-col-12:last-child{
         border-left: 1px solid white;
-        margin-bottom: -1px;
       }
-      .ant-col-8, .ant-col-6{
-        border-right: 1px solid white;
-        margin-bottom: -1px;
-      }
+
       .ant-col-8:last-child, .ant-col-6:last-child{
         border-right: unset;
+      }
+      .ant-col-12, .ant-col-8, .ant-col-6{
+        .lazyload-wrapper, .lazyload-wrapper >div, .lazyload-wrapper >div>div ,img{
+          height: 100%;
+        }
       }
     }
 
@@ -212,6 +212,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       width: 70%;
+      color: $black-color-text;
 
       &:hover {
         text-decoration: underline;
@@ -219,7 +220,7 @@
     }
     label.comment-info {
       margin-left: auto;
-      
+      color: $black-color-text;
     }
     div.like-info:hover, label.comment-info:hover{
       text-decoration: underline;
@@ -371,6 +372,7 @@
     font-size: $font-medium;
     font-weight: bold;
     color: white;
+    cursor: pointer;
   }
 }
 

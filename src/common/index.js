@@ -75,6 +75,7 @@ export const validateLoginCommon = Yup.object({
 export const TIME_UTC_FORMAT = {
   TYPE_1: "HHmmss",
   TYPE_2: "HH:mm:ss",
+  TYPE_HH_MM: "HH:mm",
 };
 
 export const DATE_UTC_FORMAT = "DD/MM/YYYY";
@@ -113,5 +114,28 @@ export const SPAN_GALLEY = {
   COL_24_6: {
     one: 24,
     item: 6,
+  },
+};
+
+export const TYPE_FEED = {
+  IMAGE: 1,
+  VIDEO: 2
+};
+
+export const OPTION_LiGHTBOX = {
+  settings: {
+    // overlayColor: "rgb(25, 136, 124)",
+    autoplaySpeed: 1500,
+    transitionSpeed: 900,
+  },
+  buttons: {
+    // backgroundColor: "#1b5245",
+    iconColor: "rgba(126, 172, 139, 0.8)",
+  },
+  caption: {
+    captionColor: "#a6cfa5",
+    captionFontFamily: "Raleway, sans-serif",
+    captionFontWeight: "300",
+    captionTextTransform: "uppercase",
   },
 };

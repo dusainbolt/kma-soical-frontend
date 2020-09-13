@@ -46,5 +46,17 @@
     "confirm_title_CONFIRM_REGISTER": "Xác minh thành công",
     "confirm_content_CONFIRM_REGISTER": "Bây giờ bạn có thể đăng nhập và tham gia cùng cộng đồng KMA nhé.",
     "forgot_pass": "Quên mật khẩu?"
+  },
+  "news_feed": {
+    "image": "Ảnh"
+  },
+  "time" : {
+    "day": "ngày",
+    "year": "năm",
+    "on": "lúc",
+    "now": "vừa xong",
+    "minutes": "phút",
+    "month": "tháng",
+    "hours": "giờ"
   }
 }

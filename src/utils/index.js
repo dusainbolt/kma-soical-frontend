@@ -1,11 +1,11 @@
 import { browserHistory } from "./history";
 import { actions as actionLayout } from "../pages/Layout/actions";
 import { put } from "redux-saga/effects";
-import { TIME_UTC_FORMAT, DATE_UTC_FORMAT, TYPE_DATE_TIME, SPAN_GALLEY } from "../common";
+import { TIME_UTC_FORMAT, DATE_UTC_FORMAT, TYPE_DATE_TIME, SPAN_GALLEY, TYPE_FEED } from "../common";
 import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
 import moment from "moment";
-import { getI18n } from "react-i18next";
+import { getI18n as i8 } from "react-i18next";
 
 export function getTimeNowUnix() {
   return Math.round(new Date().getTime() / 1000);
@@ -111,6 +111,24 @@ export function genderTimeCount(timeNumber) {
   }
 }
 
+export function genderTimeCountNewFeed(timeNumber) {
+  var now = moment(new Date()); //todays date
+  var myTime = moment.unix(timeNumber);
+  var duration = now.diff(myTime);
+  var isDiffYear = now.format("Y") !== myTime.format("Y") ? true : false;
+  if(isDiffYear){
+    return `${myTime.format("D")} ${i8().t("time.month")} ${myTime.format("M")} ${i8().t("time.year")} ${myTime.format("Y")} ${i8().t("time.on")} ${myTime.format(TIME_UTC_FORMAT.TYPE_HH_MM)}`; 
+  }else if (duration < 60000) {
+    return i8().t("time.now");
+  } else if (duration > 60000 && duration < 3600000) {
+    return `${now.diff(myTime, "minutes")} ${i8().t("time.minutes")}`;
+  } else if (duration > 3600000 && duration < 86400000) {
+    return `${now.diff(myTime, "hours")} ${i8().t("time.hours")}`;
+  } else if (duration > 86400000) {
+    return `${myTime.format("D")} ${i8().t("time.month")} ${myTime.format("M")} ${i8().t("time.on")} ${myTime.format(TIME_UTC_FORMAT.TYPE_HH_MM)}`; 
+  }
+}
+
 export function validateNumber(value) {
   if (!value) return true;
   var re = /^[0-9]+$/;
@@ -208,7 +226,7 @@ export function getSelectLocalize(values, localize) {
   return values.map(value => {
     return {
       value,
-      label: getI18n().t(`${localize}${value}`),
+      label: i8().t(`${localize}${value}`),
     };
   });
 }
@@ -252,4 +270,8 @@ export const getSpanList = length=>{
   default:
     return SPAN_GALLEY.COL_24_6;
   }
-}
+};
+
+export const genderContent = (content, type) => {
+  return type === TYPE_FEED.IMAGE ? content.split(",") : content; 
+};

@@ -1,137 +1,76 @@
 import React from "react";
-import LazyloadImg from "../LazyLoadingImg";
-import {
-  GlobalOutlined,
-  EllipsisOutlined,
-  HeartFilled,
-  HeartOutlined,
-  MessageOutlined,
-} from "@ant-design/icons";
-import { useTranslation } from "react-i18next";
-import { getLastName, getSpanList } from "../../utils";
-import logo from "../../common/image/logo.png";
-import logo1 from "../../common/image/LogoSidebar.png";
-import logo2 from "../../common/image/error-404.png";
-// import Gallery from "react-grid-gallery";
-import { SRLWrapper, useLightbox } from "simple-react-lightbox";
+import { getSpanList } from "../../utils";
 import { Row, Col } from "antd";
-import { SPAN_GALLEY } from "../../common";
+import { TYPE_FEED } from "../../common";
 import { Player } from "video-react";
-function ContentNew({ type = false }) {
-  const { openLightbox } = useLightbox();
+import LazyloadImg from "../LazyLoadingImg";
 
-  const images = [
-    {
-      src: logo,
-      thumbnail: logo,
-      caption: "Lorem ipsum dolor sit amet",
-      height: "auto",
-    },
-    {
-      src: logo2,
-      thumbnail: logo2,
-      caption: "Consecutur adiscip elit",
-      height: "auto",
-    },
-    {
-      src: logo1,
-      thumbnail: logo1,
-      caption: "Consecutur adiscip elit",
-      height: "auto",
-    },
-  ];
 
-  const options = {
-    settings: {
-      // overlayColor: "rgb(25, 136, 124)",
-      autoplaySpeed: 1500,
-      transitionSpeed: 900,
-    },
-    buttons: {
-      // backgroundColor: "#1b5245",
-      iconColor: "rgba(126, 172, 139, 0.8)",
-    },
-    caption: {
-      captionColor: "#a6cfa5",
-      captionFontFamily: "Raleway, sans-serif",
-      captionFontWeight: "300",
-      captionTextTransform: "uppercase",
-    },
+function ContentNew({ content, type, avatarUrl, caption, callbackViewImg }) {
+
+  const getDataImages = dataImg => {
+    return dataImg.map((item, index) => {
+      return {
+        src: item,
+        thumbnail: item,
+        height: "auto",
+      };
+    });
   };
 
-  const IMAGES = [
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-    },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-    },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-    },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-    },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-    },
-    {
-      thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-      thumbnailWidth: 320,
-      thumbnailHeight: 212,
-    },
-  ];
+  const renderCaptionImg = (caption, index) => {
+    return (
+      <div>{caption} {index}</div>
+    );
+  };
+
+  const getCustomCaption = dataImg => {
+    return dataImg.map((item, index) => {
+      return {
+        id: index,
+        caption: renderCaptionImg(caption, index),
+      };
+    });
+  };
+
 
   const renderContentImage = dataImg => {
-    return IMAGES.map((item, index) => {
-      const spanList = getSpanList(IMAGES.length);
+    return dataImg.map((item, index) => {
+      const lengthList = dataImg.length;
+      const spanList = getSpanList(lengthList);
       const span = !index ? spanList.one : spanList.item;
-      const lengthList = IMAGES.length > 5 ? true : false;
+      const limitList = lengthList > 5 ? true : false;
       return index < 5 ? (
         <Col
           key={index}
-          className={`form-feed__img col-${IMAGES.length > 3 ? 4 : 3}-img`}
+          className={`form-feed__img col-${lengthList > 3 ? 4 : 3}-img`}
           span={span}
+          onClick={() => onClickViewImage(dataImg, index)}
         >
-          <img
-            className="one-img img-hover"
-            src="https://cdn.jpegmini.com/user/images/slider_puffin_jpegmini_mobile.jpg"
-            alt="img"
-          />
-          {index === 4 && lengthList && <div className="form-feed__more-img-wrapper">+5 Anh</div>}
+          <LazyloadImg className="one-img img-hover" src={item} height={150} alt="img" />
+          {index === 4 && limitList && (
+            <div className="form-feed__more-img-wrapper">+{lengthList - 5}</div>
+          )}
         </Col>
       ) : null;
     });
   };
 
+  const onClickViewImage = (dataImg, index) => {
+    callbackViewImg(getDataImages(dataImg), getCustomCaption(dataImg), index);
+  };
+
   return (
     <>
-      <div className="form-feed__caption">sddddddddddddddddddddddddddddddddddddddddddddddd</div>
-      <div className="form-feed__content">
-        <SRLWrapper options={options} images={images} />
-        <Row className="form-feed__content--img" onClick={openLightbox}>
-          {!type && renderContentImage()}
-        </Row>
-        {type && (
-          <Player
-            playsInline
-            poster="https://i.pinimg.com/736x/6c/d3/38/6cd3383fa546a1d8d53d58191e500249.jpg"
-            src={
-              "https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4"
-            }
-          />
-        )}
-      </div>
+      <div className="form-feed__caption">{caption}</div>
+      {content && (
+        <div className="form-feed__content">
+          <Row className="form-feed__content--img">
+            {type === TYPE_FEED.IMAGE && renderContentImage(content)}
+          </Row>
+          {type === TYPE_FEED.VIDEO && <Player playsInline poster={avatarUrl} src={content} />}
+        </div>
+      )}
     </>
   );
 }

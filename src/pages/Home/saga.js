@@ -6,7 +6,6 @@ function* getListNewFeed(action) {
   try {
     const response = yield getListNewFeedAPI(action.body);
     if (response.meta.code === 0) {
-      yield delay(5000);
       yield put(actions.getNewFeedSuccess(response.data));
     } else {
       yield put(actions.getNewFeedError());
