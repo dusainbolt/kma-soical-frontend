@@ -4,35 +4,22 @@ import { Row, Col } from "antd";
 import { TYPE_FEED } from "../../common";
 import { Player } from "video-react";
 import LazyloadImg from "../LazyLoadingImg";
+import { useTranslation } from "react-i18next";
 
 
 function ContentNew({ content, type, avatarUrl, caption, callbackViewImg }) {
+  const { t } = useTranslation();
 
   const getDataImages = dataImg => {
     return dataImg.map((item, index) => {
       return {
         src: item,
         thumbnail: item,
+        caption: caption + ` - ${t("news_feed.image")} ${index + 1}`,
         height: "auto",
       };
     });
   };
-
-  const renderCaptionImg = (caption, index) => {
-    return (
-      <div>{caption} {index}</div>
-    );
-  };
-
-  const getCustomCaption = dataImg => {
-    return dataImg.map((item, index) => {
-      return {
-        id: index,
-        caption: renderCaptionImg(caption, index),
-      };
-    });
-  };
-
 
   const renderContentImage = dataImg => {
     return dataImg.map((item, index) => {
@@ -57,7 +44,7 @@ function ContentNew({ content, type, avatarUrl, caption, callbackViewImg }) {
   };
 
   const onClickViewImage = (dataImg, index) => {
-    callbackViewImg(getDataImages(dataImg), getCustomCaption(dataImg), index);
+    callbackViewImg(getDataImages(dataImg), index);
   };
 
   return (

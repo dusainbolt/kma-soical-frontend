@@ -22,7 +22,6 @@ function Home() {
   const { openLightbox } = useLightbox();
   const [limit, setLimit] = useState(10);
   const [listIMGView, setListIMGView] = useState([]);
-  const [captionIMGView, setCaptionIMGView] = useState([]);
   const [isView, setIsView] = useState(false);
   const [indexIMG, setIndexIMG] = useState(0);
   const [countView, setCountView] = useState(1);
@@ -37,24 +36,22 @@ function Home() {
   }, [listNewFeed]);
 
   const onViewImg = useCallback(
-    (listIMG, listCaption, index) => {
+    (listIMG, index) => {
       setListIMGView(listIMG);
-      setCaptionIMGView(listCaption);
       setIndexIMG(index);
       setCountView(countView + 1);
       setIsView(true);
     },
-    [listIMGView, captionIMGView, isView, indexIMG]
+    [listIMGView, isView, indexIMG]
   );
 
   useEffect(() => {
-    console.log("on---------------> light boxxxxxxxxxx");
-    if(isView && listIMGView.length && captionIMGView.length){
+    if(isView && listIMGView.length){
       setTimeout(() => {
         openLightbox(indexIMG);
       });
     }
-  }, [isView, listIMGView, captionIMGView, indexIMG]);
+  }, [isView, listIMGView, indexIMG]);
 
   const oncloseLightBox = () => {
     setIsView(false);
@@ -99,7 +96,7 @@ function Home() {
   return (
     <div>
       <FormAddNew />
-      {isView && renderLightBox};
+      {isView && renderLightBox}
       {listNewFeed.length !== 0 && renderListNewFeed()}
       {isLoadingNewFeed && <SkeletonNewFeed />}
     </div>

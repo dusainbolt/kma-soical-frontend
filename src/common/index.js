@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { getI18n } from "react-i18next";
+import { getI18n as i8 } from "react-i18next";
 import { checkStringRange } from "../utils";
 
 //note:
@@ -47,7 +47,7 @@ export const KEY_NOTIFY = {
 
 export const validateFormChangePassword = Yup.object({
   [PARAMS.PASSWORD]: Yup.string()
-    .required(getI18n().t("Vui lòng nhập mật khẩu cũ"))
+    .required(i8().t("Vui lòng nhập mật khẩu cũ"))
     .max(255, "Vui lòng nhập dưới 255 ký tự"),
   [PARAMS.PASSWORD_NEW]: Yup.string()
     .required("Vui lòng nhập mật khẩu mới")
@@ -67,8 +67,8 @@ export const validateMessage = Yup.object({
 
 export const validateLoginCommon = Yup.object({
   email: Yup.string()
-    .required(getI18n().t("msg.msgValidateRequired"))
-    .email(getI18n().t("msg.msgValidateEmail")),
+    .required(i8().t("msg.msgValidateRequired"))
+    .email(i8().t("msg.msgValidateEmail")),
   password: Yup.string().required("please enter password"),
 });
 
@@ -119,23 +119,43 @@ export const SPAN_GALLEY = {
 
 export const TYPE_FEED = {
   IMAGE: 1,
-  VIDEO: 2
+  VIDEO: 2,
 };
 
 export const OPTION_LiGHTBOX = {
   settings: {
-    // overlayColor: "rgb(25, 136, 124)",
+    overlayColor: "rgba(0, 0, 0, 0.79)",
     autoplaySpeed: 1500,
     transitionSpeed: 900,
   },
   buttons: {
-    // backgroundColor: "#1b5245",
-    iconColor: "rgba(126, 172, 139, 0.8)",
+    // backgroundColor: "#e4e4e7",
+    iconColor: "#fea700",
   },
   caption: {
-    captionColor: "#a6cfa5",
+    captionColor: "white",
     captionFontFamily: "Raleway, sans-serif",
-    captionFontWeight: "300",
-    captionTextTransform: "uppercase",
+    captionFontWeight: "600",
+    // captionTextTransform: "uppercase",
   },
+  progressBar: {
+    backgroundColor: "#fea700",
+    fillColor: "#000000",
+    height: "3px",
+    showProgressBar: true,
+  },
+  thumbnails: {
+    thumbnailsContainerBackgroundColor: "rgba(30,30,36,0.8)",
+  },
+  translations: {
+    autoplayText: i8().t("light_box.autoplay"),
+    closeText: i8().t("light_box.close"),
+    downloadText: i8().t("light_box.download"),
+    fullscreenText: i8().t("light_box.fullscreen"),
+    nextText: i8().t("light_box.next"),
+    pauseText: i8().t("light_box.pause"),
+    previousText: i8().t("light_box.previous"),
+    thumbnailsText: i8().t("light_box.thumbnails"),
+    zoomOutText: i8().t("light_box.zoomOut")
+  }
 };

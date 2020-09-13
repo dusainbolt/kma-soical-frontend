@@ -84,9 +84,28 @@ span.anticon-edit{
   color: $primary-color;
 }
 
+
 @media(max-width: $with-mobile){
   .site-layout .site-layout-background {
     padding: 15px;
-    padding-top: 17%;
+    padding-top: 100px;
+  }
+}
+
+.SRLControls{
+  >button{
+    margin-right: 0;
+  }
+}
+
+.SRLThumbnailsContainer{
+  .SRLThumb{
+    opacity: 0.8;
+    border: solid 2px white;
+    border-radius: 10px;
+    margin: 0 3px;
+    &.SRLThumbnailSelected{
+      border: solid 2px $primary-color;
+    }
   }
 }
