@@ -22,12 +22,13 @@ function CommentPost({ listComment, avatarUrl }) {
   const [likes, setLikes] = useState(0);
   const [action, setAction] = useState(null);
   const { t } = useTranslation();
+  const initialVales = { message: "" };
+
   const like = () => {
     setLikes(1);
     setAction("liked");
   };
 
-  const initialVales = { message: "" };
   const [repCommentId, setCommentId] = useState(0);
   const changeRepCommentId = id => () => {
     setCommentId(id);
@@ -97,8 +98,8 @@ function CommentPost({ listComment, avatarUrl }) {
     return listComment.map((item, index) => {
       return (
         // <LazyLoad key={item.id} placeholder={<SkeletonNewFeed />} height={200} throttle={400}>
-        <LazyLoad key={item.id} height={50} throttle={1000}>
-          <FadeIn delay={100 * index} transitionDuration={500}>
+        <LazyLoad key={item.id} height={50} throttle={200}>
+          <FadeIn delay={100} transitionDuration={500}>
             <Comment
               actions={[
                 <Tooltip key="comment-basic-like" title={t("news_feed.like")}>
@@ -110,7 +111,11 @@ function CommentPost({ listComment, avatarUrl }) {
                     )}
                   </span>
                 </Tooltip>,
-                <span className="comment-info" onClick={changeRepCommentId(1)} key="comment-basic-reply-to">
+                <span
+                  className="comment-info"
+                  onClick={changeRepCommentId(1)}
+                  key="comment-basic-reply-to"
+                >
                   {t("news_feed.rep_comment")}
                 </span>,
                 <span key="comment-basic-reply-to">{genderTimeCount(item.created_at)}</span>,

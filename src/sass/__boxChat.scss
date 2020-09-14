@@ -1,0 +1,128 @@
+.box-chat {
+  
+  // padding: 10px;
+  &__top {
+    box-shadow: 1px 1px 5px rgba(170, 170, 170, 0.4);
+    height: 48px;
+    display: flex;
+    align-items: center; 
+    &--icon-back{
+      margin-left: auto;
+      margin-right: 10px;
+      font-size: 25px;
+      transition: .3s;
+      cursor: pointer;
+      >svg{
+        color: $primary-color;
+      }
+      &:hover{
+        >svg{
+          opacity: 0.7;
+        }
+      }
+    }
+    &--avatar{
+      margin-left: 10px;
+    }
+    &--info{
+      margin-left: 10px;
+      display: block;
+      height: 48px;
+      font-size: $font-size + 0.5;
+      padding-top: 4px;
+      line-height: 38px;
+      cursor: pointer;
+      >div:last-child{
+        margin-top: -2px;
+        font-size: $font-size - 1.7;
+        color: $black-color-text;
+      }
+      &.active{
+        line-height: unset;
+      }
+    }
+    .normal{
+      .ant-badge-dot{
+        display: none;
+      }
+    }
+    .active{
+      .ant-badge-dot{
+        display: block;
+        top: 4px;
+        right: 5px;
+        width: 7px;
+        height: 7px;
+        background: $green-color;
+      }
+    }
+  }
+  &__message{
+    height: 35vh;
+    width: 100%;
+    padding: 6px;
+    overflow: auto;
+    .ant-comment{
+      width: 75%;
+    }
+    .ant-comment-inner{
+      padding: 8px 0;
+    }
+    .ant-comment-avatar{
+      min-width: 32px;
+      margin-right: 5px;
+    }
+    .ant-comment-content{
+      background-color: $bg-site-layout;
+      border-radius: 12px;
+      .ant-comment-content-detail{
+        padding: 5px 12px;
+      }
+    }
+    .my-mess{
+      margin-left: auto;
+      .ant-comment-content{
+        background-color: #ffa8016e;
+      }
+    }
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+  }
+  &__bottom{
+    display: flex;
+    margin-top: 4px;
+    height: 50px;
+    width: 100%;
+    bottom: 0;
+    background-color: white;
+    position: absolute;
+    >span.ant-avatar{
+      width: 40px;
+      height: 40px;
+      margin: 0 5px;
+      position: absolute;
+      bottom: 5px;
+    }
+    .input{
+      width: calc(100% - 87px);
+      margin-left: 50px;
+      position: relative;
+      .ant-input{
+        position: absolute;
+        bottom: -5px;
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+    }
+    &--icon-send{
+      position: absolute;
+      bottom: 11px;
+      right: 5px;
+      font-size: 28px;
+      >svg{
+        color: $primary-color;
+      }
+    }
+  }
+}

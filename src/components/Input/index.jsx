@@ -15,12 +15,14 @@ export default function Input({
   isLoading,
   showError = true,
   Icon,
+  refChild,
   callHandleIcon,
   ...props
 }) {
   const errorValidate = errors[field.name] && submitCount > 0;
   const classError = showError && errorValidate ? "error-field" : "";
   const { t } = useTranslation();
+
   return (
     <div className="input">
       {labelTitle && <label>{labelTitle}</label>}
@@ -36,6 +38,7 @@ export default function Input({
       {type === "textarea" && (
         <InputField.TextArea
           className={classError}
+          ref={refChild}
           rows={countRows}
           {...field}
           {...props}

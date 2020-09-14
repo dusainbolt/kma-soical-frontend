@@ -3,7 +3,7 @@ import { Menu } from "antd";
 import { Routes } from "../../Routes";
 import { browserHistory } from "../../utils/history";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-
+import BoxChat from "../../components/BoxChat";
 const icons = {
   manager: UserOutlined,
   task: VideoCameraOutlined,
@@ -46,8 +46,10 @@ function SidebarEvent() {
     // </Menu>
     <div className="side-event">
       <div className="side-event__notify"></div>
-      <div className="side-event__top-dashboard"></div>
-      <div></div>
+      <div className="side-event__top-dashboard side-event__mess-box">
+          {/* <div>Dashboard</div> */}
+          <BoxChat />
+      </div>
     </div>
   );
 }

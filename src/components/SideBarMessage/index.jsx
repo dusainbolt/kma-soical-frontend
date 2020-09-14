@@ -1,9 +1,8 @@
 import React from "react";
-import { Badge, Menu } from "antd";
+import { Badge, Menu, Avatar } from "antd";
 import Input from "../Input";
 import { Field, Formik } from "formik";
 import { useTranslation } from "react-i18next";
-import Avatar from "antd/lib/avatar/avatar";
 import { useSelector } from "react-redux";
 
 function SidebarMessage() {
