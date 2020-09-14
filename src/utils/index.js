@@ -7,6 +7,7 @@ import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
 import moment from "moment";
 import { getI18n as i8 } from "react-i18next";
+import AvatarDefault from "../common/image/avatar-default.png";
 
 export function getTimeNowUnix() {
   return Math.round(new Date().getTime() / 1000);
@@ -295,4 +296,8 @@ export const renderNoteLike = (total, userLike) => {
 
 export const renderNoteComment = total => {
   return `${total} ${i8().t("news_feed.comment")}`;
+};
+
+export const genderAvatarUrl = avatarUrl => {
+  return avatarUrl ? avatarUrl : AvatarDefault;
 };

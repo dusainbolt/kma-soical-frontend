@@ -158,6 +158,12 @@
 
   &__tag{
     margin: 10px 0;
+    >span{
+      cursor: pointer;
+      &:hover{
+        background-color: #ffe9ba;
+      }
+    }
   }
 
   &__content {
@@ -179,7 +185,7 @@
         border-top: 2px solid white;
       }
       .ant-col-12, .ant-col-8, .ant-col-6{
-        .lazyload-wrapper, .lazyload-wrapper >div, .lazyload-wrapper >div>div ,img{
+        .lazyload-wrapper, .lazyload-wrapper >div, .lazyload-wrapper >div >div ,img{
           height: 100%;
         }
       }
@@ -320,6 +326,11 @@
 
     .ant-comment-avatar {
       margin-right: 5px;
+    }
+    
+    .comment-info{
+      font-weight: 700;
+      color: $color-comment-info;
     }
 
   }

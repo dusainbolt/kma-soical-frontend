@@ -5,8 +5,7 @@ import { browserHistory } from "../../utils/history";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined, AppstoreFilled } from "@ant-design/icons";
 import LazyloadImg from "../LazyLoadingImg";
 import { useSelector } from "react-redux";
-import avatarDefault from "../../common/image/avatar-default.png";
-
+import { genderAvatarUrl } from "../../utils";
 const icons = {
   manager: UserOutlined,
   task: VideoCameraOutlined,
@@ -52,7 +51,7 @@ function Sidebar() {
       <div className="side-event__info">
         <LazyloadImg
           className="side-event__info--avatar avatar"
-          src={userDetail?.avatarUrl ? userDetail.avatarUrl : avatarDefault}
+          src={genderAvatarUrl(userDetail?.avatar)}
           alt="avatar"
         />
         <div className="side-event__info--text">

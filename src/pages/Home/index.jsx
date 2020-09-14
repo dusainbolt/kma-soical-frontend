@@ -11,17 +11,16 @@ import LikeInfo from "../../components/News/LikeInfo";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
 import { OPTION_LiGHTBOX } from "../../common";
-import { getArrayImg, renderNotePost, renderNoteLike, renderNoteComment } from "../../utils";
+import { getArrayImg, renderNotePost, renderNoteLike, renderNoteComment, genderAvatarUrl } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useMemo } from "react";
-import avatarDefault from "../../common/image/avatar-default.png";
 
 function Home() {
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
   const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
-  const avatarUrl = avatarReducer ? avatarReducer : avatarDefault;
+  const avatarUrl = genderAvatarUrl(avatarReducer);
   const dispatch = useDispatch();
   const { openLightbox } = useLightbox();
   const [limit, setLimit] = useState(10);
@@ -88,7 +87,7 @@ function Home() {
           <FadeIn delay={100} transitionDuration={500}>
             <div className="form-feed">
               <PostTop
-                avatarUrl={item.avatarUrl ? item.avatarUrl : avatarDefault}
+                avatarUrl={genderAvatarUrl(item.avatarUrl)}
                 fullName={item.fullName}
                 created_at={item.created_at}
                 note={renderNotePost(item.type, item.content, item.subjectName)}
@@ -97,7 +96,7 @@ function Home() {
                 caption={item.caption}
                 callbackViewImg={onViewImg}
                 avatarUrl={item.avatarUrl}
-                tags={item.tag.split(",")}
+                tags={item.tag ? item.tag.split(",") : []}
                 content={getArrayImg(item.content, item.type)}
                 type={item.type}
               />
@@ -109,7 +108,7 @@ function Home() {
                 index={item.id}
               />
               <ActionNew itemNews={item} />
-              { viewComment?.[item.id] && <Comment itemNews={item} /> }
+              { viewComment?.[item.id] && <Comment avatarUrl={avatarUrl} listComment={item?.listComment} /> }
             </div>
           </FadeIn>
         </Lazyload>
