@@ -12,6 +12,7 @@ export default function Input({
   loadingSearch,
   errorSearch,
   IconSearch,
+  isLoading,
   showError = true,
   Icon,
   callHandleIcon,
@@ -40,6 +41,7 @@ export default function Input({
           {...props}
         />
       )}
+      {type === "search" && <InputField.Search {...props} loading={isLoading} />}
       {loadingSearch && <SyncOutlined spin className="input__icon-search" />}
       {errorSearch && !loadingSearch && (
         <>

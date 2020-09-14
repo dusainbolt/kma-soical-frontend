@@ -71,6 +71,10 @@
     "month": "tháng",
     "hours": "giờ"
   },
+  "side_mess": {
+    "place_search_user": "Tìm kiếm theo tên",
+    "people_contact": "Người liên hệ"
+  },
   "light_box": {
     "autoplay": "Phát danh sách",
     "close": "Đóng",

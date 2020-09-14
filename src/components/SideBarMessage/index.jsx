@@ -1,49 +1,54 @@
 import React from "react";
-import { Menu } from "antd";
-import { Routes } from "../../Routes";
-import { browserHistory } from "../../utils/history";
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
-
-const icons = {
-  manager: UserOutlined,
-  task: VideoCameraOutlined,
-  contact: UploadOutlined,
-};
+import { Badge, Menu } from "antd";
+import Input from "../Input";
+import { Field, Formik } from "formik";
+import { useTranslation } from "react-i18next";
+import Avatar from "antd/lib/avatar/avatar";
+import { useSelector } from "react-redux";
 
 function SidebarMessage() {
-
-  const renderMenu = () => {
-    let menu = null;
-    menu = Routes.map((item, index) => {
-      if (index !== 0) {
-        const activeClassMenun =
-          window.location.pathname === item.path ? "ant-menu-item-selected" : "";
-        return (
-          <Menu.Item
-            key={`${item.name}_${index}`}
-            // icon={getIconMenu(item.iconName)}
-            onClick={() => gerRedirect(item.path)}
-            className={activeClassMenun}
-          >
-            {item.name}
-          </Menu.Item>
-        );
-      }
-    });
-    return menu;
-  };
-
-  const gerRedirect = path => {
-    return browserHistory.push(path);
-  };
-  const getIconMenu = iconName => {
-    const Icon = icons[iconName];
-    return icons ? <Icon /> : "";
-  };
+  const { t } = useTranslation();
+  const initialValues = { searchUser: "" };
+  const avatarUrl = useSelector(state => state.loginReducer.userDetail?.avatar);
 
   return (
     <Menu mode="inline" theme="light" className="layout-page-sider-menu">
-      {renderMenu()}
+      {/* {renderMenu()} */}
+      <div className="side-mess__title-mess">{t("side_mess.people_contact")}</div>
+      <Formik initialValues={initialValues}>
+        {({ handleSubmit, setFieldValue, errors, values }) => (
+          <div className="side-mess__search-mess">
+            <Field
+              name="searchUser"
+              maxLength={150}
+              type="search"
+              isLoading={true}
+              placeholder={t("side_mess.place_search_user")}
+              // loadingSearch={loadingDuplicate.email}
+              // IconSearch={CheckCircleOutlined}
+              // errorSearch={errorDuplicate.email}
+              // onBlur={onSearchUser(errors, values.email, "email")}
+              component={Input}
+            />
+          </div>
+        )}
+      </Formik>
+      <Menu.Item>
+        <div className="side-mess__user-wrapper">
+          <Badge dot>
+            <Avatar src={avatarUrl} alt="avatar" />
+          </Badge>
+          <span className="side-mess__user-name">Le Huy Du</span>
+        </div>
+      </Menu.Item>
+      <Menu.Item>
+        <div className="side-mess__user-wrapper">
+          <Badge count={3}>
+            <Avatar src={avatarUrl} alt="avatar" />
+          </Badge>
+          <span className="side-mess__user-name">Le Huy Du</span>
+        </div>
+      </Menu.Item>
     </Menu>
   );
 }

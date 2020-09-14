@@ -122,6 +122,57 @@
   }
 }
 
+
+.side-mess{
+  &__title-mess{
+    margin: 5px 0;
+    font-size: $font-title-small;
+    font-weight: 600;
+    padding: 12px;
+  }
+  &__search-mess{
+    padding: 0 12px;
+    margin-bottom: 20px;
+    .input{
+      margin: auto;
+      .ant-input-search{
+        width: 82%;
+        border-radius: 15px;
+      }
+      .anticon-search{
+        font-size: $font-title-small;
+      }
+      .anticon-loading{
+        font-size: $font-title-small;
+        >svg{
+          color: $primary-color;
+        }
+      }
+      .ant-input-search-icon::before{
+        border-left: unset;
+      }
+    }
+  }
+  &__user-name{
+    margin-left: 15px;
+    font-size: $font-size + 1;
+  }
+  .ant-menu-item{
+    height: 46px !important;
+    padding: 0px 12px !important;
+    .ant-avatar{
+      height: 36px;
+      width: 36px;
+    }
+    .ant-badge-count, .ant-badge-dot, .ant-badge .ant-scroll-number-custom-component{
+      top: 6px;
+      right: 3px;
+      background: $green-color;
+    }
+  }
+}
+
+
 .side-event {
   width: 20%;
   position: fixed;

@@ -70,7 +70,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <Sider className="site-layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
                 <SideBarEvent />
               </Sider>
-              <Sider  className="site-layout__side-mess" trigger={null} collapsible collapsed={collapsed}>
+              <Sider  className="site-layout__side-mess side-mess" trigger={null} collapsible collapsed={collapsed}>
                 <SideBarMessage />
               </Sider>
             </Layout>
