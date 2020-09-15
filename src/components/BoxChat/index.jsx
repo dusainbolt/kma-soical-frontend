@@ -56,7 +56,7 @@ function BoxChat() {
       avatarUrl: AvatarDefault,
       content: "ABCCCCC",
       type: null,
-      userId: 2,
+      userId: 1,
       createAt: 1600134710,
       isRead: null,
     },
@@ -109,8 +109,8 @@ function BoxChat() {
         </Tooltip>
       );
       const nextMess = item.userId === listChat[index-1]?.userId || item.userId === listChat[index+1]?.userId;
-      const firstMess = item.userId !== listChat[index-1]?.userId || item.userId === listChat[index+1]?.userId;
-      const lastMess = item.userId === listChat[index-1]?.userId || item.userId !== listChat[index+1]?.userId;
+      const firstMess = item.userId !== listChat[index-1]?.userId && item.userId === listChat[index+1]?.userId;
+      const lastMess = item.userId === listChat[index-1]?.userId && item.userId !== listChat[index+1]?.userId;
       const className = item.userId === userId ? "my-mess" : "";
       const classNameMessNext = nextMess ? "next-mess" : "";
       const classNameMessFirst = firstMess ? "first-mess" : "";
