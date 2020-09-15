@@ -109,14 +109,19 @@ function BoxChat() {
         </Tooltip>
       );
       const nextMess = item.userId === listChat[index-1]?.userId || item.userId === listChat[index+1]?.userId;
+      const firstMess = item.userId !== listChat[index-1]?.userId || item.userId === listChat[index+1]?.userId;
+      const lastMess = item.userId === listChat[index-1]?.userId || item.userId !== listChat[index+1]?.userId;
       const className = item.userId === userId ? "my-mess" : "";
       const classNameMessNext = nextMess ? "next-mess" : "";
+      const classNameMessFirst = firstMess ? "first-mess" : "";
+      const classNameMessLast = lastMess ? "last-mess": "";
+      const classNameIsRead = item.isRead ? "mess-wait" : "";
       const avatar = className || item.userId === listChat[index-1]?.userId ? [] : genderAvatarUrl(item.avatarUrl);
       return (
         <Comment
           key={index}
           avatar={!className ? avatar.length ? <Avatar src={avatar} alt="avatar" /> : avatar : null}
-          className={`${className} ${classNameMessNext} ${item.isRead ? "mess-wait" : ""}`}
+          className={`${className} ${classNameMessNext} ${classNameIsRead} ${classNameMessFirst} ${classNameMessLast}`}
           content={content}
         />
       );

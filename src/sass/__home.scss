@@ -299,13 +299,14 @@
     .ant-comment-inner {
       padding: 5px 0;
     }
-
+    .ant-comment-content, .ant-comment-content-author, .ant-comment-content-detail{
+      width: max-content;
+    }
     .ant-comment-content-author {
       background-color: $bg-site-layout;
       margin-bottom: 0;
       padding: 5px 0 0 10px;
       border-radius: 8px 8px 0 0;
-
       .ant-comment-content-author-name a {
         color: $black-color;
         font-weight: 600;

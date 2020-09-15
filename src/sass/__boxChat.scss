@@ -66,13 +66,27 @@
       width: 75%;
       &.next-mess{
         .ant-comment-inner{
-          padding: 2px 0;
+          padding: 1px 0;
         }
+        .ant-comment-content{
+          border-top-left-radius: 0px;
+          border-bottom-left-radius: 0px;
+        };
       }
       &.mess-wait{
         .ant-comment-content{
           background-color: rgba(55, 236, 128, 0.58);
         }
+      }
+      &.first-mess{
+        .ant-comment-content{
+          border-top-left-radius: 15px;
+        };
+      }
+      &.last-mess{
+        .ant-comment-content{
+          border-bottom-left-radius: 15px;
+        };
       }
     }
     .ant-comment-inner{
@@ -84,7 +98,7 @@
     }
     .ant-comment-content{
       background-color: $bg-site-layout;
-      border-radius: 8px;
+      border-radius: 15px;
       .ant-comment-content-detail{
         padding: 5px 12px;
       }
@@ -100,6 +114,24 @@
       .ant-comment-content{
         background-color: #ffa8016e;
       }
+      &.next-mess{
+        .ant-comment-content{
+          border-top-right-radius: 0px;
+          border-bottom-right-radius: 0px;
+          border-top-left-radius: 15px;
+          border-bottom-left-radius: 15px;
+        };
+      }
+      &.first-mess{
+        .ant-comment-content{
+          border-top-right-radius: 15px;
+        };
+      }
+      &.last-mess{
+        .ant-comment-content{
+          border-bottom-right-radius: 15px;
+        };
+      } 
     }
     &::-webkit-scrollbar {
       width: 2px;
