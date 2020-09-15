@@ -64,29 +64,59 @@
     overflow: auto;
     .ant-comment{
       width: 75%;
+      &.next-mess{
+        .ant-comment-inner{
+          padding: 2px 0;
+        }
+      }
+      &.mess-wait{
+        .ant-comment-content{
+          background-color: rgba(55, 236, 128, 0.58);
+        }
+      }
     }
     .ant-comment-inner{
       padding: 8px 0;
     }
     .ant-comment-avatar{
-      min-width: 32px;
+      width: 32px;
       margin-right: 5px;
     }
     .ant-comment-content{
       background-color: $bg-site-layout;
-      border-radius: 12px;
+      border-radius: 8px;
       .ant-comment-content-detail{
         padding: 5px 12px;
       }
     }
+    .ant-comment-inner, .ant-comment-content, .ant-comment-content-detail, .ant-comment-content-detail > p{
+      width: max-content;
+    }
     .my-mess{
       margin-left: auto;
+      .ant-comment-inner{
+        margin-left: auto;
+      }
       .ant-comment-content{
         background-color: #ffa8016e;
       }
     }
     &::-webkit-scrollbar {
       width: 2px;
+    }
+
+    .ant-spin-container{
+      width: 100%;
+      margin-left: auto;
+      width: 100%;
+      .my-mess, .my-mess .ant-comment-inner, .my-mess .ant-comment-content-detail{
+        width: 100%;
+      }
+      
+    }
+    .spin-load, .ant-spin-nested-loading{
+      margin-left: auto;
+      width: 75%;
     }
   }
   &__bottom{
@@ -126,3 +156,13 @@
     }
   }
 }
+
+.box-chat{
+  .spin-load{
+    width: max-content;
+    .my-mess{
+      width: max-content;
+    }
+  }
+}
+

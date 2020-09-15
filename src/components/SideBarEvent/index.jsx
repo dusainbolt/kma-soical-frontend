@@ -47,8 +47,8 @@ function SidebarEvent() {
     <div className="side-event">
       <div className="side-event__notify"></div>
       <div className="side-event__top-dashboard side-event__mess-box">
-          {/* <div>Dashboard</div> */}
-          <BoxChat />
+        {/* <div>Dashboard</div> */}
+        <BoxChat />
       </div>
     </div>
   );
