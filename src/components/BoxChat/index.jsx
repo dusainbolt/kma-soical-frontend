@@ -36,8 +36,12 @@ function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
       setHeightBox(height);
       chatBottomContainer.current.style.height = `${heightCtn}px`;
       boxMessage.current.style.height = `${heightMess}px`;
-      // boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
     });
+  };
+
+  const setHeightChatBox = (heightBottom, heightBox) => {
+    chatBottomContainer.current.style.height = `${heightBottom}px`;
+    boxMessage.current.style.height = `${heightBox}px`;
   };
 
   const onSubmit = (values, { resetForm }) => {
@@ -45,9 +49,10 @@ function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
     resetForm();
     const htmlLoad = [<Comment key={countLoad} className="my-mess next-mess" content={values.message} />];
     setArrayLoad(oldArray => oldArray.concat(htmlLoad));
-
     setCountLoad(countLoad + 1);
     callbackSendMessage({ ...values, indexLoad: countLoad });
+    setHeightChatBox(50, 343);
+    setHeightBox(41);
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   };
 
