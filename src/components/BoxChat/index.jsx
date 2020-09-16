@@ -5,16 +5,16 @@ import { DownCircleFilled, SendOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { validateMessage, TYPE_FEED } from "../../common";
 import { Field, Formik } from "formik";
-import { genderAvatarUrl } from "../../utils";
+import { genderAvatarUrl, filterArray } from "../../utils";
 import Input from "../Input";
 
-function BoxChat({ idBoxChat, callbackSendMessage }) {
+function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
   const { t } = useTranslation();
   const chatBottomContainer = useRef(null);
   const boxMessage = useRef(null);
   const [heightBox, setHeightBox] = useState(41);
-  const [arrayLoad, setArrayLoad] = useState([]); 
-  const [countLoad, setCountLoad] = useState(0);
+  const [arrayLoad, setArrayLoad] = useState([]);
+  const [countLoad, setCountLoad] = useState(1);
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
@@ -23,7 +23,6 @@ function BoxChat({ idBoxChat, callbackSendMessage }) {
   };
 
   const userId = 2;
-
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
     const heightMessage = boxMessage.current.clientHeight;
@@ -38,21 +37,23 @@ function BoxChat({ idBoxChat, callbackSendMessage }) {
       chatBottomContainer.current.style.height = `${heightCtn}px`;
       boxMessage.current.style.height = `${heightMess}px`;
       // boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
-    }, 1);
+    });
   };
 
   const onSubmit = (values, { resetForm }) => {
-    if(!values.message) return;
+    if (!values.message) return;
     resetForm();
-    const itemMessLoad = (
-      <Comment className="my-mess next-mess" content={values.message} />
-    );
-    arrayLoad[countLoad] = itemMessLoad;
-    setArrayLoad(arrayLoad);
+    const htmlLoad = [<Comment key={countLoad} className="my-mess next-mess" content={values.message} />];
+    setArrayLoad(oldArray => oldArray.concat(htmlLoad));
+
     setCountLoad(countLoad + 1);
     callbackSendMessage({ ...values, indexLoad: countLoad });
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   };
+
+  useEffect(()=>{
+    indexLoad && setArrayLoad(filterArray(arrayLoad, "key", indexLoad.toString()));
+  },[indexLoad]);
 
   const listChat = [
     {
@@ -127,15 +128,21 @@ function BoxChat({ idBoxChat, callbackSendMessage }) {
           <div>{item.content}</div>
         </Tooltip>
       );
-      const nextMess = item.userId === listChat[index-1]?.userId || item.userId === listChat[index+1]?.userId;
-      const firstMess = item.userId !== listChat[index-1]?.userId && item.userId === listChat[index+1]?.userId;
-      const lastMess = item.userId === listChat[index-1]?.userId && item.userId !== listChat[index+1]?.userId;
+      const nextMess =
+        item.userId === listChat[index - 1]?.userId || item.userId === listChat[index + 1]?.userId;
+      const firstMess =
+        item.userId !== listChat[index - 1]?.userId && item.userId === listChat[index + 1]?.userId;
+      const lastMess =
+        item.userId === listChat[index - 1]?.userId && item.userId !== listChat[index + 1]?.userId;
       const className = item.userId === userId ? "my-mess" : "";
       const classNameMessNext = nextMess ? "next-mess" : "";
       const classNameMessFirst = firstMess ? "first-mess" : "";
-      const classNameMessLast = lastMess ? "last-mess": "";
+      const classNameMessLast = lastMess ? "last-mess" : "";
       const classNameIsRead = item.isRead ? "mess-wait" : "";
-      const avatar = className || item.userId === listChat[index-1]?.userId ? [] : genderAvatarUrl(item.avatarUrl);
+      const avatar =
+        className || item.userId === listChat[index - 1]?.userId
+          ? []
+          : genderAvatarUrl(item.avatarUrl);
       return (
         <Comment
           key={index}
@@ -147,19 +154,21 @@ function BoxChat({ idBoxChat, callbackSendMessage }) {
     });
   }, [listChat]);
 
-  const renderMessageLoad = useMemo(()=>{
-    return arrayLoad.map((item, index)=>{
+  const renderMessageLoad = useMemo(() => {
+    console.log(arrayLoad);
+    return arrayLoad.map((item, index) => {
       return (
         <Spin indicator={null} key={index} className="spin-load">
           {item}
         </Spin>
       );
     });
-  });
+  },[arrayLoad]);
 
   useEffect(() => {
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   }, [boxMessage]);
+  console.log("-------------->index", indexLoad);
 
   return (
     <div className="box-chat">

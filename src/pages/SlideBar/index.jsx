@@ -2,7 +2,12 @@ import React from "react";
 import { Menu } from "antd";
 import { Routes } from "../../Routes";
 import { browserHistory } from "../../utils/history";
-import { UploadOutlined, UserOutlined, VideoCameraOutlined, AppstoreFilled } from "@ant-design/icons";
+import {
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+  AppstoreFilled,
+} from "@ant-design/icons";
 import LazyloadImg from "../../components/LazyLoadingImg";
 import { useSelector } from "react-redux";
 import { genderAvatarUrl } from "../../utils";
@@ -13,9 +18,7 @@ const icons = {
 };
 
 function Sidebar() {
-
   const userDetail = useSelector(state => state.loginReducer.userDetail);
-
 
   const renderMenu = () => {
     let menu = null;
@@ -60,10 +63,12 @@ function Sidebar() {
         </div>
       </div>
       {/* {renderMenu()} */}
-      <Menu.Item icon={<AppstoreFilled />} title="Trang chủ" className="ant-menu-item-selected">Trang chủ</Menu.Item>
+      <Menu.Item icon={<AppstoreFilled />} title="Trang chủ" className="ant-menu-item-selected">
+        Trang chủ
+      </Menu.Item>
       <Menu.Item icon={<AppstoreFilled />}>Bạn bè</Menu.Item>
       <Menu.Item icon={<AppstoreFilled />}>Top bài viết</Menu.Item>
-      <Menu.Item icon={<AppstoreFilled />} >Ảnh</Menu.Item>
+      <Menu.Item icon={<AppstoreFilled />}>Ảnh</Menu.Item>
       <Menu.Item icon={<AppstoreFilled />}>Video</Menu.Item>
     </Menu>
   );

@@ -1,18 +1,18 @@
 import io from "socket.io-client";
 import { SOCKET } from "../common";
-
+import { actionsSocket as actions } from "../pages/Layout/actions";
 let socket = null;
 
-function initSocket(callbackMessage) {
+function initSocket(dispatch) {
   console.log(SOCKET.API_URL);
   socket = io(SOCKET.API_URL);
   socket.on("connect", () => {
     console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
     // socket.emit("join-room", userId.toString());
-    getMessage(callbackMessage);
-    getMessage1(callbackMessage);
+    // getMessage(callbackMessage);
+    // getMessage1(callbackMessage);
+    getMessage(dispatch);
   });
-
   connectSocketError();
 }
 
@@ -23,10 +23,10 @@ function connectSocketError() {
   });
 }
 
-function getMessage(callbackMessage) {
+function getMessage(dispatch) {
   socket.on("__chatSocket", res => {
     console.log("----->Data", res);
-    callbackMessage(res.data);
+    dispatch(actions.getMessageSocket(res.data));
   });
 }
 function getMessage1(callbackMessage) {

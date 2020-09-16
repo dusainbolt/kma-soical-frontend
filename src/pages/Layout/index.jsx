@@ -9,6 +9,7 @@ import SideBarEvent from "../SideBarEvent";
 import SideBarMessage from "../../components/SideBarMessage";
 import { END_MOBILE_PIXEL } from "../../common";
 import "./index.scss";
+import { initSocket } from "../../utils/socket";
 import { actions } from "./actions";
 import api from "../../services/api";
 
@@ -31,13 +32,13 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     if (!token) {
       browserHistory.push("/welcome");
     }else{
-      console.log("---------------------->Token", token);
       api.setAuthRequest(token);
     }
   }, [token]);
 
   useEffect(() => {
     // componentDidMount events
+    initSocket(dispatch);
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     return () => {
@@ -50,7 +51,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     const isMobileCheck = window.innerWidth < END_MOBILE_PIXEL;
     dispatch(actions.changeScreenPixel(isMobileCheck));
   };
-
+  
   return (
     <Route
       {...remainProps}

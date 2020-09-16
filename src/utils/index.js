@@ -301,3 +301,7 @@ export const renderNoteComment = total => {
 export const genderAvatarUrl = avatarUrl => {
   return avatarUrl ? avatarUrl : AvatarDefault;
 };
+
+export const filterArray = (arr, conditionName, conditionValue) => {
+  return arr.filter(item => item[conditionName] !== conditionValue);
+};

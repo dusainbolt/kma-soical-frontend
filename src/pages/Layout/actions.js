@@ -6,7 +6,8 @@ export const ActionTypes = {
   POST_LOGOUT_START: "POST_LOGOUT_START",
   POST_LOGOUT_SUCCESS: "POST_LOGOUT_SUCCESS",
   POST_LOGOUT_ERROR: "POST_LOGOUT_ERROR",
-  CHANGE_SCREEN_PIXEL: "CHANGE_SCREEN_PIXEL"
+  CHANGE_SCREEN_PIXEL: "CHANGE_SCREEN_PIXEL",
+  GET_MESSAGE_SOCKET: "GET_MESSAGE_SOCKET",
 };
 
 export const actions = {
@@ -54,3 +55,11 @@ export const actions = {
   }
 };
 
+export const actionsSocket = {
+  getMessageSocket: function (payload) {
+    return {
+      type: ActionTypes.GET_MESSAGE_SOCKET,
+      payload,
+    };
+  }
+};
