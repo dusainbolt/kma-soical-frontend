@@ -4,7 +4,7 @@ import { getListFriendsAPI } from "../../services/UserRequest";
 
 function* getListFriends(action) {
   try {
-    const response = yield getListFriendsAPI(action.body);
+    const response = yield getListFriendsAPI(action.params);
     if (response.meta.code === 0) {
       yield put(actions.getListFriendsSuccess(response.data));
     } else {

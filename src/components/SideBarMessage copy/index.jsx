@@ -13,10 +13,10 @@ function SidebarMessage() {
   return (
     <Menu mode="inline" theme="light" className="layout-page-sider-menu">
       {/* {renderMenu()} */}
-      <div className="side-mess__title-mess">{t("side_mess.people_contact")}</div>
+      <div className="side-friends__title-mess">{t("side_mess.people_contact")}</div>
       <Formik initialValues={initialValues}>
         {({ handleSubmit, setFieldValue, errors, values }) => (
-          <div className="side-mess__search-mess">
+          <div className="side-friends__search-mess">
             <Field
               name="searchUser"
               maxLength={150}
@@ -33,19 +33,19 @@ function SidebarMessage() {
         )}
       </Formik>
       <Menu.Item>
-        <div className="side-mess__user-wrapper">
+        <div className="side-friends__user-wrapper">
           <Badge dot>
             <Avatar src={avatarUrl} alt="avatar" />
           </Badge>
-          <span className="side-mess__user-name">Le Huy Du</span>
+          <span className="side-friends__user-name">Le Huy Du</span>
         </div>
       </Menu.Item>
       <Menu.Item>
-        <div className="side-mess__user-wrapper">
+        <div className="side-friends__user-wrapper">
           <Badge count={3}>
             <Avatar src={avatarUrl} alt="avatar" />
           </Badge>
-          <span className="side-mess__user-name">Le Huy Du</span>
+          <span className="side-friends__user-name">Le Huy Du</span>
         </div>
       </Menu.Item>
     </Menu>

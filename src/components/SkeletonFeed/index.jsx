@@ -1,7 +1,8 @@
 import React from "react";
 import { Skeleton } from "antd";
 import Dot from "../Dot";
-function FormAddNew() {
+
+function LoadingFeed() {
 
   return (
     <div className="form-feed skeleton">
@@ -12,4 +13,4 @@ function FormAddNew() {
     </div>
   );
 }
-export default FormAddNew;
+export default LoadingFeed;

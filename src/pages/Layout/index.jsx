@@ -16,6 +16,7 @@ const { Header, Content, Sider } = Layout;
 
 function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const token = useSelector(state => state.loginReducer.token);
+  const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
 
@@ -37,7 +38,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
 
   useEffect(() => {
     // componentDidMount events
-    initSocket(dispatch);
+    initSocket(dispatch, userId);
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     return () => {
@@ -70,7 +71,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <Sider className="site-layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
                 <SideBarEvent />
               </Sider>
-              <Sider  className="site-layout__side-mess side-mess" trigger={null} collapsible collapsed={collapsed}>
+              <Sider  className="site-layout__side-friends side-friends" trigger={null} collapsible collapsed={collapsed}>
                 <SideBarMessage />
               </Sider>
             </Layout>

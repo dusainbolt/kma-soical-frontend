@@ -9,6 +9,11 @@ import moment from "moment";
 import { getI18n as i8 } from "react-i18next";
 import AvatarDefault from "../common/image/avatar-default.png";
 
+
+export const renderErrorSearch = className => {
+  return <div className={`side-friends__search-mess--error ${className}`}>{i8().t("list_friends.err_search")}</div>;
+};
+
 export function getTimeNowUnix() {
   return Math.round(new Date().getTime() / 1000);
 }

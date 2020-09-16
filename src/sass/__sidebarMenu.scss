@@ -108,7 +108,7 @@
 
 .layout {
   .site-layout {
-    &__side-mess {
+    &__side-friends {
       max-width: 250px !important;
       min-width: 250px !important;
     }
@@ -116,14 +116,14 @@
       max-width: 20% !important;
       min-width: 20% !important;
     }
-    &__side-left, &__side-mess, &__side-bg{
+    &__side-left, &__side-friends, &__side-bg{
       padding-top: 64px;
     }
   }
 }
 
 
-.side-mess{
+.side-friends{
   &__title-mess{
     margin: 5px 0;
     font-size: $font-title-small;
@@ -152,14 +152,22 @@
         border-left: unset;
       }
     }
+    &--error{
+      text-align: center;
+      color: $primary-color;
+      &.search-list-friends{
+        position: absolute;
+        left: 12.5%;
+      }
+    }
   }
   &__user-name{
     margin-left: 15px;
     font-size: $font-size + 1;
   }
-  .ant-menu-item{
-    height: 46px !important;
-    padding: 0px 12px !important;
+  &__list{
+    max-height: 550px;
+    overflow: auto;
     .ant-avatar{
       height: 36px;
       width: 36px;
@@ -171,6 +179,16 @@
     }
     .ant-badge-count{
       background-color: $red-color;
+    }
+  }
+
+  &__user-wrapper{
+    height: 55px;
+    padding: 10px 12px;
+    transition: .3s;
+    cursor: pointer;
+    &:hover{
+      background-color: $primary-color-light;
     }
   }
 }
@@ -248,7 +266,7 @@
 @media(max-width: $width-pc){
   .layout {
     .site-layout {
-      &__side-mess, &__side-bg{
+      &__side-friends, &__side-bg{
         display: none;
       }
     }
@@ -258,7 +276,7 @@
 @media(max-width: $with-tablet){
   .layout {
     .site-layout {
-      &__side-mess, &__side-left, &__side-bg{
+      &__side-friends, &__side-left, &__side-bg{
         display: none;
       }
     }

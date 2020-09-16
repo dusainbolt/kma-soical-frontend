@@ -104,6 +104,16 @@
   }
 }
 
+.load-comment{
+  &.load-list-user{
+    padding-left: 12px;
+    .ant-skeleton-avatar-circle{
+      width: 36px;
+      height: 36px;
+    }
+  }
+};
+
 @keyframes dot {
   0% {
     transform: translateY(0);

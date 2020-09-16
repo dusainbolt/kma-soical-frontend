@@ -8,64 +8,69 @@ import { useEffect } from "react";
 import { actions } from "./actions";
 import { LIMIT } from "../../common";
 import { useMemo } from "react";
-import { genderAvatarUrl } from "../../utils";
+import { genderAvatarUrl, renderErrorSearch } from "../../utils";
+import LoadComment from "../../components/LoadComment";
 import FadeIn from "react-fade-in";
 
 function SidebarMessage() {
   const { t } = useTranslation();
-  const initialValues = { searchUser: "" };
+  const initialValues = { searchText: "" };
   const loadingListUser = useSelector(state => state.sideBarMessage.loadingListUser);
   const listFriends = useSelector(state => state.sideBarMessage.listFriends);
+  const [searchText, setSearchText] = useState("");
   const [limit, setLimit] = useState(LIMIT.LIST_USER);
   const [offset, setOffset] = useState(0);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.getListFriendsStart({ limit, offset }));
-  }, []);
+    dispatch(actions.getListFriendsStart({ limit, offset, searchText }));
+  }, [searchText]);
 
   const renderListFriends = useMemo(() => {
-    if (!listFriends.length) return "Khong co ket qua nao";
+    if (!listFriends.length) return renderErrorSearch("search-list-friends");
     return listFriends.map((item, index) => {
       return (
-        <Menu.Item key={index}>
-          <FadeIn delay={100 * index} transitionDuration={300}>
-            <div className="side-mess__user-wrapper">
-              <Badge dot={null} count={null}>
-                <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
-              </Badge>
-              <span className="side-mess__user-name">{item.fullName}</span>
-            </div>
-          </FadeIn>
-        </Menu.Item>
+        <FadeIn key={index} delay={100 * index} transitionDuration={300}>
+          <div className="side-friends__user-wrapper">
+            <Badge dot={null} count={null}>
+              <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
+            </Badge>
+            <span className="side-friends__user-name">{item.fullName}</span>
+          </div>
+        </FadeIn>
       );
     });
   }, [listFriends]);
 
+  const onSearchFriends = (setFieldValue, name) => e => {
+    const value = e.target.value;
+    setFieldValue(name, value);
+    setSearchText(value);
+  };
+
   return (
     <Menu mode="inline" theme="light" className="layout-page-sider-menu">
-      {/* {renderMenu()} */}
-      <div className="side-mess__title-mess">{t("side_mess.people_contact")}</div>
+      <div className="side-friends__title-mess">{t("side_mess.people_contact")}</div>
       <Formik initialValues={initialValues}>
-        {({ handleSubmit, setFieldValue, errors, values }) => (
-          <div className="side-mess__search-mess">
+        {({ setFieldValue }) => (
+          <div className="side-friends__search-mess">
             <Field
-              name="searchUser"
+              name="searchText"
               maxLength={150}
               type="search"
-              isLoading={true}
+              onChange={onSearchFriends(setFieldValue, "searchText")}
+              isLoading={loadingListUser}
               placeholder={t("side_mess.place_search_user")}
-              // loadingSearch={loadingDuplicate.email}
-              // IconSearch={CheckCircleOutlined}
-              // errorSearch={errorDuplicate.email}
-              // onBlur={onSearchUser(errors, values.email, "email")}
               component={Input}
             />
           </div>
         )}
       </Formik>
-      {!loadingListUser && renderListFriends}
-        <div className="side-mess__search-mess--error">{t("list_friends.err_search")}</div>
+      {loadingListUser ? (
+        <LoadComment total={5} className={"load-list-user"} />
+      ) : (
+        <div className="side-friends__list">{renderListFriends}</div>
+      )}
     </Menu>
   );
 }
