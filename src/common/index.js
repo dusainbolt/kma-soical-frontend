@@ -123,6 +123,12 @@ export const TYPE_FEED = {
   VIDEO: 2,
 };
 
+export const LIMIT = {
+  LIST_USER: 10,
+  LIST_COMMENT: 10,
+  LIST_CHAT: 15,
+};
+
 export const OPTION_LiGHTBOX = {
   settings: {
     overlayColor: "rgba(0, 0, 0, 0.79)",

@@ -78,6 +78,9 @@
   "box-chat": {
     "close": "Ẩn tin nhắn"
   },
+  "list_friends": {
+    "err_search": "Không tìm thấy kết quả nào"
+  },
   "light_box": {
     "autoplay": "Phát danh sách",
     "close": "Đóng",

@@ -20,6 +20,10 @@ export const postLogoutAPI = body => {
   return api.post("/user/logout", body);
 };
 
-export const sendMessageAPI = params => {
-  return api.post("/admin/chat", params);
+export const sendMessageAPI = body => {
+  return api.post("/admin/chat", body);
+};
+
+export const getListFriendsAPI = params => {
+  return api.get("/user/list_friends", params);
 };

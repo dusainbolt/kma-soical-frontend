@@ -34,12 +34,6 @@ function Home() {
     dispatch(actions.getNewFeedStart({ limit }));
   }, [limit]);
 
-  useEffect(() => {
-    if (listNewFeed.length) {
-      console.log(listNewFeed);
-    }
-  }, [listNewFeed]);
-
   const onViewImg = useCallback(
     (listIMG, index) => {
       setListIMGView(listIMG);
@@ -67,6 +61,7 @@ function Home() {
     for (let i = 1; i <= countView; i++) {
       result.push(
         <SRLWrapper
+          key={i}
           onLightboxClosed={oncloseLightBox}
           options={OPTION_LiGHTBOX}
           images={listIMGView}

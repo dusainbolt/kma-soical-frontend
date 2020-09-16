@@ -8,13 +8,14 @@ import { Field, Formik } from "formik";
 import { genderAvatarUrl, filterArray } from "../../utils";
 import Input from "../Input";
 
-function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
+function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad }) {
   const { t } = useTranslation();
   const chatBottomContainer = useRef(null);
   const boxMessage = useRef(null);
   const [heightBox, setHeightBox] = useState(41);
   const [arrayLoad, setArrayLoad] = useState([]);
   const [countLoad, setCountLoad] = useState(1);
+  const [isChange, setIsChange] = useState(false);
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
@@ -60,71 +61,6 @@ function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
     indexLoad && setArrayLoad(filterArray(arrayLoad, "key", indexLoad.toString()));
   },[indexLoad]);
 
-  const listChat = [
-    {
-      avatarUrl: AvatarDefault,
-      content: "ABCCCCC",
-      type: null,
-      userId: 1,
-      createAt: 1600134710,
-      isRead: null,
-    },
-    {
-      avatarUrl: AvatarDefault,
-      content: "ABC 2",
-      type: null,
-      userId: 1,
-      createAt: 1600134710,
-      isRead: null,
-    },
-    {
-      avatarUrl: AvatarDefault,
-      content: "ABCCsssssssssssssssssssssCCC",
-      type: null,
-      userId: 1,
-      createAt: 1600134710,
-      isRead: null,
-    },
-    {
-      avatarUrl: AvatarDefault,
-      content: "Hello KMA-social, my name is Du. I'm verry happy for your app",
-      type: null,
-      userId: 1,
-      createAt: 1600134710,
-      isRead: null,
-    },
-    {
-      avatarUrl: AvatarDefault,
-      content: "Hello KMA-social, my name is Du. I'm verry happy for your app",
-      type: null,
-      userId: 2,
-      createAt: 1600134710,
-      isRead: null,
-    },
-    {
-      avatarUrl: AvatarDefault,
-      content: "ABC2",
-      type: null,
-      userId: 2,
-      createAt: 1600134710,
-      isRead: null,
-    },
-    {
-      avatarUrl: AvatarDefault,
-      content: "ABCCCCC",
-      type: null,
-      userId: 1,
-      createAt: 1600134710,
-      isRead: 1,
-    },
-    {
-      avatarUrl: AvatarDefault,
-      content: "ABC 2s ssssssssssssssssssssssssssssssssss",
-      userId: 1,
-      createAt: 1600134710,
-      isRead: 1,
-    },
-  ];
 
   const renderBoxmessage = useMemo(() => {
     return listChat.map((item, index) => {
@@ -148,6 +84,9 @@ function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
         className || item.userId === listChat[index - 1]?.userId
           ? []
           : genderAvatarUrl(item.avatarUrl);
+      if(index === listChat.length - 1){
+        setIsChange(true);
+      }   
       return (
         <Comment
           key={index}
@@ -159,8 +98,16 @@ function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
     });
   }, [listChat]);
 
+  useEffect(()=>{
+    if(isChange){
+      setTimeout(()=>{
+        boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
+        setIsChange(false);
+      });
+    }
+  });
+
   const renderMessageLoad = useMemo(() => {
-    console.log(arrayLoad);
     return arrayLoad.map((item, index) => {
       return (
         <Spin indicator={null} key={index} className="spin-load">
@@ -173,7 +120,6 @@ function BoxChat({ idBoxChat, callbackSendMessage, indexLoad }) {
   useEffect(() => {
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   }, [boxMessage]);
-  console.log("-------------->index", indexLoad);
 
   return (
     <div className="box-chat">

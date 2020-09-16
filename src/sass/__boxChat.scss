@@ -101,12 +101,12 @@
       margin-right: 5px;
     }
     .ant-comment-content-detail{
-      max-width: 90%;
       background-color: $bg-site-layout;
       border-radius: 15px;
+      max-width: 250px;
+
       >div{
         min-width: 1px;
-        max-width: 300px;
         padding: 5px 12px;
       }
     }

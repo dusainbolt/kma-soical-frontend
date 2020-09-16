@@ -1,6 +1,6 @@
 import React from "react";
 import { Badge, Menu, Avatar } from "antd";
-import Input from "../Input";
+import Input from "../../components/Input";
 import { Field, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
