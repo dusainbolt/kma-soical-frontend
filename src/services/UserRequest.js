@@ -19,3 +19,7 @@ export const postLoginAPI = body => {
 export const postLogoutAPI = body => {
   return api.post("/user/logout", body);
 };
+
+export const sendMessageAPI = params => {
+  return api.post("/admin/chat", params);
+};

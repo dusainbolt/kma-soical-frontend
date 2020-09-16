@@ -2,7 +2,7 @@
   
   // padding: 10px;
   &__top {
-    box-shadow: 1px 1px 5px rgba(170, 170, 170, 0.4);
+    box-shadow: 0px 2px 5px rgba(170, 170, 170, 0.5);
     height: 48px;
     display: flex;
     align-items: center; 
@@ -62,29 +62,33 @@
     width: 100%;
     padding: 6px;
     overflow: auto;
+
     .ant-comment{
       width: 75%;
+      .ant-comment-content{
+        width: 75%;
+      }
       &.next-mess{
         .ant-comment-inner{
           padding: 1px 0;
         }
-        .ant-comment-content{
+        .ant-comment-content-detail{
           border-top-left-radius: 0px;
           border-bottom-left-radius: 0px;
         };
       }
       &.mess-wait{
-        .ant-comment-content{
+        .ant-comment-content-detail{
           background-color: rgba(55, 236, 128, 0.58);
         }
       }
       &.first-mess{
-        .ant-comment-content{
+        .ant-comment-content-detail{
           border-top-left-radius: 15px;
         };
       }
       &.last-mess{
-        .ant-comment-content{
+        .ant-comment-content-detail{
           border-bottom-left-radius: 15px;
         };
       }
@@ -96,39 +100,48 @@
       width: 32px;
       margin-right: 5px;
     }
-    .ant-comment-content{
+    .ant-comment-content-detail{
+      max-width: 90%;
       background-color: $bg-site-layout;
       border-radius: 15px;
-      .ant-comment-content-detail{
+      >div{
+        min-width: 1px;
+        max-width: 300px;
         padding: 5px 12px;
       }
     }
-    .ant-comment-inner, .ant-comment-content, .ant-comment-content-detail, .ant-comment-content-detail > p{
+    .ant-comment-inner, .ant-comment-content{
       width: max-content;
     }
-    .my-mess{
+    .my-mess, .spin-load{
       margin-left: auto;
       .ant-comment-inner{
         margin-left: auto;
       }
-      .ant-comment-content{
+      .ant-comment-content-detail{
         background-color: #ffa8016e;
+        margin-left: auto;
       }
       &.next-mess{
-        .ant-comment-content{
+        .ant-comment-content-detail{
           border-top-right-radius: 0px;
           border-bottom-right-radius: 0px;
           border-top-left-radius: 15px;
           border-bottom-left-radius: 15px;
+          >div{
+            min-width: 1px;
+            max-width: 250px;
+          }
         };
       }
       &.first-mess{
-        .ant-comment-content{
+        margin-top: 10px;
+        .ant-comment-content-detail{
           border-top-right-radius: 15px;
         };
       }
       &.last-mess{
-        .ant-comment-content{
+        .ant-comment-content-detail{
           border-bottom-right-radius: 15px;
         };
       } 
@@ -138,17 +151,10 @@
     }
 
     .ant-spin-container{
-      width: 100%;
-      margin-left: auto;
-      width: 100%;
-      .my-mess, .my-mess .ant-comment-inner, .my-mess .ant-comment-content-detail{
-        width: 100%;
+      .ant-comment-content-detail{
+        max-width: 250px;
+        padding: 5px 12px;
       }
-      
-    }
-    .spin-load, .ant-spin-nested-loading{
-      margin-left: auto;
-      width: 75%;
     }
   }
   &__bottom{
@@ -188,13 +194,3 @@
     }
   }
 }
-
-.box-chat{
-  .spin-load{
-    width: max-content;
-    .my-mess{
-      width: max-content;
-    }
-  }
-}
-

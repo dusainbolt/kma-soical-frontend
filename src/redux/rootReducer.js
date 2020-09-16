@@ -5,6 +5,7 @@ import registerReducer from "../pages/Register/reducer";
 import layoutReducer from "../pages/Layout/reducer";
 import confirmReducer from "../pages/ConfirmCodeForm/reducer";
 import newFeedReducer from "../pages/Home/reducer";
+import sideEvent from "../pages/SideBarEvent/reducer";
 
 export default combineReducers({
   loginReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   registerReducer,
   confirmReducer,
   newFeedReducer,
+  sideEvent,
 });

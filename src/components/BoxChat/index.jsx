@@ -1,23 +1,29 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import { Badge, Avatar, Comment, Tooltip, Spin } from "antd";
 import AvatarDefault from "../../common/image/avatar-default.png";
 import { DownCircleFilled, SendOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { validateMessage } from "../../common";
+import { validateMessage, TYPE_FEED } from "../../common";
 import { Field, Formik } from "formik";
 import { genderAvatarUrl } from "../../utils";
 import Input from "../Input";
-import { useEffect } from "react";
-import { useMemo } from "react";
 
-function BoxChat() {
+function BoxChat({ idBoxChat, callbackSendMessage }) {
   const { t } = useTranslation();
-  const initialVales = { message: "" };
   const chatBottomContainer = useRef(null);
   const boxMessage = useRef(null);
   const [heightBox, setHeightBox] = useState(41);
-  const [userIdChat, setUserIdChat] = useState(0);
+  const [arrayLoad, setArrayLoad] = useState([]); 
+  const [countLoad, setCountLoad] = useState(0);
+  const initialVales = {
+    message: "",
+    type: TYPE_FEED.TEXT,
+    userId: 1,
+    idBoxChat: 2,
+  };
+
   const userId = 2;
+
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
     const heightMessage = boxMessage.current.clientHeight;
@@ -33,6 +39,19 @@ function BoxChat() {
       boxMessage.current.style.height = `${heightMess}px`;
       // boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
     }, 1);
+  };
+
+  const onSubmit = (values, { resetForm }) => {
+    if(!values.message) return;
+    resetForm();
+    const itemMessLoad = (
+      <Comment className="my-mess next-mess" content={values.message} />
+    );
+    arrayLoad[countLoad] = itemMessLoad;
+    setArrayLoad(arrayLoad);
+    setCountLoad(countLoad + 1);
+    callbackSendMessage({ ...values, indexLoad: countLoad });
+    boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   };
 
   const listChat = [
@@ -54,7 +73,7 @@ function BoxChat() {
     },
     {
       avatarUrl: AvatarDefault,
-      content: "ABCCCCC",
+      content: "ABCCsssssssssssssssssssssCCC",
       type: null,
       userId: 1,
       createAt: 1600134710,
@@ -62,7 +81,7 @@ function BoxChat() {
     },
     {
       avatarUrl: AvatarDefault,
-      content: "ABC 2",
+      content: "Hello KMA-social, my name is Du. I'm verry happy for your app",
       type: null,
       userId: 1,
       createAt: 1600134710,
@@ -70,7 +89,7 @@ function BoxChat() {
     },
     {
       avatarUrl: AvatarDefault,
-      content: "ABCCCCC",
+      content: "Hello KMA-social, my name is Du. I'm verry happy for your app",
       type: null,
       userId: 2,
       createAt: 1600134710,
@@ -78,7 +97,7 @@ function BoxChat() {
     },
     {
       avatarUrl: AvatarDefault,
-      content: "ABC 2",
+      content: "ABC2",
       type: null,
       userId: 2,
       createAt: 1600134710,
@@ -94,7 +113,7 @@ function BoxChat() {
     },
     {
       avatarUrl: AvatarDefault,
-      content: "ABC 2",
+      content: "ABC 2s ssssssssssssssssssssssssssssssssss",
       userId: 1,
       createAt: 1600134710,
       isRead: 1,
@@ -105,7 +124,7 @@ function BoxChat() {
     return listChat.map((item, index) => {
       const content = (
         <Tooltip title={1600134710} color="orange">
-          <p>{item.content}</p>
+          <div>{item.content}</div>
         </Tooltip>
       );
       const nextMess = item.userId === listChat[index-1]?.userId || item.userId === listChat[index+1]?.userId;
@@ -128,6 +147,16 @@ function BoxChat() {
     });
   }, [listChat]);
 
+  const renderMessageLoad = useMemo(()=>{
+    return arrayLoad.map((item, index)=>{
+      return (
+        <Spin indicator={null} key={index} className="spin-load">
+          {item}
+        </Spin>
+      );
+    });
+  });
+
   useEffect(() => {
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   }, [boxMessage]);
@@ -148,11 +177,9 @@ function BoxChat() {
       </div>
       <div ref={boxMessage} className="box-chat__message">
         {renderBoxmessage}
-        <Spin className="spin-load">
-          <Comment className="my-mess" content={"Hello KMA-social, my name is Du. I'm verry happy for your app"} />
-        </Spin>
+        {renderMessageLoad}
       </div>
-      <Formik validationSchema={validateMessage} initialValues={initialVales}>
+      <Formik onSubmit={onSubmit} validationSchema={validateMessage} initialValues={initialVales}>
         {({ handleSubmit, setFieldValue, errors, values }) => (
           <div className="box-chat__bottom" id="213" ref={chatBottomContainer}>
             <Avatar className="avatar" src={AvatarDefault} alt="avatar" />

@@ -3,7 +3,7 @@ import { Menu } from "antd";
 import { Routes } from "../../Routes";
 import { browserHistory } from "../../utils/history";
 import { UploadOutlined, UserOutlined, VideoCameraOutlined, AppstoreFilled } from "@ant-design/icons";
-import LazyloadImg from "../LazyLoadingImg";
+import LazyloadImg from "../../components/LazyLoadingImg";
 import { useSelector } from "react-redux";
 import { genderAvatarUrl } from "../../utils";
 const icons = {

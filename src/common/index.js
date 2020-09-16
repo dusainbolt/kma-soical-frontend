@@ -118,6 +118,7 @@ export const SPAN_GALLEY = {
 };
 
 export const TYPE_FEED = {
+  TEXT: 0,
   IMAGE: 1,
   VIDEO: 2,
 };
