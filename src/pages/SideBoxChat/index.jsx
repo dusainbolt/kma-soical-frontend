@@ -32,6 +32,7 @@ function SidebarEvent({ openChatBox }) {
             myAvatar={myAvatar}
             isLoadingBoxChat={isLoadingBoxChat}
             callbackSendMessage={sendMessage}
+            dispatch={dispatch}
           />
         </div>
       )}

@@ -7,6 +7,7 @@ import { Field, Formik } from "formik";
 import LoadBoxChat from "../LoadBoxChat";
 import { genderAvatarUrl, filterArray, getStatusOnline } from "../../utils";
 import Input from "../Input";
+import { getMessage } from "../../utils/socket";
 
 function BoxChat({
   userId,
@@ -17,6 +18,7 @@ function BoxChat({
   userInbox,
   myAvatar,
   isLoadingBoxChat,
+  dispatch,
 }) {
   const { t } = useTranslation();
   const chatBottomContainer = useRef(null);
@@ -69,6 +71,10 @@ function BoxChat({
   useEffect(() => {
     indexLoad && setArrayLoad(filterArray(arrayLoad, "key", indexLoad.toString()));
   }, [indexLoad]);
+
+  useEffect(()=>{
+    getMessage(dispatch, roomChat?.id);
+  },[roomChat]);  
 
   const renderBoxmessage = useMemo(() => {
     console.log("----------------->", listChat);

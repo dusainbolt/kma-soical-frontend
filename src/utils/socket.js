@@ -7,7 +7,7 @@ function initSocket(dispatch, userId) {
   socket = io(CHANEL.API_URL);
   socket.on("connect", () => {
     console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
-    getMessage(dispatch);
+    // getMessage(dispatch);
     speakOnline(userId);
     getListOnline(dispatch);
   });
@@ -21,8 +21,8 @@ function connectSocketError() {
   });
 }
 
-function getMessage(dispatch) {
-  socket.on("__chatSocket", res => {
+function getMessage(dispatch, idRoomChat) {
+  socket.on(`__roomChat:id=${idRoomChat}`, res => {
     console.log("----->Data", res);
     dispatch(actions.getMessageSocket(res.data));
   });
@@ -45,4 +45,4 @@ function speakOnline(userId) {
   socket.emit("__speakerUserId", userId);
 }
 
-export { initSocket, logoutSocket };
+export { initSocket, logoutSocket, getMessage };
