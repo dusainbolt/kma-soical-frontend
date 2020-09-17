@@ -27,3 +27,7 @@ export const sendMessageAPI = body => {
 export const getListFriendsAPI = params => {
   return api.get("/user/list_friends", params);
 };
+
+export const openBoxChatAPI = params => {
+  return api.get("user/list_chat", params);
+};

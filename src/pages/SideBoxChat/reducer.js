@@ -4,7 +4,7 @@ const DEFAULT_STATE = {
   listChat: [],
   userInbox: {},
   indexLoad:  0,
-  idChatBox: 0,
+  roomChat: {},
   
 };
 
@@ -16,11 +16,6 @@ export default (state = DEFAULT_STATE, action) => {
       indexLoad: action.payload.indexLoad,
       listChat: state.listChat.concat(action.payload),
     };
-  case ActionTypes.GET_LIST_CHAT_START:
-    return{
-      ...state,
-      userInbox: action.itemUser
-    };
   case SocketType.GET_LIST_ONLINE_SOCKET:
     return{
       ...state,
@@ -28,7 +23,21 @@ export default (state = DEFAULT_STATE, action) => {
         ...state.userInbox,
         isOnline: action.payload.indexOf(state.userInbox.userId) !== -1 ? true : false,
       },
+    };  
+  case ActionTypes.OPEN_BOX_CHAT_START:
+    return{
+      ...state,
+      isLoadingBoxChat: true,
+      listChat: state.userInbox?.userId === action.itemUser.userId  ? state.listChat : [],
+      userInbox: action.itemUser
     };   
+  case ActionTypes.OPEN_BOX_CHAT_SUCCESS:
+    return {
+      ...state,
+      isLoadingBoxChat: false,
+      listChat: action.payload.listChat,
+      roomChat: action.payload.roomChat
+    }; 
   default:
     return state;
   }

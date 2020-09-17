@@ -6,9 +6,9 @@ export const ActionTypes = {
   POST_LOGOUT_START: "POST_LOGOUT_START",
   POST_LOGOUT_SUCCESS: "POST_LOGOUT_SUCCESS",
   POST_LOGOUT_ERROR: "POST_LOGOUT_ERROR",
-  GET_LIST_CHAT_START: "GET_LIST_CHAT_START",
-  GET_LIST_CHAT_SUCCESS: "GET_LIST_CHAT_SUCCESS",
-  GET_LIST_CHAT_ERROR: "GET_LIST_CHAT_ERROR",
+  OPEN_BOX_CHAT_START: "OPEN_BOX_CHAT_START",
+  OPEN_BOX_CHAT_SUCCESS: "OPEN_BOX_CHAT_SUCCESS",
+  OPEN_BOX_CHAT_ERROR: "OPEN_BOX_CHAT_ERROR",
   CHANGE_SCREEN_PIXEL: "CHANGE_SCREEN_PIXEL",
   GET_MESSAGE_SOCKET: "GET_MESSAGE_SOCKET",
   GET_LIST_ONLINE_SOCKET: "GET_LIST_ONLINE_SOCKET",
@@ -57,10 +57,23 @@ export const actions = {
       conditionPixel,
     };
   },
-  getListChatStart: function (itemUser) {
+  openBoxChatStart: function (itemUser, params) {
     return {
-      type: ActionTypes.GET_LIST_CHAT_START,
+      type: ActionTypes.OPEN_BOX_CHAT_START,
       itemUser,
+      params,
+    };
+  },
+  openBoxChatSuccess: function (success) {
+    return {
+      type: ActionTypes.OPEN_BOX_CHAT_SUCCESS,
+      payload: success,
+    };
+  },
+  openBoxChatError: function (error) {
+    return {
+      type: ActionTypes.OPEN_BOX_CHAT_ERROR,
+      payload: error,
     };
   }
 };

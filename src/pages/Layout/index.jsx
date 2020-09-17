@@ -55,8 +55,8 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     dispatch(actions.changeScreenPixel(isMobileCheck));
   };
 
-  const openBoxChat = itemUser => () => {
-    dispatch(actions.getListChatStart(itemUser));
+  const openBoxChat = (itemUser, params) => {
+    dispatch(actions.openBoxChatStart(itemUser, params));
   };
   
   return (

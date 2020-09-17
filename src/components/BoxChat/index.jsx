@@ -1,14 +1,23 @@
 import React, { useRef, useState, useMemo, useEffect } from "react";
 import { Badge, Avatar, Comment, Tooltip, Spin } from "antd";
-import AvatarDefault from "../../common/image/avatar-default.png";
 import { DownCircleFilled, SendOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { validateMessage, TYPE_FEED } from "../../common";
 import { Field, Formik } from "formik";
+import LoadBoxChat from "../LoadBoxChat";
 import { genderAvatarUrl, filterArray, getStatusOnline } from "../../utils";
 import Input from "../Input";
 
-function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbox }) {
+function BoxChat({
+  userId,
+  roomChat,
+  listChat,
+  callbackSendMessage,
+  indexLoad,
+  userInbox,
+  myAvatar,
+  isLoadingBoxChat,
+}) {
   const { t } = useTranslation();
   const chatBottomContainer = useRef(null);
   const boxMessage = useRef(null);
@@ -19,11 +28,9 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbo
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
-    userId: 1,
-    idBoxChat: 2,
+    userId: userId,
+    idBoxChat: roomChat?.id,
   };
-
-  const userId = 2;
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
     const heightMessage = boxMessage.current.clientHeight;
@@ -64,10 +71,11 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbo
   }, [indexLoad]);
 
   const renderBoxmessage = useMemo(() => {
+    console.log("----------------->", listChat);
     return listChat.map((item, index) => {
       const content = (
-        <Tooltip title={1600134710} color="orange">
-          <div>{item.content}</div>
+        <Tooltip title={item.created_at} color="orange">
+          <div>{item.message}</div>
         </Tooltip>
       );
       const nextMess =
@@ -84,7 +92,7 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbo
       const avatar =
         className || item.userId === listChat[index - 1]?.userId
           ? []
-          : genderAvatarUrl(item.avatarUrl);
+          : genderAvatarUrl(userInbox.avatarUrl);
       if (index === listChat.length - 1) {
         setIsChange(true);
       }
@@ -143,13 +151,14 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbo
     <div className="box-chat">
       {renderTopBoxChat}
       <div ref={boxMessage} className="box-chat__message">
+        {isLoadingBoxChat && <LoadBoxChat total={4}/>}
         {renderBoxmessage}
         {renderMessageLoad}
       </div>
       <Formik onSubmit={onSubmit} validationSchema={validateMessage} initialValues={initialVales}>
         {({ handleSubmit, setFieldValue, errors, values }) => (
           <div className="box-chat__bottom" id="213" ref={chatBottomContainer}>
-            <Avatar className="avatar" src={AvatarDefault} alt="avatar" />
+            <Avatar className="avatar" src={genderAvatarUrl(myAvatar)} alt="avatar" />
             <Field
               name="message"
               component={Input}

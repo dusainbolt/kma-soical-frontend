@@ -112,6 +112,32 @@
       height: 36px;
     }
   }
+  &.chat-right{
+    .ant-skeleton-title{
+      margin-left: auto;
+      height: 50px;
+    }
+  }
+  &.no-0{
+    .ant-skeleton-title{
+      margin-left: auto;
+      height: 35px;
+      width: 70% !important;
+    }
+  }
+  &.no-1{
+    .ant-skeleton-title{
+      height: 20px;
+      width: 50% !important;
+    }
+  }
+  &.no-3{
+    h3.ant-skeleton-title{
+      height: 30px;
+      width: 60% !important;
+      margin-top: 6px;
+    }
+  }
 };
 
 @keyframes dot {

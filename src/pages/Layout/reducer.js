@@ -34,7 +34,7 @@ export default (state = DEFAULT_STATE, action) => {
       ...state,
       isMobile: action.conditionPixel
     }; 
-  case ActionTypes.GET_LIST_CHAT_START: 
+  case ActionTypes.OPEN_BOX_CHAT_START: 
     return {
       ...state,
       openChatBox: true,

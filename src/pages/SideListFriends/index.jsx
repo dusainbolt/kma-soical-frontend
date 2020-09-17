@@ -26,12 +26,16 @@ function SidebarMessage({ callbackOpenBoxChat }) {
     dispatch(actions.getListFriendsStart({ limit, offset, searchText }));
   }, [searchText]);
 
+  const onOpenChat = item => () => {
+    callbackOpenBoxChat(item, { offset: 0, limit: LIMIT.LIST_CHAT });
+  };
+
   const renderListFriends = useMemo(() => {
     if (!listFriends.length) return renderErrorSearch("search-list-friends");
     return listFriends.map((item, index) => {
       return (
         <FadeIn key={index} delay={100 * index} transitionDuration={300}>
-          <div onClick={callbackOpenBoxChat(item)} className="side-friends__user-wrapper">
+          <div onClick={onOpenChat(item)} className="side-friends__user-wrapper">
             <Badge dot={item.isOnline ? true : null} count={null}>
               <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
             </Badge>
