@@ -156,6 +156,24 @@
         padding: 5px 12px;
       }
     }
+    &--empty{
+      padding: 15px;
+      text-align: center;
+      .ant-avatar{
+        width: 60px;
+        height: 60px;
+      }
+      .note-empty{
+        margin-top: 15px;
+        color: $black-color-text;
+        font-size: $font-small_1;
+        &--end{
+          margin-top: 5px;
+          color: $primary-color;
+          font-size: $font-size;
+        }
+      }
+    }
   }
   &__bottom{
     display: flex;

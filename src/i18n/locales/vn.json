@@ -75,7 +75,9 @@
     "place_search_user": "Tìm kiếm theo tên",
     "people_contact": "Người liên hệ"
   },
-  "box-chat": {
+  "box_chat": {
+    "note_empty_1": "Các bạn hiện tại đã là bạn bè",
+    "note_empty_2": "Hãy bắt đầu cuộc trò truyện ngay nhé.",
     "close": "Ẩn tin nhắn"
   },
   "list_friends": {

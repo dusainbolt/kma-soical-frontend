@@ -142,15 +142,26 @@ function BoxChat({
           {userInbox.fullName}
           <div>{getStatusOnline(userInbox.isOnline)}</div>
         </div>
-        <DownCircleFilled title={t("box-chat.close")} className="box-chat__top--icon-back" />
+        <DownCircleFilled title={t("box_chat.close")} className="box-chat__top--icon-back" />
       </div>
     );
   }, [userInbox]);
+
+  const renderBoxChatEmpty = () => {
+    return (
+      <div className="box-chat__message--empty">
+        <Avatar src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar"/>
+        <div className="note-empty">{t("box_chat.note_empty_1")}</div>
+        <div className="note-empty note-empty--end">{t("box_chat.note_empty_2")}</div>
+      </div>
+    );
+  };
 
   return (
     <div className="box-chat">
       {renderTopBoxChat}
       <div ref={boxMessage} className="box-chat__message">
+        {!isLoadingBoxChat && renderBoxChatEmpty()}
         {isLoadingBoxChat && <LoadBoxChat total={4}/>}
         {renderBoxmessage}
         {renderMessageLoad}
