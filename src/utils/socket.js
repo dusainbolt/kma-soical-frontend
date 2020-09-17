@@ -1,17 +1,12 @@
 import io from "socket.io-client";
-import { SOCKET } from "../common";
+import { CHANEL } from "./chanelSocket";
 import { actionsSocket as actions } from "../pages/Layout/actions";
+import { convertObjectToArray } from "../utils";
 let socket = null;
-
 function initSocket(dispatch, userId) {
-  console.log(SOCKET.API_URL);
-  socket = io(SOCKET.API_URL);
+  socket = io(CHANEL.API_URL);
   socket.on("connect", () => {
     console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
-    // socket.emit("join-room", userId.toString());
-    // getMessage(callbackMessage);
-    // getMessage1(callbackMessage);
-    console.log(userId, "------->");
     getMessage(dispatch);
     speakOnline(userId);
     getListOnline(dispatch);
@@ -35,13 +30,19 @@ function getMessage(dispatch) {
 
 function getListOnline(dispatch) {
   socket.on("__listOnline", res => {
-    console.log("----->Data", res);
-    // dispatch(actions.getMessageSocket(res.data));
+    console.log("----->listOnline", res);
+    dispatch(actions.getListOnlineSocket(convertObjectToArray(res)));
   });
 }
 
+function logoutSocket(){
+  console.log("----->Logout socket", socket.id);
+  socket.emit("__logout", socket.id);
+}
+
 function speakOnline(userId) {
+  console.log("----->Speak User Id", userId);
   socket.emit("__speakerUserId", userId);
 }
 
-export { initSocket };
+export { initSocket, logoutSocket };

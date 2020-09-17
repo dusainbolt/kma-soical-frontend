@@ -310,3 +310,16 @@ export const genderAvatarUrl = avatarUrl => {
 export const filterArray = (arr, conditionName, conditionValue) => {
   return arr.filter(item => item[conditionName] !== conditionValue);
 };
+
+export const convertObjectToArray = object => {
+  return Object.values(object);
+};
+
+export const convertObjectCondition = (arrayResult, arrayCheck, conditionName, mapName) => {
+  return arrayResult.map(item => {
+    return {
+      ...item,
+      [mapName]: arrayCheck.indexOf(item[conditionName]) !== -1 ? true : false
+    };
+  });
+};

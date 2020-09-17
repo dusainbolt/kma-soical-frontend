@@ -6,9 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import CommonHeader from "../../components/Header";
 import Sidebar from "../SlideBar";
 import SideBarEvent from "../SideBoxChat";
-import SideBarMessage from "../SideListFriends";
+import SideListFriends from "../SideListFriends";
 import { END_MOBILE_PIXEL } from "../../common";
-import { initSocket } from "../../utils/socket";
+import { initSocket, logoutSocket } from "../../utils/socket";
 import { actions } from "./actions";
 import api from "../../services/api";
 
@@ -17,6 +17,8 @@ const { Header, Content, Sider } = Layout;
 function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const token = useSelector(state => state.loginReducer.token);
   const userId = useSelector(state => state.loginReducer.userDetail?.id);
+  const openChatBox = useSelector(state => state.layoutReducer.openChatBox);
+
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
 
@@ -25,6 +27,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   };
 
   const onLogoutUser = useCallback(()=>{
+    logoutSocket();
     dispatch(actions.postLogoutStart({ token }));
   },[]);
 
@@ -51,6 +54,10 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     const isMobileCheck = window.innerWidth < END_MOBILE_PIXEL;
     dispatch(actions.changeScreenPixel(isMobileCheck));
   };
+
+  const openBoxChat = itemUser => () => {
+    dispatch(actions.getListChatStart(itemUser));
+  };
   
   return (
     <Route
@@ -69,10 +76,10 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
                 <Mycomponent {...routeProps} />
               </Content>
               <Sider className="site-layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
-                <SideBarEvent />
+                <SideBarEvent openChatBox={openChatBox}/>
               </Sider>
               <Sider  className="site-layout__side-friends side-friends" trigger={null} collapsible collapsed={collapsed}>
-                <SideBarMessage />
+                <SideListFriends callbackOpenBoxChat={openBoxChat} />
               </Sider>
             </Layout>
           </Layout>

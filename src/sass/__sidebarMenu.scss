@@ -177,6 +177,10 @@
       right: 3px;
       background: $green-color;
     }
+    .ant-badge-dot{
+      width: 9px;
+      height: 9px;
+    }
     .ant-badge-count{
       background-color: $red-color;
     }
@@ -192,7 +196,6 @@
     }
   }
 }
-
 
 .side-event {
   width: 20%;

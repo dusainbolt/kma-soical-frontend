@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
   isLoadingAuth: false,
   isLoadingEvent: false,
   isMobile: false,
+  openChatBox: false,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -33,6 +34,11 @@ export default (state = DEFAULT_STATE, action) => {
       ...state,
       isMobile: action.conditionPixel
     }; 
+  case ActionTypes.GET_LIST_CHAT_START: 
+    return {
+      ...state,
+      openChatBox: true,
+    };   
   default:
     return state;
   }

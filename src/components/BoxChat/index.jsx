@@ -8,7 +8,7 @@ import { Field, Formik } from "formik";
 import { genderAvatarUrl, filterArray } from "../../utils";
 import Input from "../Input";
 
-function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad }) {
+function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbox }) {
   const { t } = useTranslation();
   const chatBottomContainer = useRef(null);
   const boxMessage = useRef(null);
@@ -48,7 +48,9 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad }) {
   const onSubmit = (values, { resetForm }) => {
     if (!values.message) return;
     resetForm();
-    const htmlLoad = [<Comment key={countLoad} className="my-mess next-mess" content={values.message} />];
+    const htmlLoad = [
+      <Comment key={countLoad} className="my-mess next-mess" content={values.message} />,
+    ];
     setArrayLoad(oldArray => oldArray.concat(htmlLoad));
     setCountLoad(countLoad + 1);
     callbackSendMessage({ ...values, indexLoad: countLoad });
@@ -57,10 +59,9 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad }) {
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     indexLoad && setArrayLoad(filterArray(arrayLoad, "key", indexLoad.toString()));
-  },[indexLoad]);
-
+  }, [indexLoad]);
 
   const renderBoxmessage = useMemo(() => {
     return listChat.map((item, index) => {
@@ -84,9 +85,9 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad }) {
         className || item.userId === listChat[index - 1]?.userId
           ? []
           : genderAvatarUrl(item.avatarUrl);
-      if(index === listChat.length - 1){
+      if (index === listChat.length - 1) {
         setIsChange(true);
-      }   
+      }
       return (
         <Comment
           key={index}
@@ -98,14 +99,14 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad }) {
     });
   }, [listChat]);
 
-  useEffect(()=>{
-    if(isChange){
-      setTimeout(()=>{
+  useEffect(() => {
+    if (isChange && boxMessage) {
+      setTimeout(() => {
         boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
         setIsChange(false);
       });
     }
-  });
+  }, [isChange]);
 
   const renderMessageLoad = useMemo(() => {
     return arrayLoad.map((item, index) => {
@@ -115,26 +116,32 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad }) {
         </Spin>
       );
     });
-  },[arrayLoad]);
+  }, [arrayLoad]);
 
   useEffect(() => {
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   }, [boxMessage]);
 
-  return (
-    <div className="box-chat">
+  const renderTopBoxChat = useMemo(() => {
+    return (
       <div className="box-chat__top">
         <div className="box-chat__top--avatar">
           <Badge className="active normal" dot>
-            <Avatar className="avatar" src={AvatarDefault} alt="avatar" />
+            <Avatar className="avatar" src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar" />
           </Badge>
         </div>
         <div className="box-chat__top--info active">
-          Du sainbolt
+          {userInbox.fullName}
           <div>Dang hoat dong</div>
         </div>
         <DownCircleFilled title={t("box-chat.close")} className="box-chat__top--icon-back" />
       </div>
+    );
+  }, [userInbox]);
+
+  return (
+    <div className="box-chat">
+      {renderTopBoxChat}
       <div ref={boxMessage} className="box-chat__message">
         {renderBoxmessage}
         {renderMessageLoad}

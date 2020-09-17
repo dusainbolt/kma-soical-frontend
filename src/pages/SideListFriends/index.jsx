@@ -12,7 +12,7 @@ import { genderAvatarUrl, renderErrorSearch } from "../../utils";
 import LoadComment from "../../components/LoadComment";
 import FadeIn from "react-fade-in";
 
-function SidebarMessage() {
+function SidebarMessage({ callbackOpenBoxChat }) {
   const { t } = useTranslation();
   const initialValues = { searchText: "" };
   const loadingListUser = useSelector(state => state.sideBarMessage.loadingListUser);
@@ -31,8 +31,8 @@ function SidebarMessage() {
     return listFriends.map((item, index) => {
       return (
         <FadeIn key={index} delay={100 * index} transitionDuration={300}>
-          <div className="side-friends__user-wrapper">
-            <Badge dot={null} count={null}>
+          <div onClick={callbackOpenBoxChat(item)} className="side-friends__user-wrapper">
+            <Badge dot={item.isOnline ? true : null} count={null}>
               <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
             </Badge>
             <span className="side-friends__user-name">{item.fullName}</span>
