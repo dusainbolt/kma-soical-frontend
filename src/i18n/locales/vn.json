@@ -79,6 +79,8 @@
     "close": "Ẩn tin nhắn"
   },
   "list_friends": {
+    "online": "Đang online",
+    "offline": "Đang offline",
     "err_search": "Không tìm thấy kết quả nào"
   },
   "light_box": {

@@ -323,3 +323,7 @@ export const convertObjectCondition = (arrayResult, arrayCheck, conditionName, m
     };
   });
 };
+
+export const getStatusOnline = status => {
+  return status ? i8().t("list_friends.online") : i8().t("list_friends.offline");
+};

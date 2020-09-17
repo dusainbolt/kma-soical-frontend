@@ -5,7 +5,7 @@ import { DownCircleFilled, SendOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { validateMessage, TYPE_FEED } from "../../common";
 import { Field, Formik } from "formik";
-import { genderAvatarUrl, filterArray } from "../../utils";
+import { genderAvatarUrl, filterArray, getStatusOnline } from "../../utils";
 import Input from "../Input";
 
 function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbox }) {
@@ -126,13 +126,13 @@ function BoxChat({ idBoxChat, listChat, callbackSendMessage, indexLoad, userInbo
     return (
       <div className="box-chat__top">
         <div className="box-chat__top--avatar">
-          <Badge className="active normal" dot>
+          <Badge className="active normal" dot={userInbox.isOnline}>
             <Avatar className="avatar" src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar" />
           </Badge>
         </div>
         <div className="box-chat__top--info active">
           {userInbox.fullName}
-          <div>Dang hoat dong</div>
+          <div>{getStatusOnline(userInbox.isOnline)}</div>
         </div>
         <DownCircleFilled title={t("box-chat.close")} className="box-chat__top--icon-back" />
       </div>

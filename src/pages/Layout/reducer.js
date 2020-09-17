@@ -38,7 +38,7 @@ export default (state = DEFAULT_STATE, action) => {
     return {
       ...state,
       openChatBox: true,
-    };   
+    }; 
   default:
     return state;
   }

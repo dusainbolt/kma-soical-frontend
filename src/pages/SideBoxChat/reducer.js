@@ -1,5 +1,5 @@
 import { ActionTypes } from "./actions";
-
+import { ActionTypes as SocketType } from "../Layout/actions";
 const DEFAULT_STATE = {
   listChat: [],
   userInbox: {},
@@ -20,7 +20,15 @@ export default (state = DEFAULT_STATE, action) => {
     return{
       ...state,
       userInbox: action.itemUser
-    };  
+    };
+  case SocketType.GET_LIST_ONLINE_SOCKET:
+    return{
+      ...state,
+      userInbox: {
+        ...state.userInbox,
+        isOnline: action.payload.indexOf(state.userInbox.userId) !== -1 ? true : false,
+      },
+    };   
   default:
     return state;
   }

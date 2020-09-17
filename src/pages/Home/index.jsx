@@ -78,7 +78,7 @@ function Home() {
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
       return (
-        <Lazyload key={index} placeholder={<SkeletonNewFeed />} height={200} throttle={400}>
+        <Lazyload key={index} placeholder={<SkeletonNewFeed />} height={800} throttle={400}>
           <FadeIn delay={100} transitionDuration={500}>
             <div className="form-feed">
               <PostTop
