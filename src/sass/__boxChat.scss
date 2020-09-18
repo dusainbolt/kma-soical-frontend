@@ -1,6 +1,5 @@
 .box-chat {
-  
-  // padding: 10px;
+  height: calc(100% - 50px);
   &__top {
     box-shadow: 0px 2px 5px rgba(170, 170, 170, 0.5);
     height: 48px;
@@ -58,7 +57,7 @@
     }
   }
   &__message{
-    height: 35vh;
+    height: calc(100% - 50px);
     width: 100%;
     padding: 6px;
     overflow: auto;
@@ -94,6 +93,7 @@
       }
     }
     .ant-comment-inner{
+      max-width: 100%;
       padding: 8px 0;
     }
     .ant-comment-avatar{

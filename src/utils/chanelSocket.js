@@ -3,4 +3,5 @@ export const CHANEL = {
   LOG_OUT: "__logout",
   SPEAK_USER_ID: "__speakerUserId",
   LIST_ONLINE: "__listOnline",
+  ROOM_CHAT: "__roomChat:id=",
 };

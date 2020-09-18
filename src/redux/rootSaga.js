@@ -6,6 +6,7 @@ import { watchConfirmCode } from "../pages/ConfirmCodeForm/saga";
 import { watchLayout } from "../pages/Layout/saga";
 import { watchNewFeed } from "../pages/Home/saga";
 import { watchListFriends } from "../pages/SideListFriends/saga";
+import { watchRoomChat } from "../pages/SideBoxChat/saga";
 
 function* rootSaga() {
   yield all([
@@ -15,6 +16,7 @@ function* rootSaga() {
     watchLayout(),
     watchNewFeed(),
     watchListFriends(),
+    watchRoomChat(),
   ]);
 }
 export default rootSaga;

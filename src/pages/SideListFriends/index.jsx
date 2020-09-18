@@ -11,12 +11,15 @@ import { useMemo } from "react";
 import { genderAvatarUrl, renderErrorSearch } from "../../utils";
 import LoadComment from "../../components/LoadComment";
 import FadeIn from "react-fade-in";
+import { useCallback } from "react";
 
 function SidebarMessage({ callbackOpenBoxChat }) {
   const { t } = useTranslation();
   const initialValues = { searchText: "" };
   const loadingListUser = useSelector(state => state.sideBarMessage.loadingListUser);
   const listFriends = useSelector(state => state.sideBarMessage.listFriends);
+  const userInbox = useSelector(state => state.sideEvent.userInbox);
+
   const [searchText, setSearchText] = useState("");
   const [limit, setLimit] = useState(LIMIT.LIST_USER);
   const [offset, setOffset] = useState(0);
@@ -26,16 +29,17 @@ function SidebarMessage({ callbackOpenBoxChat }) {
     dispatch(actions.getListFriendsStart({ limit, offset, searchText }));
   }, [searchText]);
 
-  const onOpenChat = item => () => {
+  const onOpenChat = (item, idUserInbox) => () => {
+    if(item.userId === idUserInbox ) return;
     callbackOpenBoxChat(item, { offset: 0, limit: LIMIT.LIST_CHAT });
   };
-
+  
   const renderListFriends = useMemo(() => {
     if (!listFriends.length) return renderErrorSearch("search-list-friends");
     return listFriends.map((item, index) => {
       return (
         <FadeIn key={index} delay={100 * index} transitionDuration={300}>
-          <div onClick={onOpenChat(item)} className="side-friends__user-wrapper">
+          <div onClick={onOpenChat(item, userInbox?.userId)} className="side-friends__user-wrapper">
             <Badge dot={item.isOnline ? true : null} count={null}>
               <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
             </Badge>
@@ -44,7 +48,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
         </FadeIn>
       );
     });
-  }, [listFriends]);
+  }, [listFriends, userInbox]);
 
   const onSearchFriends = (setFieldValue, name) => e => {
     const value = e.target.value;

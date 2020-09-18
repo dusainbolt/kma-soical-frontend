@@ -31,7 +31,6 @@ function BoxChat({
     message: "",
     type: TYPE_FEED.TEXT,
     userId: userId,
-    idBoxChat: roomChat?.id,
   };
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
@@ -55,14 +54,14 @@ function BoxChat({
   };
 
   const onSubmit = (values, { resetForm }) => {
-    if (!values.message) return;
+    if (!values.message && !roomChat?.id) return;
     resetForm();
     const htmlLoad = [
       <Comment key={countLoad} className="my-mess next-mess" content={values.message} />,
     ];
     setArrayLoad(oldArray => oldArray.concat(htmlLoad));
     setCountLoad(countLoad + 1);
-    callbackSendMessage({ ...values, indexLoad: countLoad });
+    callbackSendMessage({ ...values, indexLoad: countLoad, roomId: roomChat?.id });
     setHeightChatBox(50, 343);
     setHeightBox(41);
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
