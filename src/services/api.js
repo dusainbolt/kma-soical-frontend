@@ -4,6 +4,7 @@ import { store } from "../redux/configStore";
 import { actions } from "../pages/Layout/actions";
 import showNotification  from "../components/Notification";
 import { ERROR_NETWORK, ERROR_AUTH } from "../common";
+import { logoutSocket } from "../utils/socket";
 class AxiosServer {
   constructor() {
     const instance = axios.create();
@@ -39,6 +40,7 @@ class AxiosServer {
       const promiseList = [];
       promiseList.push(localStorage.removeItem("persist:root"));
       promiseList.push(store.dispatch(actions.postLogoutSuccess()));
+      promiseList.push(logoutSocket());
       promiseList.push(browserHistory.push("/welcome"));
       promiseList.push(showNotification(ERROR_AUTH.TITLE, ERROR_AUTH.CONTENT));
       Promise.all(promiseList)

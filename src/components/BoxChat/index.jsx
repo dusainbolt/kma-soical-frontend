@@ -7,7 +7,9 @@ import { Field, Formik } from "formik";
 import LoadBoxChat from "../LoadBoxChat";
 import { genderAvatarUrl, filterArray, getStatusOnline } from "../../utils";
 import Input from "../Input";
-import { getMessage } from "../../utils/socket";
+import { getMessage, onTypingChat, receiverTypingChat } from "../../utils/socket";
+import FadeIn from "react-fade-in";
+import Dot from "../Dot";
 
 function BoxChat({
   userId,
@@ -18,7 +20,8 @@ function BoxChat({
   userInbox,
   myAvatar,
   isLoadingBoxChat,
-  dispatch,
+  exact,
+  callbackGetListMessage,
 }) {
   const { t } = useTranslation();
   const chatBottomContainer = useRef(null);
@@ -27,6 +30,8 @@ function BoxChat({
   const [arrayLoad, setArrayLoad] = useState([]);
   const [countLoad, setCountLoad] = useState(1);
   const [isChange, setIsChange] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isViewMore, setIsViewMore] = useState(false);
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
@@ -34,23 +39,16 @@ function BoxChat({
   };
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
-    const heightMessage = boxMessage.current.clientHeight;
     const heightContainer = chatBottomContainer.current.clientHeight;
     setFieldValue(name, value);
+    onTypingChat(roomChat.id, userId);
     setTimeout(() => {
       const height = document.getElementById("inputBox").clientHeight;
       const durationHeight = height - heightBox;
       const heightCtn = durationHeight === 0 ? heightContainer : heightContainer + durationHeight;
-      const heightMess = durationHeight === 0 ? heightMessage : heightMessage - durationHeight;
       setHeightBox(height);
       chatBottomContainer.current.style.height = `${heightCtn}px`;
-      boxMessage.current.style.height = `${heightMess}px`;
     });
-  };
-
-  const setHeightChatBox = (heightBottom, heightBox) => {
-    chatBottomContainer.current.style.height = `${heightBottom}px`;
-    boxMessage.current.style.height = `${heightBox}px`;
   };
 
   const onSubmit = (values, { resetForm }) => {
@@ -62,7 +60,7 @@ function BoxChat({
     setArrayLoad(oldArray => oldArray.concat(htmlLoad));
     setCountLoad(countLoad + 1);
     callbackSendMessage({ ...values, indexLoad: countLoad, roomId: roomChat?.id });
-    setHeightChatBox(50, 343);
+    chatBottomContainer.current.style.height = `${50}px`;
     setHeightBox(41);
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
   };
@@ -71,12 +69,22 @@ function BoxChat({
     indexLoad && setArrayLoad(filterArray(arrayLoad, "key", indexLoad.toString()));
   }, [indexLoad]);
 
-  useEffect(()=>{
-    getMessage(dispatch, roomChat?.id);
-  },[roomChat]);  
+  useEffect(() => {
+    getMessage(roomChat?.id);
+    receiverTypingChat(roomChat?.id, getTypingChat);
+  }, [roomChat]);
+
+  const getTypingChat = roomChatTyping => {
+    if(roomChatTyping.userId === userInbox.userId ){
+      setIsTyping(true);
+      boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
+      setTimeout(()=>{
+        setIsTyping(false);
+      },1000);
+    }
+  };
 
   const renderBoxmessage = useMemo(() => {
-    console.log("----------------->", listChat);
     return listChat.map((item, index) => {
       const content = (
         <Tooltip title={item.created_at} color="orange">
@@ -113,7 +121,7 @@ function BoxChat({
   }, [listChat]);
 
   useEffect(() => {
-    if (isChange && boxMessage) {
+    if (isChange && boxMessage && !isViewMore) {
       setTimeout(() => {
         boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
         setIsChange(false);
@@ -152,24 +160,41 @@ function BoxChat({
     );
   }, [userInbox]);
 
-  const renderBoxChatEmpty = () => {
+  const renderBoxChatEmpty = useMemo(() => {
     return (
-      <div className="box-chat__message--empty">
-        <Avatar src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar"/>
-        <div className="note-empty">{t("box_chat.note_empty_1")}</div>
-        <div className="note-empty note-empty--end">{t("box_chat.note_empty_2")}</div>
-      </div>
+      <FadeIn delay={100} transitionDuration={500}>
+        <div className="box-chat__message--empty">
+          <Avatar src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar" />
+          <div className="note-empty">{t("box_chat.note_empty_1")}</div>
+          <div className="note-empty note-empty--end">{t("box_chat.note_empty_2")}</div>
+        </div>
+      </FadeIn>
     );
+  }, [isLoadingBoxChat]);
+
+  const renderTypingChat = useMemo(()=>{
+    return isTyping && <div className="box-chat__typing">
+      <Avatar className="avatar" src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar"/>
+      <Dot />
+    </div>;
+  },[isTyping]);
+
+  const handleScroll = () => {
+    if (!boxMessage.current.scrollTop && !isLoadingBoxChat && exact > 0) {
+      setIsViewMore(true);
+      callbackGetListMessage({ roomId: roomChat?.id, userId: userInbox.userId , chatId: listChat[0].id });
+    }
   };
 
   return (
     <div className="box-chat">
       {renderTopBoxChat}
-      <div ref={boxMessage} className="box-chat__message">
-        {!isLoadingBoxChat && renderBoxChatEmpty()}
-        {isLoadingBoxChat && <LoadBoxChat total={4}/>}
+      <div ref={boxMessage} className="box-chat__message" onScroll={handleScroll}>
+        {exact <= 0 && !isLoadingBoxChat && renderBoxChatEmpty}
+        {isLoadingBoxChat && <LoadBoxChat total={4} />}
         {renderBoxmessage}
         {renderMessageLoad}
+        {renderTypingChat}
       </div>
       <Formik onSubmit={onSubmit} validationSchema={validateMessage} initialValues={initialVales}>
         {({ handleSubmit, setFieldValue, errors, values }) => (

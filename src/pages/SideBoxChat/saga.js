@@ -1,8 +1,6 @@
-import { put, takeLatest, takeEvery } from "redux-saga/effects";
+import { put, takeLatest } from "redux-saga/effects";
 import { actions, ActionTypes } from "./actions";
-import { sendMessageAPI } from "../../services/UserRequest";
-import { showNotifyRequest, getUrlRedirectEmail } from "../../utils";
-import { KEY_NOTIFY } from "../../common";
+import { sendMessageAPI, openBoxChatAPI } from "../../services/UserRequest";
 
 function* postMessage(action) {
   try {
@@ -15,6 +13,20 @@ function* postMessage(action) {
   }
 }
 
+function* getListChat(action){
+  try {
+    const response = yield openBoxChatAPI(action.params);
+    if (response.meta.code === 0) {
+      yield put(actions.getListChatSuccess(response.data));
+    }else{
+      yield put(actions.getListChatError({}));
+    }
+  } catch (e) {
+    yield put(actions.getListChatError(e));
+  }
+}
+
 export function* watchRoomChat() {
   yield takeLatest(ActionTypes.POST_MESSAGE_START, postMessage);
+  yield takeLatest(ActionTypes.GET_LIST_CHAT_START, getListChat);
 }

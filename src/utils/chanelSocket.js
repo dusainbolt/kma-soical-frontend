@@ -4,4 +4,6 @@ export const CHANEL = {
   SPEAK_USER_ID: "__speakerUserId",
   LIST_ONLINE: "__listOnline",
   ROOM_CHAT: "__roomChat:id=",
+  SEND_TYPING_CHAT: "__sendTypingChat",
+  RECEIVE_TYPING_CHAT: "__typingChatRoom:id=",
 };

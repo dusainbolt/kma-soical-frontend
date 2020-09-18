@@ -36,12 +36,12 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
       browserHistory.push("/welcome");
     }else{
       api.setAuthRequest(token);
+      initSocket(dispatch, userId);
     }
   }, [token]);
 
   useEffect(() => {
     // componentDidMount events
-    initSocket(dispatch, userId);
     updateDimensions();
     window.addEventListener("resize", updateDimensions);
     return () => {

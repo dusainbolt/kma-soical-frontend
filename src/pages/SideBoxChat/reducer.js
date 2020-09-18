@@ -5,7 +5,7 @@ const DEFAULT_STATE = {
   userInbox: {},
   indexLoad:  0,
   roomChat: {},
-  
+  exact: 0,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -35,9 +35,22 @@ export default (state = DEFAULT_STATE, action) => {
     return {
       ...state,
       isLoadingBoxChat: false,
-      listChat: action.payload.listChat,
-      roomChat: action.payload.roomChat
+      listChat: action.payload.listChat.reverse(),
+      roomChat: action.payload.roomChat,
+      exact: action.payload.exact,
     }; 
+  case ActionTypes.GET_LIST_CHAT_START:
+    return {
+      ...state,
+      isLoadingBoxChat: true,
+    };
+  case ActionTypes.GET_LIST_CHAT_SUCCESS:
+    return {
+      ...state,
+      listChat: action.payload.listChat.reverse().concat(state.listChat),
+      isLoadingBoxChat: false,
+      exact: action.payload.exact,
+    };  
   default:
     return state;
   }

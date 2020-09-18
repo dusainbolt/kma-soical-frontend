@@ -8,6 +8,7 @@ function SidebarEvent({ openChatBox }) {
   const roomChat = useSelector(state => state.sideEvent.roomChat);
   const indexLoad = useSelector(state => state.sideEvent.indexLoad);
   const userInbox = useSelector(state => state.sideEvent.userInbox);
+  const exact = useSelector(state => state.sideEvent.exact);
   const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const myAvatar = useSelector(state => state.loginReducer.userDetail?.avatar);
   const isLoadingBoxChat = useSelector(state => state.sideEvent.isLoadingBoxChat);
@@ -16,6 +17,10 @@ function SidebarEvent({ openChatBox }) {
 
   const sendMessage = values => {
     dispatch(actions.postMessageStart(values));
+  };
+
+  const getMessage = params => {
+    dispatch(actions.getListChatStart(params));
   };
 
   return (
@@ -32,7 +37,8 @@ function SidebarEvent({ openChatBox }) {
             myAvatar={myAvatar}
             isLoadingBoxChat={isLoadingBoxChat}
             callbackSendMessage={sendMessage}
-            dispatch={dispatch}
+            exact={exact}
+            callbackGetListMessage={getMessage}
           />
         </div>
       )}
