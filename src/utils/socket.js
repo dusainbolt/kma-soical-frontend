@@ -43,7 +43,7 @@ function openBoxChatSocket(userInbox){
 function receiveBoxChat(){
   socket.on(`${CHANEL.RECEIVE_BOX_CHAT}${userId}`, res => {
     console.log("----->receiveBoxChat: ", res);
-    dispatch(actions.getMessageSocket(res.data));
+    dispatch(actions.receiveBoxChatSocket(res));
   });
 }
 

@@ -38,12 +38,12 @@ export default (state = DEFAULT_STATE, action) => {
       listFriends: convertListFriendMessage(state.listFriends, action.payload),
       idUserShowMess: action.payload.userId
     };  
-  // case ActionTypes.OPEN_BOX_CHAT_START:
-  //   return {
-  //     ...state,
-  //     idUserShowMess: null,
-  //     listFriends: convertListFriendOpenBoxChat(action.itemUser.userId, state.listFriends),
-  //   }; 
+  case ActionTypes.RECEIVE_BOX_CHAT_SOCKET:
+    return {
+      ...state,
+      idUserShowMess: null,
+      listFriends: convertListFriendOpenBoxChat(action.payload.userId, state.listFriends),
+    }; 
   default:
     return state;
   }
