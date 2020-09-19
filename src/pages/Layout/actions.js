@@ -12,6 +12,7 @@ export const ActionTypes = {
   CHANGE_SCREEN_PIXEL: "CHANGE_SCREEN_PIXEL",
   GET_MESSAGE_SOCKET: "GET_MESSAGE_SOCKET",
   GET_LIST_ONLINE_SOCKET: "GET_LIST_ONLINE_SOCKET",
+  GET_MY_INBOX_SOCKET: "GET_MY_INBOX_SOCKET",
 };
 
 export const actions = {
@@ -91,4 +92,10 @@ export const actionsSocket = {
       payload,
     };
   },
+  getMyInboxSocket: function(payload){
+    return {
+      type: ActionTypes.GET_MY_INBOX_SOCKET,
+      payload
+    };
+  }
 };

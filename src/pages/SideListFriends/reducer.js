@@ -1,5 +1,5 @@
 import { ActionTypes } from "./actions";
-import { convertObjectCondition } from "../../utils";
+import { convertListFriendMessage, convertObjectCondition } from "../../utils";
 
 const DEFAULT_STATE = {
   listFriends: [],
@@ -30,6 +30,11 @@ export default (state = DEFAULT_STATE, action) => {
       ...state,
       listOnline: action.payload,
       listFriends: convertObjectCondition(state.listFriends, action.payload, "userId", "isOnline"),
+    }; 
+  case ActionTypes.GET_MY_INBOX_SOCKET:
+    return {
+      ...state,
+      listFriends: convertListFriendMessage(state.listFriends, action.payload),
     };  
   default:
     return state;

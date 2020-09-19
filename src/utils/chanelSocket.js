@@ -6,4 +6,5 @@ export const CHANEL = {
   ROOM_CHAT: "__roomChat:id=",
   SEND_TYPING_CHAT: "__sendTypingChat",
   RECEIVE_TYPING_CHAT: "__typingChatRoom:id=",
+  MY_INBOX: "__myInbox:id=",
 };

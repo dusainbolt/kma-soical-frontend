@@ -327,3 +327,19 @@ export const convertObjectCondition = (arrayResult, arrayCheck, conditionName, m
 export const getStatusOnline = status => {
   return status ? i8().t("list_friends.online") : i8().t("list_friends.offline");
 };
+
+export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => {
+  let isOnline = null;
+  listFriendsReducer = listFriendsReducer.filter(item => {
+    const checkInboxOnReducer = item.userId !== payloadMessage.userInbox.userId;
+    if(!checkInboxOnReducer){isOnline = item.isOnline;}
+    return checkInboxOnReducer;
+  });
+  const userInbox = [{
+    ...payloadMessage.userInbox,
+    content: payloadMessage.message,
+    type: payloadMessage.type,
+    isOnline
+  }];
+  return userInbox.concat(listFriendsReducer);
+};

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Badge, Menu, Avatar } from "antd";
+import { Badge, Menu, Avatar, Popover } from "antd";
 import Input from "../../components/Input";
 import { Field, Formik } from "formik";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,6 @@ import { useMemo } from "react";
 import { genderAvatarUrl, renderErrorSearch } from "../../utils";
 import LoadComment from "../../components/LoadComment";
 import FadeIn from "react-fade-in";
-import { useCallback } from "react";
 
 function SidebarMessage({ callbackOpenBoxChat }) {
   const { t } = useTranslation();
@@ -30,19 +29,21 @@ function SidebarMessage({ callbackOpenBoxChat }) {
   }, [searchText]);
 
   const onOpenChat = (item, idUserInbox) => () => {
-    if(item.userId === idUserInbox ) return;
+    if (item.userId === idUserInbox) return;
     callbackOpenBoxChat(item, { offset: 0, limit: LIMIT.LIST_CHAT });
   };
-  
+
   const renderListFriends = useMemo(() => {
     if (!listFriends.length) return renderErrorSearch("search-list-friends");
     return listFriends.map((item, index) => {
       return (
         <FadeIn key={index} delay={100 * index} transitionDuration={300}>
           <div onClick={onOpenChat(item, userInbox?.userId)} className="side-friends__user-wrapper">
-            <Badge dot={item.isOnline ? true : null} count={null}>
-              <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
-            </Badge>
+            <Popover placement="left" visible={false} content={"content"} title="Title" trigger="hover">
+              <Badge dot={ !item.countMessage && item.isOnline ? true : null} count={item.countMessage ? item.countMessage : null}>
+                <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
+              </Badge>
+            </Popover>
             <span className="side-friends__user-name">{item.fullName}</span>
           </div>
         </FadeIn>

@@ -35,7 +35,7 @@ function BoxChat({
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
-    userId: userId,
+    idUserInbox: userInbox.userId
   };
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
@@ -72,15 +72,16 @@ function BoxChat({
   useEffect(() => {
     getMessage(roomChat?.id);
     receiverTypingChat(roomChat?.id, getTypingChat);
+    setIsViewMore(false);
   }, [roomChat]);
 
   const getTypingChat = roomChatTyping => {
-    if(roomChatTyping.userId === userInbox.userId ){
+    if (roomChatTyping.userId === userInbox.userId) {
       setIsTyping(true);
       boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
-      setTimeout(()=>{
+      setTimeout(() => {
         setIsTyping(false);
-      },1000);
+      }, 1000);
     }
   };
 
@@ -125,9 +126,10 @@ function BoxChat({
       setTimeout(() => {
         boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
         setIsChange(false);
+        setIsViewMore(false);
       });
     }
-  }, [isChange]);
+  }, [isChange, isViewMore]);
 
   const renderMessageLoad = useMemo(() => {
     return arrayLoad.map((item, index) => {
@@ -172,17 +174,35 @@ function BoxChat({
     );
   }, [isLoadingBoxChat]);
 
-  const renderTypingChat = useMemo(()=>{
-    return isTyping && <div className="box-chat__typing">
-      <Avatar className="avatar" src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar"/>
-      <Dot />
-    </div>;
-  },[isTyping]);
+  const renderTypingChat = useMemo(() => {
+    return (
+      isTyping && (
+        <div className="box-chat__typing">
+          <Avatar className="avatar" src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar" />
+          <Dot />
+        </div>
+      )
+    );
+  }, [isTyping]);
+
+  const renderLoadingBoxChat = useMemo(() => {
+    return (
+      isLoadingBoxChat && (
+        <>
+          <LoadBoxChat total={4} /> <Dot />
+        </>
+      )
+    );
+  }, [isLoadingBoxChat]);
 
   const handleScroll = () => {
     if (!boxMessage.current.scrollTop && !isLoadingBoxChat && exact > 0) {
       setIsViewMore(true);
-      callbackGetListMessage({ roomId: roomChat?.id, userId: userInbox.userId , chatId: listChat[0].id });
+      callbackGetListMessage({
+        roomId: roomChat?.id,
+        userId: userInbox.userId,
+        chatId: listChat[0].id,
+      });
     }
   };
 
@@ -191,7 +211,7 @@ function BoxChat({
       {renderTopBoxChat}
       <div ref={boxMessage} className="box-chat__message" onScroll={handleScroll}>
         {exact <= 0 && !isLoadingBoxChat && renderBoxChatEmpty}
-        {isLoadingBoxChat && <LoadBoxChat total={4} />}
+        {renderLoadingBoxChat}
         {renderBoxmessage}
         {renderMessageLoad}
         {renderTypingChat}

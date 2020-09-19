@@ -1,5 +1,7 @@
 import { ActionTypes } from "./actions";
 import { ActionTypes as SocketType } from "../Layout/actions";
+import { resetBoxChatSocket } from "../../utils/socket";
+
 const DEFAULT_STATE = {
   listChat: [],
   userInbox: {},
@@ -25,6 +27,9 @@ export default (state = DEFAULT_STATE, action) => {
       },
     };  
   case ActionTypes.OPEN_BOX_CHAT_START:
+    if(!(state.userInbox?.userId === action.itemUser.userId && state.roomChat?.id )){
+      resetBoxChatSocket(state.roomChat.id);
+    }
     return{
       ...state,
       isLoadingBoxChat: true,
