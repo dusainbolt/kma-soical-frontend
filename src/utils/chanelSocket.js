@@ -9,4 +9,6 @@ export const CHANEL = {
   MY_INBOX: "__myInbox:id=",
   OPEN_MY_BOX_CHAT: "__openBoxChat",
   RECEIVE_BOX_CHAT: "__receiveBoxChat:id=",
+  ON_READ_ROOM: "__onReadRoom",
+  RECEIVE_READ_ROOM:"__receiveReadRoom:id="
 };

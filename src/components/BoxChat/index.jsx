@@ -7,7 +7,7 @@ import { Field, Formik } from "formik";
 import LoadBoxChat from "../LoadBoxChat";
 import { genderAvatarUrl, filterArray, getStatusOnline } from "../../utils";
 import Input from "../Input";
-import { getMessage, onTypingChat, receiverTypingChat } from "../../utils/socket";
+import { getMessage, onTypingChat, receiverTypingChat, onReadRoom } from "../../utils/socket";
 import FadeIn from "react-fade-in";
 import Dot from "../Dot";
 
@@ -69,8 +69,11 @@ function BoxChat({
   }, [indexLoad]);
 
   useEffect(() => {
-    getMessage(roomChat?.id);
-    receiverTypingChat(getTypingChat);
+    if(roomChat?.id){
+      getMessage(roomChat?.id);
+      receiverTypingChat(getTypingChat);
+      onReadRoom();
+    }
     setIsViewMore(false);
   }, [roomChat]);
 
@@ -84,7 +87,7 @@ function BoxChat({
     }
   };
 
-  const renderBoxmessage = useMemo(() => {
+  const renderBoxMessage = useMemo(() => {
     return listChat.map((item, index) => {
       const content = (
         <Tooltip title={item.created_at} color="orange">
@@ -101,7 +104,7 @@ function BoxChat({
       const classNameMessNext = nextMess ? "next-mess" : "";
       const classNameMessFirst = firstMess ? "first-mess" : "";
       const classNameMessLast = lastMess ? "last-mess" : "";
-      const classNameIsRead = item.isRead ? "mess-wait" : "";
+      const classNameIsRead = item.indexLoad ? "mess-wait" : "";
       const avatar =
         className || item.userId === listChat[index - 1]?.userId
           ? []
@@ -211,7 +214,7 @@ function BoxChat({
       <div ref={boxMessage} className="box-chat__message" onScroll={handleScroll}>
         {exact <= 0 && !isLoadingBoxChat && renderBoxChatEmpty}
         {renderLoadingBoxChat}
-        {renderBoxmessage}
+        {renderBoxMessage}
         {renderMessageLoad}
         {renderTypingChat}
       </div>

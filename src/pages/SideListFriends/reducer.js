@@ -1,5 +1,5 @@
 import { ActionTypes } from "./actions";
-import { convertListFriendMessage, convertObjectCondition, convertListFriendOpenBoxChat } from "../../utils";
+import { convertListFriendMessage, convertObjectCondition, convertArrayZeroCondition } from "../../utils";
 
 const DEFAULT_STATE = {
   listFriends: [],
@@ -42,7 +42,7 @@ export default (state = DEFAULT_STATE, action) => {
     return {
       ...state,
       idUserShowMess: null,
-      listFriends: convertListFriendOpenBoxChat(action.payload.userId, state.listFriends),
+      listFriends: convertArrayZeroCondition(action.payload.userId, state.listFriends, "userId", "countMessage"),
     }; 
   default:
     return state;

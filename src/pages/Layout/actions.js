@@ -14,6 +14,7 @@ export const ActionTypes = {
   GET_LIST_ONLINE_SOCKET: "GET_LIST_ONLINE_SOCKET",
   GET_MY_INBOX_SOCKET: "GET_MY_INBOX_SOCKET",
   RECEIVE_BOX_CHAT_SOCKET: "RECEIVE_BOX_CHAT_SOCKET",
+  RECEIVE_READ_BOX_CHAT_SOCKET: "RECEIVE_READ_BOX_CHAT_SOCKET",
 };
 
 export const actions = {
@@ -103,6 +104,13 @@ export const actionsSocket = {
     return {
       type: ActionTypes.RECEIVE_BOX_CHAT_SOCKET,
       payload
+    };
+  },
+  receiveReadRoom: function(myRead, idUserRead){
+    return {
+      type: ActionTypes.RECEIVE_READ_BOX_CHAT_SOCKET,
+      myRead,
+      idUserRead
     };
   }
 };

@@ -1,6 +1,7 @@
 import { ActionTypes } from "./actions";
 import { ActionTypes as SocketType } from "../Layout/actions";
 import { resetBoxChatSocket } from "../../utils/socket";
+import { convertArrayZeroCondition } from "../../utils";
 
 const DEFAULT_STATE = {
   listChat: [],
@@ -55,6 +56,11 @@ export default (state = DEFAULT_STATE, action) => {
       listChat: action.payload.listChat.reverse().concat(state.listChat),
       isLoadingBoxChat: false,
       exact: action.payload.exact,
+    }; 
+  case ActionTypes.RECEIVE_READ_BOX_CHAT_SOCKET:
+    return {
+      ...state,
+      listChat: convertArrayZeroCondition(action.myRead ? state.userInbox?.userId : action.idUserRead , state.listChat, "userId", "indexLoad")
     };  
   default:
     return state;

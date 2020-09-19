@@ -344,12 +344,12 @@ export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => 
   return userInbox.concat(listFriendsReducer);
 };
 
-export const convertListFriendOpenBoxChat = (idUserInbox, listChatFriendsReducer) => {
-  return listChatFriendsReducer.map(item => {
-    const checkInboxOnReducer = item.userId === idUserInbox;
+export const convertArrayZeroCondition = (value, listConvert, conditionName, valueName) => {
+  return listConvert.map(item => {
+    const checkInboxOnReducer = item[conditionName] === value;
     return {
       ...item,
-      countMessage: checkInboxOnReducer ? 0 : item.countMessage
+      [valueName]: checkInboxOnReducer ? 0 : item[valueName]
     };
   });
 };

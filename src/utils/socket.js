@@ -35,6 +35,16 @@ function getMessage(roomId) {
   });
 }
 
+function onReadRoom(){
+  console.log("----->onReadRoom", idRoomChat);
+  socket.emit(`${CHANEL.ON_READ_ROOM}`, userId, idRoomChat);
+  socket.on(`__receiveReadRoom:id=${idRoomChat}`, idUserRead => {
+    console.log("----->receiveReadRoom", idUserRead);
+    dispatch(actions.receiveReadRoom(idUserRead === userId, idUserRead ));
+  });
+}
+
+
 function openBoxChatSocket(userInbox){
   console.log("-------------->openBoxChat: ", userInbox);
   socket.emit(`${CHANEL.OPEN_MY_BOX_CHAT}`, userInbox, userId);
@@ -51,6 +61,7 @@ function resetBoxChatSocket() {
   console.log("-------------------->resetBoxChat", idRoomChat);
   socket.off(`${CHANEL.ROOM_CHAT}${idRoomChat}`);
   socket.off(`${CHANEL.RECEIVE_TYPING_CHAT}${idRoomChat}`);
+  socket.off(`${CHANEL.RECEIVE_READ_ROOM}${idRoomChat}`);
 }
 
 function getListOnline() {
@@ -135,4 +146,5 @@ export {
   receiverTypingChat,
   resetBoxChatSocket,
   openBoxChatSocket,
+  onReadRoom,
 };
