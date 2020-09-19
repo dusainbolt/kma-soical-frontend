@@ -1,10 +1,11 @@
 import { ActionTypes } from "./actions";
-import { convertListFriendMessage, convertObjectCondition } from "../../utils";
+import { convertListFriendMessage, convertObjectCondition, convertListFriendOpenBoxChat } from "../../utils";
 
 const DEFAULT_STATE = {
   listFriends: [],
   listOnline: [],
   loadingListUser: false,
+  idUserShowMess: null,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -35,7 +36,14 @@ export default (state = DEFAULT_STATE, action) => {
     return {
       ...state,
       listFriends: convertListFriendMessage(state.listFriends, action.payload),
+      idUserShowMess: action.payload.userId
     };  
+  // case ActionTypes.OPEN_BOX_CHAT_START:
+  //   return {
+  //     ...state,
+  //     idUserShowMess: null,
+  //     listFriends: convertListFriendOpenBoxChat(action.itemUser.userId, state.listFriends),
+  //   }; 
   default:
     return state;
   }

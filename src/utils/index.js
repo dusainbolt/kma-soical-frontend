@@ -343,3 +343,13 @@ export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => 
   }];
   return userInbox.concat(listFriendsReducer);
 };
+
+export const convertListFriendOpenBoxChat = (idUserInbox, listChatFriendsReducer) => {
+  return listChatFriendsReducer.map(item => {
+    const checkInboxOnReducer = item.userId === idUserInbox;
+    return {
+      ...item,
+      countMessage: checkInboxOnReducer ? 0 : item.countMessage
+    };
+  });
+};

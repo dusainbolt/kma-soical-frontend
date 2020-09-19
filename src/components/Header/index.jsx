@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { MenuOutlined, UserOutlined, MessageFilled, LogoutOutlined } from "@ant-design/icons";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { UserOutlined, MessageFilled, LogoutOutlined } from "@ant-design/icons";
 import "./index.scss";
 import { Typography, Avatar, Popover, Modal } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../pages/Login/actions";
 import LogoHeader from "../../common/image/LogoSidebar.png";
-import { useMemo } from "react";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useCallback } from "react";
 
 const { Paragraph } = Typography;
 

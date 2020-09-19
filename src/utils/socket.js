@@ -4,15 +4,19 @@ import { actionsSocket as actions } from "../pages/Layout/actions";
 import { convertObjectToArray } from "../utils";
 let socket = null;
 let dispatch = null;
-function initSocket(dispatchVal, userId) {
+let idRoomChat = null;
+let userId = null;
+function initSocket(dispatchVal, myUserId) {
   socket = io(CHANEL.API_URL);
   socket.on("connect", () => {
     console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
     dispatch = dispatchVal;
-    speakOnline(userId);
+    userId= myUserId;
+    speakOnline();
     getListOnline();
-    getMyInbox(userId);
+    getMyInbox();
     baseSocket();
+    receiveBoxChat();
   });
   connectSocketError();
 }
@@ -23,14 +27,27 @@ function connectSocketError() {
   });
 }
 
-function getMessage(idRoomChat) {
-  socket.on(`${CHANEL.ROOM_CHAT}${idRoomChat}`, res => {
+function getMessage(roomId) {
+  idRoomChat = roomId;
+  socket.on(`${CHANEL.ROOM_CHAT}${roomId}`, res => {
     console.log("----->messageRoomChat", res);
     dispatch(actions.getMessageSocket(res.data));
   });
 }
 
-function resetBoxChatSocket(idRoomChat) {
+function openBoxChatSocket(userInbox){
+  console.log("-------------->openBoxChat: ", userInbox);
+  socket.emit(`${CHANEL.OPEN_MY_BOX_CHAT}`, userInbox, userId);
+}
+
+function receiveBoxChat(){
+  socket.on(`${CHANEL.RECEIVE_BOX_CHAT}${userId}`, res => {
+    console.log("----->receiveBoxChat: ", res);
+    // dispatch(actions.getMessageSocket(res.data));
+  });
+}
+
+function resetBoxChatSocket() {
   console.log("-------------------->resetBoxChat", idRoomChat);
   socket.off(`${CHANEL.ROOM_CHAT}${idRoomChat}`);
   socket.off(`${CHANEL.RECEIVE_TYPING_CHAT}${idRoomChat}`);
@@ -43,30 +60,34 @@ function getListOnline() {
   });
 }
 
-function getMyInbox(userId) {
+function getMyInbox() {
   socket.on(`${CHANEL.MY_INBOX}${userId}`, res => {
     console.log("----->getMyInbox", res);
-    dispatch(actions.getMyInboxSocket(res));
+    if(res.roomId !== idRoomChat){
+      dispatch(actions.getMyInboxSocket(res));
+    }
   });
 }
 
 function logoutSocket() {
   console.log("----->Logout socket", socket.id);
   socket.emit(CHANEL.LOG_OUT, socket.id);
+  socket.disconnect();
+
 }
 
-function speakOnline(userId) {
+function speakOnline() {
   console.log("----->Speak User Id", userId);
   socket.emit(CHANEL.SPEAK_USER_ID, userId);
 }
 
-function onTypingChat(roomId, userId) {
-  console.log("------------->Typing chat: ", roomId, userId);
-  socket.emit(CHANEL.SEND_TYPING_CHAT, { userId, roomId });
+function onTypingChat() {
+  console.log("------------->Typing chat: ", idRoomChat, userId);
+  socket.emit(CHANEL.SEND_TYPING_CHAT, { userId, idRoomChat });
 }
 
-function receiverTypingChat(roomId, callbackShowTypingChat) {
-  socket.on(`${CHANEL.RECEIVE_TYPING_CHAT}${roomId}`, res => {
+function receiverTypingChat(callbackShowTypingChat) {
+  socket.on(`${CHANEL.RECEIVE_TYPING_CHAT}${idRoomChat}`, res => {
     console.log("----->getTyping", res);
     callbackShowTypingChat(res);
   });
@@ -113,4 +134,5 @@ export {
   onTypingChat,
   receiverTypingChat,
   resetBoxChatSocket,
+  openBoxChatSocket,
 };

@@ -35,7 +35,6 @@ function BoxChat({
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
-    idUserInbox: userInbox.userId
   };
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
@@ -59,7 +58,7 @@ function BoxChat({
     ];
     setArrayLoad(oldArray => oldArray.concat(htmlLoad));
     setCountLoad(countLoad + 1);
-    callbackSendMessage({ ...values, indexLoad: countLoad, roomId: roomChat?.id });
+    callbackSendMessage({ ...values, indexLoad: countLoad, roomId: roomChat?.id, idUserInbox: userInbox.userId });
     chatBottomContainer.current.style.height = `${50}px`;
     setHeightBox(41);
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
@@ -71,7 +70,7 @@ function BoxChat({
 
   useEffect(() => {
     getMessage(roomChat?.id);
-    receiverTypingChat(roomChat?.id, getTypingChat);
+    receiverTypingChat(getTypingChat);
     setIsViewMore(false);
   }, [roomChat]);
 

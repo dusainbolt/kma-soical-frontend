@@ -8,7 +8,7 @@ import Sidebar from "../SlideBar";
 import SideBarEvent from "../SideBoxChat";
 import SideListFriends from "../SideListFriends";
 import { END_MOBILE_PIXEL } from "../../common";
-import { initSocket, logoutSocket } from "../../utils/socket";
+import { initSocket, logoutSocket, openBoxChatSocket } from "../../utils/socket";
 import { actions } from "./actions";
 import api from "../../services/api";
 
@@ -57,6 +57,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
 
   const openBoxChat = (itemUser, params) => {
     dispatch(actions.openBoxChatStart(itemUser, params));
+    openBoxChatSocket(itemUser);
   };
   
   return (

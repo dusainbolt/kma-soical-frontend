@@ -2,10 +2,6 @@ import React from "react";
 import logo from "../../common/image/logo.png";
 import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";
-import { useEffect } from "react";
-import { browserHistory } from "../../utils/history";
-import { useSelector } from "react-redux";
-import api from "../../services/api";
 
 function Welcome() {
   

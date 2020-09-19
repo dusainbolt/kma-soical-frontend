@@ -13,6 +13,7 @@ export const ActionTypes = {
   GET_MESSAGE_SOCKET: "GET_MESSAGE_SOCKET",
   GET_LIST_ONLINE_SOCKET: "GET_LIST_ONLINE_SOCKET",
   GET_MY_INBOX_SOCKET: "GET_MY_INBOX_SOCKET",
+  RECEIVE_BOX_CHAT_SOCKET: "RECEIVE_BOX_CHAT_SOCKET",
 };
 
 export const actions = {
@@ -95,6 +96,12 @@ export const actionsSocket = {
   getMyInboxSocket: function(payload){
     return {
       type: ActionTypes.GET_MY_INBOX_SOCKET,
+      payload
+    };
+  },
+  receiveBoxChatSocket: function(payload){
+    return {
+      type: ActionTypes.RECEIVE_BOX_CHAT_SOCKET,
       payload
     };
   }

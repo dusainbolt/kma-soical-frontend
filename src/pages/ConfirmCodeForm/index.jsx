@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Field } from "formik";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
@@ -8,7 +8,6 @@ import ButtonCommon from "../../components/Button";
 import Dot from "../../components/Dot";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "./actions";
-import { useEffect } from "react";
 import FadeIn from "react-fade-in";
 import { showNotifyNormal } from "../../utils";
 import { browserHistory } from "../../utils/history";

@@ -1,0 +1,20 @@
+.ant-popover{
+  position: fixed !important;
+  .ant-popover-inner{
+    border-radius: 8px;
+    .ant-popover-inner-content{
+      padding: 0;
+    }
+  }
+}
+
+.my-popover{
+  &__mess-content{
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    &:hover{
+      opacity: 0.8;
+    }
+  } 
+}

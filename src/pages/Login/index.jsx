@@ -3,15 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import logo from "../../common/image/logo.png";
 import { actions } from "../Login/actions";
-import { useEffect } from "react";
-import { browserHistory } from "../../utils/history";
 import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";
-import { VALUE_STATUS, CONFIRM } from "../../common";
 import LoginForm from "../../components/LoginForm";
-import ConfirmCode from "../ConfirmCodeForm";
 import LazyLoading from "../../components/LazyLoadingImg";
-import api from "../../services/api";
 
 function Login() {
   const isLoadingLogin = useSelector(state => state.loginReducer.isLoadingLogin);
