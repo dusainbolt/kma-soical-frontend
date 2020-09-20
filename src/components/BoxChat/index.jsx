@@ -32,7 +32,11 @@ function BoxChat({
   const [isChange, setIsChange] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isViewMore, setIsViewMore] = useState(false);
+  const [indexMore, setIndexMore] = useState(false);
+  const [lengthListMessage, setLengthListMessage] = useState(0);
+  const [idRoomChat, setIdRoomChat] = useState(0);
   const indexCurrent = useRef(null);
+  const indexLoadMore = useRef(null);
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
@@ -40,6 +44,7 @@ function BoxChat({
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
     const heightContainer = chatBottomContainer.current.clientHeight;
+    // console.log(boxMessage.current.scrollHeight - boxMessage.current.scrollTop);
     setFieldValue(name, value);
     onTypingChat(roomChat.id, userId);
     setTimeout(() => {
@@ -85,6 +90,9 @@ function BoxChat({
   const getTypingChat = roomChatTyping => {
     if (roomChatTyping.userId === userInbox.userId) {
       setIsTyping(true);
+      if (boxMessage.current.scrollHeight - boxMessage.current.scrollTop < 500) {
+        boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
+      }
       setTimeout(() => {
         setIsTyping(false);
       }, 1000);
@@ -94,18 +102,27 @@ function BoxChat({
   const renderStatusLastMessage = (myMess, classIsRead) => {
     switch (myMess) {
       case true:
-        return [<span>{t(`box_chat.my_last_message_${classIsRead}`)}</span>];
+        return [<span key={listChat.length}>{t(`box_chat.my_last_message_${classIsRead}`)}</span>];
       default:
-        return [];
+        return [
+          <span key={listChat.length}>{t(`box_chat.user_inbox_message_${classIsRead}`)}</span>,
+        ];
     }
   };
 
   const renderBoxMessage = useMemo(() => {
     return listChat.map((item, index) => {
+      setLengthListMessage(listChat.length);
+      if (lengthListMessage !== listChat.length || idRoomChat !== roomChat.id) {
+        setIsChange(true);
+        setIdRoomChat(roomChat.id);
+      }
       const checkLength = index === listChat.length - 1;
       const content = (
         <Tooltip title={item.created_at} color="orange">
-          <div ref={checkLength ? indexCurrent : null}>{item.message}</div>
+          <div ref={checkLength ? indexCurrent : indexMore === item.id ? indexLoadMore : null}>
+            {item.message}
+          </div>
         </Tooltip>
       );
       const nextMess =
@@ -123,9 +140,6 @@ function BoxChat({
         className || item.userId === listChat[index - 1]?.userId
           ? []
           : genderAvatarUrl(userInbox.avatarUrl);
-      if (checkLength) {
-        setIsChange(true);
-      }
       const isMyLastMessage = className && checkLength;
       return (
         <Comment
@@ -133,9 +147,7 @@ function BoxChat({
           avatar={!className ? avatar.length ? <Avatar src={avatar} alt="avatar" /> : avatar : null}
           className={`${className} ${classNameMessNext} ${classNameIsRead} ${classNameMessFirst} ${classNameMessLast}`}
           content={content}
-          actions={
-            isMyLastMessage ? renderStatusLastMessage(isMyLastMessage, classNameIsRead) : null
-          }
+          actions={checkLength ? renderStatusLastMessage(isMyLastMessage, classNameIsRead) : null}
         />
       );
     });
@@ -146,6 +158,8 @@ function BoxChat({
       setTimeout(() => {
         if (!isViewMore) {
           indexCurrent.current.scrollIntoView({ behavior: "smooth" });
+        } else {
+          indexLoadMore.current.scrollIntoView({ behavior: "smooth" });
         }
         setIsChange(false);
         setIsViewMore(false);
@@ -203,23 +217,15 @@ function BoxChat({
     );
   }, [isTyping]);
 
-  const renderLoadingBoxChat = useMemo(() => {
-    return (
-      isLoadingBoxChat && (
-        <>
-          <LoadBoxChat total={4} /> <Dot />
-        </>
-      )
-    );
-  }, [isLoadingBoxChat]);
-
   const handleScroll = () => {
     if (!boxMessage.current.scrollTop && !isLoadingBoxChat && exact > 0) {
       setIsViewMore(true);
+      const indexItemLoad = listChat[0].id;
+      setIndexMore(indexItemLoad);
       callbackGetListMessage({
         roomId: roomChat?.id,
         userId: userInbox.userId,
-        chatId: listChat[0].id,
+        chatId: indexItemLoad,
       });
     }
   };
@@ -229,8 +235,8 @@ function BoxChat({
       {renderTopBoxChat}
       <div ref={boxMessage} className="box-chat__message" onScroll={handleScroll}>
         {exact <= 0 && !isLoadingBoxChat && renderBoxChatEmpty}
-        {exact > 0 && <div>Tai them</div>}
-        {renderLoadingBoxChat}
+        {isLoadingBoxChat && <LoadBoxChat total={4} />}
+        {isLoadingBoxChat && <Dot />}
         {renderBoxMessage}
         {renderMessageLoad}
         {renderTypingChat}

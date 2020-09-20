@@ -73,7 +73,7 @@
     width: 100%;
     padding: 6px;
     overflow: auto;
-
+    overflow-x: hidden;
     .ant-comment {
       width: 75%;
       .ant-comment-content {
@@ -187,6 +187,10 @@
           font-size: $font-size;
         }
       }
+    }
+    .ant-comment-actions {
+      margin-top: 0;
+      text-align: right;
     }
   }
   &__bottom {
