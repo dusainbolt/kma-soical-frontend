@@ -9,32 +9,32 @@ const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-  case ActionTypes.POST_LOGIN_START: {
-    return {
-      ...state,
-      isLoadingLogin: true,
-    };
-  }
-  case ActionTypes.POST_LOGIN_SUCCESS:
-    return {
-      ...state,
-      token: action.payload.token,
-      userDetail: action.payload.userInfo,
-      isLoadingLogin: false,
-    };
-  case ActionTypes.POST_LOGIN_ERROR:
-    return {
-      ...state,
-      isLoadingLogin: false,
-      errorLogin: action.payload
-    };
-  case ActionHeader.POST_LOGOUT_SUCCESS:
-    return {
-      ...state,
-      token: "",
-      userDetail: {},
-    };  
-  default:
-    return state;
+    case ActionTypes.POST_LOGIN_START: {
+      return {
+        ...state,
+        isLoadingLogin: true,
+      };
+    }
+    case ActionTypes.POST_LOGIN_SUCCESS:
+      return {
+        ...state,
+        token: action.payload.token,
+        userDetail: action.payload.userInfo,
+        isLoadingLogin: false,
+      };
+    case ActionTypes.POST_LOGIN_ERROR:
+      return {
+        ...state,
+        isLoadingLogin: false,
+        errorLogin: action.payload,
+      };
+    case ActionHeader.POST_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        token: "",
+        userDetail: {},
+      };
+    default:
+      return state;
   }
 };

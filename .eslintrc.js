@@ -26,7 +26,7 @@ module.exports = {
     ],
     "rules": {
         "max-len": ["error", { code: 200 }],
-        "indent": ["error", 2],
+        "indent": ["error", 2, { "SwitchCase": 1 }],
         "linebreak-style": ["error", "unix"],
         "semi": ["error", "always"],
         "quotes": ["error", "double"],

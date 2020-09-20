@@ -2,16 +2,25 @@ import React from "react";
 import { browserHistory } from "./history";
 import { actions as actionLayout } from "../pages/Layout/actions";
 import { put } from "redux-saga/effects";
-import { TIME_UTC_FORMAT, DATE_UTC_FORMAT, TYPE_DATE_TIME, SPAN_GALLEY, TYPE_FEED } from "../common";
+import {
+  TIME_UTC_FORMAT,
+  DATE_UTC_FORMAT,
+  TYPE_DATE_TIME,
+  SPAN_GALLEY,
+  TYPE_FEED,
+} from "../common";
 import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
 import moment from "moment";
 import { getI18n as i8 } from "react-i18next";
 import AvatarDefault from "../common/image/avatar-default.png";
 
-
 export const renderErrorSearch = className => {
-  return <div className={`side-friends__search-mess--error ${className}`}>{i8().t("list_friends.err_search")}</div>;
+  return (
+    <div className={`side-friends__search-mess--error ${className}`}>
+      {i8().t("list_friends.err_search")}
+    </div>
+  );
 };
 
 export function getTimeNowUnix() {
@@ -48,12 +57,11 @@ export function* effectAfterRequest(typeMsg, msg, typeHide = 0, redirect = "") {
   if (msg) yield showMessage(typeMsg, msg);
 }
 
-export function* showNotifyRequest(title, content, urlAction, typeMsg){
+export function* showNotifyRequest(title, content, urlAction, typeMsg) {
   yield showNotify(title, content, urlAction, typeMsg);
 }
 
-
-export function showNotifyNormal(title, content, urlAction, typeMsg){
+export function showNotifyNormal(title, content, urlAction, typeMsg) {
   showNotify(title, content, urlAction, typeMsg);
 }
 
@@ -84,14 +92,14 @@ export function convertDateTime(timeNumber, type = "") {
   const timeConvert = moment.unix(timeNumber).format(TIME_UTC_FORMAT.TYPE_2);
   const dateConvert = moment.unix(timeNumber).format(DATE_UTC_FORMAT);
   switch (type) {
-  case TYPE_DATE_TIME.DATE:
-    return dateConvert;
-  case TYPE_DATE_TIME.TIME:
-    return timeConvert;
-  case TYPE_DATE_TIME.TIME_AND_DATE:
-    return dateConvert + " " + timeConvert;
-  default:
-    return dateConvert;
+    case TYPE_DATE_TIME.DATE:
+      return dateConvert;
+    case TYPE_DATE_TIME.TIME:
+      return timeConvert;
+    case TYPE_DATE_TIME.TIME_AND_DATE:
+      return dateConvert + " " + timeConvert;
+    default:
+      return dateConvert;
   }
 }
 
@@ -123,16 +131,20 @@ export function genderTimeCountNewFeed(timeNumber) {
   var myTime = moment.unix(timeNumber);
   var duration = now.diff(myTime);
   var isDiffYear = now.format("Y") !== myTime.format("Y") ? true : false;
-  if(isDiffYear){
-    return `${myTime.format("D")} ${i8().t("time.month")} ${myTime.format("M")} ${i8().t("time.year")} ${myTime.format("Y")} ${i8().t("time.on")} ${myTime.format(TIME_UTC_FORMAT.TYPE_HH_MM)}`; 
-  }else if (duration < 60000) {
+  if (isDiffYear) {
+    return `${myTime.format("D")} ${i8().t("time.month")} ${myTime.format("M")} ${i8().t(
+      "time.year"
+    )} ${myTime.format("Y")} ${i8().t("time.on")} ${myTime.format(TIME_UTC_FORMAT.TYPE_HH_MM)}`;
+  } else if (duration < 60000) {
     return i8().t("time.now");
   } else if (duration > 60000 && duration < 3600000) {
     return `${now.diff(myTime, "minutes")} ${i8().t("time.minutes")}`;
   } else if (duration > 3600000 && duration < 86400000) {
     return `${now.diff(myTime, "hours")} ${i8().t("time.hours")}`;
   } else if (duration > 86400000) {
-    return `${myTime.format("D")} ${i8().t("time.month")} ${myTime.format("M")} ${i8().t("time.on")} ${myTime.format(TIME_UTC_FORMAT.TYPE_HH_MM)}`; 
+    return `${myTime.format("D")} ${i8().t("time.month")} ${myTime.format("M")} ${i8().t(
+      "time.on"
+    )} ${myTime.format(TIME_UTC_FORMAT.TYPE_HH_MM)}`;
   }
 }
 
@@ -167,8 +179,6 @@ export const onlyNumber = (setFieldValue, name) => e => {
   setFieldValue(name, value);
 };
 
-
-
 export const blockSpecialChar = (setFieldValue, name) => e => {
   let value = e.target.value;
   if (!onlyNumberChar(value)) return;
@@ -184,9 +194,9 @@ export const checkCodeStudent = (setFieldValue, name) => e => {
 export const validateCodeStudent = value => {
   let arr = value.split("");
   let check = true;
-  if ((value.length === 1)) {
+  if (value.length === 1) {
     check = arr[0] === "A" || arr[0] === "C" || arr[0] === "D";
-  } else if ((value.length === 2)) {
+  } else if (value.length === 2) {
     const code = arr[0] + arr[1];
     check = code === "AT" || code === "CT" || code === "DT";
   }
@@ -263,40 +273,59 @@ export const getLastName = fullName => {
   return fullName?.split(" ").pop();
 };
 
-export const getSpanList = length=>{
+export const getSpanList = length => {
   switch (length) {
-  case 2:
-    return SPAN_GALLEY.COL_12_12;
-  case 1:  
-  case 3:
-    return SPAN_GALLEY.COL_24_12;
-  case 4: 
-    return SPAN_GALLEY.COL_24_8;
-  case 5:
-    return SPAN_GALLEY.COL_24_6;    
-  default:
-    return SPAN_GALLEY.COL_24_6;
+    case 2:
+      return SPAN_GALLEY.COL_12_12;
+    case 1:
+    case 3:
+      return SPAN_GALLEY.COL_24_12;
+    case 4:
+      return SPAN_GALLEY.COL_24_8;
+    case 5:
+      return SPAN_GALLEY.COL_24_6;
+    default:
+      return SPAN_GALLEY.COL_24_6;
   }
 };
 
 export const getArrayImg = (content, type) => {
-  return type === TYPE_FEED.IMAGE ? content.split(",") : content; 
+  return type === TYPE_FEED.IMAGE ? content.split(",") : content;
 };
 
 export const renderNotePost = (type, content, subjectName) => {
   const contentStart = i8().t("news_feed.note_shared");
   switch (type) {
-  case TYPE_FEED.IMAGE:
-    return <span>{`${contentStart} ${getArrayImg(content, type).length} ${i8().t("news_feed.image_upper")} ${i8().t("news_feed.to")} `}<b>{subjectName}</b></span>;
-  case TYPE_FEED.VIDEO:
-    return <span>{`${contentStart} ${i8().t("news_feed.video_upper")} ${i8().t("news_feed.to")} `}<b>{subjectName}</b></span>;
-  default:
-    return <span>{`${contentStart} ${i8().t("news_feed.status_upper")} ${i8().t("news_feed.to")} `}<b>{subjectName}</b></span>;
+    case TYPE_FEED.IMAGE:
+      return (
+        <span>
+          {`${contentStart} ${getArrayImg(content, type).length} ${i8().t(
+            "news_feed.image_upper"
+          )} ${i8().t("news_feed.to")} `}
+          <b>{subjectName}</b>
+        </span>
+      );
+    case TYPE_FEED.VIDEO:
+      return (
+        <span>
+          {`${contentStart} ${i8().t("news_feed.video_upper")} ${i8().t("news_feed.to")} `}
+          <b>{subjectName}</b>
+        </span>
+      );
+    default:
+      return (
+        <span>
+          {`${contentStart} ${i8().t("news_feed.status_upper")} ${i8().t("news_feed.to")} `}
+          <b>{subjectName}</b>
+        </span>
+      );
   }
 };
 
 export const renderNoteLike = (total, userLike) => {
-  return total > 9 ? `${userLike} ${i8().t("news_feed.and")} ${total} ${i8().t("news_feed.other_people")}` : total;
+  return total > 9
+    ? `${userLike} ${i8().t("news_feed.and")} ${total} ${i8().t("news_feed.other_people")}`
+    : total;
 };
 
 export const renderNoteComment = total => {
@@ -319,7 +348,7 @@ export const convertObjectCondition = (arrayResult, arrayCheck, conditionName, m
   return arrayResult.map(item => {
     return {
       ...item,
-      [mapName]: arrayCheck.indexOf(item[conditionName]) !== -1 ? true : false
+      [mapName]: arrayCheck.indexOf(item[conditionName]) !== -1 ? true : false,
     };
   });
 };
@@ -332,15 +361,19 @@ export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => 
   let isOnline = null;
   listFriendsReducer = listFriendsReducer.filter(item => {
     const checkInboxOnReducer = item.userId !== payloadMessage.userInbox.userId;
-    if(!checkInboxOnReducer){isOnline = item.isOnline;}
+    if (!checkInboxOnReducer) {
+      isOnline = item.isOnline;
+    }
     return checkInboxOnReducer;
   });
-  const userInbox = [{
-    ...payloadMessage.userInbox,
-    content: payloadMessage.message,
-    type: payloadMessage.type,
-    isOnline
-  }];
+  const userInbox = [
+    {
+      ...payloadMessage.userInbox,
+      content: payloadMessage.message,
+      type: payloadMessage.type,
+      isOnline,
+    },
+  ];
   return userInbox.concat(listFriendsReducer);
 };
 
@@ -349,7 +382,16 @@ export const convertArrayZeroCondition = (value, listConvert, conditionName, val
     const checkInboxOnReducer = item[conditionName] === value;
     return {
       ...item,
-      [valueName]: checkInboxOnReducer ? 0 : item[valueName]
+      [valueName]: checkInboxOnReducer ? 0 : item[valueName],
+    };
+  });
+};
+
+export const convertListChatRead = (myRead, idUserRead, listChatReducer) => {
+  return listChatReducer.map(item => {
+    return {
+      ...item,
+      indexLoad: idUserRead !== item.userId ? 0 : item.indexLoad,
     };
   });
 };

@@ -10,5 +10,5 @@ export const CHANEL = {
   OPEN_MY_BOX_CHAT: "__openBoxChat",
   RECEIVE_BOX_CHAT: "__receiveBoxChat:id=",
   ON_READ_ROOM: "__onReadRoom",
-  RECEIVE_READ_ROOM:"__receiveReadRoom:id="
+  RECEIVE_READ_ROOM: "__receiveReadRoom:id=",
 };

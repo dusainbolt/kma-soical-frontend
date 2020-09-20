@@ -45,10 +45,10 @@ export default function FormRegister({ userName, type }) {
 
   const getUrlRedirect = () => {
     switch (typeConfirm) {
-    case CONFIRM.REGISTER:
-      return "/login";
-    default:
-      return "/login";
+      case CONFIRM.REGISTER:
+        return "/login";
+      default:
+        return "/login";
     }
   };
 

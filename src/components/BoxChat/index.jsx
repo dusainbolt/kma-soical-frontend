@@ -32,6 +32,7 @@ function BoxChat({
   const [isChange, setIsChange] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [isViewMore, setIsViewMore] = useState(false);
+  const indexCurrent = useRef(null);
   const initialVales = {
     message: "",
     type: TYPE_FEED.TEXT,
@@ -58,7 +59,12 @@ function BoxChat({
     ];
     setArrayLoad(oldArray => oldArray.concat(htmlLoad));
     setCountLoad(countLoad + 1);
-    callbackSendMessage({ ...values, indexLoad: countLoad, roomId: roomChat?.id, idUserInbox: userInbox.userId });
+    callbackSendMessage({
+      ...values,
+      indexLoad: countLoad,
+      roomId: roomChat?.id,
+      idUserInbox: userInbox.userId,
+    });
     chatBottomContainer.current.style.height = `${50}px`;
     setHeightBox(41);
     boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
@@ -69,29 +75,37 @@ function BoxChat({
   }, [indexLoad]);
 
   useEffect(() => {
-    if(roomChat?.id){
+    if (roomChat?.id) {
       getMessage(roomChat?.id);
       receiverTypingChat(getTypingChat);
       onReadRoom();
     }
-    setIsViewMore(false);
   }, [roomChat]);
 
   const getTypingChat = roomChatTyping => {
     if (roomChatTyping.userId === userInbox.userId) {
       setIsTyping(true);
-      boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
       setTimeout(() => {
         setIsTyping(false);
       }, 1000);
     }
   };
 
+  const renderStatusLastMessage = (myMess, classIsRead) => {
+    switch (myMess) {
+      case true:
+        return [<span>{t(`box_chat.my_last_message_${classIsRead}`)}</span>];
+      default:
+        return [];
+    }
+  };
+
   const renderBoxMessage = useMemo(() => {
     return listChat.map((item, index) => {
+      const checkLength = index === listChat.length - 1;
       const content = (
         <Tooltip title={item.created_at} color="orange">
-          <div>{item.message}</div>
+          <div ref={checkLength ? indexCurrent : null}>{item.message}</div>
         </Tooltip>
       );
       const nextMess =
@@ -109,24 +123,30 @@ function BoxChat({
         className || item.userId === listChat[index - 1]?.userId
           ? []
           : genderAvatarUrl(userInbox.avatarUrl);
-      if (index === listChat.length - 1) {
+      if (checkLength) {
         setIsChange(true);
       }
+      const isMyLastMessage = className && checkLength;
       return (
         <Comment
           key={index}
           avatar={!className ? avatar.length ? <Avatar src={avatar} alt="avatar" /> : avatar : null}
           className={`${className} ${classNameMessNext} ${classNameIsRead} ${classNameMessFirst} ${classNameMessLast}`}
           content={content}
+          actions={
+            isMyLastMessage ? renderStatusLastMessage(isMyLastMessage, classNameIsRead) : null
+          }
         />
       );
     });
-  }, [listChat]);
+  }, [listChat, indexCurrent]);
 
   useEffect(() => {
-    if (isChange && boxMessage && !isViewMore) {
+    if (isChange && boxMessage) {
       setTimeout(() => {
-        boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
+        if (!isViewMore) {
+          indexCurrent.current.scrollIntoView({ behavior: "smooth" });
+        }
         setIsChange(false);
         setIsViewMore(false);
       });
@@ -142,10 +162,6 @@ function BoxChat({
       );
     });
   }, [arrayLoad]);
-
-  useEffect(() => {
-    boxMessage.current.scrollTop = boxMessage.current.scrollHeight;
-  }, [boxMessage]);
 
   const renderTopBoxChat = useMemo(() => {
     return (
@@ -213,6 +229,7 @@ function BoxChat({
       {renderTopBoxChat}
       <div ref={boxMessage} className="box-chat__message" onScroll={handleScroll}>
         {exact <= 0 && !isLoadingBoxChat && renderBoxChatEmpty}
+        {exact > 0 && <div>Tai them</div>}
         {renderLoadingBoxChat}
         {renderBoxMessage}
         {renderMessageLoad}

@@ -1,5 +1,5 @@
 {
-  "txt" : {
+  "txt": {
     "msg_required": "{{name}} không được để trống",
     "msg_format_email": "Không đúng định dạng email",
     "msg_only_char_num": "{{name}} chứa 5-21 ký tự [a-z0-9_] và có ít nhất 1 chữ",
@@ -27,7 +27,7 @@
     "code_std": "Mã sinh viên",
     "re_password": "Nhập lại mật khẩu",
     "birthday": "Ngày sinh",
-    "gender": "Giới tính",  
+    "gender": "Giới tính",
     "btn_login": "Đăng nhập",
     "not_account": "Bạn chưa có tài khoản?",
     "notify_email_title": "Lỗi email",
@@ -50,7 +50,7 @@
   "news_feed": {
     "image": "Ảnh",
     "video": "Video",
-    "status":"Trạng thái",
+    "status": "Trạng thái",
     "image_upper": "ảnh",
     "to": "tới",
     "video_upper": "video",
@@ -62,7 +62,7 @@
     "other_people": "người khác",
     "note_shared": "Đã chia sẻ"
   },
-  "time" : {
+  "time": {
     "day": "ngày",
     "year": "năm",
     "on": "lúc",
@@ -77,6 +77,8 @@
   },
   "box_chat": {
     "note_empty_1": "Các bạn hiện tại đã là bạn bè",
+    "my_last_message_": "Đã xem",
+    "my_last_message_mess-wait": "Đã gửi",
     "note_empty_2": "Hãy bắt đầu cuộc trò truyện ngay nhé.",
     "close": "Ẩn tin nhắn"
   },

@@ -11,7 +11,7 @@ function initSocket(dispatchVal, myUserId) {
   socket.on("connect", () => {
     console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
     dispatch = dispatchVal;
-    userId= myUserId;
+    userId = myUserId;
     speakOnline();
     getListOnline();
     getMyInbox();
@@ -35,22 +35,21 @@ function getMessage(roomId) {
   });
 }
 
-function onReadRoom(){
+function onReadRoom() {
   console.log("----->onReadRoom", idRoomChat);
   socket.emit(`${CHANEL.ON_READ_ROOM}`, userId, idRoomChat);
   socket.on(`__receiveReadRoom:id=${idRoomChat}`, idUserRead => {
     console.log("----->receiveReadRoom", idUserRead);
-    dispatch(actions.receiveReadRoom(idUserRead === userId, idUserRead ));
+    dispatch(actions.receiveReadRoom(idUserRead === userId, idUserRead));
   });
 }
 
-
-function openBoxChatSocket(userInbox){
+function openBoxChatSocket(userInbox) {
   console.log("-------------->openBoxChat: ", userInbox);
   socket.emit(`${CHANEL.OPEN_MY_BOX_CHAT}`, userInbox, userId);
 }
 
-function receiveBoxChat(){
+function receiveBoxChat() {
   socket.on(`${CHANEL.RECEIVE_BOX_CHAT}${userId}`, res => {
     console.log("----->receiveBoxChat: ", res);
     dispatch(actions.receiveBoxChatSocket(res));
@@ -74,7 +73,7 @@ function getListOnline() {
 function getMyInbox() {
   socket.on(`${CHANEL.MY_INBOX}${userId}`, res => {
     console.log("----->getMyInbox", res);
-    if(res.roomId !== idRoomChat){
+    if (res.roomId !== idRoomChat) {
       dispatch(actions.getMyInboxSocket(res));
     }
   });
@@ -84,7 +83,6 @@ function logoutSocket() {
   console.log("----->Logout socket", socket.id);
   socket.emit(CHANEL.LOG_OUT, socket.id);
   socket.disconnect();
-
 }
 
 function speakOnline() {
@@ -101,11 +99,11 @@ function receiverTypingChat(callbackShowTypingChat) {
   socket.on(`${CHANEL.RECEIVE_TYPING_CHAT}${idRoomChat}`, res => {
     console.log("----->getTyping", res);
     callbackShowTypingChat(res);
+    dispatch(actions.receiveReadRoom(res.userId === userId, res.userId));
   });
 }
 
 function baseSocket() {
-
   socket.on("disconnect", reason => {
     console.log("----------------_DISCONNECT", reason);
     if (reason === "io server disconnect") {

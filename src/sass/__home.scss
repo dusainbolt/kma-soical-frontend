@@ -13,28 +13,28 @@
     align-items: center;
     height: 50px;
 
-    >div {
+    > div {
       flex-grow: 3;
       font-weight: 600;
       display: inline-flex;
       justify-content: center;
       margin-top: 5px;
       border-radius: 8px;
-      transition: .3s;
+      transition: 0.3s;
       cursor: pointer;
 
       &:hover {
         background-color: $bg-site-layout;
       }
 
-      >span.anticon {
+      > span.anticon {
         font-size: $font-title-small * 1.4;
         margin-right: 5px;
         height: max-content;
         margin-top: 7px;
       }
 
-      >span.action-text {
+      > span.action-text {
         font-size: $font-title-small;
         line-height: 40px;
       }
@@ -55,7 +55,7 @@
       border-radius: 50px;
       padding: 8px 15px;
       cursor: pointer;
-      transition: .3s;
+      transition: 0.3s;
 
       white-space: nowrap;
       overflow: hidden;
@@ -79,13 +79,13 @@
   border-radius: 8px;
   box-shadow: $box-shadow-card;
   margin: 20px 0;
-  &.skeleton{
+  &.skeleton {
     padding: 15px;
     position: relative;
-    .ant-skeleton-element{
+    .ant-skeleton-element {
       width: 100%;
     }
-    .ant-skeleton-input{
+    .ant-skeleton-input {
       margin-top: 15px;
       height: 400px;
       width: 100%;
@@ -116,11 +116,11 @@
     &--name {
       font-size: $font-title-small;
       font-weight: bold;
-      >span{
+      > span {
         color: $black-color-text;
         font-size: $font-size;
         font-weight: 300;
-        >b{
+        > b {
           color: $black-color;
           font-weight: 600;
         }
@@ -135,12 +135,10 @@
 
     &--i-security {
       margin-left: 3px;
-      >svg {
+      > svg {
         color: $black-color-light;
       }
     }
-
-    ;
 
     &--i-action {
       margin-left: auto;
@@ -156,36 +154,45 @@
     word-break: break-word;
   }
 
-  &__tag{
+  &__tag {
     margin: 10px 0;
-    >span{
+    > span {
       cursor: pointer;
-      &:hover{
+      &:hover {
         background-color: #ffe9ba;
       }
     }
   }
 
   &__content {
-
     &--img {
       max-height: 700px;
       overflow: hidden;
-      .ant-col-12:first-child, .ant-col-8, .ant-col-6{
+      .ant-col-12:first-child,
+      .ant-col-8,
+      .ant-col-6 {
         border-right: 2px solid white;
       }
-      .ant-col-12:last-child{
+      .ant-col-12:last-child {
         border-left: 2px solid white;
       }
 
-      .ant-col-8:last-child, .ant-col-6:last-child{
+      .ant-col-8:last-child,
+      .ant-col-6:last-child {
         border-right: unset;
       }
-      .ant-col-8, .ant-col-6, .ant-col-12{
+      .ant-col-8,
+      .ant-col-6,
+      .ant-col-12 {
         border-top: 2px solid white;
       }
-      .ant-col-12, .ant-col-8, .ant-col-6{
-        .lazyload-wrapper, .lazyload-wrapper >div, .lazyload-wrapper >div >div ,img{
+      .ant-col-12,
+      .ant-col-8,
+      .ant-col-6 {
+        .lazyload-wrapper,
+        .lazyload-wrapper > div,
+        .lazyload-wrapper > div > div,
+        img {
           height: 100%;
         }
       }
@@ -195,28 +202,35 @@
       width: 100%;
     }
 
-    .video-react .video-react-big-play-button{
+    .video-react .video-react-big-play-button {
       left: 50%;
       top: 45%;
       transform: translate(-50%, 0);
       border-color: $primary-color;
       background-color: transparent;
     }
-    .video-react{
-      &:hover{
-        .video-react-big-play-button{
+    .video-react {
+      &:hover {
+        .video-react-big-play-button {
           border-color: $primary-color;
           background-color: rgba(43, 51, 63, 0.7);
         }
       }
-      .video-react-volume-level, .video-react-play-progress{
+      .video-react-volume-level,
+      .video-react-play-progress {
         background: $primary-color;
       }
     }
-    .video-react .video-react-slider-horizontal .video-react-volume-level:before, .video-react .video-react-play-progress:before, .video-react .video-react-control:before, .video-react-icon-play-arrow:before, .video-react .video-react-big-play-button:before, .video-react .video-react-play-control:before, .video-react .video-react-bezel .video-react-bezel-icon-play:before{
-      color: $primary-color;  
+    .video-react .video-react-slider-horizontal .video-react-volume-level:before,
+    .video-react .video-react-play-progress:before,
+    .video-react .video-react-control:before,
+    .video-react-icon-play-arrow:before,
+    .video-react .video-react-big-play-button:before,
+    .video-react .video-react-play-control:before,
+    .video-react .video-react-bezel .video-react-bezel-icon-play:before {
+      color: $primary-color;
     }
-    .video-react .video-react-control-bar{
+    .video-react .video-react-control-bar {
       background-color: rgba(43, 51, 63, 0.28);
     }
   }
@@ -250,7 +264,8 @@
       margin-left: auto;
       color: $black-color-text;
     }
-    div.like-info:hover, label.comment-info:hover{
+    div.like-info:hover,
+    label.comment-info:hover {
       text-decoration: underline;
       cursor: pointer;
     }
@@ -280,7 +295,7 @@
         margin-right: 5px;
       }
 
-      >span.action-post {
+      > span.action-post {
         font-size: $font-size;
         font-weight: 600;
       }
@@ -292,14 +307,16 @@
     margin: 0 15px;
     padding-top: 5px;
 
-    .comment-action{
+    .comment-action {
       margin-left: 3px;
     }
 
     .ant-comment-inner {
       padding: 5px 0;
     }
-    .ant-comment-content, .ant-comment-content-author, .ant-comment-content-detail{
+    .ant-comment-content,
+    .ant-comment-content-author,
+    .ant-comment-content-detail {
       width: max-content;
     }
     .ant-comment-content-author {
@@ -328,12 +345,11 @@
     .ant-comment-avatar {
       margin-right: 5px;
     }
-    
-    .comment-info{
+
+    .comment-info {
       font-weight: 700;
       color: $color-comment-info;
     }
-
   }
 
   &__bottom {
@@ -346,16 +362,16 @@
       width: 40px;
       height: 40px;
       margin-right: 5px;
-      border-radius: 50%
+      border-radius: 50%;
     }
 
     &--comment.ant-input,
     .ant-input-affix-wrapper {
       border-radius: 25px;
-      resize: none;    
-      padding: 8px 20px;  
+      resize: none;
+      padding: 8px 20px;
       padding-right: 50px;
-      &:focus{
+      &:focus {
         box-shadow: unset;
       }
     }
@@ -363,9 +379,9 @@
     ::-webkit-scrollbar {
       width: 0px;
     }
-    
+
     ::-webkit-scrollbar-thumb {
-      background: $primary-color; 
+      background: $primary-color;
     }
 
     .input {
@@ -385,16 +401,16 @@
       }
     }
   }
-  &__img{
+  &__img {
     position: relative;
-    &.col-3-img{
-      max-height: 400px; 
+    &.col-3-img {
+      max-height: 400px;
     }
-    &.col-4-img{
-      max-height: 350px; 
+    &.col-4-img {
+      max-height: 350px;
     }
   }
-  &__more-img-wrapper{
+  &__more-img-wrapper {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -411,16 +427,16 @@
   }
 }
 
-@media(max-width: $with-mobile){
-.form-feed{
-  &__img{
-    position: relative;
-    &.col-3-img{
-      max-height: 250px; 
-    }
-    &.col-4-img{
-      max-height: 250px; 
+@media (max-width: $with-mobile) {
+  .form-feed {
+    &__img {
+      position: relative;
+      &.col-3-img {
+        max-height: 250px;
+      }
+      &.col-4-img {
+        max-height: 250px;
+      }
     }
   }
-}
 }

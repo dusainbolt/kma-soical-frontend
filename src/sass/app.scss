@@ -32,6 +32,10 @@
   margin: 16px;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .site-layout .site-layout-background {
   padding: 25px;
   overflow-x: unset !important;
@@ -47,7 +51,7 @@
   top: 5% !important;
 }
 
-.flex-group{
+.flex-group {
   display: flex;
 }
 
@@ -55,58 +59,64 @@
   width: 5px;
 }
 
+:root {
+  scrollbar-face-color: rgb(210, 210, 210);
+  scrollbar-track-color: $primary-color;
+  scrollbar-color: $primary-color transparent;
+  scrollbar-width: thin;
+}
+
 ::-webkit-scrollbar-thumb {
-  background: $primary-color; 
+  background: $primary-color;
 }
 
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.avatar{
+.avatar {
   cursor: pointer;
-  &:hover{
+  &:hover {
     filter: grayscale(10%);
   }
 }
 
-.img-hover{
+.img-hover {
   cursor: pointer;
 }
 
-span.anticon-picture{
+span.anticon-picture {
   color: $green-color;
 }
 
-span.anticon-video-camera{
+span.anticon-video-camera {
   color: $purple-color-bold;
 }
 
-span.anticon-edit{
+span.anticon-edit {
   color: $primary-color;
 }
 
-
-@media(max-width: $with-mobile){
+@media (max-width: $with-mobile) {
   .site-layout .site-layout-background {
     padding: 15px;
     padding-top: 100px;
   }
 }
 
-.SRLControls{
-  >button{
+.SRLControls {
+  > button {
     margin-right: 0;
   }
 }
 
-.SRLThumbnailsContainer{
-  .SRLThumb{
+.SRLThumbnailsContainer {
+  .SRLThumb {
     opacity: 0.8;
     border: solid 2px white;
     border-radius: 10px;
     margin: 0 3px;
-    &.SRLThumbnailSelected{
+    &.SRLThumbnailSelected {
       border: solid 2px $primary-color;
     }
   }
