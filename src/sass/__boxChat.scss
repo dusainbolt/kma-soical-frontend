@@ -159,6 +159,10 @@
           border-bottom-right-radius: 15px;
         }
       }
+      .ant-comment-actions {
+        margin-top: 0;
+        text-align: right;
+      }
     }
     &::-webkit-scrollbar {
       width: 2px;
@@ -190,7 +194,6 @@
     }
     .ant-comment-actions {
       margin-top: 0;
-      text-align: right;
     }
   }
   &__bottom {
@@ -230,5 +233,12 @@
         color: $primary-color;
       }
     }
+  }
+}
+
+.box-tablet {
+  height: 550px;
+  .box-chat__message {
+    height: calc(100% - 100px);
   }
 }

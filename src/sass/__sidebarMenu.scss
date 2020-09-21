@@ -169,9 +169,12 @@
   &__list {
     max-height: 550px;
     overflow: auto;
-    width: 83%;
-    border-top: solid thin $line-color;
-    border-bottom: solid thin $line-color;
+    width: 80%;
+    > div:first-child {
+      border-top: solid thin $line-color;
+      padding-top: 5px;
+    }
+    margin-left: 5px;
     .ant-avatar {
       height: 36px;
       width: 36px;

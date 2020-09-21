@@ -9,6 +9,7 @@ export const ActionTypes = {
   OPEN_BOX_CHAT_START: "OPEN_BOX_CHAT_START",
   OPEN_BOX_CHAT_SUCCESS: "OPEN_BOX_CHAT_SUCCESS",
   OPEN_BOX_CHAT_ERROR: "OPEN_BOX_CHAT_ERROR",
+  CLOSE_BOX_CHAT_START: "CLOSE_BOX_CHAT_START",
   CHANGE_SCREEN_PIXEL: "CHANGE_SCREEN_PIXEL",
   GET_MESSAGE_SOCKET: "GET_MESSAGE_SOCKET",
   GET_LIST_ONLINE_SOCKET: "GET_LIST_ONLINE_SOCKET",
@@ -20,7 +21,7 @@ export const ActionTypes = {
 export const actions = {
   showLoadingAuth: function () {
     return {
-      type: ActionTypes.SHOW_LOADING_AUTH    
+      type: ActionTypes.SHOW_LOADING_AUTH,
     };
   },
   hideLoadingAuth: function () {
@@ -30,7 +31,7 @@ export const actions = {
   },
   showLoadingEvent: function () {
     return {
-      type: ActionTypes.SHOW_LOADING_EVENT    
+      type: ActionTypes.SHOW_LOADING_EVENT,
     };
   },
   hideLoadingEvent: function () {
@@ -41,7 +42,7 @@ export const actions = {
   postLogoutStart: function (body) {
     return {
       type: ActionTypes.POST_LOGOUT_START,
-      body
+      body,
     };
   },
   postLogoutSuccess: function () {
@@ -78,7 +79,13 @@ export const actions = {
       type: ActionTypes.OPEN_BOX_CHAT_ERROR,
       payload: error,
     };
-  }
+  },
+
+  closeBoxChatStart: function () {
+    return {
+      type: ActionTypes.CLOSE_BOX_CHAT_START,
+    };
+  },
 };
 
 export const actionsSocket = {
@@ -88,29 +95,29 @@ export const actionsSocket = {
       payload,
     };
   },
-  getListOnlineSocket: function(payload){
+  getListOnlineSocket: function (payload) {
     return {
       type: ActionTypes.GET_LIST_ONLINE_SOCKET,
       payload,
     };
   },
-  getMyInboxSocket: function(payload){
+  getMyInboxSocket: function (payload) {
     return {
       type: ActionTypes.GET_MY_INBOX_SOCKET,
-      payload
+      payload,
     };
   },
-  receiveBoxChatSocket: function(payload){
+  receiveBoxChatSocket: function (payload) {
     return {
       type: ActionTypes.RECEIVE_BOX_CHAT_SOCKET,
-      payload
+      payload,
     };
   },
-  receiveReadRoom: function(myRead, idUserRead){
+  receiveReadRoom: function (myRead, idUserRead) {
     return {
       type: ActionTypes.RECEIVE_READ_BOX_CHAT_SOCKET,
       myRead,
-      idUserRead
+      idUserRead,
     };
-  }
+  },
 };

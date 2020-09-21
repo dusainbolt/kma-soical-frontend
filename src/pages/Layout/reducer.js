@@ -39,6 +39,11 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         openChatBox: true,
       };
+    case ActionTypes.CLOSE_BOX_CHAT_START:
+      return {
+        ...state,
+        openChatBox: false,
+      };
     default:
       return state;
   }

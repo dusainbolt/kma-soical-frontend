@@ -7,13 +7,20 @@ import { Field, Formik } from "formik";
 import LoadBoxChat from "../LoadBoxChat";
 import { genderAvatarUrl, filterArray, getStatusOnline } from "../../utils";
 import Input from "../Input";
-import { getMessage, onTypingChat, receiverTypingChat, onReadRoom } from "../../utils/socket";
+import {
+  getMessage,
+  onTypingChat,
+  receiverTypingChat,
+  onReadRoom,
+  resetBoxChatSocket,
+} from "../../utils/socket";
 import FadeIn from "react-fade-in";
 import Dot from "../Dot";
 
 function BoxChat({
   userId,
   roomChat,
+  className,
   listChat,
   callbackSendMessage,
   indexLoad,
@@ -22,6 +29,8 @@ function BoxChat({
   isLoadingBoxChat,
   exact,
   callbackGetListMessage,
+  isMobile,
+  callBackResetSettingReducer,
 }) {
   const { t } = useTranslation();
   const chatBottomContainer = useRef(null);
@@ -81,12 +90,14 @@ function BoxChat({
 
   useEffect(() => {
     if (roomChat?.id) {
+      resetBoxChatSocket();
       getMessage(roomChat?.id);
       receiverTypingChat(getTypingChat);
       onReadRoom();
       setArrayLoad([]);
+      callBackResetSettingReducer();
     }
-  }, [roomChat]);
+  }, [roomChat, isMobile]);
 
   const getTypingChat = roomChatTyping => {
     if (roomChatTyping.userId === userInbox.userId) {
@@ -232,7 +243,7 @@ function BoxChat({
   };
 
   return (
-    <div className="box-chat">
+    <div className={`box-chat ${className}`}>
       {renderTopBoxChat}
       <div ref={boxMessage} className="box-chat__message" onScroll={handleScroll}>
         {exact <= 0 && !isLoadingBoxChat && renderBoxChatEmpty}

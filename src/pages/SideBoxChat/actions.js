@@ -8,6 +8,7 @@ export const ActionTypes = {
   GET_LIST_CHAT_SUCCESS: "GET_LIST_CHAT_SUCCESS",
   GET_LIST_CHAT_ERROR: "GET_LIST_CHAT_ERROR",
   RECEIVE_READ_BOX_CHAT_SOCKET: "RECEIVE_READ_BOX_CHAT_SOCKET",
+  RESET_SETTING_BOX_CHAT_START: "RESET_SETTING_BOX_CHAT_START",
 };
 
 export const actions = {
@@ -39,6 +40,11 @@ export const actions = {
     return {
       type: ActionTypes.GET_LIST_CHAT_ERROR,
       payload: error,
+    };
+  },
+  resetSettingBoxChatStart: function () {
+    return {
+      type: ActionTypes.RESET_SETTING_BOX_CHAT_START,
     };
   },
 };

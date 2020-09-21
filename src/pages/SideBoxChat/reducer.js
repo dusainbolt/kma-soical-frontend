@@ -28,12 +28,13 @@ export default (state = DEFAULT_STATE, action) => {
         },
       };
     case ActionTypes.OPEN_BOX_CHAT_START:
-      if (!(state.userInbox?.userId === action.itemUser.userId && state.roomChat?.id)) {
-        resetBoxChatSocket(state.roomChat.id);
-      }
+      // if (!(state.userInbox?.userId === action.itemUser.userId && state.roomChat?.id)) {
+      //   resetBoxChatSocket();
+      // }
       return {
         ...state,
         isLoadingBoxChat: true,
+        indexLoad: 0,
         listChat: state.userInbox?.userId === action.itemUser.userId ? state.listChat : [],
         userInbox: action.itemUser,
       };
@@ -43,7 +44,6 @@ export default (state = DEFAULT_STATE, action) => {
         isLoadingBoxChat: false,
         listChat: action.payload.listChat.reverse(),
         roomChat: action.payload.roomChat,
-        indexLoad: 0,
         exact: action.payload.exact,
       };
     case ActionTypes.GET_LIST_CHAT_START:
@@ -63,6 +63,13 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         listChat: convertListChatRead(action.myRead, action.idUserRead, state.listChat),
       };
+    case ActionTypes.RESET_SETTING_BOX_CHAT_START:
+      return {
+        ...state,
+        indexLoad: 0,
+      };
+    case SocketType.CLOSE_BOX_CHAT_START:
+      return DEFAULT_STATE;
     default:
       return state;
   }

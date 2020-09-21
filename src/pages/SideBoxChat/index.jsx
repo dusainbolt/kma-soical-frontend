@@ -3,15 +3,15 @@ import BoxChat from "../../components/BoxChat";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "./actions";
 
-function SidebarEvent({ openChatBox }) {
-  const listChat = useSelector(state => state.sideEvent.listChat);
-  const roomChat = useSelector(state => state.sideEvent.roomChat);
-  const indexLoad = useSelector(state => state.sideEvent.indexLoad);
-  const userInbox = useSelector(state => state.sideEvent.userInbox);
-  const exact = useSelector(state => state.sideEvent.exact);
+function BoxChatContainer({ className, isMobile }) {
+  const listChat = useSelector(state => state.boxChat.listChat);
+  const roomChat = useSelector(state => state.boxChat.roomChat);
+  const indexLoad = useSelector(state => state.boxChat.indexLoad);
+  const userInbox = useSelector(state => state.boxChat.userInbox);
+  const exact = useSelector(state => state.boxChat.exact);
   const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const myAvatar = useSelector(state => state.loginReducer.userDetail?.avatar);
-  const isLoadingBoxChat = useSelector(state => state.sideEvent.isLoadingBoxChat);
+  const isLoadingBoxChat = useSelector(state => state.boxChat.isLoadingBoxChat);
 
   const dispatch = useDispatch();
 
@@ -23,28 +23,27 @@ function SidebarEvent({ openChatBox }) {
     dispatch(actions.getListChatStart(params));
   };
 
+  const resetSettingReducer = () => {
+    dispatch(actions.resetSettingBoxChatStart());
+  };
+
   return (
-    <div className="side-event">
-      <div className="side-event__notify"></div>
-      {openChatBox && (
-        <div className="side-event__top-dashboard side-event__mess-box">
-          <BoxChat
-            userId={userId}
-            userInbox={userInbox}
-            indexLoad={indexLoad}
-            listChat={listChat}
-            roomChat={roomChat}
-            myAvatar={myAvatar}
-            isLoadingBoxChat={isLoadingBoxChat}
-            callbackSendMessage={sendMessage}
-            exact={exact}
-            callbackGetListMessage={getMessage}
-          />
-        </div>
-      )}
-      {!openChatBox && <div className="side-event__top-dashboard"></div>}
-    </div>
+    <BoxChat
+      userId={userId}
+      userInbox={userInbox}
+      indexLoad={indexLoad}
+      listChat={listChat}
+      roomChat={roomChat}
+      myAvatar={myAvatar}
+      className={className}
+      isLoadingBoxChat={isLoadingBoxChat}
+      callbackSendMessage={sendMessage}
+      exact={exact}
+      isMobile={isMobile}
+      callBackResetSettingReducer={resetSettingReducer}
+      callbackGetListMessage={getMessage}
+    />
   );
 }
 
-export default SidebarEvent;
+export default BoxChatContainer;

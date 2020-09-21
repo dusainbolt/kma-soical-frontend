@@ -5,13 +5,14 @@ import { Layout } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import CommonHeader from "../../components/Header";
 import Sidebar from "../SlideBar";
-import SideBarEvent from "../SideBoxChat";
+import BoxChatCommon from "../SideBoxChat";
 import SideListFriends from "../SideListFriends";
 import { END_MOBILE_PIXEL, END_PC_PIXEL } from "../../common";
 import { initSocket, logoutSocket, openBoxChatSocket } from "../../utils/socket";
 import { actions } from "./actions";
 import api from "../../services/api";
-
+import { useMemo } from "react";
+import ModalCommon from "../../components/Modal";
 const { Header, Content, Sider } = Layout;
 
 function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
@@ -19,6 +20,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const openChatBox = useSelector(state => state.layoutReducer.openChatBox);
   const isMobile = useSelector(state => state.layoutReducer.isMobile);
+  const roomChat = useSelector(state => state.boxChat.roomChat);
 
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
@@ -61,6 +63,27 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     openBoxChatSocket(itemUser);
   };
 
+  const closeBoxChat = () => {
+    dispatch(actions.closeBoxChatStart());
+  };
+
+  const renderChatBoxTablet = useMemo(() => {
+    return (
+      isMobile &&
+      openChatBox && (
+        <ModalCommon
+          visible={openChatBox}
+          onCancel={closeBoxChat}
+          content={<BoxChatCommon isMobile={isMobile} className="box-tablet" />}
+        />
+      )
+    );
+  }, [isMobile, openChatBox]);
+
+  const renderChatBoxPC = useMemo(() => {
+    return !isMobile && openChatBox && <BoxChatCommon isMobile={isMobile} />;
+  }, [isMobile, openChatBox]);
+
   return (
     <Route
       {...remainProps}
@@ -75,8 +98,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
                 className="site-layout__side-left"
                 trigger={null}
                 collapsible
-                collapsed={collapsed}
-              >
+                collapsed={collapsed}>
                 <Sidebar />
               </Sider>
               <Content className="site-layout-background">
@@ -87,19 +109,27 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
                   className="site-layout__side-bg"
                   trigger={null}
                   collapsible
-                  collapsed={collapsed}
-                >
-                  <SideBarEvent openChatBox={openChatBox} />
+                  collapsed={collapsed}>
+                  <div className="side-event">
+                    <div className="side-event__notify"></div>
+                    {openChatBox && (
+                      <div className="side-event__top-dashboard side-event__mess-box">
+                        {/* <BoxChatCommon isMobile={isMobile} /> */}
+                        {renderChatBoxPC}
+                      </div>
+                    )}
+                    {!openChatBox && <div className="side-event__top-dashboard"></div>}
+                  </div>
                 </Sider>
               )}
               <Sider
                 className="site-layout__side-friends side-friends"
                 trigger={null}
                 collapsible
-                collapsed={isMobile}
-              >
+                collapsed={isMobile}>
                 <SideListFriends callbackOpenBoxChat={openBoxChat} />
               </Sider>
+              {renderChatBoxTablet}
             </Layout>
           </Layout>
         );
