@@ -94,6 +94,7 @@ export const TYPE_ANT = {
 
 export const REP_COMMENT = "rep_comment";
 export const END_MOBILE_PIXEL = 576;
+export const END_PC_PIXEL = 1200;
 
 export const VALUE_GENDER = [1, 2, 3];
 export const VALUE_STATUS = [1, 2, 3];
@@ -124,7 +125,7 @@ export const TYPE_FEED = {
 };
 
 export const LIMIT = {
-  LIST_USER: 10,
+  LIST_USER: 15,
   LIST_COMMENT: 10,
   LIST_CHAT: 15,
 };
@@ -163,6 +164,6 @@ export const OPTION_LiGHTBOX = {
     pauseText: i8().t("light_box.pause"),
     previousText: i8().t("light_box.previous"),
     thumbnailsText: i8().t("light_box.thumbnails"),
-    zoomOutText: i8().t("light_box.zoomOut")
-  }
+    zoomOutText: i8().t("light_box.zoomOut"),
+  },
 };

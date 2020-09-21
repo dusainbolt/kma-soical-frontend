@@ -43,6 +43,7 @@ export default (state = DEFAULT_STATE, action) => {
         isLoadingBoxChat: false,
         listChat: action.payload.listChat.reverse(),
         roomChat: action.payload.roomChat,
+        indexLoad: 0,
         exact: action.payload.exact,
       };
     case ActionTypes.GET_LIST_CHAT_START:

@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Badge, Menu, Avatar, Popover } from "antd";
 import Input from "../../components/Input";
 import { Field, Formik } from "formik";
@@ -17,6 +17,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
   const listFriends = useSelector(state => state.sideBarMessage.listFriends);
   const idUserShowMess = useSelector(state => state.sideBarMessage.idUserShowMess);
   const userInbox = useSelector(state => state.sideEvent.userInbox);
+  const isMobile = useSelector(state => state.layoutReducer.isMobile);
   const [searchText, setSearchText] = useState("");
   const [visiblePopoverMess, setVisiblePopoverMess] = useState(false);
   const dispatch = useDispatch();
@@ -32,7 +33,11 @@ function SidebarMessage({ callbackOpenBoxChat }) {
   };
 
   const renderContentMessage = message => {
-    return <div className="my-popover__mess-content" onClick={()=>setVisiblePopoverMess(false)}>{message}</div>;
+    return (
+      <div className="my-popover__mess-content" onClick={() => setVisiblePopoverMess(false)}>
+        {message}
+      </div>
+    );
   };
 
   const renderListFriends = useMemo(() => {
@@ -47,7 +52,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
               visible={visibleShowMess && visiblePopoverMess}
               content={renderContentMessage(item.content)}
               trigger="hover"
-              onClick={()=> setVisiblePopoverMess(false)}
+              onClick={() => setVisiblePopoverMess(false)}
             >
               <Badge
                 dot={!item.countMessage && item.isOnline ? true : null}
@@ -56,16 +61,16 @@ function SidebarMessage({ callbackOpenBoxChat }) {
                 <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
               </Badge>
             </Popover>
-            <span className="side-friends__user-name">{item.fullName}</span>
+            {!isMobile && <span className="side-friends__user-name">{item.fullName}</span>}
           </div>
         </FadeIn>
       );
     });
-  }, [listFriends, userInbox, visiblePopoverMess]);
+  }, [listFriends, userInbox, visiblePopoverMess, isMobile]);
 
-  useEffect(()=>{
-    setTimeout(()=>setVisiblePopoverMess(true));
-  },[listFriends]);
+  useEffect(() => {
+    setTimeout(() => setVisiblePopoverMess(true));
+  }, [listFriends]);
 
   const onSearchFriends = (setFieldValue, name) => e => {
     const value = e.target.value;

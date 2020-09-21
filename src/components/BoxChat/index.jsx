@@ -84,6 +84,7 @@ function BoxChat({
       getMessage(roomChat?.id);
       receiverTypingChat(getTypingChat);
       onReadRoom();
+      setArrayLoad([]);
     }
   }, [roomChat]);
 

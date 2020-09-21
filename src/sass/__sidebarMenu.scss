@@ -32,7 +32,7 @@
   display: none;
 }
 
-.ant-layout-sider-collapsed .ant-menu-submenu-vertical>.ant-menu-submenu-title:after {
+.ant-layout-sider-collapsed .ant-menu-submenu-vertical > .ant-menu-submenu-title:after {
   display: none;
 }
 
@@ -41,7 +41,7 @@
   box-shadow: 1px 0 4px white;
   border-right: none;
   height: 100%;
-  
+
   background-color: white;
 }
 
@@ -67,7 +67,7 @@
   }
 
   .ant-menu-inline-collapsed {
-    >.ant-menu-item .anticon {
+    > .ant-menu-item .anticon {
       line-height: 20px;
       height: 20px;
       width: 20px;
@@ -83,12 +83,12 @@
     width: 300px;
     position: fixed;
 
-    >li {
+    > li {
       padding: 0 24px;
       display: flex;
       align-items: center;
 
-      >span {
+      > span {
         svg {
           font-size: 20px;
         }
@@ -112,86 +112,95 @@
       max-width: 250px !important;
       min-width: 250px !important;
     }
-    &__side-bg{
+    &__side-bg {
       max-width: 20% !important;
       min-width: 20% !important;
     }
-    &__side-left, &__side-friends, &__side-bg{
+    &__side-left,
+    &__side-friends,
+    &__side-bg {
       padding-top: 64px;
     }
   }
 }
 
-
-.side-friends{
-  &__title-mess{
+.side-friends {
+  &__title-mess {
     margin: 5px 0;
     font-size: $font-title-small;
     font-weight: 600;
     padding: 12px;
   }
-  &__search-mess{
+  &__search-mess {
     padding: 0 12px;
     margin-bottom: 20px;
-    .input{
+    .input {
       margin: auto;
-      .ant-input-search{
+      .ant-input-search {
         width: 82%;
         border-radius: 15px;
       }
-      .anticon-search{
+      .anticon-search {
         font-size: $font-title-small;
       }
-      .anticon-loading{
+      .anticon-loading {
         font-size: $font-title-small;
-        >svg{
+        > svg {
           color: $primary-color;
         }
       }
-      .ant-input-search-icon::before{
+      .ant-input-search-icon::before {
         border-left: unset;
       }
     }
-    &--error{
+    &--error {
       text-align: center;
       color: $primary-color;
-      &.search-list-friends{
+      &.search-list-friends {
         position: absolute;
         left: 12.5%;
       }
     }
   }
-  &__user-name{
+  &__user-name {
     margin-left: 15px;
     font-size: $font-size + 1;
   }
-  &__list{
+  &__list {
     max-height: 550px;
     overflow: auto;
-    .ant-avatar{
+    width: 83%;
+    border-top: solid thin $line-color;
+    border-bottom: solid thin $line-color;
+    .ant-avatar {
       height: 36px;
       width: 36px;
     }
-    .ant-badge-count, .ant-badge-dot, .ant-badge .ant-scroll-number-custom-component{
+    .ant-badge-count,
+    .ant-badge-dot,
+    .ant-badge .ant-scroll-number-custom-component {
       top: 6px;
       right: 3px;
       background: $green-color;
     }
-    .ant-badge-dot{
+    .ant-badge-dot {
       width: 9px;
       height: 9px;
     }
-    .ant-badge-count{
+    .ant-badge-count {
       background-color: $red-color;
+    }
+    &::-webkit-scrollbar {
+      width: 3px;
     }
   }
 
-  &__user-wrapper{
+  &__user-wrapper {
     height: 55px;
     padding: 10px 12px;
-    transition: .3s;
+    transition: 0.3s;
     cursor: pointer;
-    &:hover{
+    &:hover {
       background-color: $primary-color-light;
     }
   }
@@ -203,13 +212,13 @@
   .ant-menu-item {
     font-size: 16px;
     font-weight: 600;
-    transition: .3s;
+    transition: 0.3s;
   }
 
   &__info {
     display: flex;
     background-color: $bg-site-layout;
-    width: 270px;
+    width: 90%;
     margin: auto;
     height: 70px;
     border-radius: 20px;
@@ -231,7 +240,7 @@
         margin-bottom: 20px;
       }
 
-      >span {
+      > span {
         font-size: $font-size;
         margin-top: 15px;
       }
@@ -246,7 +255,7 @@
     box-shadow: $box-shadow-card;
   }
 
-  &__top-dashboard{
+  &__top-dashboard {
     height: 45vh;
     background-color: white;
     border-radius: 8px;
@@ -266,23 +275,29 @@
   }
 }
 
-@media(max-width: $width-pc){
+@media (max-width: $width-pc) {
   .layout {
     .site-layout {
-      &__side-friends, &__side-bg{
-        display: none;
+      // &__side-friends,
+      // &__side-bg {
+      //   display: none;
+      // }
+      &__side-friends {
+        max-width: unset !important;
+        min-width: unset !important;
       }
     }
   }
 }
 
-@media(max-width: $with-tablet){
+@media (max-width: $with-tablet) {
   .layout {
     .site-layout {
-      &__side-friends, &__side-left, &__side-bg{
+      &__side-friends,
+      &__side-left,
+      &__side-bg {
         display: none;
       }
     }
   }
-
 }

@@ -7,7 +7,7 @@ import CommonHeader from "../../components/Header";
 import Sidebar from "../SlideBar";
 import SideBarEvent from "../SideBoxChat";
 import SideListFriends from "../SideListFriends";
-import { END_MOBILE_PIXEL } from "../../common";
+import { END_MOBILE_PIXEL, END_PC_PIXEL } from "../../common";
 import { initSocket, logoutSocket, openBoxChatSocket } from "../../utils/socket";
 import { actions } from "./actions";
 import api from "../../services/api";
@@ -18,6 +18,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const token = useSelector(state => state.loginReducer.token);
   const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const openChatBox = useSelector(state => state.layoutReducer.openChatBox);
+  const isMobile = useSelector(state => state.layoutReducer.isMobile);
 
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
@@ -26,15 +27,15 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     setCollapsed(!collapsed);
   };
 
-  const onLogoutUser = useCallback(()=>{
+  const onLogoutUser = useCallback(() => {
     logoutSocket();
     dispatch(actions.postLogoutStart({ token }));
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (!token) {
       browserHistory.push("/welcome");
-    }else{
+    } else {
       api.setAuthRequest(token);
       initSocket(dispatch, userId);
     }
@@ -51,7 +52,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   }, []);
 
   const updateDimensions = () => {
-    const isMobileCheck = window.innerWidth < END_MOBILE_PIXEL;
+    const isMobileCheck = window.innerWidth < END_PC_PIXEL;
     dispatch(actions.changeScreenPixel(isMobileCheck));
   };
 
@@ -59,7 +60,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     dispatch(actions.openBoxChatStart(itemUser, params));
     openBoxChatSocket(itemUser);
   };
-  
+
   return (
     <Route
       {...remainProps}
@@ -70,16 +71,33 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <CommonHeader callbackLogout={onLogoutUser} toggleMenu={toggleMenu} />
             </Header>
             <Layout className="site-layout">
-              <Sider className="site-layout__side-left" trigger={null} collapsible collapsed={collapsed}>
+              <Sider
+                className="site-layout__side-left"
+                trigger={null}
+                collapsible
+                collapsed={collapsed}
+              >
                 <Sidebar />
               </Sider>
               <Content className="site-layout-background">
                 <Mycomponent {...routeProps} />
               </Content>
-              <Sider className="site-layout__side-bg" trigger={null} collapsible collapsed={collapsed}>
-                <SideBarEvent openChatBox={openChatBox}/>
-              </Sider>
-              <Sider  className="site-layout__side-friends side-friends" trigger={null} collapsible collapsed={collapsed}>
+              {!isMobile && (
+                <Sider
+                  className="site-layout__side-bg"
+                  trigger={null}
+                  collapsible
+                  collapsed={collapsed}
+                >
+                  <SideBarEvent openChatBox={openChatBox} />
+                </Sider>
+              )}
+              <Sider
+                className="site-layout__side-friends side-friends"
+                trigger={null}
+                collapsible
+                collapsed={isMobile}
+              >
                 <SideListFriends callbackOpenBoxChat={openBoxChat} />
               </Sider>
             </Layout>

@@ -3,7 +3,7 @@ import { ActionTypes } from "./actions";
 const DEFAULT_STATE = {
   isLoadingAuth: false,
   isLoadingEvent: false,
-  isMobile: false,
+  isMobile: 0,
   openChatBox: false,
 };
 
