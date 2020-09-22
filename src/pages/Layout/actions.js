@@ -80,7 +80,6 @@ export const actions = {
       payload: error,
     };
   },
-
   closeBoxChatStart: function () {
     return {
       type: ActionTypes.CLOSE_BOX_CHAT_START,

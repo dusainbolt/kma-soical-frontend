@@ -1,5 +1,5 @@
-import React, { useCallback, useState, useEffect } from "react";
-import FormAddNew from "../../components/FormAddNew";
+import React, { useCallback, useState, useEffect, useMemo } from "react";
+import FormPostTop from "../../components/FormPostTop";
 import Lazyload from "react-lazyload";
 import FadeIn from "react-fade-in";
 import { actions } from "./actions";
@@ -8,12 +8,19 @@ import SkeletonNewFeed from "../../components/SkeletonFeed";
 import PostTop from "../../components/News/PostTop";
 import ContentNew from "../../components/News/ContentNew";
 import LikeInfo from "../../components/News/LikeInfo";
+import ModalCommon from "../../components/Modal";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
 import { OPTION_LiGHTBOX } from "../../common";
-import { getArrayImg, renderNotePost, renderNoteLike, renderNoteComment, genderAvatarUrl } from "../../utils";
+import FormAddNew from "../../components/FormAddNew";
+import {
+  getArrayImg,
+  renderNotePost,
+  renderNoteLike,
+  renderNoteComment,
+  genderAvatarUrl,
+} from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
-import { useMemo } from "react";
 
 function Home() {
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
@@ -29,6 +36,7 @@ function Home() {
   const [indexIMG, setIndexIMG] = useState(0);
   const [countView, setCountView] = useState(1);
   const [viewComment, setViewComment] = useState({});
+  const [visibleFormAddNew, setVisibleFormAddNew] = useState(false);
 
   useEffect(() => {
     dispatch(actions.getNewFeedStart({ limit }));
@@ -75,6 +83,28 @@ function Home() {
     setViewComment({ ...viewComment, [index]: !viewComment?.[index] });
   };
 
+  const closeFormAddNew = () => {
+    setVisibleFormAddNew(false);
+  };
+
+  const renderFormAddNew = useMemo(() => {
+    return (
+      <ModalCommon
+        visible={visibleFormAddNew}
+        width={800}
+        onCancel={closeFormAddNew}
+        content={<FormAddNew />}
+      />
+    );
+  }, [visibleFormAddNew]);
+
+  const openFormAddNew = useCallback(
+    type => () => {
+      setVisibleFormAddNew(true);
+    },
+    [visibleFormAddNew]
+  );
+
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
       return (
@@ -103,7 +133,9 @@ function Home() {
                 index={item.id}
               />
               <ActionNew itemNews={item} />
-              { viewComment?.[item.id] && <Comment avatarUrl={avatarUrl} listComment={item?.listComment} /> }
+              {viewComment?.[item.id] && (
+                <Comment avatarUrl={avatarUrl} listComment={item?.listComment} />
+              )}
             </div>
           </FadeIn>
         </Lazyload>
@@ -113,12 +145,15 @@ function Home() {
 
   return (
     <div>
-      <FormAddNew
+      <FormPostTop
         fullName={fullName}
-        avatarUrl={avatarUrl}/>
+        avatarUrl={avatarUrl}
+        callBackOpenFormAddNew={openFormAddNew}
+      />
       {isView && renderLightBox}
       {listNewFeed.length !== 0 && renderListNewFeed()}
       {isLoadingNewFeed && <SkeletonNewFeed />}
+      {renderFormAddNew}
     </div>
   );
 }

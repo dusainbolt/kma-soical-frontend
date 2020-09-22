@@ -16,9 +16,11 @@ function ModalCommon({
   const renderContent = () => {
     return (
       <div className="modal--body">
-        <Title className={`modal__title ${classTitle}`} level={levelTitle}>
-          <span>{title}</span>
-        </Title>
+        {title && (
+          <Title className={`modal__title ${classTitle}`} level={levelTitle}>
+            <span>{title}</span>
+          </Title>
+        )}
         {content}
       </div>
     );
@@ -32,8 +34,7 @@ function ModalCommon({
       width={width}
       footer={null}
       title={null}
-      closable={false}
-    >
+      closable={false}>
       <Spin isLoading={isLoadingSpin} content={renderContent()} />
     </Modal>
   );

@@ -3,6 +3,7 @@ import { GlobalOutlined, EllipsisOutlined } from "@ant-design/icons";
 import { genderTimeCountNewFeed } from "../../utils";
 
 function PostTop({ avatarUrl, fullName, created_at, note }) {
+  
   return (
     <div className="form-feed__top">
       <img className="avatar" src={avatarUrl} alt="avatar" />
