@@ -16,7 +16,7 @@ function FormPostTop({ avatarUrl, fullName, callBackOpenFormAddNew }) {
           src={avatarUrl}
           alt="avatar"
         />
-        <div className="form-new__input--field">
+        <div className="form-new__input--field" onClick={callBackOpenFormAddNew(TYPE_FEED.TEXT)}>
           {t("txt.place_holder_add_new", { name: getLastName(fullName) })}
         </div>
       </div>

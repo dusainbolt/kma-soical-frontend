@@ -1,0 +1,18 @@
+.security-status{
+    display: flex;
+    align-items: center;
+    background-color: $input-bg-color;
+    padding: 2px 4px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: max-content;
+    >span{
+        margin: 0 2px;
+        font-size: 13px;
+        font-weight: bold;
+        color: $black-color;
+    };
+    &:hover{
+        opacity: 0.7;
+    }
+}

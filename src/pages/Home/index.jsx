@@ -21,12 +21,14 @@ import {
   genderAvatarUrl,
 } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
+import { useTranslation } from "react-i18next";
 
 function Home() {
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
   const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
+  const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
   const dispatch = useDispatch();
   const { openLightbox } = useLightbox();
@@ -91,9 +93,10 @@ function Home() {
     return (
       <ModalCommon
         visible={visibleFormAddNew}
-        width={800}
+        width={600}
+        title={t("news_feed.add_new")}
         onCancel={closeFormAddNew}
-        content={<FormAddNew />}
+        content={<FormAddNew avatarUrl={avatarUrl} fullName={fullName} />}
       />
     );
   }, [visibleFormAddNew]);

@@ -1,72 +1,90 @@
-.form-group {
-    padding: 20px;
-
-    &__btn-gruop {
-        margin-top: 15px;
-        text-align: right;
-    }
-
-    >.input {
-        margin-top: 15px;
-    }
-
-    &__btn-left {
-        margin-right: 2%;
-        background-color: $disabled-color !important;
-
-        &:hover {
-            background-color: $disabled-color-light !important;
-            border: solid 1px $disabled-color-light !important;
-
-            >span {
-                color: $black-color;
-            }
+.form-new {
+    &__account--wrapper{
+        display: flex;
+        align-items: center;
+        .title{
+            word-break: break-word;
+            font-weight: bold;
+            margin-bottom: 0;
+            font-size: $font-size + 1;
         }
     }
-
-    &__btn-right {
-        background-color: $primary-color !important;
-
-        >span {
-            color: $white-color;
-        }
-
-        &:hover {
-            background-color: $purple-color-bold !important;
-            border: solid 1px $purple-color-bold !important;
-        }
+    .avatar{
+        margin-right: 8px;
     }
+};
 
-    &__title {
-        border-bottom: solid 2px $primary-color;
-    }
 
-    &__label-left {
-        font-weight: 700;
-        margin-bottom: 2%;
-        float: left;
-    }
 
-    &__label-right {
-        margin-bottom: 2%;
-        margin-left: 2%;
-        float: left;
-    }
-}
+// .form-group {
+//     padding: 20px;
 
-.btn-modal {
-    margin-top: 7%;
-}
+//     &__btn-gruop {
+//         margin-top: 15px;
+//         text-align: right;
+//     }
 
-.form {
-    &__nick-name {
-        margin-top: 10px;
+//     >.input {
+//         margin-top: 15px;
+//     }
 
-        >.input {
-            margin-bottom: 15px;            
-        }
-        .btn-primary{
-            width: 100%;
-        }
-    }
-}
+//     &__btn-left {
+//         margin-right: 2%;
+//         background-color: $disabled-color !important;
+
+//         &:hover {
+//             background-color: $disabled-color-light !important;
+//             border: solid 1px $disabled-color-light !important;
+
+//             >span {
+//                 color: $black-color;
+//             }
+//         }
+//     }
+
+//     &__btn-right {
+//         background-color: $primary-color !important;
+
+//         >span {
+//             color: $white-color;
+//         }
+
+//         &:hover {
+//             background-color: $purple-color-bold !important;
+//             border: solid 1px $purple-color-bold !important;
+//         }
+//     }
+
+//     &__title {
+//         border-bottom: solid 2px $primary-color;
+//     }
+
+//     &__label-left {
+//         font-weight: 700;
+//         margin-bottom: 2%;
+//         float: left;
+//     }
+
+//     &__label-right {
+//         margin-bottom: 2%;
+//         margin-left: 2%;
+//         float: left;
+//     }
+// }
+
+// .btn-modal {
+//     margin-top: 7%;
+// }
+
+// .form {
+//     &__nick-name {
+//         margin-top: 10px;
+
+//         >.input {
+//             margin-bottom: 15px;            
+//         }
+//         .btn-primary{
+//             width: 100%;
+//         }
+//     }
+// }

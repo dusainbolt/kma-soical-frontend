@@ -1,6 +1,9 @@
 import React from "react";
 import { Modal, Typography } from "antd";
 import Spin from "../Spin";
+import { CloseCircleFilled } from "@ant-design/icons";
+import { Divider } from "antd";
+
 const { Title } = Typography;
 
 function ModalCommon({
@@ -16,10 +19,12 @@ function ModalCommon({
   const renderContent = () => {
     return (
       <div className="modal--body">
-        {title && (
+        <CloseCircleFilled className="modal__icon-close" />
+        {title && (<>
           <Title className={`modal__title ${classTitle}`} level={levelTitle}>
             <span>{title}</span>
           </Title>
+          <Divider className="modal__divider"/></>
         )}
         {content}
       </div>
