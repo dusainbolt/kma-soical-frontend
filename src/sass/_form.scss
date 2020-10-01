@@ -12,9 +12,21 @@
     .avatar{
         margin-right: 8px;
     }
+    &__input-wrapper {
+        margin-top: 15px;
+    }
+    &__input-area{
+        .ant-input-borderless.ant-input{
+            resize: none;
+            background-color: white;
+            font-size: 18px;
+        }
+    }
 };
 
-
+div.ant-modal-mask {
+    background-color: #c1c1c1a3;
+}
 
 // .form-group {
 //     padding: 20px;

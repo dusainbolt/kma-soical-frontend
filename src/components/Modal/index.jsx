@@ -19,7 +19,7 @@ function ModalCommon({
   const renderContent = () => {
     return (
       <div className="modal--body">
-        <CloseCircleFilled className="modal__icon-close" />
+        <CloseCircleFilled onClick={() => onCancel()} className="modal__icon-close" />
         {title && (<>
           <Title className={`modal__title ${classTitle}`} level={levelTitle}>
             <span>{title}</span>
@@ -34,7 +34,7 @@ function ModalCommon({
   return (
     <Modal
       visible={visible}
-      onCancel={onCancel}
+      // onCancel={onCancel}
       wrapClassName="modal"
       width={width}
       footer={null}

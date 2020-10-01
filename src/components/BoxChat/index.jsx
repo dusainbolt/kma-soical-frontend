@@ -53,7 +53,6 @@ function BoxChat({
 
   const onChange = (setFieldValue, name) => ({ target: { value } }) => {
     const heightContainer = chatBottomContainer.current.clientHeight;
-    // console.log(boxMessage.current.scrollHeight - boxMessage.current.scrollTop);
     setFieldValue(name, value);
     onTypingChat(roomChat.id, userId);
     setTimeout(() => {

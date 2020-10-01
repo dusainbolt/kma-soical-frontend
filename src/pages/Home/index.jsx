@@ -92,7 +92,7 @@ function Home() {
   const renderFormAddNew = useMemo(() => {
     return (
       <ModalCommon
-        visible={visibleFormAddNew}
+        visible={true}
         width={600}
         title={t("news_feed.add_new")}
         onCancel={closeFormAddNew}
