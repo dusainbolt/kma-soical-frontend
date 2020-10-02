@@ -1,6 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { actions, ActionTypes } from "./actions";
-import { postLogoutAPI, openBoxChatAPI } from "../../services/UserRequest";
+import { postLogoutAPI, openBoxChatAPI, getListSubjectAPI } from "../../services/UserRequest";
 
 function* postLogout(action) {
   yield put(actions.showLoadingAuth());
@@ -34,7 +34,23 @@ function* openBoxChat(action) {
   }
 }
 
+
+function* getListSubject() {
+  try {
+    const response = yield getListSubjectAPI();
+    if (response.meta.code === 0) {
+      yield put(actions.getListSubjectSuccess(response.data));
+    } else {
+      yield put(actions.getListSubjectError());
+    }
+  } catch (e) {
+    yield put(actions.getListSubjectError());
+  }
+}
+
 export function* watchLayout() {
   yield takeLatest(ActionTypes.OPEN_BOX_CHAT_START, openBoxChat);
   yield takeLatest(ActionTypes.POST_LOGOUT_START, postLogout);
+  yield takeLatest(ActionTypes.GET_LIST_SUBJECT_START, getListSubject);
+
 }

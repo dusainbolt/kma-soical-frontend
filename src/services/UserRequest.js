@@ -31,3 +31,7 @@ export const getListFriendsAPI = params => {
 export const openBoxChatAPI = params => {
   return api.get("user/list_chat", params);
 };
+
+export const getListSubjectAPI = params => {
+  return api.get("user/list_subject", params);
+};

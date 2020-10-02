@@ -6,6 +6,9 @@ export const ActionTypes = {
   POST_LOGOUT_START: "POST_LOGOUT_START",
   POST_LOGOUT_SUCCESS: "POST_LOGOUT_SUCCESS",
   POST_LOGOUT_ERROR: "POST_LOGOUT_ERROR",
+  GET_LIST_SUBJECT_START: "GET_LIST_SUBJECT_START",
+  GET_LIST_SUBJECT_SUCCESS: "GET_LIST_SUBJECT_SUCCESS",
+  GET_LIST_SUBJECT_ERROR: "GET_LIST_SUBJECT_ERROR",
   OPEN_BOX_CHAT_START: "OPEN_BOX_CHAT_START",
   OPEN_BOX_CHAT_SUCCESS: "OPEN_BOX_CHAT_SUCCESS",
   OPEN_BOX_CHAT_ERROR: "OPEN_BOX_CHAT_ERROR",
@@ -77,6 +80,23 @@ export const actions = {
   openBoxChatError: function (error) {
     return {
       type: ActionTypes.OPEN_BOX_CHAT_ERROR,
+      payload: error,
+    };
+  },
+  getListSubjectStart: function () {
+    return {
+      type: ActionTypes.GET_LIST_SUBJECT_START,
+    };
+  },
+  getListSubjectSuccess: function (success) {
+    return {
+      type: ActionTypes.GET_LIST_SUBJECT_SUCCESS,
+      payload: success,
+    };
+  },
+  getListSubjectError: function (error) {
+    return {
+      type: ActionTypes.GET_LIST_SUBJECT_ERROR,
       payload: error,
     };
   },

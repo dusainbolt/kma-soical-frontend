@@ -103,6 +103,17 @@
         background-color: $bg-site-layout;
       }
     }
+    .ant-menu-item {
+      span.anticon-home {
+        color: $primary-color;
+      }
+      span.anticon-usergroup-add{
+        color: $pink-color;
+      }
+      span.anticon-fire{
+        color: $red-color;
+      }
+    }
   }
 }
 
@@ -278,13 +289,15 @@
   }
 }
 
+div.divider-menu-left{
+  width: 95%;
+  min-width: 95%;
+  margin: 15px auto;
+}
+
 @media (max-width: $width-pc) {
   .layout {
     .site-layout {
-      // &__side-friends,
-      // &__side-bg {
-      //   display: none;
-      // }
       &__side-friends {
         max-width: unset !important;
         min-width: unset !important;

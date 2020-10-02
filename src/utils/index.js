@@ -395,3 +395,7 @@ export const convertListChatRead = (myRead, idUserRead, listChatReducer) => {
     };
   });
 };
+
+export const onRedirect = path => {
+  return browserHistory.push(path);
+};

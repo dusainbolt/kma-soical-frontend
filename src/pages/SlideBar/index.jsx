@@ -1,52 +1,48 @@
 import React from "react";
-import { Menu } from "antd";
-import { Routes } from "../../Routes";
-import { browserHistory } from "../../utils/history";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-  AppstoreFilled,
-} from "@ant-design/icons";
+import { Divider, Menu, Skeleton } from "antd";
+import { ReadFilled } from "@ant-design/icons";
+import { MENU_DEFAULT } from "../../common";
 import LazyloadImg from "../../components/LazyLoadingImg";
-import { useSelector } from "react-redux";
-import { genderAvatarUrl } from "../../utils";
-const icons = {
-  manager: UserOutlined,
-  task: VideoCameraOutlined,
-  contact: UploadOutlined,
-};
+import { genderAvatarUrl, onRedirect } from "../../utils";
 
-function Sidebar() {
-  const userDetail = useSelector(state => state.loginReducer.userDetail);
-
-  const renderMenu = () => {
-    let menu = null;
-    menu = Routes.map((item, index) => {
-      if (index !== 0) {
-        const activeClassMenun =
-          window.location.pathname === item.path ? "ant-menu-item-selected" : "";
-        return (
-          <Menu.Item
-            key={`${item.name}_${index}`}
-            // icon={getIconMenu(item.iconName)}
-            onClick={() => gerRedirect(item.path)}
-            className={activeClassMenun}
-          >
-            {item.name}
-          </Menu.Item>
-        );
-      }
+function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
+  const renderMenuDefault = () => {
+    return MENU_DEFAULT.map((item, index) => {
+      const Icon = item.icon;
+      return (
+        <Menu.Item
+          onClick={() => onRedirect(item.redirect)}
+          key={index}
+          icon={<Icon />}
+          title={item.title}>
+          {item.title}
+        </Menu.Item>
+      );
     });
-    return menu;
   };
 
-  const gerRedirect = path => {
-    return browserHistory.push(path);
+  const renderMenuGroupSubject = () => {
+    return listSubject.map((item, index) => {
+      return (
+        <Menu.Item
+          onClick={() => onRedirect(item.tag)}
+          key={item.name}
+          icon={<ReadFilled />}
+          title={item.name}>
+          {item.name}
+        </Menu.Item>
+      );
+    });
   };
-  const getIconMenu = iconName => {
-    const Icon = icons[iconName];
-    return icons ? <Icon /> : "";
+
+  const renderMenuSubjectLoad = () => {
+    return MENU_DEFAULT.map((item, index) => {
+      return (
+        <Menu.Item key={index + 99} icon={<ReadFilled />}>
+          <Skeleton.Input style={{ width: 200 }} active  />
+        </Menu.Item>
+      );
+    });
   };
 
   return (
@@ -62,14 +58,9 @@ function Sidebar() {
           <span>@{userDetail?.userName}</span>
         </div>
       </div>
-      {/* {renderMenu()} */}
-      <Menu.Item icon={<AppstoreFilled />} title="Trang chủ" className="ant-menu-item-selected">
-        Trang chủ
-      </Menu.Item>
-      <Menu.Item icon={<AppstoreFilled />}>Bạn bè</Menu.Item>
-      <Menu.Item icon={<AppstoreFilled />}>Top bài viết</Menu.Item>
-      <Menu.Item icon={<AppstoreFilled />}>Ảnh</Menu.Item>
-      <Menu.Item icon={<AppstoreFilled />}>Video</Menu.Item>
+      {renderMenuDefault()}
+      <Divider className="divider-menu-left" />
+      {isLoadingSubject ? renderMenuSubjectLoad() : renderMenuSubjectLoad()}
     </Menu>
   );
 }

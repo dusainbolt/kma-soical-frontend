@@ -1,10 +1,12 @@
-import { ActionTypes } from "./actions";
+import { actions, ActionTypes } from "./actions";
 
 const DEFAULT_STATE = {
   isLoadingAuth: false,
   isLoadingEvent: false,
   isMobile: 0,
   openChatBox: false,
+  listSubject: [],
+  isLoadingSubject: false,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -38,6 +40,22 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         openChatBox: true,
+      };
+    case ActionTypes.GET_LIST_SUBJECT_START:
+      return {
+        ...state,
+        isLoadingSubject: true,
+      };
+    case ActionTypes.GET_LIST_SUBJECT_SUCCESS:
+      return {
+        ...state,
+        isLoadingSubject: false,
+        listSubject: action.payload
+      };
+    case ActionTypes.GET_LIST_SUBJECT_ERROR:
+      return {
+        ...state,
+        isLoadingSubject: false,
       };
     case ActionTypes.CLOSE_BOX_CHAT_START:
       return {

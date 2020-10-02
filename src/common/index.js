@@ -1,6 +1,13 @@
 import * as Yup from "yup";
 import { getI18n as i8 } from "react-i18next";
 import { checkStringRange } from "../utils";
+import {
+  HomeFilled,
+  UsergroupAddOutlined,
+  PictureFilled,
+  VideoCameraFilled,
+  FireFilled,
+} from "@ant-design/icons";
 
 //note:
 // /^[A-Za-z0-9 ]+$/ "true",
@@ -167,3 +174,31 @@ export const OPTION_LiGHTBOX = {
     zoomOutText: i8().t("light_box.zoomOut"),
   },
 };
+
+export const MENU_DEFAULT = [
+  {
+    title: "Trang chủ",
+    icon: HomeFilled,
+    redirect: "/home",
+  },
+  {
+    title: "Bạn bè",
+    icon: UsergroupAddOutlined,
+    redirect: "/my-friends"
+  },
+  {
+    title: "Top bài viết",
+    icon: FireFilled,
+    redirect: "/top-new",
+  },
+  {
+    title: "Ảnh",
+    icon: PictureFilled,
+    redirect: "/image",
+  },
+  {
+    title: "Video",
+    icon : VideoCameraFilled,
+    redirect: "/video",
+  }
+];

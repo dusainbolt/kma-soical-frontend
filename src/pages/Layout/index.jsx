@@ -17,10 +17,11 @@ const { Header, Content, Sider } = Layout;
 
 function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const token = useSelector(state => state.loginReducer.token);
-  const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const openChatBox = useSelector(state => state.layoutReducer.openChatBox);
   const isMobile = useSelector(state => state.layoutReducer.isMobile);
-  const roomChat = useSelector(state => state.boxChat.roomChat);
+  const listSubject = useSelector(state => state.layoutReducer.listSubject); 
+  const isLoadingSubject = useSelector(state => state.layoutReducer.isLoadingSubject); 
+  const userDetail = useSelector(state => state.loginReducer.userDetail);
 
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
@@ -39,7 +40,10 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
       browserHistory.push("/welcome");
     } else {
       api.setAuthRequest(token);
-      initSocket(dispatch, userId);
+      if(!listSubject.length){
+        dispatch(actions.getListSubjectStart());
+      }
+      initSocket(dispatch, userDetail?.id);
     }
   }, [token]);
 
@@ -99,7 +103,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
                 trigger={null}
                 collapsible
                 collapsed={collapsed}>
-                <Sidebar />
+                <Sidebar isLoadingSubject={isLoadingSubject} listSubject={listSubject} userDetail={userDetail}/>
               </Sider>
               <Content className="site-layout-background">
                 <Mycomponent {...routeProps} />
