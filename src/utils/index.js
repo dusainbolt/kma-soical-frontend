@@ -326,13 +326,14 @@ export const renderNotePost = (type, content, subjectName) => {
 };
 
 export const renderNoteLike = (total, userLike) => {
+  if(!total) return 0;
   return total > 9
     ? `${userLike} ${i8().t("news_feed.and")} ${total} ${i8().t("news_feed.other_people")}`
     : total;
 };
 
 export const renderNoteComment = total => {
-  return `${total} ${i8().t("news_feed.comment")}`;
+  return `${total ? total : 0} ${i8().t("news_feed.comment")}`;
 };
 
 export const genderAvatarUrl = avatarUrl => {
