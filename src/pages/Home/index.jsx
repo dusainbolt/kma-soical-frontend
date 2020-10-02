@@ -27,6 +27,7 @@ function Home() {
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
+  const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
@@ -92,7 +93,7 @@ function Home() {
   const renderFormAddNew = useMemo(() => {
     return (
       <ModalCommon
-        visible={true}
+        visible={visibleFormAddNew}
         width={600}
         title={t("news_feed.add_new")}
         onCancel={closeFormAddNew}

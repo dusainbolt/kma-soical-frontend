@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.3.5",
     "axios": "^0.19.2",
+    "emoji-mart": "^3.0.0",
     "firebase-tools": "^8.9.2",
     "formik": "^2.1.4",
     "history": "^4.7.2",

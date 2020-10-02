@@ -16,7 +16,13 @@ function ContentNew({ content, type, avatarUrl, caption, tags, callbackViewImg }
       return {
         src: item,
         thumbnail: item,
-        caption: caption + ` - ${t("news_feed.image")} ${index + 1}`,
+        caption: (
+          <div
+            dangerouslySetInnerHTML={{
+              __html: caption + ` - ${t("news_feed.image")} ${index + 1}`,
+            }}
+          />
+        ),
         height: "auto",
       };
     });
@@ -33,8 +39,7 @@ function ContentNew({ content, type, avatarUrl, caption, tags, callbackViewImg }
           key={index}
           className={`form-feed__img col-${lengthList > 3 ? 4 : 3}-img`}
           span={span}
-          onClick={() => onClickViewImage(dataImg, index)}
-        >
+          onClick={() => onClickViewImage(dataImg, index)}>
           <LazyloadImg className="one-img img-hover" src={item} height={150} alt="img" />
           {index === 4 && limitList && (
             <div className="form-feed__more-img-wrapper">+{lengthList - 5}</div>
@@ -61,13 +66,11 @@ function ContentNew({ content, type, avatarUrl, caption, tags, callbackViewImg }
 
   return (
     <>
-      {/* <Tooltip color="#fea700" title={renderContentTag}> */}
       <div
         className="form-feed__caption"
         onMouseEnter={() => seVisibleTag(true)}
-        onMouseLeave={() => seVisibleTag(false)}
-      >
-        {caption}
+        onMouseLeave={() => seVisibleTag(false)}>
+        <div dangerouslySetInnerHTML={{ __html: caption }} />
         <FadeIn delay={100} height={0} transitionDuration={500}>
           <div className="form-feed__tag">{renderTag()}</div>
         </FadeIn>

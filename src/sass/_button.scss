@@ -62,3 +62,14 @@ button.ant-btn {
     }
   }
 }
+
+div.button {
+  width: 100%;
+  text-align: center;
+  button {
+    width: 100%;
+    >span{
+      font-size: 15px;
+    }
+  }
+}

@@ -198,3 +198,23 @@ span.error-field {
     box-shadow: 0 0 0 1px rgba(247, 0, 0, 0.23);
   }
 }
+
+.icon-picker{
+  float: right;
+  font-size: 30px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.emoji-mart{
+  position: fixed;
+  button.emoji-mart-emoji span {
+    cursor: pointer;
+  }
+  .emoji-mart-title-label {
+    font-size: 16px;
+  }
+}

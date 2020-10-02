@@ -5,15 +5,18 @@ import { getLastName } from "../../utils";
 import { Avatar } from "antd";
 import SecurityStatus from "../SecurityStatus";
 import { Field, Formik } from "formik";
-import Input from "../Input";
+import ButtonCommon from "../Button";
+import InputEmoji from "../InputEmoji";
 
 function FormPostTop({ avatarUrl, fullName, callBackOpenFormAddNew }) {
   const { t } = useTranslation();
-  const initialValues = { text: "" };
+  const initialValues = { payload: "" };
 
-  const onSubmitPostNew = values => {};
-
-
+  const onSubmitPostNew = (values, { resetForm }) => {
+    values.payload = `<p>${values.payload.replace(/[\n\r]/g, "<br>")}</p>`;
+    console.log(values);
+    resetForm();
+  };
 
   return (
     <div className="form-new">
@@ -29,27 +32,22 @@ function FormPostTop({ avatarUrl, fullName, callBackOpenFormAddNew }) {
           <div className="form-new__input-wrapper">
             <div className="form-new__input-area">
               <Field
-                name="text"
-                id="textNew"
-                placeholder={t("txt.user_name_or_code")}
-                component={Input}
+                name="payload"
+                placeholder={t("txt.place_holder_add_new", { name: getLastName(fullName) })}
+                component={InputEmoji}
                 type="textarea"
                 bordered={false}
-                autoSize
+                onSelectEmoji={setFieldValue}
+                autoSize={{ minRows: 4 }}
               />
             </div>
-            {/* <div className="welcome__buttons">
-            {isLoading ? (
-              <Dot className="welcome__buttons--loading" />
-            ) : (
+            <div className="button">
               <ButtonCommon
-                iconSend
+                className="btn-primary"
                 onClick={handleSubmit}
-                className="btn-primary login__btn-submit"
-                title={t("txt.btn_login")}
+                title={t("news_feed.btn_post")}
               />
-            )}
-          </div> */}
+            </div>
           </div>
         )}
       </Formik>
