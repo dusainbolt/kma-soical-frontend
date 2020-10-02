@@ -1,5 +1,4 @@
 import React from "react";
-import { PictureFilled } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { getLastName } from "../../utils";
 import { Avatar } from "antd";
@@ -7,14 +6,16 @@ import SecurityStatus from "../SecurityStatus";
 import { Field, Formik } from "formik";
 import ButtonCommon from "../Button";
 import InputEmoji from "../InputEmoji";
+import { TYPE_FEED } from "../../common";
 
-function FormPostTop({ avatarUrl, fullName, callBackOpenFormAddNew }) {
+function FormPostTop({ avatarUrl, isLoadingAddNewFeed, fullName, callbackAddNew }) {
   const { t } = useTranslation();
-  const initialValues = { payload: "" };
+  const initialValues = { caption: "", type: TYPE_FEED.TEXT };
 
   const onSubmitPostNew = (values, { resetForm }) => {
-    values.payload = `<p>${values.payload.replace(/[\n\r]/g, "<br>")}</p>`;
-    console.log(values);
+    if(!values.caption) return;
+    values.caption = `<p>${values.caption.replace(/[\n\r]/g, "<br>")}</p>`;
+    callbackAddNew(values);
     resetForm();
   };
 
@@ -32,8 +33,8 @@ function FormPostTop({ avatarUrl, fullName, callBackOpenFormAddNew }) {
           <div className="form-new__input-wrapper">
             <div className="form-new__input-area">
               <Field
-                name="payload"
-                placeholder={t("txt.place_holder_add_new", { name: getLastName(fullName) })}
+                name="caption"
+                placeholder={!isLoadingAddNewFeed ? t("txt.place_holder_add_new", { name: getLastName(fullName) }) : ""}
                 component={InputEmoji}
                 type="textarea"
                 bordered={false}

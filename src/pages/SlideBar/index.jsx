@@ -4,6 +4,7 @@ import { ReadFilled } from "@ant-design/icons";
 import { MENU_DEFAULT } from "../../common";
 import LazyloadImg from "../../components/LazyLoadingImg";
 import { genderAvatarUrl, onRedirect } from "../../utils";
+import FadeIn from "react-fade-in";
 
 function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
   const renderMenuDefault = () => {
@@ -29,7 +30,9 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
           key={item.name}
           icon={<ReadFilled />}
           title={item.name}>
-          {item.name}
+          <FadeIn key={index} delay={100 * index} transitionDuration={300}>
+            {item.name}
+          </FadeIn>
         </Menu.Item>
       );
     });
@@ -39,7 +42,7 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
     return MENU_DEFAULT.map((item, index) => {
       return (
         <Menu.Item key={index + 99} icon={<ReadFilled />}>
-          <Skeleton.Input style={{ width: 200 }} active  />
+          <Skeleton.Input style={{ width: 200 }} active />
         </Menu.Item>
       );
     });
@@ -60,7 +63,7 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
       </div>
       {renderMenuDefault()}
       <Divider className="divider-menu-left" />
-      {isLoadingSubject ? renderMenuSubjectLoad() : renderMenuSubjectLoad()}
+      {isLoadingSubject ? renderMenuSubjectLoad() : renderMenuGroupSubject()}
     </Menu>
   );
 }

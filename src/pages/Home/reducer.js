@@ -3,6 +3,7 @@ import { ActionTypes } from "./actions";
 const DEFAULT_STATE = {
   listNewFeed: [],
   isLoadingNewFeed: false,
+  isLoadingAddNewFeed: false,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -22,6 +23,22 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         isLoadingNewFeed: false,
+      };
+    case ActionTypes.POST_ADD_NEW_FEED_START:
+      return {
+        ...state,
+        isLoadingAddNewFeed: true,
+      };
+    case ActionTypes.POST_ADD_NEW_FEED_SUCCESS:
+      return {
+        ...state,
+        listNewFeed: action.payload.concat(state.listNewFeed),
+        isLoadingAddNewFeed: false,
+      };
+    case ActionTypes.POST_ADD_NEW_FEED_ERROR:
+      return {
+        ...state,
+        isLoadingAddNewFeed: false,
       };
     default:
       return state;

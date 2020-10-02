@@ -6,8 +6,11 @@
     top: 22vh;
   }
   .ant-modal-body {
-    padding: 16px;
+    padding: 0;
     position: relative;
+  }
+  &--body{
+    padding: 16px;
   }
   &__icon-close{
     position: absolute;

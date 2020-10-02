@@ -27,8 +27,8 @@ function Home() {
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
-  const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
+  const isLoadingAddNewFeed = useSelector(state => state.newFeedReducer.isLoadingAddNewFeed);
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
   const dispatch = useDispatch();
@@ -90,6 +90,11 @@ function Home() {
     setVisibleFormAddNew(false);
   };
 
+  const onAddNewRequest = useCallback(values => {
+    dispatch(actions.postAddNewFeedStart(values));
+    console.log("-------------------> values: ", values);
+  }, []);
+
   const renderFormAddNew = useMemo(() => {
     return (
       <ModalCommon
@@ -97,10 +102,18 @@ function Home() {
         width={600}
         title={t("news_feed.add_new")}
         onCancel={closeFormAddNew}
-        content={<FormAddNew avatarUrl={avatarUrl} fullName={fullName} />}
+        isLoadingSpin={isLoadingAddNewFeed}
+        content={
+          <FormAddNew
+            isLoadingAddNewFeed={isLoadingAddNewFeed}
+            callbackAddNew={onAddNewRequest}
+            avatarUrl={avatarUrl}
+            fullName={fullName}
+          />
+        }
       />
     );
-  }, [visibleFormAddNew]);
+  }, [visibleFormAddNew, isLoadingAddNewFeed]);
 
   const openFormAddNew = useCallback(
     type => () => {
@@ -108,6 +121,12 @@ function Home() {
     },
     [visibleFormAddNew]
   );
+
+  useEffect(() => {
+    if (!isLoadingAddNewFeed && visibleFormAddNew) {
+      setVisibleFormAddNew(false);
+    }
+  }, [isLoadingAddNewFeed]);
 
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {

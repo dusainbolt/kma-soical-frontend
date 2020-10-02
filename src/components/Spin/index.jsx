@@ -8,7 +8,7 @@ export default function SpinCommon({
   className,
   content,
   delay = 0,
-  dataText = "msg.loading",
+  dataText = "txt.loading",
   ...props
 }) {
   const icon = <HourglassOutlined className="my-spin--icon" spin />;

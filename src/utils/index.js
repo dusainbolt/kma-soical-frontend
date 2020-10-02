@@ -295,6 +295,9 @@ export const getArrayImg = (content, type) => {
 
 export const renderNotePost = (type, content, subjectName) => {
   const contentStart = i8().t("news_feed.note_shared");
+  if (!subjectName) {
+    return <span>{i8().t("news_feed.note_status")}</span>;
+  }
   switch (type) {
     case TYPE_FEED.IMAGE:
       return (
