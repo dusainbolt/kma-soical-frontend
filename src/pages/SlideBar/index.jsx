@@ -26,7 +26,7 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
     return listSubject.map((item, index) => {
       return (
         <Menu.Item
-          onClick={() => onRedirect(item.tag)}
+          onClick={() => onRedirect(`/groups-subject/${item.tag}`)}
           key={item.name}
           icon={<ReadFilled />}
           title={item.name}>
@@ -62,7 +62,9 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
         </div>
       </div>
       {renderMenuDefault()}
+      <div>
       <Divider className="divider-menu-left" />
+      </div>
       {isLoadingSubject ? renderMenuSubjectLoad() : renderMenuGroupSubject()}
     </Menu>
   );

@@ -293,8 +293,16 @@ export const getArrayImg = (content, type) => {
   return type === TYPE_FEED.IMAGE ? content.split(",") : content;
 };
 
-export const renderNotePost = (type, content, subjectName) => {
+export const renderNotePost = (type, content, subjectName, arrSubjectTotal = []) => {
   const contentStart = i8().t("news_feed.note_shared");
+  console.log("----------->", subjectName, arrSubjectTotal);
+  const subjectTags = getSubjectTag(arrSubjectTotal, subjectName);
+  console.log(subjectTags);
+  const subjectContent = (
+    <b onClick={() => onRedirect(`/groups-subject/${subjectTags}`)}>
+      {subjectName}
+    </b>
+  );
   if (!subjectName) {
     return <span>{i8().t("news_feed.note_status")}</span>;
   }
@@ -305,28 +313,38 @@ export const renderNotePost = (type, content, subjectName) => {
           {`${contentStart} ${getArrayImg(content, type).length} ${i8().t(
             "news_feed.image_upper"
           )} ${i8().t("news_feed.to")} `}
-          <b>{subjectName}</b>
+          {subjectContent}
         </span>
       );
     case TYPE_FEED.VIDEO:
       return (
         <span>
           {`${contentStart} ${i8().t("news_feed.video_upper")} ${i8().t("news_feed.to")} `}
-          <b>{subjectName}</b>
+          {subjectContent}{" "}
         </span>
       );
     default:
       return (
         <span>
           {`${contentStart} ${i8().t("news_feed.status_upper")} ${i8().t("news_feed.to")} `}
-          <b>{subjectName}</b>
+          {subjectContent}{" "}
         </span>
       );
   }
 };
 
+export const getSubjectTag = (arrSubjectTotal, subjectName) => {
+  let subjectTags = "";
+  arrSubjectTotal.forEach(subject => {
+    if (subject.name === subjectName) {
+      subjectTags = subject.tag;
+    }
+  });
+  return subjectTags;
+};
+
 export const renderNoteLike = (total, userLike) => {
-  if(!total) return 0;
+  if (!total) return 0;
   return total > 9
     ? `${userLike} ${i8().t("news_feed.and")} ${total} ${i8().t("news_feed.other_people")}`
     : total;

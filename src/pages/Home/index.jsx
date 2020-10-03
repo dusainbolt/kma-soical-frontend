@@ -94,7 +94,6 @@ function Home() {
 
   const onAddNewRequest = useCallback(values => {
     dispatch(actions.postAddNewFeedStart(values));
-    console.log("-------------------> values: ", values);
   }, []);
 
   const renderFormAddNew = useMemo(() => {
@@ -107,7 +106,7 @@ function Home() {
         isLoadingSpin={isLoadingAddNewFeed}
         content={
           <FormAddNew
-          listSubject={listSubject}
+            listSubject={listSubject}
             isLoadingAddNewFeed={isLoadingAddNewFeed}
             visibleFormAddNew={visibleFormAddNew}
             callbackAddNew={onAddNewRequest}
@@ -117,7 +116,7 @@ function Home() {
         }
       />
     );
-  }, [visibleFormAddNew, isLoadingAddNewFeed]);
+  }, [visibleFormAddNew, isLoadingAddNewFeed, listSubject]);
 
   const openFormAddNew = useCallback(
     type => () => {
@@ -142,7 +141,7 @@ function Home() {
                 avatarUrl={genderAvatarUrl(item.avatarUrl)}
                 fullName={item.fullName}
                 created_at={item.created_at}
-                note={renderNotePost(item.type, item.content, item.subjectName)}
+                note={renderNotePost(item.type, item.content, item.subjectName, listSubject)}
               />
               <ContentNew
                 caption={item.caption}

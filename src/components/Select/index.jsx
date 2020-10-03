@@ -20,6 +20,9 @@ function SelectCommon({
     if (!modeChange && values.length > 1) {
       values.shift();
     }
+    if (modeChange === "tags" && values.length) {
+      values[values.length - 1] = values[values.length - 1].replace(/\s+/g, "");
+    }
     setValue(field.name, values);
   };
 

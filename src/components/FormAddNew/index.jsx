@@ -20,22 +20,24 @@ function FormAddNew({
   listSubject,
 }) {
   const { t } = useTranslation();
-  const initialValues = { caption: "", subjectId: undefined, tags: undefined, type: TYPE_FEED.TEXT };
+  const initialValues = {
+    caption: "",
+    subjectId: undefined,
+    tag: undefined,
+    type: TYPE_FEED.TEXT,
+  };
 
   const onSubmitPostNew = values => {
     if (!values.caption) return;
     let caption = values.caption;
+    console.log(values);
     caption = `<p>${caption.replace(/[\n\r]/g, "<br>")}</p>`;
-    callbackAddNew({ ...values, caption, subjectId: values.subjectId[0] });
-  };
-
-  const getValueSelect = () => {
-    const children = [];
-
-    for (let i = 10; i < 36; i++) {
-      children.push(<Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>);
-    }
-    return children;
+    callbackAddNew({
+      ...values,
+      caption,
+      subjectId: values.subjectId?.length ? values.subjectId[0] : "",
+      tag: values.tag?.length ? values.tag.toString() : "",
+    });
   };
 
   return (
@@ -83,15 +85,15 @@ function FormAddNew({
             </div>
             <div className="form-new__row">
               <Field
-                name="tags"
+                name="tag"
                 placeholder={t("news_feed.place_select_tags")}
                 component={SelectCommon}
-                value={values.tags}
+                value={values.tag}
                 title={t("news_feed.title_select_tags")}
                 modeChange="tags"
                 options={[]}
                 className="select-tag"
-                description={t("news_feed.place_select_tags")}
+                description={t("news_feed.des_select_tags")}
                 setValue={setFieldValue}
               />
             </div>
