@@ -3,11 +3,11 @@ import { Input } from "antd";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
 import { useMemo } from "react";
-import { SmileOutlined } from "@ant-design/icons";
+import { SmileOutlined, PictureFilled } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 function InputEmoji({ field, onSelectEmoji, countRows, ...props }) {
-  
   const { t } = useTranslation();
 
   const [emojiPickerState, SetEmojiPicker] = useState(false);
@@ -36,8 +36,9 @@ function InputEmoji({ field, onSelectEmoji, countRows, ...props }) {
   return (
     <>
       <Input.TextArea onClick={() => onCloseEmoji()} rows={countRows} {...field} {...props} />
-      {renderEmojiPicker}
       <SmileOutlined onClick={triggerPicker} className="icon-picker" />
+      <PictureFilled onClick={triggerPicker} className="icon-picker" />
+      {renderEmojiPicker}
     </>
   );
 }

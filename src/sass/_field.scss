@@ -235,6 +235,10 @@ span.icon-picker{
   float: right;
   font-size: 30px;
   margin-bottom: 15px;
+  &.anticon-picture{
+    margin-right: 8px;
+    font-size: 32px;
+  }
   cursor: pointer;
   &:hover {
     color: $primary-color;
@@ -246,6 +250,7 @@ span.icon-picker{
 
 .emoji-mart{
   position: fixed;
+  display: contents;
   button.emoji-mart-emoji span {
     cursor: pointer;
   }

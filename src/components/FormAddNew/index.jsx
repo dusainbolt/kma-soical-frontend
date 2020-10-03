@@ -9,7 +9,7 @@ import SelectCommon from "../Select";
 import { ReadFilled } from "@ant-design/icons";
 import InputEmoji from "../InputEmoji";
 import { TYPE_FEED } from "../../common";
-const { Option } = Select;
+import UploadList from "../UploadList";
 
 function FormAddNew({
   avatarUrl,
@@ -70,6 +70,7 @@ function FormAddNew({
                 autoSize={{ minRows: 4 }}
               />
             </div>
+            <UploadList />
             <div className="form-new__row first-to-icon">
               <Field
                 name="subjectId"

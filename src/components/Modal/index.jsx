@@ -34,7 +34,9 @@ function ModalCommon({
   return (
     <Modal
       visible={visible}
-      // onCancel={onCancel}
+//       // onCancel={onCancel}
+//       transitionName="none"
+// maskTransitionName="none"
       wrapClassName="modal"
       width={width}
       footer={null}
