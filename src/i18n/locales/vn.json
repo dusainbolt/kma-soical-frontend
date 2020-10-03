@@ -65,6 +65,10 @@
     "btn_post": "Đăng bài",
     "rep_comment": "Trả lời",
     "other_people": "người khác",
+    "title_select_subject": "Môn học - học phần",
+    "title_select_tags": "Thẻ bài viết",
+    "place_select_subject": "Nhấn vào đây để chọn môn học",
+    "place_select_tags": "Nhấn vào đây để tạo tags",
     "note_shared": "Đã chia sẻ"
   },
   "time": {

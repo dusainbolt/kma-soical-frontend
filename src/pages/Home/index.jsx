@@ -28,6 +28,8 @@ function Home() {
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
   const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
+  const listSubject = useSelector(state => state.layoutReducer.listSubject);
+
   const isLoadingAddNewFeed = useSelector(state => state.newFeedReducer.isLoadingAddNewFeed);
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
@@ -105,7 +107,9 @@ function Home() {
         isLoadingSpin={isLoadingAddNewFeed}
         content={
           <FormAddNew
+          listSubject={listSubject}
             isLoadingAddNewFeed={isLoadingAddNewFeed}
+            visibleFormAddNew={visibleFormAddNew}
             callbackAddNew={onAddNewRequest}
             avatarUrl={avatarUrl}
             fullName={fullName}

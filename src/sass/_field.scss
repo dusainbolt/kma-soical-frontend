@@ -173,6 +173,35 @@ div.ant-picker {
   }
 }
 
+.my-select{
+  &__title {
+    font-size: 15px;
+    font-weight: bold;
+    color: $black-color;
+  }
+  &__description {
+    font-size: 13px;
+    color: $black-color-light;
+    margin-bottom: 5px;
+  }
+  .ant-select:not(.ant-select-disabled):hover .ant-select-selector{
+    border-color: $primary-color;
+  }
+  .ant-select-focused.ant-select-multiple .ant-select-selector {
+    border-color: $primary-color;
+    -webkit-box-shadow: 0 0 0 2px rgba(255, 117, 97, 0.2);
+    box-shadow: 0 0 0 2px rgba(255, 117, 97, 0.2);  
+  }
+}
+
+.ant-select-item, .ant-select-selection-item-content{
+  font-size: 13px;
+  .anticon-read{
+    color: $red-light-color;
+    font-size: 14px;
+    margin-right: 8px;
+  }
+}
 
 .required {
   display: block;
@@ -199,13 +228,16 @@ span.error-field {
   }
 }
 
-.icon-picker{
+span.icon-picker{
   float: right;
   font-size: 30px;
   margin-bottom: 15px;
   cursor: pointer;
   &:hover {
     color: $primary-color;
+  }
+  >svg {
+    float: right;
   }
 }
 
