@@ -296,9 +296,7 @@ export const renderNotePost = (type, content, subjectName, arrSubjectTotal = [])
   const contentStart = i8().t("news_feed.note_shared");
   const subjectTags = getSubjectTag(arrSubjectTotal, subjectName);
   const subjectContent = (
-    <b onClick={() => onRedirect(`/groups-subject/${subjectTags}`)}>
-      {subjectName}
-    </b>
+    <b onClick={() => onRedirect(`/groups-subject/${subjectTags}`)}>{subjectName}</b>
   );
   if (!subjectName) {
     return <span>{i8().t("news_feed.note_status")}</span>;

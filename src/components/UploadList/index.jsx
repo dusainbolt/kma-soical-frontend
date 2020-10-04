@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Upload, Modal } from "antd";
 import { PlusOutlined, CameraFilled } from "@ant-design/icons";
 import { useMemo } from "react";
-import { LIMIT_UPLOAD_NEW } from "../../common";
+import { LIMIT_UPLOAD_NEW, validateIMG } from "../../common";
 import { beforeUpload, getBase64 } from "../../utils/upload";
 import ButtonCommon from "../Button";
 import { useTranslation } from "react-i18next";
@@ -39,13 +39,7 @@ function UploadList() {
     let fileObject = {};
     if (length > LIMIT_UPLOAD_NEW) return;
     if (length && fileUpload[length - 1]?.originFileObj) {
-      const { uid, originFileObj, status, thumbUrl } = fileUpload[length - 1];
-      fileObject = {
-        uid,
-        thumbUrl,
-        originFileObj,
-        status,
-      };
+      fileObject = fileUpload[length - 1];
     }
     if (fileList[fileList.length - 1]?.uid === fileObject.uid && !(fileList.length > length)) {
       return;
@@ -64,8 +58,14 @@ function UploadList() {
     });
   }, [fileList]);
 
-  const onChangeEditImage = ({ file }) => {
-    console.log("-------->file: ", file);
+  const onChangeEditImage = async ({ file }) => {
+    if (file.status === "done") {
+      const fileListState = fileList.map((item, index) => {
+        return index === indexPreview - 1 ? file : item;
+      });
+      setFileList(fileListState);
+      setPreviewVisible(false);
+    }
   };
 
   const uploadButton = (
@@ -82,7 +82,9 @@ function UploadList() {
         listType="picture-card"
         multiple
         fileList={mapFileList}
+        beforeUpload={beforeUpload}
         onPreview={handlePreview}
+        accept={validateIMG.toString()}
         onChange={handleChangeUploadList}>
         {fileList?.length >= LIMIT_UPLOAD_NEW ? null : uploadButton}
       </Upload>
@@ -93,6 +95,7 @@ function UploadList() {
           className="upload-avatar"
           action="/"
           method="GET"
+          accept={validateIMG.toString()}
           beforeUpload={beforeUpload}
           showUploadList={false}
           onChange={onChangeEditImage}>

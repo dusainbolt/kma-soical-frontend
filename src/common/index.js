@@ -204,3 +204,4 @@ export const MENU_DEFAULT = [
 ];
 
 export const LIMIT_UPLOAD_NEW = 10;
+export const validateIMG = ["image/png", "image/jpeg", "image/heic"];

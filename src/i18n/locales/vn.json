@@ -42,6 +42,8 @@
     "place_holder_add_new": "{{name}} ơi, ban đang nghĩ gì thế?",
     "register": "Đăng ký",
     "use_account": "Bạn đã có tài khoản?",
+    "size_img_invalid": "Bạn phải chọn ảnh có dung lượng nhỏ hơn 2MB!",
+    "format_img_invalid": "Bạn phải chọn ảnh có định dạng 'PNG, JPEG, JPG, HEIC'!",
     "msg_register_title": "Đăng ký thành công",
     "msg_register_content": "Hệ thống đã gửi mã xác nhận vào email vui lòng kiểm tra",
     "confirm_title_CONFIRM_REGISTER": "Xác minh thành công",
