@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getLastName } from "../../utils";
-import { Avatar, Select } from "antd";
+import { getLastName, renderImageOrder } from "../../utils";
+import { Avatar } from "antd";
 import SecurityStatus from "../SecurityStatus";
 import { Field, Formik } from "formik";
 import ButtonCommon from "../Button";
@@ -10,6 +10,8 @@ import { ReadFilled } from "@ant-design/icons";
 import InputEmoji from "../InputEmoji";
 import { TYPE_FEED } from "../../common";
 import UploadList from "../UploadList";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function FormAddNew({
   avatarUrl,
@@ -18,27 +20,69 @@ function FormAddNew({
   fullName,
   callbackAddNew,
   listSubject,
+  typeNew,
 }) {
   const { t } = useTranslation();
+  const [visibleImageRapper, setVisibleImageRapper] = useState(false);
+  const [fileList, setFileList] = useState([]);
+  const typeImage = typeNew === TYPE_FEED.IMAGE;
   const initialValues = {
     caption: "",
     subjectId: undefined,
     tag: undefined,
-    type: TYPE_FEED.TEXT,
+    type: typeNew,
   };
 
   const onSubmitPostNew = values => {
-    if (!values.caption) return;
+    if (
+      (!fileList.length && !values.caption && !visibleImageRapper) ||
+      (visibleImageRapper &&
+        (!fileList.length || values.caption) &&
+        (!values.caption || !fileList.length))
+    ) {
+      return;
+    }
     let caption = values.caption;
-    console.log(values);
     caption = `<p>${caption.replace(/[\n\r]/g, "<br>")}</p>`;
-    callbackAddNew({
-      ...values,
-      caption,
-      subjectId: values.subjectId?.length ? values.subjectId[0] : "",
-      tag: values.tag?.length ? values.tag.toString() : "",
-    });
+    const typeNewFeed = visibleImageRapper ? TYPE_FEED.IMAGE : typeNew;
+    let bodyFormData = new FormData();
+    if (fileList.length) {
+      renderImageOrder(fileList, bodyFormData);
+    }
+    for (let [key, value] of Object.entries(values)) {
+      if (value) {
+        bodyFormData.set(key, value);
+      }
+    }
+    bodyFormData.set("caption", caption);
+    bodyFormData.set(
+      "type",
+      typeNewFeed === TYPE_FEED.IMAGE && fileList.length === 0 ? TYPE_FEED.TEXT : typeNewFeed
+    );
+    callbackAddNew(bodyFormData);
   };
+
+  const toggleAddImageWrapper = () => {
+    setVisibleImageRapper(!visibleImageRapper);
+  };
+
+  const onRecevieFileList = fileListRecive => {
+    setFileList(fileListRecive);
+  };
+
+  useEffect(() => {
+    setVisibleImageRapper(false);
+  }, [typeNew]);
+
+  useEffect(() => {
+    if (!visibleImageRapper && !typeImage) {
+      setFileList([]);
+    }
+  }, [visibleImageRapper, typeNew]);
+
+  useEffect(() => {
+    setFileList([]);
+  }, [visibleFormAddNew]);
 
   return (
     <div className="form-new">
@@ -58,6 +102,7 @@ function FormAddNew({
             <div className="form-new__input-area">
               <Field
                 name="caption"
+                visibleFormAddNew={visibleFormAddNew}
                 placeholder={
                   !isLoadingAddNewFeed
                     ? t("txt.place_holder_add_new", { name: getLastName(fullName) })
@@ -65,12 +110,15 @@ function FormAddNew({
                 }
                 component={InputEmoji}
                 type="textarea"
+                callbackVisibleImage={toggleAddImageWrapper}
                 bordered={false}
                 onSelectEmoji={setFieldValue}
                 autoSize={{ minRows: 4 }}
               />
             </div>
-            <UploadList />
+            {(typeImage || visibleImageRapper) && (
+              <UploadList callbackChangeFileList={onRecevieFileList} fileList={fileList} />
+            )}
             <div className="form-new__row first-to-icon">
               <Field
                 name="subjectId"

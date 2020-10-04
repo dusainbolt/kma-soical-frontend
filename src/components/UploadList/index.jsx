@@ -7,19 +7,12 @@ import { beforeUpload, getBase64 } from "../../utils/upload";
 import ButtonCommon from "../Button";
 import { useTranslation } from "react-i18next";
 
-function UploadList() {
+function UploadList({callbackChangeFileList, fileList}) {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState(false);
   const [previewTitle, setPreviewTitle] = useState(null);
   const [indexPreview, setIndexPreview] = useState(0);
-  const [fileList, setFileList] = useState([
-    {
-      uid: "-1",
-      name: "image.png",
-      status: "done",
-      url: "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    },
-  ]);
+
   const { t } = useTranslation();
   const handleCancel = () => setPreviewVisible(false);
 
@@ -44,10 +37,10 @@ function UploadList() {
     if (fileList[fileList.length - 1]?.uid === fileObject.uid && !(fileList.length > length)) {
       return;
     } else if (fileList.length > length || length === 0) {
-      setFileList(fileUpload);
+      callbackChangeFileList(fileUpload);
       return;
     }
-    setFileList(oldFileList => [...oldFileList, fileObject]);
+    callbackChangeFileList([...fileList, fileObject]);
   };
 
   const mapFileList = useMemo(() => {
@@ -63,7 +56,7 @@ function UploadList() {
       const fileListState = fileList.map((item, index) => {
         return index === indexPreview - 1 ? file : item;
       });
-      setFileList(fileListState);
+      callbackChangeFileList(fileListState);
       setPreviewVisible(false);
     }
   };

@@ -6,7 +6,7 @@ export const beforeUpload = file => {
   if (!isJpgOrPng) {
     message.error(i8().t("txt.format_img_invalid"));
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
+  const isLt2M = file.size / 1024 / 1024 < 1;
   if (!isLt2M) {
     message.error(i8().t("txt.size_img_invalid"));
   }

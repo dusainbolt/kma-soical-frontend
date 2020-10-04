@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Input } from "antd";
 import "emoji-mart/css/emoji-mart.css";
 import { Picker } from "emoji-mart";
-import { useMemo } from "react";
 import { SmileOutlined, PictureFilled } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
 
-function InputEmoji({ field, onSelectEmoji, countRows, ...props }) {
+function InputEmoji({ field, onSelectEmoji, visibleFormAddNew, countRows, callbackVisibleImage, ...props }) {
   const { t } = useTranslation();
 
   const [emojiPickerState, SetEmojiPicker] = useState(false);
@@ -33,11 +31,15 @@ function InputEmoji({ field, onSelectEmoji, countRows, ...props }) {
     emojiPickerState && SetEmojiPicker(false);
   };
 
+  useEffect(() => {
+    onCloseEmoji();
+  },[visibleFormAddNew]);
+
   return (
     <>
-      <Input.TextArea onClick={() => onCloseEmoji()} rows={countRows} {...field} {...props} />
+      <Input.TextArea rows={countRows} {...field} {...props} />
       <SmileOutlined onClick={triggerPicker} className="icon-picker" />
-      <PictureFilled onClick={triggerPicker} className="icon-picker" />
+      <PictureFilled onClick={() => callbackVisibleImage()} className="icon-picker" />
       {renderEmojiPicker}
     </>
   );

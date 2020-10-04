@@ -42,6 +42,7 @@ function Home() {
   const [countView, setCountView] = useState(1);
   const [viewComment, setViewComment] = useState({});
   const [visibleFormAddNew, setVisibleFormAddNew] = useState(false);
+  const [typeNew, setTypeNew] = useState(null);
 
   useEffect(() => {
     dispatch(actions.getNewFeedStart({ limit }));
@@ -112,14 +113,16 @@ function Home() {
             callbackAddNew={onAddNewRequest}
             avatarUrl={avatarUrl}
             fullName={fullName}
+            typeNew={typeNew}
           />
         }
       />
     );
-  }, [visibleFormAddNew, isLoadingAddNewFeed, listSubject]);
+  }, [visibleFormAddNew, isLoadingAddNewFeed, listSubject, typeNew]);
 
   const openFormAddNew = useCallback(
     type => () => {
+      setTypeNew(type);
       setVisibleFormAddNew(true);
     },
     [visibleFormAddNew]
@@ -147,7 +150,7 @@ function Home() {
                 caption={item.caption}
                 callbackViewImg={onViewImg}
                 avatarUrl={item.avatarUrl}
-                tags={item.tag ? item.tag.split(",") : []}
+                tags={item.tag ? item.tag.toString().split(",") : []}
                 content={getArrayImg(item.content, item.type)}
                 type={item.type}
               />

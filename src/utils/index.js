@@ -289,17 +289,17 @@ export const getSpanList = length => {
 };
 
 export const getArrayImg = (content, type) => {
-  return type === TYPE_FEED.IMAGE ? content.split(",") : content;
+  return type === TYPE_FEED.IMAGE ? content?.split(",") : content;
 };
 
 export const renderNotePost = (type, content, subjectName, arrSubjectTotal = []) => {
   const contentStart = i8().t("news_feed.note_shared");
   const subjectTags = getSubjectTag(arrSubjectTotal, subjectName);
-  const subjectContent = (
+  let subjectContent = (
     <b onClick={() => onRedirect(`/groups-subject/${subjectTags}`)}>{subjectName}</b>
   );
   if (!subjectName) {
-    return <span>{i8().t("news_feed.note_status")}</span>;
+    subjectContent = i8().t("txt.time_line");
   }
   switch (type) {
     case TYPE_FEED.IMAGE:
@@ -415,4 +415,22 @@ export const convertListChatRead = (myRead, idUserRead, listChatReducer) => {
 
 export const onRedirect = path => {
   return browserHistory.push(path);
+};
+
+export const renderImageOrder = (listFileUrl, body) => {
+  const imageOrder = [];
+  imageOrder[0] = body;
+  imageOrder[1] = [];
+
+  let typeFile = null;
+  //render file & sort file
+  listFileUrl.forEach(file => {
+    typeFile = file;
+    if (file?.size) {
+      imageOrder[0].append("images[]", file.originFileObj);
+      typeFile = "__file";
+    }
+    imageOrder[1].push(typeFile);
+  });
+  imageOrder[0].set("imageOrder", imageOrder[1]);
 };

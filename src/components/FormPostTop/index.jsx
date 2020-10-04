@@ -11,27 +11,23 @@ function FormPostTop({ avatarUrl, fullName, callBackOpenFormAddNew }) {
   return (
     <div className="form-new__wrapper">
       <div className="form-new__input">
-        <LazyloadImg
-          className="form-new__avatar avatar"
-          src={avatarUrl}
-          alt="avatar"
-        />
+        <LazyloadImg className="form-new__avatar avatar" src={avatarUrl} alt="avatar" />
         <div className="form-new__input--field" onClick={callBackOpenFormAddNew(TYPE_FEED.TEXT)}>
           {t("txt.place_holder_add_new", { name: getLastName(fullName) })}
         </div>
       </div>
       <div className="form-new__action">
+        <div onClick={callBackOpenFormAddNew(TYPE_FEED.TEXT)}>
+          <EditFilled />
+          <span className="action-text">{t("news_feed.status")}</span>
+        </div>
         <div onClick={callBackOpenFormAddNew(TYPE_FEED.IMAGE)}>
-          <PictureFilled/>
+          <PictureFilled />
           <span className="action-text">{t("news_feed.image")}</span>
         </div>
         <div onClick={callBackOpenFormAddNew(TYPE_FEED.VIDEO)}>
           <VideoCameraFilled />
           <span className="action-text">{t("news_feed.video")}</span>
-        </div>
-        <div onClick={callBackOpenFormAddNew(TYPE_FEED.TEXT)}>
-          <EditFilled />
-          <span className="action-text">{t("news_feed.status")}</span>
         </div>
       </div>
     </div>
