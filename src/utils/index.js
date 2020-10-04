@@ -174,7 +174,6 @@ export function onlyNumberChar(value) {
 
 export const onlyNumber = (setFieldValue, name) => e => {
   let value = e.target.value;
-  console.log(value);
   if (!validateNumber(value)) return;
   setFieldValue(name, value);
 };
@@ -295,9 +294,7 @@ export const getArrayImg = (content, type) => {
 
 export const renderNotePost = (type, content, subjectName, arrSubjectTotal = []) => {
   const contentStart = i8().t("news_feed.note_shared");
-  console.log("----------->", subjectName, arrSubjectTotal);
   const subjectTags = getSubjectTag(arrSubjectTotal, subjectName);
-  console.log(subjectTags);
   const subjectContent = (
     <b onClick={() => onRedirect(`/groups-subject/${subjectTags}`)}>
       {subjectName}

@@ -202,3 +202,5 @@ export const MENU_DEFAULT = [
     redirect: "/video",
   }
 ];
+
+export const LIMIT_UPLOAD_NEW = 10;
