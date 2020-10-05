@@ -8,6 +8,7 @@ import {
   TYPE_DATE_TIME,
   SPAN_GALLEY,
   TYPE_FEED,
+  FILTER_NEW_FEED,
 } from "../common";
 import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
@@ -294,9 +295,9 @@ export const getArrayImg = (content, type) => {
 
 export const renderNotePost = (type, content, subjectName, arrSubjectTotal = []) => {
   const contentStart = i8().t("news_feed.note_shared");
-  const subjectTags = getSubjectTag(arrSubjectTotal, subjectName);
+  const subjectId = getSubjectId(arrSubjectTotal, subjectName);
   let subjectContent = (
-    <b onClick={() => onRedirect(`/groups-subject/${subjectTags}`)}>{subjectName}</b>
+    <b onClick={() => onRedirect(`/groups-subject/${subjectId}`)}>{subjectName}</b>
   );
   if (!subjectName) {
     subjectContent = i8().t("txt.time_line");
@@ -328,14 +329,14 @@ export const renderNotePost = (type, content, subjectName, arrSubjectTotal = [])
   }
 };
 
-export const getSubjectTag = (arrSubjectTotal, subjectName) => {
-  let subjectTags = "";
+export const getSubjectId = (arrSubjectTotal, subjectName) => {
+  let subjectId = "";
   arrSubjectTotal.forEach(subject => {
     if (subject.name === subjectName) {
-      subjectTags = subject.tag;
+      subjectId = subject.id;
     }
   });
-  return subjectTags;
+  return subjectId;
 };
 
 export const renderNoteLike = (total, userLike) => {
@@ -421,9 +422,7 @@ export const renderImageOrder = (listFileUrl, body) => {
   const imageOrder = [];
   imageOrder[0] = body;
   imageOrder[1] = [];
-
   let typeFile = null;
-  //render file & sort file
   listFileUrl.forEach(file => {
     typeFile = file;
     if (file?.size) {
@@ -433,4 +432,37 @@ export const renderImageOrder = (listFileUrl, body) => {
     imageOrder[1].push(typeFile);
   });
   imageOrder[0].set("imageOrder", imageOrder[1]);
+};
+
+export const renderCurrentFilterFeed = (props, currentValue) => {
+  const { params, path } = props.match;
+  let initialValue = { type: 0 };
+  if (params.subjectId) {
+    initialValue = {
+      ...currentValue,
+      type: TYPE_FEED.GROUP_SUBJECT,
+      subjectId: params.subjectId,
+    };
+  } else if (path) {
+    initialValue = {
+      ...currentValue,
+      type: genderTypeFeedForPath(path),
+    };
+  }
+  return initialValue;
+};
+
+export const genderTypeFeedForPath = path => {
+  switch (path) {
+    case FILTER_NEW_FEED.IMG_NEW_FEED:
+      return TYPE_FEED.IMAGE;
+    case FILTER_NEW_FEED.IMG_VIDEO_FEED:
+      return TYPE_FEED.VIDEO;
+    case FILTER_NEW_FEED.IMG_HOT_FEED:
+      return TYPE_FEED.HOT_NEW;
+    case FILTER_NEW_FEED.IMG_ONLY_NEW_FEED:
+      return TYPE_FEED.ONLY_TEXT;
+    default:
+      return null;
+  }
 };

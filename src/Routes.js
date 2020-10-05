@@ -1,3 +1,4 @@
+import { FILTER_NEW_FEED } from "./common";
 import Homepage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
@@ -15,6 +16,36 @@ export const Routes = [
     path: "/home",
     exact: true,
     component: Homepage,
+  },
+  {
+    name: "GroupSubject",
+    path: "/groups-subject/:subjectId",
+    component: Homepage,
+    exact: true,
+  },
+  {
+    name: "HomeImage",
+    path: FILTER_NEW_FEED.IMG_NEW_FEED,
+    component: Homepage,
+    exact: true,
+  },
+  {
+    name: "HomeVideo",
+    path: FILTER_NEW_FEED.IMG_VIDEO_FEED,
+    component: Homepage,
+    exact: true,
+  },
+  {
+    name: "HomeHostNew",
+    path: FILTER_NEW_FEED.IMG_HOT_FEED,
+    component: Homepage,
+    exact: true,
+  },
+  {
+    name: "HomeOnlyText",
+    path: FILTER_NEW_FEED.IMG_ONLY_NEW_FEED,
+    component: Homepage,
+    exact: true,
   },
 ];
 

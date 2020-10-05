@@ -7,10 +7,17 @@ import {
   MessageOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
-function ActionNew() {
+import { useEffect } from "react";
+import { useState } from "react";
+function ActionNew({ toggleLike, index, viewLike }) {
+  console.log("--------------------->", viewLike);
+  const [isLoaddingLike, setIsLoaddingLike] = useState(false);
+  useEffect(()=>{
+
+  });
   return (
     <div className="form-feed__action-post">
-      <div className="form-feed__action-post--item">
+      <div onClick={() => toggleLike(index)}  className="form-feed__action-post--item">
         <HeartOutlined />
         <span className="action-post">Thich</span>
       </div>

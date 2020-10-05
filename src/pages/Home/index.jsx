@@ -11,7 +11,7 @@ import LikeInfo from "../../components/News/LikeInfo";
 import ModalCommon from "../../components/Modal";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
-import { OPTION_LiGHTBOX } from "../../common";
+import { LIMIT, LIMIT_UPLOAD_NEW, OPTION_LiGHTBOX, TYPE_FEED } from "../../common";
 import FormAddNew from "../../components/FormAddNew";
 import {
   getArrayImg,
@@ -19,34 +19,45 @@ import {
   renderNoteLike,
   renderNoteComment,
   genderAvatarUrl,
+  renderCurrentFilterFeed,
 } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useTranslation } from "react-i18next";
 
-function Home() {
+function Home({ ...props }) {
+  // const { params } = props.match;
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
   const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
   const listSubject = useSelector(state => state.layoutReducer.listSubject);
-
   const isLoadingAddNewFeed = useSelector(state => state.newFeedReducer.isLoadingAddNewFeed);
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
   const dispatch = useDispatch();
   const { openLightbox } = useLightbox();
-  const [limit, setLimit] = useState(10);
   const [listIMGView, setListIMGView] = useState([]);
   const [isView, setIsView] = useState(false);
   const [indexIMG, setIndexIMG] = useState(0);
   const [countView, setCountView] = useState(1);
   const [viewComment, setViewComment] = useState({});
+  const [viewLike, setViewLike] = useState({});
   const [visibleFormAddNew, setVisibleFormAddNew] = useState(false);
   const [typeNew, setTypeNew] = useState(null);
+  const [currentValue, setCurrentValue] = useState(null);
 
   useEffect(() => {
-    dispatch(actions.getNewFeedStart({ limit }));
-  }, [limit]);
+    return () => {
+      let cureentFilter = renderCurrentFilterFeed(props, currentValue);
+      setCurrentValue(cureentFilter);
+    };
+  }, [props.match.params]);
+
+  useEffect(() => {
+    if (currentValue) {
+      dispatch(actions.getNewFeedStart(currentValue));
+    }
+  }, [currentValue]);
 
   const onViewImg = useCallback(
     (listIMG, index) => {
@@ -87,6 +98,11 @@ function Home() {
 
   const toggleViewComment = index => {
     setViewComment({ ...viewComment, [index]: !viewComment?.[index] });
+  };
+
+  const toggleLike = index => {
+    console.log(index);
+    setViewLike({ ...viewLike, [index]: !viewLike?.[index] });
   };
 
   const closeFormAddNew = () => {
@@ -137,7 +153,7 @@ function Home() {
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
       return (
-        <Lazyload key={index} placeholder={<SkeletonNewFeed />} height={800} throttle={400}>
+        <Lazyload key={index} placeholder={<SkeletonNewFeed />} height={200} throttle={400}>
           <FadeIn delay={100} transitionDuration={500}>
             <div className="form-feed">
               <PostTop
@@ -161,7 +177,12 @@ function Home() {
                 noteComment={renderNoteComment(item.totalComment)}
                 index={item.id}
               />
-              <ActionNew itemNews={item} />
+              <ActionNew
+                toggleLike={toggleLike}
+                itemNews={item}
+                viewLike={viewLike?.[item.id]}
+                index={item.id}
+              />
               {viewComment?.[item.id] && (
                 <Comment avatarUrl={avatarUrl} listComment={item?.listComment} />
               )}

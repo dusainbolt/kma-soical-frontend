@@ -18,12 +18,13 @@ function SidebarMessage({ callbackOpenBoxChat }) {
   const idUserShowMess = useSelector(state => state.sideBarMessage.idUserShowMess);
   const userInbox = useSelector(state => state.boxChat.userInbox);
   const isMobile = useSelector(state => state.layoutReducer.isMobile);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(null);
   const [visiblePopoverMess, setVisiblePopoverMess] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actions.getListFriendsStart({ limit: LIMIT.LIST_USER, searchText }));
+    if (!listFriends.length || searchText)
+      dispatch(actions.getListFriendsStart({ limit: LIMIT.LIST_USER, searchText }));
   }, [searchText]);
 
   const onOpenChat = (item, idUserInbox) => () => {

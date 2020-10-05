@@ -5,8 +5,9 @@ import {
   HomeFilled,
   UsergroupAddOutlined,
   PictureFilled,
-  VideoCameraFilled,
+  ProfileFilled,
   FireFilled,
+  PlaySquareFilled
 } from "@ant-design/icons";
 
 //note:
@@ -129,12 +130,16 @@ export const TYPE_FEED = {
   TEXT: 0,
   IMAGE: 1,
   VIDEO: 2,
+  GROUP_SUBJECT: 3,
+  HOT_NEW: 4,
+  ONLY_TEXT: 5,
 };
 
 export const LIMIT = {
   LIST_USER: 15,
   LIST_COMMENT: 10,
   LIST_CHAT: 15,
+  LIST_NEWFEED: 10,
 };
 
 export const OPTION_LiGHTBOX = {
@@ -174,6 +179,14 @@ export const OPTION_LiGHTBOX = {
     zoomOutText: i8().t("light_box.zoomOut"),
   },
 };
+export const FILTER_NEW_FEED = {
+  IMG_NEW_FEED: "/image-new-feed",
+  IMG_VIDEO_FEED: "/video-new-feed",
+  IMG_HOT_FEED: "/host-new-feed",
+  IMG_ONLY_NEW_FEED: "/new-feed-status",
+  FRIENDS: "/my-friends",
+};
+
 
 export const MENU_DEFAULT = [
   {
@@ -184,24 +197,30 @@ export const MENU_DEFAULT = [
   {
     title: "Bạn bè",
     icon: UsergroupAddOutlined,
-    redirect: "/my-friends"
+    redirect: "/my-friends",
   },
   {
     title: "Top bài viết",
     icon: FireFilled,
-    redirect: "/top-new",
+    redirect: FILTER_NEW_FEED.IMG_HOT_FEED,
   },
   {
-    title: "Ảnh",
+    title: "Bài viết mới nhất",
+    icon: ProfileFilled,
+    redirect: FILTER_NEW_FEED.IMG_ONLY_NEW_FEED,
+  },
+  {
+    title: "Ảnh mới nhất",
     icon: PictureFilled,
-    redirect: "/image",
+    redirect: FILTER_NEW_FEED.IMG_NEW_FEED,
   },
   {
-    title: "Video",
-    icon : VideoCameraFilled,
-    redirect: "/video",
-  }
+    title: "Video mới nhất",
+    icon: PlaySquareFilled,
+    redirect: FILTER_NEW_FEED.IMG_VIDEO_FEED,
+  },
 ];
 
 export const LIMIT_UPLOAD_NEW = 10;
 export const validateIMG = ["image/png", "image/jpeg", "image/heic"];
+

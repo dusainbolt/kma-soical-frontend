@@ -26,7 +26,7 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
     return listSubject.map((item, index) => {
       return (
         <Menu.Item
-          onClick={() => onRedirect(`/groups-subject/${item.tag}`)}
+          onClick={() => onRedirect(`/groups-subject/${item.id}`)}
           key={item.name}
           icon={<ReadFilled />}
           title={item.name}>

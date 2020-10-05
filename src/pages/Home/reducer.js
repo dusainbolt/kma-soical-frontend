@@ -11,6 +11,7 @@ export default (state = DEFAULT_STATE, action) => {
     case ActionTypes.GET_NEW_FEED_START:
       return {
         ...state,
+        listNewFeed: [],
         isLoadingNewFeed: true,
       };
     case ActionTypes.GET_NEW_FEED_SUCCESS:
