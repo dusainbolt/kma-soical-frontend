@@ -47,6 +47,13 @@ export const Routes = [
     component: Homepage,
     exact: true,
   },
+  {
+    name: "HomeOnlyId",
+    path: "/new-feed/:postId",
+    component: Homepage,
+    exact: true,
+  },
+  
 ];
 
 export const RoutesAuth = [

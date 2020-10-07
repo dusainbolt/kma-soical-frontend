@@ -133,6 +133,7 @@ export const TYPE_FEED = {
   GROUP_SUBJECT: 3,
   HOT_NEW: 4,
   ONLY_TEXT: 5,
+  ONLY_ID: 6,
 };
 
 export const LIMIT = {
@@ -224,3 +225,5 @@ export const MENU_DEFAULT = [
 export const LIMIT_UPLOAD_NEW = 10;
 export const validateIMG = ["image/png", "image/jpeg", "image/heic"];
 
+export const LIKE = 1;
+export const NO_LIKE = 0;

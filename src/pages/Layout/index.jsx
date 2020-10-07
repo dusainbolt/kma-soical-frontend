@@ -8,7 +8,7 @@ import Sidebar from "../SlideBar";
 import BoxChatCommon from "../SideBoxChat";
 import SideListFriends from "../SideListFriends";
 import { END_PC_PIXEL } from "../../common";
-import { initSocket, logoutSocket, openBoxChatSocket } from "../../utils/socket";
+import { initSocket, logoutSocket, openBoxChatSocket, resetSocketNewFeed } from "../../utils/socket";
 import { actions } from "./actions";
 import api from "../../services/api";
 import { useMemo } from "react";
@@ -43,6 +43,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
       if(!listSubject.length){
         dispatch(actions.getListSubjectStart());
       }
+      resetSocketNewFeed(userDetail?.id);
       initSocket(dispatch, userDetail?.id);
     }
   }, [token]);

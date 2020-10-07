@@ -297,12 +297,18 @@
       .anticon {
         font-size: 20px;
         margin-right: 5px;
+        &.is-like{
+          color: $red-color;
+        }
       }
 
       > span.action-post {
         font-size: $font-size;
         font-weight: 600;
       }
+    }
+    .dot-loading {
+      margin: -8px auto;
     }
   }
 

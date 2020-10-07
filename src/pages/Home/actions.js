@@ -5,6 +5,9 @@ export const ActionTypes = {
   POST_ADD_NEW_FEED_START: "POST_ADD_NEW_FEED_START",
   POST_ADD_NEW_FEED_SUCCESS: "POST_ADD_NEW_FEED_SUCCESS",
   POST_ADD_NEW_FEED_ERROR: "POST_ADD_NEW_FEED_ERROR",
+  PUT_LIKE_FEED_START: "PUT_LIKE_FEED_START",
+  PUT_LIKE_FEED_SUCCESS: "PUT_LIKE_FEED_SUCCESS",
+  PUT_LIKE_FEED_ERROR: "PUT_LIKE_FEED_ERROR",
 };
 
 export const actions = {
@@ -41,6 +44,24 @@ export const actions = {
   postAddNewFeedError: function (error) {
     return {
       type: ActionTypes.POST_ADD_NEW_FEED_ERROR,
+      payload: error,
+    };
+  },
+  putLikeFeedStart: function (body) {
+    return {
+      type: ActionTypes.PUT_LIKE_FEED_START,
+      body,
+    };
+  },
+  putLikeFeedSuccess: function (success) {
+    return {
+      type: ActionTypes.PUT_LIKE_FEED_SUCCESS,
+      payload: success,
+    };
+  },
+  putLikeFeedError: function (error) {
+    return {
+      type: ActionTypes.PUT_LIKE_FEED_ERROR,
       payload: error,
     };
   },

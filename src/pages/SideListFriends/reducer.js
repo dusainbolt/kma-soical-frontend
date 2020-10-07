@@ -33,7 +33,7 @@ export default (state = DEFAULT_STATE, action) => {
     case ActionTypes.GET_LIST_ONLINE_SOCKET:
       return {
         ...state,
-        listOnline: action.payload,
+        listOnline: [...new Set(action.payload)],
         listFriends: convertObjectCondition(
           state.listFriends,
           action.payload,

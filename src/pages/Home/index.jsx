@@ -11,7 +11,7 @@ import LikeInfo from "../../components/News/LikeInfo";
 import ModalCommon from "../../components/Modal";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
-import { LIMIT, LIMIT_UPLOAD_NEW, OPTION_LiGHTBOX, TYPE_FEED } from "../../common";
+import { OPTION_LiGHTBOX, TYPE_FEED } from "../../common";
 import FormAddNew from "../../components/FormAddNew";
 import {
   getArrayImg,
@@ -20,6 +20,7 @@ import {
   renderNoteComment,
   genderAvatarUrl,
   renderCurrentFilterFeed,
+  checkIncludeArray
 } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useTranslation } from "react-i18next";
@@ -29,8 +30,10 @@ function Home({ ...props }) {
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
+  const userId = useSelector(state => state.loginReducer.userDetail?.id);
   const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
   const listSubject = useSelector(state => state.layoutReducer.listSubject);
+  const isLoadingLike = useSelector(state => state.newFeedReducer.isLoadingLike);
   const isLoadingAddNewFeed = useSelector(state => state.newFeedReducer.isLoadingAddNewFeed);
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
@@ -41,7 +44,7 @@ function Home({ ...props }) {
   const [indexIMG, setIndexIMG] = useState(0);
   const [countView, setCountView] = useState(1);
   const [viewComment, setViewComment] = useState({});
-  const [viewLike, setViewLike] = useState({});
+  // const [viewLike, setViewLike] = useState({});
   const [visibleFormAddNew, setVisibleFormAddNew] = useState(false);
   const [typeNew, setTypeNew] = useState(null);
   const [currentValue, setCurrentValue] = useState(null);
@@ -100,9 +103,8 @@ function Home({ ...props }) {
     setViewComment({ ...viewComment, [index]: !viewComment?.[index] });
   };
 
-  const toggleLike = index => {
-    console.log(index);
-    setViewLike({ ...viewLike, [index]: !viewLike?.[index] });
+  const toggleLike = (postId, typeLike) => {
+    dispatch(actions.putLikeFeedStart({ postId, typeLike }));
   };
 
   const closeFormAddNew = () => {
@@ -152,6 +154,7 @@ function Home({ ...props }) {
 
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
+      const isLikeByMe= checkIncludeArray(userId, item.listUserLike.toString().split(","))
       return (
         <Lazyload key={index} placeholder={<SkeletonNewFeed />} height={200} throttle={400}>
           <FadeIn delay={100} transitionDuration={500}>
@@ -173,14 +176,16 @@ function Home({ ...props }) {
               <LikeInfo
                 toggleComment={toggleViewComment}
                 totalLike={item.totalLike}
-                noteLike={renderNoteLike(item.totalLike, item.userLike)}
+                noteLike={renderNoteLike(item.totalLike, item.userLike, isLikeByMe)}
                 noteComment={renderNoteComment(item.totalComment)}
                 index={item.id}
               />
               <ActionNew
                 toggleLike={toggleLike}
+                isLoadingLike={isLoadingLike}
                 itemNews={item}
-                viewLike={viewLike?.[item.id]}
+                isLikeByMe={isLikeByMe}
+                // viewLike={viewLike?.[item.id]}
                 index={item.id}
               />
               {viewComment?.[item.id] && (

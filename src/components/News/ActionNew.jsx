@@ -1,29 +1,29 @@
 import React from "react";
-import {
-  GlobalOutlined,
-  EllipsisOutlined,
-  HeartFilled,
-  HeartOutlined,
-  MessageOutlined,
-} from "@ant-design/icons";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useState } from "react";
-function ActionNew({ toggleLike, index, viewLike }) {
-  console.log("--------------------->", viewLike);
-  const [isLoaddingLike, setIsLoaddingLike] = useState(false);
-  useEffect(()=>{
+import { HeartOutlined, MessageOutlined, HeartFilled } from "@ant-design/icons";
+import Dot from "../Dot";
+import { LIKE, NO_LIKE } from "../../common";
+import { useTranslation } from "react-i18next";
 
-  });
+function ActionNew({ toggleLike, index, isLoadingLike, isLikeByMe }) {
+  const { t } = useTranslation();
+
   return (
     <div className="form-feed__action-post">
-      <div onClick={() => toggleLike(index)}  className="form-feed__action-post--item">
-        <HeartOutlined />
-        <span className="action-post">Thich</span>
+      <div
+        onClick={() => toggleLike(index, isLikeByMe ? NO_LIKE : LIKE)}
+        className="form-feed__action-post--item">
+        {isLoadingLike[index] ? (
+          <Dot />
+        ) : (
+          <>
+            {isLikeByMe ?  <HeartFilled className="is-like"/> : <HeartOutlined /> }
+            <span className="action-post">{t("news_feed.like")}</span>
+          </>
+        )}
       </div>
       <div className="form-feed__action-post--item">
         <MessageOutlined />
-        <span className="action-post">Bình luận</span>
+        <span className="action-post">{t("news_feed.comment")}</span>
       </div>
     </div>
   );

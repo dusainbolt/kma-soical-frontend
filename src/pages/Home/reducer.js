@@ -1,9 +1,11 @@
+import { convertObjectItem } from "../../utils";
 import { ActionTypes } from "./actions";
 
 const DEFAULT_STATE = {
   listNewFeed: [],
   isLoadingNewFeed: false,
   isLoadingAddNewFeed: false,
+  isLoadingLike: {},
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -40,6 +42,17 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         isLoadingAddNewFeed: false,
+      };
+    case ActionTypes.PUT_LIKE_FEED_START:
+      return {
+        ...state,
+        isLoadingLike: { ...state.isLoadingLike, [action.body.postId] : true },
+      };
+    case ActionTypes.PUT_LIKE_FEED_SUCCESS:
+      return {
+        ...state,
+        listNewFeed: convertObjectItem(state.listNewFeed, action.payload),
+        isLoadingLike: { ...state.isLoadingLike, [action.payload.id] : false },
       };
     default:
       return state;

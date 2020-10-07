@@ -339,11 +339,21 @@ export const getSubjectId = (arrSubjectTotal, subjectName) => {
   return subjectId;
 };
 
-export const renderNoteLike = (total, userLike) => {
+export const renderNoteLike = (total, userLike, isLikeByMe) => {
   if (!total) return 0;
-  return total > 9
-    ? `${userLike} ${i8().t("news_feed.and")} ${total} ${i8().t("news_feed.other_people")}`
-    : total;
+  if (total < 2) return total;
+  let note = "";
+  const otherPeopleTxt = i8().t("news_feed.other_people");
+  const andTxt = i8().t("news_feed.and");
+  total = isLikeByMe ? total - 1 : total;
+  const otherTotal = `${i8().t(andTxt)} ${total} ${otherPeopleTxt}`;
+  if (total > 9) {
+    note += isLikeByMe ? i8().t("txt.you") + ", " : "";
+    note += `${note}${userLike} ${otherTotal}`;
+  } else {
+    note += isLikeByMe ? `${i8().t("txt.you")} ${otherTotal} ` : total;
+  }
+  return note;
 };
 
 export const renderNoteComment = total => {
@@ -352,6 +362,10 @@ export const renderNoteComment = total => {
 
 export const genderAvatarUrl = avatarUrl => {
   return avatarUrl ? avatarUrl : AvatarDefault;
+};
+
+export const getStatusOnline = status => {
+  return status ? i8().t("list_friends.online") : i8().t("list_friends.offline");
 };
 
 export const filterArray = (arr, conditionName, conditionValue) => {
@@ -371,8 +385,10 @@ export const convertObjectCondition = (arrayResult, arrayCheck, conditionName, m
   });
 };
 
-export const getStatusOnline = status => {
-  return status ? i8().t("list_friends.online") : i8().t("list_friends.offline");
+export const convertObjectItem = (arrayCheck, object, conditionName = "id") => {
+  return arrayCheck.map(item => {
+    return item[conditionName] === object[conditionName] ? object : item;
+  });
 };
 
 export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => {
@@ -443,6 +459,12 @@ export const renderCurrentFilterFeed = (props, currentValue) => {
       type: TYPE_FEED.GROUP_SUBJECT,
       subjectId: params.subjectId,
     };
+  } else if (params.postId) {
+    initialValue = {
+      ...currentValue,
+      type: TYPE_FEED.ONLY_ID,
+      subjectId: params.postId,
+    };
   } else if (path) {
     initialValue = {
       ...currentValue,
@@ -465,4 +487,8 @@ export const genderTypeFeedForPath = path => {
     default:
       return null;
   }
+};
+
+export const checkIncludeArray = (item, array) => {
+  return array.includes(item.toString());
 };
