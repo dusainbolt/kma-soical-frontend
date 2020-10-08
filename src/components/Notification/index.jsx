@@ -1,7 +1,8 @@
 import { notification } from "antd";
 import React from "react";
 import { getI18n } from "react-i18next";
-import logo from "../../common/image/logo.png";
+import logo from "../../resource/image/logo.png";
+import { playNotifySound } from "../../resource/sound";
 
 export default function Notification( typeContent = 0, msgTitle, msgContent, urlAction = "", msgType = "success") {
   notification[msgType]({
@@ -13,6 +14,7 @@ export default function Notification( typeContent = 0, msgTitle, msgContent, url
     placement: "bottomRight",
     duration: 5,
   });
+  playNotifySound();
 }
 
 const renderIcon = () => {

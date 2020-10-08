@@ -9,18 +9,17 @@ function ActionNew({ toggleLike, index, isLoadingLike, isLikeByMe }) {
 
   return (
     <div className="form-feed__action-post">
-      <div
-        onClick={() => toggleLike(index, isLikeByMe ? NO_LIKE : LIKE)}
-        className="form-feed__action-post--item">
-        {isLoadingLike[index] ? (
-          <Dot />
-        ) : (
-          <>
-            {isLikeByMe ?  <HeartFilled className="is-like"/> : <HeartOutlined /> }
-            <span className="action-post">{t("news_feed.like")}</span>
-          </>
-        )}
-      </div>
+      {isLoadingLike[index] ? (
+        <Dot />
+      ) : (
+        <div
+          onClick={() => toggleLike(index, isLikeByMe ? NO_LIKE : LIKE)}
+          className="form-feed__action-post--item">
+          {isLikeByMe ? <HeartFilled className="is-like" /> : <HeartOutlined />}
+          <span className="action-post">{t("news_feed.like")}</span>
+        </div>
+      )}
+
       <div className="form-feed__action-post--item">
         <MessageOutlined />
         <span className="action-post">{t("news_feed.comment")}</span>

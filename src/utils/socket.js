@@ -3,6 +3,7 @@ import { CHANEL } from "./chanelSocket";
 import { actionsSocket as actions } from "../pages/Layout/actions";
 import { convertObjectToArray } from "../utils";
 import showNotification from "../components/Notification";
+import { playNotifySound } from "../resource/sound";
 let socket = null;
 let dispatch = null;
 let idRoomChat = null;
@@ -62,12 +63,14 @@ function receiveLikeNewFeed() {
   socket.on(`${CHANEL.RECEIVE_LIKE_NEW_FEED}${userId}`, res => {
     console.log("----->receiveLikeNewFeed: ", res);
     const arrayUrl = window.location.href.split("/");
-    showNotification(
-      1,
-      "new_like_notify_title",
-      "Du da thich bai viet cua ban",
-      `${arrayUrl[0]}/Du`
-    );
+    if (res.data.sendNotify) {
+      showNotification(
+        1,
+        "new_like_notify_title",
+        "Du da thich bai viet cua ban",
+        `${arrayUrl[0]}/Du`
+      );
+    }
   });
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import logo from "../../common/image/logo.png";
+import logo from "../../resource/image/logo.png";
 import { actions } from "../Login/actions";
 import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";

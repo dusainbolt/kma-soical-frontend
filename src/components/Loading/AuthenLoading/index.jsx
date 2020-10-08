@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import LoadingAuthenticationImage from "../../../common/image/LoadingProject.gif";
+import LoadingAuthenticationImage from "../../../resource/image/LoadingProject.gif";
 export default function AuthLoading({ isLoading }) {
   return (
     isLoading && (

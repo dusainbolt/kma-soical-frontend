@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../common/image/logo.png";
+import logo from "../../resource/image/logo.png";
 import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";
 

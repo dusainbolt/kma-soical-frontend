@@ -14,7 +14,7 @@ import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
 import moment from "moment";
 import { getI18n as i8 } from "react-i18next";
-import AvatarDefault from "../common/image/avatar-default.png";
+import AvatarDefault from "../resource/image/avatar-default.png";
 
 export const renderErrorSearch = className => {
   return (
@@ -490,5 +490,6 @@ export const genderTypeFeedForPath = path => {
 };
 
 export const checkIncludeArray = (item, array) => {
+  if(!item || !array?.length) return false;
   return array.includes(item.toString());
 };
