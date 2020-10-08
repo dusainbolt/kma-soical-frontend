@@ -20,13 +20,13 @@ import {
   renderNoteComment,
   genderAvatarUrl,
   renderCurrentFilterFeed,
-  checkIncludeArray
+  checkIncludeArray,
 } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useTranslation } from "react-i18next";
 
 function Home({ ...props }) {
-  // const { params } = props.match;
+  const { params } = props.match;
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
   const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
@@ -35,6 +35,9 @@ function Home({ ...props }) {
   const listSubject = useSelector(state => state.layoutReducer.listSubject);
   const isLoadingLike = useSelector(state => state.newFeedReducer.isLoadingLike);
   const isLoadingAddNewFeed = useSelector(state => state.newFeedReducer.isLoadingAddNewFeed);
+  const isLoadingCommentBox = useSelector(state => state.newFeedReducer.isLoadingCommentBox);
+  const listComment = useSelector(state => state.newFeedReducer.listComment);
+
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
   const dispatch = useDispatch();
@@ -44,17 +47,26 @@ function Home({ ...props }) {
   const [indexIMG, setIndexIMG] = useState(0);
   const [countView, setCountView] = useState(1);
   const [viewComment, setViewComment] = useState({});
-  // const [viewLike, setViewLike] = useState({});
   const [visibleFormAddNew, setVisibleFormAddNew] = useState(false);
   const [typeNew, setTypeNew] = useState(null);
   const [currentValue, setCurrentValue] = useState(null);
 
   useEffect(() => {
-    return () => {
-      let cureentFilter = renderCurrentFilterFeed(props, currentValue);
-      setCurrentValue(cureentFilter);
-    };
-  }, [props.match.params]);
+    setFetchData();
+  }, []);
+
+  useEffect(() => {
+    const { params } = props.match;
+    if (params?.postId && currentValue?.postId && params.postId !== currentValue.postId ) {
+      setFetchData();
+    }
+  }, [props]);
+
+
+  const setFetchData = () => {
+    let cureentFilter = renderCurrentFilterFeed(props, currentValue);
+    setCurrentValue(cureentFilter);
+  };
 
   useEffect(() => {
     if (currentValue) {
@@ -101,6 +113,7 @@ function Home({ ...props }) {
 
   const toggleViewComment = index => {
     setViewComment({ ...viewComment, [index]: !viewComment?.[index] });
+    dispatch(actions.openCommentBoxStart(index));
   };
 
   const toggleLike = (postId, typeLike) => {
@@ -154,7 +167,7 @@ function Home({ ...props }) {
 
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
-      const isLikeByMe= checkIncludeArray(userId, item.listUserLike.toString().split(","))
+      const isLikeByMe = checkIncludeArray(userId, item.listUserLike.toString().split(","));
       return (
         <Lazyload key={index} placeholder={<SkeletonNewFeed />} height={200} throttle={400}>
           <FadeIn delay={100} transitionDuration={500}>
@@ -185,11 +198,10 @@ function Home({ ...props }) {
                 isLoadingLike={isLoadingLike}
                 itemNews={item}
                 isLikeByMe={isLikeByMe}
-                // viewLike={viewLike?.[item.id]}
                 index={item.id}
               />
               {viewComment?.[item.id] && (
-                <Comment avatarUrl={avatarUrl} listComment={item?.listComment} />
+                <Comment isLoadingWrapper={isLoadingCommentBox[item.id]} avatarUrl={avatarUrl} listComment={listComment[item.id]} />
               )}
             </div>
           </FadeIn>

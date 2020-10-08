@@ -8,6 +8,9 @@ export const ActionTypes = {
   PUT_LIKE_FEED_START: "PUT_LIKE_FEED_START",
   PUT_LIKE_FEED_SUCCESS: "PUT_LIKE_FEED_SUCCESS",
   PUT_LIKE_FEED_ERROR: "PUT_LIKE_FEED_ERROR",
+  OPEN_COMMENT_BOX_START: "OPEN_COMMENT_BOX_START",
+  OPEN_COMMENT_BOX_SUCCESS: "OPEN_COMMENT_BOX_SUCCESS",
+  OPEN_COMMENT_BOX_ERROR: "OPEN_COMMENT_BOX_ERROR",
 };
 
 export const actions = {
@@ -62,6 +65,24 @@ export const actions = {
   putLikeFeedError: function (error) {
     return {
       type: ActionTypes.PUT_LIKE_FEED_ERROR,
+      payload: error,
+    };
+  },
+  openCommentBoxStart: function (postId) {
+    return {
+      type: ActionTypes.OPEN_COMMENT_BOX_START,
+      postId,
+    };
+  },
+  openCommentBoxSuccess: function (success) {
+    return {
+      type: ActionTypes.OPEN_COMMENT_BOX_SUCCESS,
+      payload: success,
+    };
+  },
+  openCommentBoxError: function (error) {
+    return {
+      type: ActionTypes.OPEN_COMMENT_BOX_ERROR,
       payload: error,
     };
   },

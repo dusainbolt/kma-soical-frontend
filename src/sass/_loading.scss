@@ -89,6 +89,7 @@
   &__logo{
     width: 40px;
     margin-left: -5px;
+    border-radius: 50%;
   }
   .ant-notification-notice-close{
     background-color: $disabled-color-light;
@@ -116,6 +117,11 @@
 }
 
 .load-comment{
+  &.load-list-comment{
+   .ant-skeleton-title{
+     width: calc(100% - 12px) !important;
+   } 
+  }
   &.load-list-user{
     padding-left: 12px;
     .ant-skeleton-avatar-circle{

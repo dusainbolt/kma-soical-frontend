@@ -17,8 +17,9 @@ import { genderAvatarUrl, genderTimeCount } from "../../utils";
 import LazyLoad from "react-lazyload";
 import FadeIn from "react-fade-in";
 import { useTranslation } from "react-i18next";
+import LoadComment from "../LoadComment";
 
-function CommentPost({ listComment, avatarUrl }) {
+function CommentPost({ listComment, avatarUrl, isLoadingWrapper }) {
   const [likes, setLikes] = useState(0);
   const [action, setAction] = useState(null);
   const { t } = useTranslation();
@@ -135,6 +136,7 @@ function CommentPost({ listComment, avatarUrl }) {
   return (
     <div className="form-feed__comment">
       {renderListComment()}
+      {isLoadingWrapper && <LoadComment total={5} className="load-list-comment"/>}
       <Formik validationSchema={validateMessage} initialValues={initialVales}>
         {formik => (
           <div className="form-feed__bottom">

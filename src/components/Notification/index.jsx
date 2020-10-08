@@ -3,7 +3,7 @@ import React from "react";
 import { getI18n } from "react-i18next";
 import logo from "../../resource/image/logo.png";
 import { playNotifySound } from "../../resource/sound";
-import { getArrayImg, onRedirect, renderContentLikeNotify } from "../../utils";
+import { genderAvatarUrl, getArrayImg, onRedirect, renderContentLikeNotify } from "../../utils";
 import ContentNew from "../News/ContentNew";
 
 export default function Notification(
@@ -21,16 +21,16 @@ export default function Notification(
         ? () => onRedirect(urlAction)
         : getFunctionNotify(urlAction)
       : e => e.preventDefault(),
-    icon: renderIcon(),
+    icon: renderIcon(typeContent, msgContent?.avatarUserLike),
     description: typeContent ? renderContentNewFeed(msgContent) : getI18n().t(`txt.${msgContent}`),
     placement: "bottomRight",
-    duration: 5,
+    duration: 7,
   });
   playNotifySound();
 }
 
-const renderIcon = () => {
-  return <img className="event-notify__logo" src={logo} alt="logo" />;
+const renderIcon = (typeContent, avatarUrl) => {
+  return <img className="event-notify__logo" src={typeContent ? genderAvatarUrl(avatarUrl): logo} alt="logo" />;
 };
 
 const renderContentNewFeed = item => {
