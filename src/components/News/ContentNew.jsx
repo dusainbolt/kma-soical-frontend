@@ -40,7 +40,7 @@ function ContentNew({ content, type, avatarUrl, caption, tags, callbackViewImg }
           className={`form-feed__img col-${lengthList > 3 ? 4 : 3}-img`}
           span={span}
           onClick={() => onClickViewImage(dataImg, index)}>
-          <LazyloadImg className="one-img img-hover" src={item} height={150} alt="img" />
+          <LazyloadImg className="one-img img-hover" src={item} height={0} alt="img" />
           {index === 4 && limitList && (
             <div className="form-feed__more-img-wrapper">+{lengthList - 5}</div>
           )}

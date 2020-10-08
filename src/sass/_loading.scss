@@ -102,6 +102,17 @@
   .ant-notification-notice-message{
     color: $primary-color;
   }
+  &__description{
+    .anticon-heart {
+      color: $red-color;
+      font-size: 13px;
+    }
+    .form-feed{
+      max-height: 200px;
+    overflow: auto;
+    padding: 8px;
+    }
+  }
 }
 
 .load-comment{

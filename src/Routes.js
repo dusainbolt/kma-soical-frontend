@@ -49,7 +49,7 @@ export const Routes = [
   },
   {
     name: "HomeOnlyId",
-    path: "/new-feed/:postId",
+    path: "/post/:postId",
     component: Homepage,
     exact: true,
   },

@@ -10,6 +10,7 @@ import {
   TYPE_FEED,
   FILTER_NEW_FEED,
 } from "../common";
+import { HeartFilled } from "@ant-design/icons";
 import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
 import moment from "moment";
@@ -391,6 +392,10 @@ export const convertObjectItem = (arrayCheck, object, conditionName = "id") => {
   });
 };
 
+export const renderContentLikeNotify = (fullName, total) => {
+  return <p><HeartFilled/> <b>{fullName}</b>{total > 2 ? ` ${i8().t("news_feed.and")} ${total-1} ${i8().t("news_feed.people")} ` : ""} {` ${i8().t("txt.notify_like_feed")}`}</p>;
+};
+
 export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => {
   let isOnline = null;
   listFriendsReducer = listFriendsReducer.filter(item => {
@@ -461,9 +466,8 @@ export const renderCurrentFilterFeed = (props, currentValue) => {
     };
   } else if (params.postId) {
     initialValue = {
-      ...currentValue,
       type: TYPE_FEED.ONLY_ID,
-      subjectId: params.postId,
+      postId: params.postId,
     };
   } else if (path) {
     initialValue = {

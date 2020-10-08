@@ -8,6 +8,7 @@ let socket = null;
 let dispatch = null;
 let idRoomChat = null;
 let userId = null;
+const arrayUrl = window.location.href.split("/");
 function initSocket(dispatchVal, myUserId) {
   socket = io(CHANEL.API_URL);
   socket.on("connect", () => {
@@ -62,14 +63,8 @@ function receiveBoxChat() {
 function receiveLikeNewFeed() {
   socket.on(`${CHANEL.RECEIVE_LIKE_NEW_FEED}${userId}`, res => {
     console.log("----->receiveLikeNewFeed: ", res);
-    const arrayUrl = window.location.href.split("/");
-    if (res.data.sendNotify) {
-      showNotification(
-        1,
-        "new_like_notify_title",
-        "Du da thich bai viet cua ban",
-        `${arrayUrl[0]}/Du`
-      );
+    if (res.data.sendNotify || true) {
+      showNotification(1, "new_like_notify_title", res.data, `/post/${res.data.id}`);
     }
   });
 }
