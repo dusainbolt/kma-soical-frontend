@@ -8,9 +8,9 @@ export const ActionTypes = {
   PUT_LIKE_FEED_START: "PUT_LIKE_FEED_START",
   PUT_LIKE_FEED_SUCCESS: "PUT_LIKE_FEED_SUCCESS",
   PUT_LIKE_FEED_ERROR: "PUT_LIKE_FEED_ERROR",
-  OPEN_COMMENT_BOX_START: "OPEN_COMMENT_BOX_START",
-  OPEN_COMMENT_BOX_SUCCESS: "OPEN_COMMENT_BOX_SUCCESS",
-  OPEN_COMMENT_BOX_ERROR: "OPEN_COMMENT_BOX_ERROR",
+  GET_LIST_COMMENT_START: "GET_LIST_COMMENT_START",
+  GET_LIST_COMMENT_SUCCESS: "GET_LIST_COMMENT_SUCCESS",
+  GET_LIST_COMMENT_ERROR: "GET_LIST_COMMENT_ERROR",
 };
 
 export const actions = {
@@ -68,21 +68,22 @@ export const actions = {
       payload: error,
     };
   },
-  openCommentBoxStart: function (postId) {
+  getListCommentStart: function (postId) {
     return {
-      type: ActionTypes.OPEN_COMMENT_BOX_START,
+      type: ActionTypes.GET_LIST_COMMENT_START,
       postId,
     };
   },
-  openCommentBoxSuccess: function (success) {
+  getListCommentSuccess: function (success, postId) {
     return {
-      type: ActionTypes.OPEN_COMMENT_BOX_SUCCESS,
+      type: ActionTypes.GET_LIST_COMMENT_SUCCESS,
       payload: success,
+      postId
     };
   },
-  openCommentBoxError: function (error) {
+  getListCommentError: function (error) {
     return {
-      type: ActionTypes.OPEN_COMMENT_BOX_ERROR,
+      type: ActionTypes.GET_LIST_COMMENT_ERROR,
       payload: error,
     };
   },

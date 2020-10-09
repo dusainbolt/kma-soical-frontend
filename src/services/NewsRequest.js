@@ -13,3 +13,7 @@ export const postAddNewFeedAPI = body => {
 export const putHandleLikeFeedAPI = body => {
   return api.put("/user/handle_like", body);
 };
+
+export const getListCommentAPI = params => {
+  return api.get("/user/list_comment", params);
+};

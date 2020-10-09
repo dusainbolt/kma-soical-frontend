@@ -1,6 +1,11 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { actions, ActionTypes } from "./actions";
-import { getListNewFeedAPI, postAddNewFeedAPI, putHandleLikeFeedAPI  } from "../../services/NewsRequest";
+import {
+  getListNewFeedAPI,
+  postAddNewFeedAPI,
+  putHandleLikeFeedAPI,
+  getListCommentAPI,
+} from "../../services/NewsRequest";
 
 function* getListNewFeed(action) {
   try {
@@ -41,10 +46,23 @@ function* putLikeFeed(action) {
   }
 }
 
+function* getListCommentPost(action) {
+  try {
+    const { postId } = action;
+    const response = yield getListCommentAPI({ postId });
+    if (response.meta.code === 0) {
+      yield put(actions.getListCommentSuccess(response.data, postId));
+    } else {
+      yield put(actions.getListCommentError());
+    }
+  } catch (e) {
+    yield put(actions.getListCommentError());
+  }
+}
+
 export function* watchNewFeed() {
   yield takeLatest(ActionTypes.GET_NEW_FEED_START, getListNewFeed);
   yield takeLatest(ActionTypes.POST_ADD_NEW_FEED_START, postAddNewFeed);
   yield takeLatest(ActionTypes.PUT_LIKE_FEED_START, putLikeFeed);
-
-
+  yield takeLatest(ActionTypes.GET_LIST_COMMENT_START, getListCommentPost);
 }

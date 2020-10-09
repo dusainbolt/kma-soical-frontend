@@ -317,17 +317,20 @@
     margin: 0 15px;
     padding-top: 5px;
 
+    .ant-comment {
+      width: 90%;
+    }
     .comment-action {
       margin-left: 3px;
     }
 
+    .ant-comment-content{
+      max-width: max-content;
+    }
+
     .ant-comment-inner {
       padding: 5px 0;
-    }
-    .ant-comment-content,
-    .ant-comment-content-author,
-    .ant-comment-content-detail {
-      width: max-content;
+      max-width: max-content;
     }
     .ant-comment-content-author {
       background-color: $bg-site-layout;
@@ -345,6 +348,7 @@
       background-color: $bg-site-layout;
       padding: 0 10px 5px 10px;
       border-radius: 0 0 8px 8px;
+      max-width: 100%;
     }
 
     .ant-comment-actions {

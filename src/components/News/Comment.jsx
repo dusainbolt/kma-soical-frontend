@@ -19,11 +19,11 @@ import FadeIn from "react-fade-in";
 import { useTranslation } from "react-i18next";
 import LoadComment from "../LoadComment";
 
-function CommentPost({ listComment, avatarUrl, isLoadingWrapper }) {
+function CommentPost({ listComment, avatarUrl, postId, isLoadingWrapper }) {
   const [likes, setLikes] = useState(0);
   const [action, setAction] = useState(null);
   const { t } = useTranslation();
-  const initialVales = { message: "" };
+  const initialVales = { message: "", postId: postId };
 
   const like = () => {
     setLikes(1);
@@ -35,71 +35,73 @@ function CommentPost({ listComment, avatarUrl, isLoadingWrapper }) {
     setCommentId(id);
   };
 
-  const actions = [
-    <Tooltip key="comment-basic-like" title="Like">
-      <span onClick={like}>
-        {createElement(action === "liked" ? LikeFilled : LikeOutlined)}
-        <span className="comment-action">{likes}</span>
-      </span>
-    </Tooltip>,
-    <span onClick={changeRepCommentId(1)} key="comment-basic-reply-to">
-      Trả lời
-    </span>,
-    <span key="comment-basic-reply-to">20 gio</span>,
-  ];
+  // const actions = [
+  //   <Tooltip key="comment-basic-like" title="Like">
+  //     <span onClick={like}>
+  //       {createElement(action === "liked" ? LikeFilled : LikeOutlined)}
+  //       <span className="comment-action">{likes}</span>
+  //     </span>
+  //   </Tooltip>,
+  //   <span onClick={changeRepCommentId(1)} key="comment-basic-reply-to">
+  //     Trả lời
+  //   </span>,
+  //   <span key="comment-basic-reply-to">20 gio</span>,
+  // ];
 
-  const renderCommentItem = type => {
-    return (
-      <>
-        <Comment
-          actions={actions}
-          author={<Link to="/home">Du sainbolt</Link>}
-          avatar={
-            <img
-              src="https://i.pinimg.com/474x/df/a3/30/dfa330b9b18a760b688af707b9b3f0af.jpg"
-              alt="du sainbolt"
-            />
-          }
-          content={
-            <p>
-              "Chắc hẳn anh em khi tham gia dự án, cũng đều nghe về khái niệm UI/UX rồi đúng không ?
-              Nhưng đối với một số bạn mới đi làm
-            </p>
-          }
-        >
-          {type === REP_COMMENT && repCommentId !== 0 && (
-            <Formik validationSchema={validateMessage} initialValues={initialVales}>
-              {formik => (
-                <div className="form-feed__bottom">
-                  <img className="form-feed__bottom--img" src={avatarUrl} alt="avatar" />
-                  <Field
-                    name="message"
-                    component={Input}
-                    maxLength={255}
-                    showError={false}
-                    className="form-feed__bottom--comment"
-                    placeholder={"Enter message..."}
-                    autoSize
-                    onPressEnter={formik.handleSubmit}
-                    Icon={SendOutlined}
-                    callHandleIcon={formik.handleSubmit}
-                    type="textarea"
-                  />
-                </div>
-              )}
-            </Formik>
-          )}
-        </Comment>
-      </>
-    );
+  // const renderCommentItem = type => {
+  //   return (
+  //     <>
+  //       <Comment
+  //         actions={actions}
+  //         author={<Link to="/home">Du sainbolt</Link>}
+  //         avatar={
+  //           <img
+  //             src="https://i.pinimg.com/474x/df/a3/30/dfa330b9b18a760b688af707b9b3f0af.jpg"
+  //             alt="du sainbolt"
+  //           />
+  //         }
+  //         content={
+  //           <p>
+  //             "Chắc hẳn anh em khi tham gia dự án, cũng đều nghe về khái niệm UI/UX rồi đúng không ?
+  //             Nhưng đối với một số bạn mới đi làm
+  //           </p>
+  //         }>
+  //         {type === REP_COMMENT && repCommentId !== 0 && (
+  //           <Formik validationSchema={validateMessage} initialValues={initialVales}>
+  //             {formik => (
+  //               <div className="form-feed__bottom">
+  //                 <img className="form-feed__bottom--img" src={avatarUrl} alt="avatar" />
+  //                 <Field
+  //                   name="message"
+  //                   component={Input}
+  //                   maxLength={255}
+  //                   showError={false}
+  //                   className="form-feed__bottom--comment"
+  //                   placeholder={"Enter message..."}
+  //                   autoSize
+  //                   onPressEnter={formik.handleSubmit}
+  //                   Icon={SendOutlined}
+  //                   callHandleIcon={formik.handleSubmit}
+  //                   type="textarea"
+  //                 />
+  //               </div>
+  //             )}
+  //           </Formik>
+  //         )}
+  //       </Comment>
+  //     </>
+  //   );
+  // };
+
+  const onSubmitComment = values => {
+    console.log(values);
   };
 
   const renderListComment = () => {
     if (!listComment?.length) return;
     return listComment.map((item, index) => {
       return (
-        // <LazyLoad key={item.id} placeholder={<SkeletonNewFeed />} height={200} throttle={400}>
-        <LazyLoad key={item.id} height={50} throttle={200}>
+        <LazyLoad key={item.id} height={1} throttle={200}>
           <FadeIn delay={100} transitionDuration={500}>
             <Comment
               actions={[
@@ -108,24 +110,22 @@ function CommentPost({ listComment, avatarUrl, isLoadingWrapper }) {
                     {t("news_feed.like")}
                     {item.countLike !== 0 &&
                       createElement(action === "liked" ? LikeFilled : LikeOutlined) && (
-                      <span className="comment-action">{item.countLike}</span>
-                    )}
+                        <span className="comment-action">{item.countLike}</span>
+                      )}
                   </span>
                 </Tooltip>,
                 <span
                   className="comment-info"
                   onClick={changeRepCommentId(1)}
-                  key="comment-basic-reply-to"
-                >
+                  key="comment-basic-reply-to">
                   {t("news_feed.rep_comment")}
                 </span>,
                 <span key="comment-basic-reply-to">{genderTimeCount(item.created_at)}</span>,
               ]}
               author={<Link to="/home">{item.fullName}</Link>}
               avatar={<img src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />}
-              content={<p>{item.content}</p>}
-            >
-              {renderCommentItem()}
+              content={<div>{item.content}</div>}>
+              {/* {renderCommentItem()} */}
             </Comment>
           </FadeIn>
         </LazyLoad>
@@ -136,8 +136,11 @@ function CommentPost({ listComment, avatarUrl, isLoadingWrapper }) {
   return (
     <div className="form-feed__comment">
       {renderListComment()}
-      {isLoadingWrapper && <LoadComment total={5} className="load-list-comment"/>}
-      <Formik validationSchema={validateMessage} initialValues={initialVales}>
+      {isLoadingWrapper && <LoadComment total={5} className="load-list-comment" />}
+      <Formik
+        validationSchema={validateMessage}
+        onSubmit={onSubmitComment}
+        initialValues={initialVales}>
         {formik => (
           <div className="form-feed__bottom">
             <img className="form-feed__bottom--img" src={avatarUrl} alt="avatar" />
@@ -147,7 +150,7 @@ function CommentPost({ listComment, avatarUrl, isLoadingWrapper }) {
               maxLength={255}
               showError={false}
               className="form-feed__bottom--comment"
-              placeholder={"Enter message..."}
+              placeholder={t("news_feed.place_comment")}
               autoSize
               onPressEnter={formik.handleSubmit}
               Icon={SendOutlined}

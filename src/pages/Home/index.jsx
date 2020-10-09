@@ -57,11 +57,10 @@ function Home({ ...props }) {
 
   useEffect(() => {
     const { params } = props.match;
-    if (params?.postId && currentValue?.postId && params.postId !== currentValue.postId ) {
+    if (params?.postId && currentValue?.postId && params.postId !== currentValue.postId) {
       setFetchData();
     }
   }, [props]);
-
 
   const setFetchData = () => {
     let cureentFilter = renderCurrentFilterFeed(props, currentValue);
@@ -113,7 +112,7 @@ function Home({ ...props }) {
 
   const toggleViewComment = index => {
     setViewComment({ ...viewComment, [index]: !viewComment?.[index] });
-    dispatch(actions.openCommentBoxStart(index));
+    dispatch(actions.getListCommentStart(index));
   };
 
   const toggleLike = (postId, typeLike) => {
@@ -201,7 +200,12 @@ function Home({ ...props }) {
                 index={item.id}
               />
               {viewComment?.[item.id] && (
-                <Comment isLoadingWrapper={isLoadingCommentBox[item.id]} avatarUrl={avatarUrl} listComment={listComment[item.id]} />
+                <Comment
+                  postId={item.id}
+                  isLoadingWrapper={isLoadingCommentBox[item.id]}
+                  avatarUrl={avatarUrl}
+                  listComment={listComment[item.id]}
+                />
               )}
             </div>
           </FadeIn>

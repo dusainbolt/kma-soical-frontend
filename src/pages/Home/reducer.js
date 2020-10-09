@@ -29,26 +29,24 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         isLoadingNewFeed: false,
       };
-    case ActionTypes.OPEN_COMMENT_BOX_START:
+    case ActionTypes.GET_LIST_COMMENT_START:
       return {
         ...state,
         listComment: {
           ...state.listComment,
-          [action.postId]: [],
+          [action.postId]: state.listComment?.[action.postId] ? state.listComment[action.postId] : [],
         },
         isLoadingCommentBox: { ...state.isLoadingCommentBox, [action.postId]: true },
       };
-    // case ActionTypes.GET_NEW_FEED_SUCCESS:
-    //   return {
-    //     ...state,
-    //     listNewFeed: action.payload,
-    //     isLoadingNewFeed: false,
-    //   };
-    // case ActionTypes.GET_NEW_FEED_ERROR:
-    //   return {
-    //     ...state,
-    //     isLoadingNewFeed: false,
-    //   };
+    case ActionTypes.GET_LIST_COMMENT_SUCCESS:
+      return {
+        ...state,
+        isLoadingCommentBox: { ...state.isLoadingCommentBox, [action.postId]: false },
+        listComment: {
+          ...state.listComment,
+          [action.postId]: action.payload.concat(state.listComment[action.postId]),
+        },
+      };
     case ActionTypes.POST_ADD_NEW_FEED_START:
       return {
         ...state,

@@ -63,7 +63,7 @@ function receiveBoxChat() {
 function receiveLikeNewFeed() {
   socket.on(`${CHANEL.RECEIVE_LIKE_NEW_FEED}${userId}`, res => {
     console.log("----->receiveLikeNewFeed: ", res);
-    if (res.data.sendNotify || true) {
+    if (res.data.sendNotify) {
       showNotification(1, "new_like_notify_title", res.data, `/post/${res.data.id}`);
     }
   });

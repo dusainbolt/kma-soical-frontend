@@ -38,15 +38,15 @@
   }
 }
 
-.my-spin{
-  .ant-spin-nested-loading{
+.my-spin {
+  .ant-spin-nested-loading {
     background-color: #fafafa;
   }
-  .ant-spin-text{
+  .ant-spin-text {
     color: $black-color-light;
   }
-  &--icon{
-    &.anticon{
+  &--icon {
+    &.anticon {
       color: $black-color-light;
     }
   }
@@ -76,22 +76,22 @@
   }
 }
 
-.event-notify{
+.event-notify {
   &.ant-notification-notice {
     padding: 16px 14px;
     line-height: 1.5715;
     border-radius: 8px;
     width: unset;
   }
-  .ant-notification-notice-content{
+  .ant-notification-notice-content {
     max-width: 350px;
   }
-  &__logo{
+  &__logo {
     width: 40px;
     margin-left: -5px;
     border-radius: 50%;
   }
-  .ant-notification-notice-close{
+  .ant-notification-notice-close {
     background-color: $disabled-color-light;
     padding: 3px;
     border-radius: 50px;
@@ -100,62 +100,62 @@
     top: 15px;
     right: 13px;
   }
-  .ant-notification-notice-message{
+  .ant-notification-notice-message {
     color: $primary-color;
   }
-  &__description{
+  &__description {
     .anticon-heart {
       color: $red-color;
       font-size: 13px;
     }
-    .form-feed{
+    .form-feed {
       max-height: 200px;
-    overflow: auto;
-    padding: 8px;
+      overflow: auto;
+      padding: 8px;
     }
   }
 }
 
-.load-comment{
-  &.load-list-comment{
-   .ant-skeleton-title{
-     width: calc(100% - 12px) !important;
-   } 
+.load-comment {
+  &.load-list-comment {
+    .ant-skeleton-title {
+      width: calc(100% - 12px) !important;
+    }
   }
-  &.load-list-user{
+  &.load-list-user {
     padding-left: 12px;
-    .ant-skeleton-avatar-circle{
+    .ant-skeleton-avatar-circle {
       width: 36px;
       height: 36px;
     }
   }
-  &.chat-right{
-    .ant-skeleton-title{
+  &.chat-right {
+    .ant-skeleton-title {
       margin-left: auto;
       height: 50px;
     }
   }
-  &.no-0{
-    .ant-skeleton-title{
+  &.no-0 {
+    .ant-skeleton-title {
       margin-left: auto;
       height: 35px;
       width: 70% !important;
     }
   }
-  &.no-1{
-    .ant-skeleton-title{
+  &.no-1 {
+    .ant-skeleton-title {
       height: 20px;
       width: 50% !important;
     }
   }
-  &.no-3{
-    h3.ant-skeleton-title{
+  &.no-3 {
+    h3.ant-skeleton-title {
       height: 30px;
       width: 60% !important;
       margin-top: 6px;
     }
   }
-};
+}
 
 @keyframes dot {
   0% {
@@ -169,8 +169,8 @@
   }
 }
 
-@media(max-width: 476px){
-  .event-notify{
+@media (max-width: 476px) {
+  .event-notify {
     &.ant-notification-notice {
       margin-right: -15px;
     }
