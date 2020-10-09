@@ -13,17 +13,31 @@ import Input from "../Input";
 import { Formik, Field } from "formik";
 import { REP_COMMENT } from "../../common";
 import { Link } from "react-router-dom";
-import { genderAvatarUrl, genderTimeCount } from "../../utils";
+import { filterArray, genderAvatarUrl, genderTimeCount, getRandomInt } from "../../utils";
 import LazyLoad from "react-lazyload";
 import FadeIn from "react-fade-in";
 import { useTranslation } from "react-i18next";
 import LoadComment from "../LoadComment";
+import BoxComment from "../BoxComment";
+import { useMemo } from "react";
+import { useEffect } from "react";
 
-function CommentPost({ listComment, avatarUrl, postId, isLoadingWrapper }) {
+function CommentPost({
+  listComment,
+  userId,
+  avatarUrl,
+  postId,
+  fullName,
+  isLoadingWrapper,
+  callbackAddComment,
+  indexLoadComment,
+}) {
+  const { t } = useTranslation();
   const [likes, setLikes] = useState(0);
   const [action, setAction] = useState(null);
-  const { t } = useTranslation();
+  const [arrayLoadComment, setArrayLoadComment] = useState([]);
   const initialVales = { message: "", postId: postId };
+  const [countLoadComment, setCountLoadComment] = useState(1);
 
   const like = () => {
     setLikes(1);
@@ -93,49 +107,60 @@ function CommentPost({ listComment, avatarUrl, postId, isLoadingWrapper }) {
   //   );
   // };
 
-  const onSubmitComment = values => {
-    console.log(values);
+  useEffect(() => {
+    console.log("-------------------->", indexLoadComment);
+    setArrayLoadComment(filterArray(arrayLoadComment, "key", indexLoadComment));
+  }, [indexLoadComment]);
+
+  const onSubmitComment = (values, { resetForm }) => {
+    if (!values.message);
+    resetForm();
+    const valueSubmit = { ...values, key: countLoadComment };
+    const commentObject = {
+      ...valueSubmit,
+      avatarUrl,
+      childId: null,
+      content: values.message,
+      countLike: 0,
+      fullName,
+      id: countLoadComment,
+      isHot: 0,
+      className: "loading",
+      postId,
+      created_at: new Date().getTime(),
+      updated_at: new Date().getTime(),
+      userId,
+    };
+    setCountLoadComment(countLoadComment + 1);
+    setArrayLoadComment(oldArray => oldArray.concat(commentObject));
+    callbackAddComment(valueSubmit);
   };
 
-  const renderListComment = () => {
-    if (!listComment?.length) return;
-    return listComment.map((item, index) => {
+  const renderBoxComment = listCommentData => {
+    if (!listCommentData?.length) return;
+    return listCommentData.map((item, index) => {
       return (
-        <LazyLoad key={item.id} height={1} throttle={200}>
-          <FadeIn delay={100} transitionDuration={500}>
-            <Comment
-              actions={[
-                <Tooltip key="comment-basic-like" title={t("news_feed.like")}>
-                  <span className="comment-info" onClick={like}>
-                    {t("news_feed.like")}
-                    {item.countLike !== 0 &&
-                      createElement(action === "liked" ? LikeFilled : LikeOutlined) && (
-                        <span className="comment-action">{item.countLike}</span>
-                      )}
-                  </span>
-                </Tooltip>,
-                <span
-                  className="comment-info"
-                  onClick={changeRepCommentId(1)}
-                  key="comment-basic-reply-to">
-                  {t("news_feed.rep_comment")}
-                </span>,
-                <span key="comment-basic-reply-to">{genderTimeCount(item.created_at)}</span>,
-              ]}
-              author={<Link to="/home">{item.fullName}</Link>}
-              avatar={<img src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />}
-              content={<div>{item.content}</div>}>
-              {/* {renderCommentItem()} */}
-            </Comment>
+        <LazyLoad key={item.id} height={1} throttle={10}>
+          <FadeIn delay={10} transitionDuration={10}>
+            <BoxComment className={item?.className} comment={item} />
           </FadeIn>
         </LazyLoad>
       );
     });
   };
 
+  const renderListCommentLoad = useMemo(() => {
+    return renderBoxComment(arrayLoadComment);
+  }, [arrayLoadComment]);
+
+  const renderListComment = useMemo(() => {
+    return renderBoxComment(listComment);
+  }, [listComment]);
+
   return (
     <div className="form-feed__comment">
-      {renderListComment()}
+      {renderListComment}
+      {renderListCommentLoad}
       {isLoadingWrapper && <LoadComment total={5} className="load-list-comment" />}
       <Formik
         validationSchema={validateMessage}

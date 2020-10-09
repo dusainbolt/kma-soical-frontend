@@ -1,6 +1,4 @@
-
-
-import api  from "./api";
+import api from "./api";
 
 export const getListNewFeedAPI = params => {
   return api.get("/user/my_feed", params);
@@ -16,4 +14,8 @@ export const putHandleLikeFeedAPI = body => {
 
 export const getListCommentAPI = params => {
   return api.get("/user/list_comment", params);
+};
+
+export const postAddCommentAPI = params => {
+  return api.post("/user/add_comment", params);
 };

@@ -1,11 +1,13 @@
 import { convertObjectItem } from "../../utils";
 import { ActionTypes } from "./actions";
+import { ActionTypes as ActionSocket } from "../Layout/actions";
 
 const DEFAULT_STATE = {
   listNewFeed: [],
   isLoadingNewFeed: false,
   isLoadingAddNewFeed: false,
   isLoadingLike: {},
+  indexLoadComment: {},
   isLoadingCommentBox: {},
   listComment: {},
 };
@@ -34,7 +36,9 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         listComment: {
           ...state.listComment,
-          [action.postId]: state.listComment?.[action.postId] ? state.listComment[action.postId] : [],
+          [action.postId]: state.listComment?.[action.postId]
+            ? state.listComment[action.postId]
+            : [],
         },
         isLoadingCommentBox: { ...state.isLoadingCommentBox, [action.postId]: true },
       };
@@ -74,6 +78,25 @@ export default (state = DEFAULT_STATE, action) => {
         listNewFeed: convertObjectItem(state.listNewFeed, action.payload),
         isLoadingLike: { ...state.isLoadingLike, [action.payload.id]: false },
       };
+    case ActionSocket.RECEIVE_DATA_BOX_COMMENT_SOCKET:
+      return {
+        ...state,
+        indexLoadComment: {
+          ...state.indexLoadComment,
+          [action.payload.postId]: action.payload.key,
+        },
+        listComment: {
+          ...state.listComment,
+          [action.payload.postId]: state.listComment[action.payload.postId].concat([
+            action.payload,
+          ]),
+        },
+      };
+    // case ActionTypes.ADD_NEW_COMMENT_ERROR:
+    //   return {
+    //     ...state,
+    //     isLoadingNewFeed: false,
+    //   };
     default:
       return state;
   }

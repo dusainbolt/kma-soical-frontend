@@ -11,6 +11,9 @@ export const ActionTypes = {
   GET_LIST_COMMENT_START: "GET_LIST_COMMENT_START",
   GET_LIST_COMMENT_SUCCESS: "GET_LIST_COMMENT_SUCCESS",
   GET_LIST_COMMENT_ERROR: "GET_LIST_COMMENT_ERROR",
+  POST_ADD_NEW_COMMENT_START: "POST_ADD_NEW_COMMENT_START",
+  POST_ADD_NEW_COMMENT_SUCCESS: "POST_ADD_NEW_COMMENT_SUCCESS",
+  POST_ADD_NEW_COMMENT_ERROR: "POST_ADD_NEW_COMMENT_ERROR",
 };
 
 export const actions = {
@@ -78,13 +81,31 @@ export const actions = {
     return {
       type: ActionTypes.GET_LIST_COMMENT_SUCCESS,
       payload: success,
-      postId
+      postId,
     };
   },
   getListCommentError: function (error) {
     return {
       type: ActionTypes.GET_LIST_COMMENT_ERROR,
       payload: error,
+    };
+  },
+  postAddNewCommentStart: function (body) {
+    return {
+      type: ActionTypes.POST_ADD_NEW_COMMENT_START,
+      body,
+    };
+  },
+  postAddNewCommentSuccess: function (body) {
+    return {
+      type: ActionTypes.POST_ADD_NEW_COMMENT_SUCCESS,
+      body,
+    };
+  },
+  postAddNewCommentError: function (body) {
+    return {
+      type: ActionTypes.POST_ADD_NEW_COMMENT_ERROR,
+      body,
     };
   },
 };

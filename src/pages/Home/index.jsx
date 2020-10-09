@@ -24,6 +24,7 @@ import {
 } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useTranslation } from "react-i18next";
+import { initSocketBoxComment } from "../../utils/socket";
 
 function Home({ ...props }) {
   const { params } = props.match;
@@ -37,6 +38,7 @@ function Home({ ...props }) {
   const isLoadingAddNewFeed = useSelector(state => state.newFeedReducer.isLoadingAddNewFeed);
   const isLoadingCommentBox = useSelector(state => state.newFeedReducer.isLoadingCommentBox);
   const listComment = useSelector(state => state.newFeedReducer.listComment);
+  const indexLoadComment = useSelector(state => state.newFeedReducer.indexLoadComment);
 
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
@@ -112,7 +114,10 @@ function Home({ ...props }) {
 
   const toggleViewComment = index => {
     setViewComment({ ...viewComment, [index]: !viewComment?.[index] });
-    dispatch(actions.getListCommentStart(index));
+    if (!listComment[index]?.length) {
+      dispatch(actions.getListCommentStart(index));
+    }
+    initSocketBoxComment(index, !viewComment?.[index]);
   };
 
   const toggleLike = (postId, typeLike) => {
@@ -164,6 +169,10 @@ function Home({ ...props }) {
     }
   }, [isLoadingAddNewFeed]);
 
+  const receiveAddComment = values => {
+    dispatch(actions.postAddNewCommentStart(values));
+  };
+
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
       const isLikeByMe = checkIncludeArray(userId, item.listUserLike.toString().split(","));
@@ -202,6 +211,10 @@ function Home({ ...props }) {
               {viewComment?.[item.id] && (
                 <Comment
                   postId={item.id}
+                  indexLoadComment={indexLoadComment?.[item.id]}
+                  userId={userId}
+                  callbackAddComment={receiveAddComment}
+                  fullName={fullName}
                   isLoadingWrapper={isLoadingCommentBox[item.id]}
                   avatarUrl={avatarUrl}
                   listComment={listComment[item.id]}

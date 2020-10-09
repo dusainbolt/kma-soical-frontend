@@ -8,6 +8,7 @@ let socket = null;
 let dispatch = null;
 let idRoomChat = null;
 let userId = null;
+let boxComment = [];
 const arrayUrl = window.location.href.split("/");
 function initSocket(dispatchVal, myUserId) {
   socket = io(CHANEL.API_URL);
@@ -123,6 +124,18 @@ function receiverTypingChat(callbackShowTypingChat) {
   });
 }
 
+function initSocketBoxComment(postId, isOpen) {
+  socket.off(`${CHANEL.CHANNEL_COMMENT_FEED}${postId}`);
+  if (isOpen) {
+    boxComment.push(postId);
+    console.log("<<<<<<<<<<<- Init Comment socket ID = " + postId + " ->>>>>>>>>>>>");
+    socket.on(`${CHANEL.CHANNEL_COMMENT_FEED}${postId}`, res => {
+      console.log("----->getCommentSocket", res);
+      dispatch(actions.receiveDataBoxComment(res.data));
+    });
+  }
+}
+
 function baseSocket() {
   socket.on("disconnect", reason => {
     console.log("----------------_DISCONNECT", reason);
@@ -166,4 +179,5 @@ export {
   openBoxChatSocket,
   onReadRoom,
   resetSocketNewFeed,
+  initSocketBoxComment,
 };

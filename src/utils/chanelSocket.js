@@ -12,4 +12,6 @@ export const CHANEL = {
   RECEIVE_LIKE_NEW_FEED: "__newFeed:id=",
   ON_READ_ROOM: "__onReadRoom",
   RECEIVE_READ_ROOM: "__receiveReadRoom:id=",
+  CHANNEL_COMMENT_FEED: "__commentNewFeed:id=",
+  CHANNEL_NOTIFY: "__notify:id=",
 };

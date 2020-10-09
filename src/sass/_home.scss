@@ -297,7 +297,7 @@
       .anticon {
         font-size: 20px;
         margin-right: 5px;
-        &.is-like{
+        &.is-like {
           color: $red-color;
         }
       }
@@ -319,12 +319,15 @@
 
     .ant-comment {
       width: 90%;
+      &.loading {
+        opacity: 0.4;
+      }
     }
     .comment-action {
       margin-left: 3px;
     }
 
-    .ant-comment-content{
+    .ant-comment-content {
       max-width: max-content;
     }
 

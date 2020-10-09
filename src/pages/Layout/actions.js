@@ -19,6 +19,7 @@ export const ActionTypes = {
   GET_MY_INBOX_SOCKET: "GET_MY_INBOX_SOCKET",
   RECEIVE_BOX_CHAT_SOCKET: "RECEIVE_BOX_CHAT_SOCKET",
   RECEIVE_READ_BOX_CHAT_SOCKET: "RECEIVE_READ_BOX_CHAT_SOCKET",
+  RECEIVE_DATA_BOX_COMMENT_SOCKET: "RECEIVE_DATA_BOX_COMMENT_SOCKET",
 };
 
 export const actions = {
@@ -137,6 +138,12 @@ export const actionsSocket = {
       type: ActionTypes.RECEIVE_READ_BOX_CHAT_SOCKET,
       myRead,
       idUserRead,
+    };
+  },
+  receiveDataBoxComment: function (payload) {
+    return {
+      type: ActionTypes.RECEIVE_DATA_BOX_COMMENT_SOCKET,
+      payload,
     };
   },
 };
