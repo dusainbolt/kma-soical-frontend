@@ -13,7 +13,13 @@ import Input from "../Input";
 import { Formik, Field } from "formik";
 import { REP_COMMENT } from "../../common";
 import { Link } from "react-router-dom";
-import { filterArray, genderAvatarUrl, genderTimeCount, getRandomInt } from "../../utils";
+import {
+  filterArray,
+  genderAvatarUrl,
+  genderTimeCount,
+  getRandomInt,
+  getRandomString,
+} from "../../utils";
 import LazyLoad from "react-lazyload";
 import FadeIn from "react-fade-in";
 import { useTranslation } from "react-i18next";
@@ -37,7 +43,6 @@ function CommentPost({
   const [action, setAction] = useState(null);
   const [arrayLoadComment, setArrayLoadComment] = useState([]);
   const initialVales = { message: "", postId: postId };
-  const [countLoadComment, setCountLoadComment] = useState(1);
 
   const like = () => {
     setLikes(1);
@@ -115,7 +120,8 @@ function CommentPost({
   const onSubmitComment = (values, { resetForm }) => {
     if (!values.message);
     resetForm();
-    const valueSubmit = { ...values, key: countLoadComment };
+    const key = getRandomString(30);
+    const valueSubmit = { ...values, key };
     const commentObject = {
       ...valueSubmit,
       avatarUrl,
@@ -123,7 +129,7 @@ function CommentPost({
       content: values.message,
       countLike: 0,
       fullName,
-      id: countLoadComment,
+      id: key,
       isHot: 0,
       className: "loading",
       postId,
@@ -131,7 +137,6 @@ function CommentPost({
       updated_at: new Date().getTime(),
       userId,
     };
-    setCountLoadComment(countLoadComment + 1);
     setArrayLoadComment(oldArray => oldArray.concat(commentObject));
     callbackAddComment(valueSubmit);
   };

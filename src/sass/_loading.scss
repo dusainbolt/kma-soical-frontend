@@ -103,6 +103,25 @@
   .ant-notification-notice-message {
     color: $primary-color;
   }
+  &__comment {
+    span {
+      font-size: $font-size;
+    }
+    span.anticon-message {
+      color: $green-color;
+      > svg {
+        font-size: 17px;
+      }
+    }
+    div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      max-width: 90%;
+    }
+  }
   &__description {
     .anticon-heart {
       color: $red-color;

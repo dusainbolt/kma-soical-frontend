@@ -3,7 +3,8 @@ import { CHANEL } from "./chanelSocket";
 import { actionsSocket as actions } from "../pages/Layout/actions";
 import { convertObjectToArray } from "../utils";
 import showNotification from "../components/Notification";
-import { playNotifySound } from "../resource/sound";
+import { NOTIFY } from "../common";
+
 let socket = null;
 let dispatch = null;
 let idRoomChat = null;
@@ -11,19 +12,22 @@ let userId = null;
 let boxComment = [];
 const arrayUrl = window.location.href.split("/");
 function initSocket(dispatchVal, myUserId) {
-  socket = io(CHANEL.API_URL);
-  socket.on("connect", () => {
-    console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
-    dispatch = dispatchVal;
-    userId = myUserId;
-    speakOnline();
-    getListOnline();
-    getMyInbox();
-    baseSocket();
-    receiveBoxChat();
-    receiveLikeNewFeed();
-  });
-  connectSocketError();
+  if (!socket) {
+    socket = io(CHANEL.API_URL);
+    socket.on("connect", () => {
+      console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
+      dispatch = dispatchVal;
+      userId = myUserId;
+      speakOnline();
+      getListOnline();
+      getMyInbox();
+      baseSocket();
+      receiveBoxChat();
+      receiveLikeNewFeed();
+      receiveNotification();
+    });
+    connectSocketError();
+  }
 }
 
 function connectSocketError() {
@@ -65,7 +69,7 @@ function receiveLikeNewFeed() {
   socket.on(`${CHANEL.RECEIVE_LIKE_NEW_FEED}${userId}`, res => {
     console.log("----->receiveLikeNewFeed: ", res);
     if (res.data.sendNotify) {
-      showNotification(1, "new_like_notify_title", res.data, `/post/${res.data.id}`);
+      showNotification(NOTIFY.LIKE, "new_like_notify_title", res.data, `/post/${res.data.id}`);
     }
   });
 }
@@ -134,6 +138,20 @@ function initSocketBoxComment(postId, isOpen) {
       dispatch(actions.receiveDataBoxComment(res.data));
     });
   }
+}
+
+function receiveNotification() {
+  console.log("---------------------->USER_ID", userId);
+  socket.on(`${CHANEL.CHANNEL_NOTIFY}${userId}`, res => {
+    console.log("<<<<<<<<<<<- Notification = ", res);
+    if (userId !== res.data.userId)
+      showNotification(
+        NOTIFY.COMMENT,
+        "new_like_notify_title",
+        res.data,
+        `/post/${res.data.postId}`
+      );
+  });
 }
 
 function baseSocket() {

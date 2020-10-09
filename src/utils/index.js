@@ -10,7 +10,7 @@ import {
   TYPE_FEED,
   FILTER_NEW_FEED,
 } from "../common";
-import { HeartFilled } from "@ant-design/icons";
+import { HeartFilled, MessageFilled } from "@ant-design/icons";
 import showMessage from "../components/Message";
 import showNotify from "../components/Notification";
 import moment from "moment";
@@ -89,6 +89,16 @@ export function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
+export function getRandomString(length) {
+  var result = "";
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
 export function convertDateTime(timeNumber, type = "") {
   if (!timeNumber) return "";
   const timeConvert = moment.unix(timeNumber).format(TIME_UTC_FORMAT.TYPE_2);
@@ -114,13 +124,13 @@ export function genderTimeCount(timeNumber) {
   var myTime = moment.unix(timeNumber);
   var duration = now.diff(myTime);
   if (duration < 60000) {
-    return "now";
+    return i8().t("time.now");
   } else if (duration > 60000 && duration < 3600000) {
-    return now.diff(myTime, "minutes") + " minutes";
+    return now.diff(myTime, "minutes") + ` ${i8().t("time.minutes")}`;
   } else if (duration > 3600000 && duration < 86400000) {
-    return now.diff(myTime, "hours") + " hours";
+    return now.diff(myTime, "hours") + ` ${i8().t("time.hours")}`;
   } else if (duration > 86400000 && duration < 604800000) {
-    return now.diff(myTime, "days") + " days";
+    return now.diff(myTime, "days") + ` ${i8().t("time.day")}`;
   } else if (duration > 604800000) {
     return moment.unix(timeNumber).format(DATE_UTC_FORMAT);
   } else {
@@ -393,7 +403,26 @@ export const convertObjectItem = (arrayCheck, object, conditionName = "id") => {
 };
 
 export const renderContentLikeNotify = (fullName, total) => {
-  return <p><HeartFilled/> <b>{fullName}</b>{total > 2 ? ` ${i8().t("news_feed.and")} ${total-1} ${i8().t("news_feed.people")} ` : ""} {` ${i8().t("txt.notify_like_feed")}`}</p>;
+  return (
+    <p>
+      <HeartFilled /> <b>{fullName}</b>
+      {total > 2
+        ? ` ${i8().t("news_feed.and")} ${total - 1} ${i8().t("news_feed.people")} `
+        : ""}{" "}
+      {` ${i8().t("txt.notify_like_feed")}`}
+    </p>
+  );
+};
+
+export const renderContentCommentNotify = (fullName, commentContent) => {
+  return (
+    <div className="event-notify__comment">
+      <span>
+        <MessageFilled /> <b>{fullName}</b> {i8().t("txt.notify_comment_feed")}
+      </span>
+      <div>{commentContent}</div>
+    </div>
+  );
 };
 
 export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => {
@@ -494,6 +523,6 @@ export const genderTypeFeedForPath = path => {
 };
 
 export const checkIncludeArray = (item, array) => {
-  if(!item || !array?.length) return false;
+  if (!item || !array?.length) return false;
   return array.includes(item.toString());
 };

@@ -7,7 +7,7 @@ import {
   PictureFilled,
   ProfileFilled,
   FireFilled,
-  PlaySquareFilled
+  PlaySquareFilled,
 } from "@ant-design/icons";
 
 //note:
@@ -188,7 +188,6 @@ export const FILTER_NEW_FEED = {
   FRIENDS: "/my-friends",
 };
 
-
 export const MENU_DEFAULT = [
   {
     title: "Trang chủ",
@@ -221,6 +220,11 @@ export const MENU_DEFAULT = [
     redirect: FILTER_NEW_FEED.IMG_VIDEO_FEED,
   },
 ];
+
+export const NOTIFY = {
+  LIKE: 1,
+  COMMENT: 2,
+};
 
 export const LIMIT_UPLOAD_NEW = 10;
 export const validateIMG = ["image/png", "image/jpeg", "image/heic"];
