@@ -16,6 +16,7 @@ import showNotify from "../components/Notification";
 import moment from "moment";
 import { getI18n as i8 } from "react-i18next";
 import AvatarDefault from "../resource/image/avatar-default.png";
+import { Divider } from "antd";
 
 export const renderErrorSearch = className => {
   return (
@@ -414,15 +415,44 @@ export const renderContentLikeNotify = (fullName, total) => {
   );
 };
 
-export const renderContentCommentNotify = (fullName, commentContent) => {
+export const renderContentCommentNotify = (
+  fullName,
+  commentContent,
+  caption,
+  typePost,
+  isMyPost
+) => {
   return (
     <div className="event-notify__comment">
       <span>
-        <MessageFilled /> <b>{fullName}</b> {i8().t("txt.notify_comment_feed")}
+        <MessageFilled /> <b>{fullName}</b>{" "}
+        {i8().t("txt.notify_comment_feed", {
+          post: getTextTypePost(typePost),
+          postNote: isMyPost ? i8().t("txt.of_me") : i8().t("txt.my_follow"),
+        })}
       </span>
-      <div>{commentContent}</div>
+      <Divider />
+      <div
+        dangerouslySetInnerHTML={{
+          __html: caption,
+        }}
+      />
+      <div className="content-comment">{`"${commentContent}"`}</div>
     </div>
   );
+};
+
+export const getTextTypePost = type => {
+  switch (type) {
+    case TYPE_FEED.TEXT:
+      return i8().t("news_feed.news");
+    case TYPE_FEED.IMAGE:
+      return i8().t("news_feed.image_upper");
+    case TYPE_FEED.VIDEO:
+      return i8().t("news_feed.video_upper");
+    default:
+      break;
+  }
 };
 
 export const convertListFriendMessage = (listFriendsReducer, payloadMessage) => {

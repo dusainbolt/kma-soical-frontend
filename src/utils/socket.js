@@ -148,7 +148,7 @@ function receiveNotification() {
       showNotification(
         NOTIFY.COMMENT,
         "new_like_notify_title",
-        res.data,
+        { ...res.data, myUserId: userId },
         `/post/${res.data.postId}`
       );
   });

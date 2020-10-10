@@ -1,5 +1,5 @@
-import { notification } from "antd";
 import React from "react";
+import { Divider, notification } from "antd";
 import { getI18n } from "react-i18next";
 import logo from "../../resource/image/logo.png";
 import { playNotifySound } from "../../resource/sound";
@@ -18,7 +18,8 @@ export default function Notification(
   msgTitle,
   msgContent,
   urlAction = "",
-  msgType = "success"
+  msgType = "success",
+  key = `open${Date.now()}`
 ) {
   const renderIcon = (typeContent, avatarUrl) => {
     return (
@@ -31,13 +32,17 @@ export default function Notification(
   };
 
   const renderContentNotify = type => {
+    const { get_user, content, caption, typePost, myUserId, postUserId } = msgContent;
     switch (type) {
       case NOTIFY.LIKE:
         return renderContentNewFeed(msgContent);
       case NOTIFY.COMMENT:
         return renderContentCommentNotify(
-          msgContent.get_user.get_user_info.fullName,
-          msgContent.content
+          get_user.get_user_info.fullName,
+          content,
+          caption,
+          typePost,
+          myUserId === postUserId
         );
       default:
         break;
@@ -67,18 +72,24 @@ export default function Notification(
     window.open(url, "_blank");
   };
 
+  const onClickNotify = () => {
+    notification.close(key);
+    if (typeContent) {
+      onRedirect(urlAction);
+    } else {
+      getFunctionNotify(urlAction);
+    }
+  };
+
   notification[msgType]({
+    key,
     message: getI18n().t(`txt.${msgTitle}`),
     className: `event-notify ${urlAction && "action"}`,
-    onClick: urlAction
-      ? typeContent
-        ? () => onRedirect(urlAction)
-        : getFunctionNotify(urlAction)
-      : e => e.preventDefault(),
-    icon: renderIcon(typeContent, msgContent?.avatarUserLike),
+    onClick: onClickNotify,
+    icon: renderIcon(typeContent, msgContent?.avatarUserNotify),
     description: typeContent ? renderContentNotify(typeContent) : getI18n().t(`txt.${msgContent}`),
     placement: "bottomRight",
-    duration: 7,
+    duration: 5,
   });
   playNotifySound();
 }

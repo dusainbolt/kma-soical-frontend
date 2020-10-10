@@ -104,6 +104,9 @@
     color: $primary-color;
   }
   &__comment {
+    .ant-divider-horizontal {
+      margin: 10px 0;
+    }
     span {
       font-size: $font-size;
     }
@@ -121,6 +124,10 @@
       -webkit-box-orient: vertical;
       max-width: 90%;
     }
+    .content-comment {
+      font-style: italic;
+      color: $color-comment-info;
+    }
   }
   &__description {
     .anticon-heart {
@@ -131,6 +138,7 @@
       max-height: 200px;
       overflow: auto;
       padding: 8px;
+      box-shadow: #e4e4e4 0px 0px 4px;
     }
   }
 }
