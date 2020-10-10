@@ -13,7 +13,8 @@ const DEFAULT_STATE = {
 };
 
 export default (state = DEFAULT_STATE, action) => {
-  const { payload, type } = action;
+  const { payload, type, body, postId } = action;
+  const { listNewFeed, isLoadingLike, indexLoadComment, isLoadingCommentBox, listComment } = state;
   switch (type) {
     case ActionTypes.GET_NEW_FEED_START:
       return {
@@ -24,7 +25,7 @@ export default (state = DEFAULT_STATE, action) => {
     case ActionTypes.GET_NEW_FEED_SUCCESS:
       return {
         ...state,
-        listNewFeed: action.payload,
+        listNewFeed: payload,
         isLoadingNewFeed: false,
       };
     case ActionTypes.GET_NEW_FEED_ERROR:
@@ -36,20 +37,18 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         listComment: {
-          ...state.listComment,
-          [action.postId]: state.listComment?.[action.postId]
-            ? state.listComment[action.postId]
-            : [],
+          ...listComment,
+          [postId]: listComment?.[postId] ? listComment[postId] : [],
         },
-        isLoadingCommentBox: { ...state.isLoadingCommentBox, [action.postId]: true },
+        isLoadingCommentBox: { ...isLoadingCommentBox, [postId]: true },
       };
     case ActionTypes.GET_LIST_COMMENT_SUCCESS:
       return {
         ...state,
-        isLoadingCommentBox: { ...state.isLoadingCommentBox, [action.postId]: false },
+        isLoadingCommentBox: { ...isLoadingCommentBox, [postId]: false },
         listComment: {
-          ...state.listComment,
-          [action.postId]: action.payload.concat(state.listComment[action.postId]),
+          ...listComment,
+          [postId]: payload.reverse().concat(listComment[postId]),
         },
       };
     case ActionTypes.POST_ADD_NEW_FEED_START:
@@ -60,7 +59,7 @@ export default (state = DEFAULT_STATE, action) => {
     case ActionTypes.POST_ADD_NEW_FEED_SUCCESS:
       return {
         ...state,
-        listNewFeed: action.payload.concat(state.listNewFeed),
+        listNewFeed: payload.concat(listNewFeed),
         isLoadingAddNewFeed: false,
       };
     case ActionTypes.POST_ADD_NEW_FEED_ERROR:
@@ -71,39 +70,32 @@ export default (state = DEFAULT_STATE, action) => {
     case ActionTypes.PUT_LIKE_FEED_START:
       return {
         ...state,
-        isLoadingLike: { ...state.isLoadingLike, [action.body.postId]: true },
+        isLoadingLike: { ...isLoadingLike, [body.postId]: true },
       };
     case ActionTypes.PUT_LIKE_FEED_SUCCESS:
       return {
         ...state,
-        listNewFeed: convertObjectItem(state.listNewFeed, action.payload),
-        isLoadingLike: { ...state.isLoadingLike, [action.payload.id]: false },
+        listNewFeed: convertObjectItem(listNewFeed, payload),
+        isLoadingLike: { ...isLoadingLike, [payload.id]: false },
       };
     case ActionSocket.RECEIVE_DATA_BOX_COMMENT_SOCKET:
       return {
         ...state,
         indexLoadComment: {
-          ...state.indexLoadComment,
-          [action.payload.postId]: action.payload.key,
+          ...indexLoadComment,
+          [payload.postId]: payload.key,
         },
         listComment: {
-          ...state.listComment,
-          [action.payload.postId]: state.listComment[action.payload.postId].concat([
-            action.payload,
-          ]),
+          ...listComment,
+          [payload.postId]: listComment[payload.postId].concat([payload]),
         },
         listNewFeed: convertFeedWhenAddComment(
-          state.listNewFeed,
-          action.payload.postId,
-          action.payload.countLikePost,
-          action.payload.countCommentPost
+          listNewFeed,
+          payload.postId,
+          payload.countLikePost,
+          payload.countCommentPost
         ),
       };
-    // case ActionTypes.ADD_NEW_COMMENT_ERROR:
-    //   return {
-    //     ...state,
-    //     isLoadingNewFeed: false,
-    //   };
     default:
       return state;
   }

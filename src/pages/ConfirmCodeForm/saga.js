@@ -1,7 +1,6 @@
 import { put, takeLatest } from "redux-saga/effects";
 import { actions, ActionTypes } from "./actions";
 import { postConfirmCodeAPI } from "../../services/UserRequest";
-import { showNotifyRequest } from "../../utils";
 
 function* postConfirmCode(action) {
   try {

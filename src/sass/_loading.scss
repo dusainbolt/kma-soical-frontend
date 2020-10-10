@@ -82,6 +82,13 @@
     line-height: 1.5715;
     border-radius: 8px;
     width: unset;
+    transition: 0.5s;
+  }
+  &.action {
+    cursor: pointer;
+    &:hover {
+      background: #fbfbfb;
+    }
   }
   .ant-notification-notice-content {
     max-width: 350px;

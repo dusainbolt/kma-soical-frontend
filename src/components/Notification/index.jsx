@@ -49,6 +49,8 @@ export default function Notification(
     }
   };
 
+  console.log(urlAction);
+
   const renderContentNewFeed = item => {
     const { fullNameLike, avatarUrl, tag, type, content, caption, totalLike } = item;
     return (
@@ -68,7 +70,8 @@ export default function Notification(
     );
   };
 
-  const getFunctionNotify = url => () => {
+  const getFunctionNotify = url => {
+    console.log(url);
     window.open(url, "_blank");
   };
 

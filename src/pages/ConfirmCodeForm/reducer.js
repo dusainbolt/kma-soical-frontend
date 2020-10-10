@@ -8,6 +8,11 @@ const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
+    case ActionTypes.RESET_USER_CONFIRM:
+      return {
+        ...state,
+        userConfirm: {},
+      };
     case ActionTypes.POST_CONFIRM_CODE_START:
       return {
         ...state,

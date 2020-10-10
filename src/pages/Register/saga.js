@@ -10,6 +10,7 @@ function* register(action) {
     if (response.meta.code === 0) {
       yield put(actions.postRegisterSuccess(response));
       yield showNotifyRequest(
+        0,
         KEY_NOTIFY.REGISTER_TITLE,
         KEY_NOTIFY.REGISTER_CONTENT,
         getUrlRedirectEmail(response.data.email)

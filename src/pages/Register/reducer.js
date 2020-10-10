@@ -17,6 +17,11 @@ const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
+    case ActionTypes.RESET_USER_CONFIRM:
+      return {
+        ...state,
+        userNew: {},
+      };
     case ActionTypes.POST_REGISTER_START:
       return {
         ...state,

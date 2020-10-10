@@ -12,7 +12,6 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     if (token) {
       api.setAuthRequest(token);
       browserHistory.push("/");
-    } else {
     }
   }, [token]);
 

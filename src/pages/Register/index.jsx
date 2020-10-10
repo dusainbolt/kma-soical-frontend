@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import logo from "../../resource/image/logo.png";
 import { CONFIRM } from "../../common";
-import { browserHistory } from "../../utils/history";
 import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";
 import LazyLoad from "../../components/LazyLoadingImg";

@@ -61,7 +61,7 @@ export function* effectAfterRequest(typeMsg, msg, typeHide = 0, redirect = "") {
 }
 
 export function* showNotifyRequest(title, content, urlAction, typeMsg) {
-  yield showNotify(title, content, urlAction, typeMsg);
+  yield showNotify(0, title, content, urlAction, typeMsg);
 }
 
 export function showNotifyNormal(title, content, urlAction, typeMsg) {
