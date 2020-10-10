@@ -1,4 +1,4 @@
-import { convertObjectItem } from "../../utils";
+import { convertFeedWhenAddComment, convertObjectItem } from "../../utils";
 import { ActionTypes } from "./actions";
 import { ActionTypes as ActionSocket } from "../Layout/actions";
 
@@ -13,7 +13,8 @@ const DEFAULT_STATE = {
 };
 
 export default (state = DEFAULT_STATE, action) => {
-  switch (action.type) {
+  const { payload, type } = action;
+  switch (type) {
     case ActionTypes.GET_NEW_FEED_START:
       return {
         ...state,
@@ -91,6 +92,12 @@ export default (state = DEFAULT_STATE, action) => {
             action.payload,
           ]),
         },
+        listNewFeed: convertFeedWhenAddComment(
+          state.listNewFeed,
+          action.payload.postId,
+          action.payload.countLikePost,
+          action.payload.countCommentPost
+        ),
       };
     // case ActionTypes.ADD_NEW_COMMENT_ERROR:
     //   return {

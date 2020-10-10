@@ -65,7 +65,7 @@ export function* showNotifyRequest(title, content, urlAction, typeMsg) {
 }
 
 export function showNotifyNormal(title, content, urlAction, typeMsg) {
-  showNotify(title, content, urlAction, typeMsg);
+  showNotify(0, title, content, urlAction, typeMsg);
 }
 
 export function showTopHeader(header) {
@@ -259,6 +259,18 @@ export function getSelectLocalize(values, localize) {
     };
   });
 }
+
+export const convertFeedWhenAddComment = (listNewFeedReducer, idPost, totalLike, totalComment) => {
+  return listNewFeedReducer.map(item => {
+    return parseInt(idPost) === item.id
+      ? {
+          ...item,
+          totalComment,
+          totalLike,
+        }
+      : item;
+  });
+};
 
 export const onChangeValueFormik = (setFieldValue, name) => value => {
   setFieldValue(name, value);

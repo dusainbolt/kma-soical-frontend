@@ -9,7 +9,11 @@ function* register(action) {
     const response = yield postRegisterAPI(action.body);
     if (response.meta.code === 0) {
       yield put(actions.postRegisterSuccess(response));
-      yield showNotifyRequest(KEY_NOTIFY.REGISTER_TITLE, KEY_NOTIFY.REGISTER_CONTENT, getUrlRedirectEmail(response.data.email));
+      yield showNotifyRequest(
+        KEY_NOTIFY.REGISTER_TITLE,
+        KEY_NOTIFY.REGISTER_CONTENT,
+        getUrlRedirectEmail(response.data.email)
+      );
     } else {
       yield put(actions.postRegisterError({}));
     }

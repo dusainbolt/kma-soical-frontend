@@ -9,7 +9,7 @@ function* postLogout(action) {
     if (response.meta.code === 0) {
       yield put(actions.postLogoutSuccess());
       yield put(actions.hideLoadingAuth());
-      yield window.location.reload();
+      // yield window.location.reload();
     } else {
       yield put(actions.postLogoutError());
       yield put(actions.hideLoadingAuth());
@@ -34,7 +34,6 @@ function* openBoxChat(action) {
   }
 }
 
-
 function* getListSubject() {
   try {
     const response = yield getListSubjectAPI();
@@ -52,5 +51,4 @@ export function* watchLayout() {
   yield takeLatest(ActionTypes.OPEN_BOX_CHAT_START, openBoxChat);
   yield takeLatest(ActionTypes.POST_LOGOUT_START, postLogout);
   yield takeLatest(ActionTypes.GET_LIST_SUBJECT_START, getListSubject);
-
 }
