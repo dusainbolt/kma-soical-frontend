@@ -96,7 +96,12 @@
     "month": "tháng",
     "hours": "giờ"
   },
-  "side_mess": {
+  "search": {
+    "list_user": "Mọi người",
+    "list_group_subject": "Học phần",
+    "history": "Lịch sử tìm kiếm",
+    "history_empty": "Chưa có lịch sử tìm kiếm",
+    "place_search_search-header": "Tìm kiếm trên KMA Socical",
     "place_search_user": "Tìm kiếm theo tên",
     "people_contact": "Người liên hệ"
   },

@@ -104,32 +104,33 @@
       }
     }
     .ant-menu-item {
-      span.anticon-home {
-        color: $primary-color;
-      }
-      span.anticon-usergroup-add{
-        color: $pink-color;
-      }
-      span.anticon-fire{
-        color: $red-color;
-      }
-      span.anticon-read{
-        color: $red-light-color;
-      }
-      span.anticon-profile{
-        color: #848dff;
-      }
-      span.anticon-play-square{
-        color: #d00000;
-      }
-      div.ant-skeleton-element{
+      div.ant-skeleton-element {
         padding-top: 18px;
-        .ant-skeleton-input{
+        .ant-skeleton-input {
           height: 23px;
         }
       }
     }
   }
+}
+
+span.anticon-home {
+  color: $primary-color;
+}
+span.anticon-usergroup-add {
+  color: $pink-color;
+}
+span.anticon-fire {
+  color: $red-color;
+}
+span.anticon-read {
+  color: $red-light-color;
+}
+span.anticon-profile {
+  color: #848dff;
+}
+span.anticon-play-square {
+  color: #d00000;
 }
 
 .layout {
@@ -309,7 +310,7 @@
   }
 }
 
-div.divider-menu-left{
+div.divider-menu-left {
   width: 95%;
   min-width: 95%;
   margin: 15px auto;

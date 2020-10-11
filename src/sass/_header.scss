@@ -37,6 +37,23 @@
       }
     }
   }
+  &__search-wrapper {
+    margin-right: auto;
+    margin-left: 12px;
+    min-width: 150px;
+    width: 350px;
+    z-index: 10;
+    .side-friends__search-mess {
+      margin-top: 15px;
+      span.ant-input-search {
+        border-radius: 50px;
+        width: 100%;
+        > input {
+          padding: 0 5px;
+        }
+      }
+    }
+  }
 }
 
 .list {

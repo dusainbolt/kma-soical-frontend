@@ -79,7 +79,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
 
   return (
     <Menu mode="inline" theme="light" className="layout-page-sider-menu">
-      <div className="side-friends__title-mess">{t("side_mess.people_contact")}</div>
+      <div className="side-friends__title-mess">{t("search.people_contact")}</div>
       <Formik initialValues={initialValues}>
         {({ setFieldValue }) => (
           <div className="side-friends__search-mess">
@@ -89,7 +89,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
               type="search"
               onChange={onSearchFriends(setFieldValue, "searchText")}
               isLoading={loadingListUser}
-              placeholder={t("side_mess.place_search_user")}
+              placeholder={t("search.place_search_user")}
               component={Input}
             />
           </div>

@@ -63,7 +63,7 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
       </div>
       {renderMenuDefault()}
       <div>
-      <Divider className="divider-menu-left" />
+        <Divider className="divider-menu-left" />
       </div>
       {isLoadingSubject ? renderMenuSubjectLoad() : renderMenuGroupSubject()}
     </Menu>

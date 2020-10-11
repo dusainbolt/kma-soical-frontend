@@ -1,4 +1,4 @@
-import api  from "./api";
+import api from "./api";
 
 export const postRegisterAPI = body => {
   return api.post("/user/signup", body);
@@ -34,4 +34,8 @@ export const openBoxChatAPI = params => {
 
 export const getListSubjectAPI = params => {
   return api.get("user/list_subject", params);
+};
+
+export const getListHistorySearchAPI = params => {
+  return api.get("user/list_search", params);
 };

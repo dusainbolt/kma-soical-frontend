@@ -6,6 +6,10 @@ const DEFAULT_STATE = {
   isMobile: 0,
   openChatBox: false,
   listSubject: [],
+  listUserSearch: [],
+  listGroupsSubjectSearch: [],
+  listHistorySearch: [],
+  isLoadingSearch: false,
   isLoadingSubject: false,
 };
 
@@ -41,6 +45,22 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         openChatBox: true,
       };
+    case ActionTypes.GET_LIST_HISTORY_SEARCH_START:
+      return {
+        ...state,
+        isLoadingSearch: true,
+      };
+    case ActionTypes.GET_LIST_HISTORY_SEARCH_SUCCESS:
+      return {
+        ...state,
+        isLoadingSearch: false,
+        listHistorySearch: action.payload.split(",").reverse(),
+      };
+    case ActionTypes.GET_LIST_HISTORY_SEARCH_ERROR:
+      return {
+        ...state,
+        isLoadingSearch: false,
+      };
     case ActionTypes.GET_LIST_SUBJECT_START:
       return {
         ...state,
@@ -50,7 +70,7 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         isLoadingSubject: false,
-        listSubject: action.payload
+        listSubject: action.payload,
       };
     case ActionTypes.GET_LIST_SUBJECT_ERROR:
       return {

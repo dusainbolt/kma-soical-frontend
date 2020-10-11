@@ -1,24 +1,30 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { UserOutlined, MessageFilled, LogoutOutlined } from "@ant-design/icons";
-import "./index.scss";
-import { Typography, Avatar, Popover, Modal } from "antd";
+import { Typography, Avatar, Popover } from "antd";
+import SearchTop from "../SearchTop";
 import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../pages/Login/actions";
+import { actions as actionLayout } from "../../pages/Layout/actions";
+
+import Input from "../Input";
 import LogoHeader from "../../resource/image/LogoSidebar.png";
 import { useTranslation } from "react-i18next";
+import { Field, Formik } from "formik";
 
 const { Paragraph } = Typography;
 
-function CommonHeader({ callbackLogout, toggleMenu }) {
+function CommonHeader({ callbackLogout }) {
   const { t } = useTranslation();
-  const token = useSelector(state => state.loginReducer.auth?.token);
-  const userDetail = useSelector(state => state.loginReducer.userDetail);
+  const initialValues = { searchText: "" };
+  const listGroupsSubjectSearch = useSelector(state => state.layoutReducer.listGroupsSubjectSearch);
+  const listUserSearch = useSelector(state => state.layoutReducer.listUserSearch);
+  const listHistorySearch = useSelector(state => state.layoutReducer.listHistorySearch);
+  const isLoadingSearch = useSelector(state => state.layoutReducer.isLoadingSearch);
   const isLoadingChangePassword = useSelector(state => state.loginReducer.isLoadingChangePassword);
-
+  const [visiblePopoverSearch, setVisiblePopoverSearch] = useState(false);
   const dispatch = useDispatch();
   const [visiblePopover, setVisiblePopover] = useState(false);
-  const [visibleModal, setVisibleModal] = useState(false);
-
+  const [visibleModal, setVisibleModal] = useState(true);
 
   const openModalChangePassword = () => {
     handleVisibleChange();
@@ -53,9 +59,7 @@ function CommonHeader({ callbackLogout, toggleMenu }) {
   }, []);
 
   const renderModalChangePassword = useMemo(() => {
-    return (
-      <div>changePassword</div>
-    );
+    return <div>changePassword</div>;
   }, [visibleModal]);
 
   useEffect(() => {
@@ -64,12 +68,76 @@ function CommonHeader({ callbackLogout, toggleMenu }) {
     }
   }, [isLoadingChangePassword]);
 
+  const openPopverSearch = () => {
+    setVisiblePopoverSearch(true);
+    if (!listHistorySearch.length) {
+      dispatch(actionLayout.getListHistorySearchStart());
+    }
+  };
+
+  const closePopverSearch = () => {
+    setVisiblePopoverSearch(false);
+  };
+
+  const onHandleSearch = values => {
+    console.log(values);
+  };
+
+  const renderContentSearch = useMemo(() => {
+    setTimeout(() => {
+      const selector = document.getElementById("my-search");
+      if (selector) selector.focus();
+    }, 200);
+    return (
+      <SearchTop
+        onClose={closePopverSearch}
+        isLoadingSearch={isLoadingSearch}
+        listUserSearch={listUserSearch}
+        callbackSearch={onHandleSearch}
+        listGroupsSubjectSearch={listGroupsSubjectSearch}
+        listHistorySearch={listHistorySearch}
+      />
+    );
+  }, [
+    visiblePopoverSearch,
+    isLoadingSearch,
+    listHistorySearch,
+    listUserSearch,
+    listGroupsSubjectSearch,
+  ]);
+
   return (
     <div className="header">
       <div className="header__user">
         <Paragraph className="header__user--logo" level={4}>
           <img width="140" height="55" src={LogoHeader} alt="avatar" />
         </Paragraph>
+        <div className="header__search-wrapper">
+          <Popover
+            placement="bottom"
+            visible={true}
+            getPopupContainer={triggerNode => triggerNode.parentNode}
+            overlayClassName="popover-search"
+            content={renderContentSearch}
+            trigger="hover">
+            <Formik initialValues={initialValues}>
+              {({ setFieldValue }) => (
+                <div className="side-friends__search-mess">
+                  <Field
+                    name="searchText"
+                    maxLength={150}
+                    type="search"
+                    onChange={""}
+                    onClick={openPopverSearch}
+                    isLoading={false}
+                    placeholder={t("search.place_search_search-header")}
+                    component={Input}
+                  />
+                </div>
+              )}
+            </Formik>
+          </Popover>
+        </div>
         <div className="header__user--profile">
           <MessageFilled className="profile__icon--message" />
           <Popover
@@ -78,8 +146,7 @@ function CommonHeader({ callbackLogout, toggleMenu }) {
             trigger="click"
             className="profile__popover"
             visible={visiblePopover}
-            onVisibleChange={handleVisibleChange}
-          >
+            onVisibleChange={handleVisibleChange}>
             <Avatar className="profile__icon--avatar" icon={<UserOutlined />} />
           </Popover>
         </div>

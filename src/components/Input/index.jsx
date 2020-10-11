@@ -53,7 +53,7 @@ export default function Input({
         </>
       )}
       {!errorSearch && IconSearch && !loadingSearch && !errorValidate && field.value && (
-        <IconSearch className="input__icon-search success" />
+        <IconSearch onClick={callHandleIcon} className="input__icon-search success" />
       )}
       {Icon && <Icon className="input__icon" onClick={callHandleIcon} />}
       {errorValidate && showError && <span className="required">{errors[field.name]}</span>}

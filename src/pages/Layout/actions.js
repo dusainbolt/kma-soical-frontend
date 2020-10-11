@@ -9,6 +9,9 @@ export const ActionTypes = {
   GET_LIST_SUBJECT_START: "GET_LIST_SUBJECT_START",
   GET_LIST_SUBJECT_SUCCESS: "GET_LIST_SUBJECT_SUCCESS",
   GET_LIST_SUBJECT_ERROR: "GET_LIST_SUBJECT_ERROR",
+  GET_LIST_HISTORY_SEARCH_START: "GET_LIST_HISTORY_SEARCH_START",
+  GET_LIST_HISTORY_SEARCH_SUCCESS: "GET_LIST_HISTORY_SEARCH_SUCCESS",
+  GET_LIST_HISTORY_SEARCH_ERROR: "GET_LIST_HISTORY_SEARCH_ERROR",
   OPEN_BOX_CHAT_START: "OPEN_BOX_CHAT_START",
   OPEN_BOX_CHAT_SUCCESS: "OPEN_BOX_CHAT_SUCCESS",
   OPEN_BOX_CHAT_ERROR: "OPEN_BOX_CHAT_ERROR",
@@ -57,6 +60,24 @@ export const actions = {
   postLogoutError: function () {
     return {
       type: ActionTypes.POST_LOGOUT_ERROR,
+    };
+  },
+  getListHistorySearchStart: function (params) {
+    return {
+      type: ActionTypes.GET_LIST_HISTORY_SEARCH_START,
+      params,
+    };
+  },
+  getListHistorySearchSuccess: function (success) {
+    return {
+      type: ActionTypes.GET_LIST_HISTORY_SEARCH_SUCCESS,
+      payload: success,
+    };
+  },
+  getListHistorySearchError: function (error) {
+    return {
+      type: ActionTypes.GET_LIST_HISTORY_SEARCH_ERROR,
+      payload: error,
     };
   },
   changeScreenPixel: function (conditionPixel) {
