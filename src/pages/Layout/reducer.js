@@ -66,6 +66,26 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         isLoadingSubject: true,
       };
+    case ActionTypes.POST_SEARCH_TOP_START:
+      return {
+        ...state,
+        isLoadingSearch: true,
+      };
+    case ActionTypes.POST_SEARCH_TOP_SUCCESS:
+      return {
+        ...state,
+        isLoadingSearch: false,
+        listGroupsSubjectSearch: action.payload.listSubject,
+        listUserSearch: action.payload.listUser,
+        listHistorySearch: action.payload.listHistory.reverse(),
+      };
+    case ActionTypes.POST_SEARCH_TOP_ERROR:
+      return {
+        ...state,
+        isLoadingSearch: false,
+        listGroupsSubjectSearch: [],
+        listUserSearch: [],
+      };
     case ActionTypes.GET_LIST_SUBJECT_SUCCESS:
       return {
         ...state,

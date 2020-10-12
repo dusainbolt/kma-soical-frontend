@@ -20,6 +20,9 @@ export const ActionTypes = {
   GET_MESSAGE_SOCKET: "GET_MESSAGE_SOCKET",
   GET_LIST_ONLINE_SOCKET: "GET_LIST_ONLINE_SOCKET",
   GET_MY_INBOX_SOCKET: "GET_MY_INBOX_SOCKET",
+  POST_SEARCH_TOP_START: "POST_SEARCH_TOP_START",
+  POST_SEARCH_TOP_SUCCESS: "POST_SEARCH_TOP_SUCCESS",
+  POST_SEARCH_TOP_ERROR: "POST_SEARCH_TOP_ERROR",
   RECEIVE_BOX_CHAT_SOCKET: "RECEIVE_BOX_CHAT_SOCKET",
   RECEIVE_READ_BOX_CHAT_SOCKET: "RECEIVE_READ_BOX_CHAT_SOCKET",
   RECEIVE_DATA_BOX_COMMENT_SOCKET: "RECEIVE_DATA_BOX_COMMENT_SOCKET",
@@ -60,6 +63,24 @@ export const actions = {
   postLogoutError: function () {
     return {
       type: ActionTypes.POST_LOGOUT_ERROR,
+    };
+  },
+  postSearchTopStart: function (body) {
+    return {
+      type: ActionTypes.POST_SEARCH_TOP_START,
+      body,
+    };
+  },
+  postSearchTopSuccess: function (success) {
+    return {
+      type: ActionTypes.POST_SEARCH_TOP_SUCCESS,
+      payload: success,
+    };
+  },
+  postSearchTopError: function (error) {
+    return {
+      type: ActionTypes.POST_SEARCH_TOP_ERROR,
+      payload: error,
     };
   },
   getListHistorySearchStart: function (params) {

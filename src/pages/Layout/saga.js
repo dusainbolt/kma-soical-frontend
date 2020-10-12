@@ -5,6 +5,7 @@ import {
   openBoxChatAPI,
   getListSubjectAPI,
   getListHistorySearchAPI,
+  postSearchTopAPI,
 } from "../../services/UserRequest";
 
 function* postLogout(action) {
@@ -65,9 +66,23 @@ function* getListHistorySearch() {
   }
 }
 
+function* postSearchTop(action) {
+  try {
+    const response = yield postSearchTopAPI(action.body);
+    if (response.meta.code === 0) {
+      yield put(actions.postSearchTopSuccess(response.data));
+    } else {
+      yield put(actions.postSearchTopError());
+    }
+  } catch (e) {
+    yield put(actions.postSearchTopError(e));
+  }
+}
+
 export function* watchLayout() {
   yield takeLatest(ActionTypes.OPEN_BOX_CHAT_START, openBoxChat);
   yield takeLatest(ActionTypes.POST_LOGOUT_START, postLogout);
   yield takeLatest(ActionTypes.GET_LIST_HISTORY_SEARCH_START, getListHistorySearch);
   yield takeLatest(ActionTypes.GET_LIST_SUBJECT_START, getListSubject);
+  yield takeLatest(ActionTypes.POST_SEARCH_TOP_START, postSearchTop);
 }

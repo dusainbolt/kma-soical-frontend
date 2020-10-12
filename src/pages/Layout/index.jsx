@@ -8,7 +8,12 @@ import Sidebar from "../SlideBar";
 import BoxChatCommon from "../SideBoxChat";
 import SideListFriends from "../SideListFriends";
 import { END_PC_PIXEL } from "../../common";
-import { initSocket, logoutSocket, openBoxChatSocket, resetSocketNewFeed } from "../../utils/socket";
+import {
+  initSocket,
+  logoutSocket,
+  openBoxChatSocket,
+  resetSocketNewFeed,
+} from "../../utils/socket";
 import { actions } from "./actions";
 import api from "../../services/api";
 import { useMemo } from "react";
@@ -19,8 +24,8 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
   const token = useSelector(state => state.loginReducer.token);
   const openChatBox = useSelector(state => state.layoutReducer.openChatBox);
   const isMobile = useSelector(state => state.layoutReducer.isMobile);
-  const listSubject = useSelector(state => state.layoutReducer.listSubject); 
-  const isLoadingSubject = useSelector(state => state.layoutReducer.isLoadingSubject); 
+  const listSubject = useSelector(state => state.layoutReducer.listSubject);
+  const isLoadingSubject = useSelector(state => state.layoutReducer.isLoadingSubject);
   const userDetail = useSelector(state => state.loginReducer.userDetail);
 
   const [collapsed, setCollapsed] = useState(false);
@@ -40,7 +45,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
       browserHistory.push("/welcome");
     } else {
       api.setAuthRequest(token);
-      if(!listSubject.length){
+      if (!listSubject.length) {
         dispatch(actions.getListSubjectStart());
       }
       resetSocketNewFeed(userDetail?.id);
@@ -104,7 +109,11 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
                 trigger={null}
                 collapsible
                 collapsed={collapsed}>
-                <Sidebar isLoadingSubject={isLoadingSubject} listSubject={listSubject} userDetail={userDetail}/>
+                <Sidebar
+                  isLoadingSubject={isLoadingSubject}
+                  listSubject={listSubject}
+                  userDetail={userDetail}
+                />
               </Sider>
               <Content className="site-layout-background">
                 <Mycomponent {...routeProps} />

@@ -15,7 +15,7 @@ const { Paragraph } = Typography;
 
 function CommonHeader({ callbackLogout }) {
   const { t } = useTranslation();
-  const initialValues = { searchText: "" };
+  const [initialValues, setInitialValues] = useState({ searchText: "" });
   const listGroupsSubjectSearch = useSelector(state => state.layoutReducer.listGroupsSubjectSearch);
   const listUserSearch = useSelector(state => state.layoutReducer.listUserSearch);
   const listHistorySearch = useSelector(state => state.layoutReducer.listHistorySearch);
@@ -75,12 +75,19 @@ function CommonHeader({ callbackLogout }) {
     }
   };
 
+  const resetResultSearch = () => {
+    dispatch(actionLayout.postSearchTopError([]));
+  };
+
   const closePopverSearch = () => {
     setVisiblePopoverSearch(false);
   };
 
   const onHandleSearch = values => {
-    console.log(values);
+    setInitialValues(values);
+    if (values.searchText.trim()) {
+      dispatch(actionLayout.postSearchTopStart(values));
+    }
   };
 
   const renderContentSearch = useMemo(() => {
@@ -93,17 +100,20 @@ function CommonHeader({ callbackLogout }) {
         onClose={closePopverSearch}
         isLoadingSearch={isLoadingSearch}
         listUserSearch={listUserSearch}
+        callbackResetSearch={resetResultSearch}
+        initialValues={initialValues}
         callbackSearch={onHandleSearch}
         listGroupsSubjectSearch={listGroupsSubjectSearch}
         listHistorySearch={listHistorySearch}
       />
     );
   }, [
+    initialValues,
     visiblePopoverSearch,
-    isLoadingSearch,
     listHistorySearch,
     listUserSearch,
     listGroupsSubjectSearch,
+    isLoadingSearch,
   ]);
 
   return (
@@ -115,7 +125,7 @@ function CommonHeader({ callbackLogout }) {
         <div className="header__search-wrapper">
           <Popover
             placement="bottom"
-            visible={true}
+            visible={visiblePopoverSearch}
             getPopupContainer={triggerNode => triggerNode.parentNode}
             overlayClassName="popover-search"
             content={renderContentSearch}
@@ -127,7 +137,7 @@ function CommonHeader({ callbackLogout }) {
                     name="searchText"
                     maxLength={150}
                     type="search"
-                    onChange={""}
+                    value={initialValues.searchText}
                     onClick={openPopverSearch}
                     isLoading={false}
                     placeholder={t("search.place_search_search-header")}

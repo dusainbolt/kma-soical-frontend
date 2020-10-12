@@ -39,3 +39,7 @@ export const getListSubjectAPI = params => {
 export const getListHistorySearchAPI = params => {
   return api.get("user/list_search", params);
 };
+
+export const postSearchTopAPI = body => {
+  return api.post("user/handle_search", body);
+};
