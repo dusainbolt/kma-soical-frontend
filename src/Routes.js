@@ -48,12 +48,17 @@ export const Routes = [
     exact: true,
   },
   {
+    name: "MyAccount",
+    path: "/my-account",
+    exact: true,
+    component: Homepage,
+  },
+  {
     name: "HomeOnlyId",
     path: "/post/:postId",
     component: Homepage,
     exact: true,
   },
-  
 ];
 
 export const RoutesAuth = [

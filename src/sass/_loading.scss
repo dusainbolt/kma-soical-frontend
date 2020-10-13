@@ -151,7 +151,8 @@
 }
 
 .load-comment {
-  &.load-list-comment {
+  &.load-list-comment,
+  &.load-list-user {
     .ant-skeleton-title {
       width: calc(100% - 12px) !important;
     }

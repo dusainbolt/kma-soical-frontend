@@ -1,4 +1,4 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { delay, put, takeLatest } from "redux-saga/effects";
 import { actions, ActionTypes } from "./actions";
 import {
   postLogoutAPI,
@@ -14,8 +14,7 @@ function* postLogout(action) {
     const response = yield postLogoutAPI(action.body);
     if (response.meta.code === 0) {
       yield put(actions.postLogoutSuccess());
-      yield put(actions.hideLoadingAuth());
-      // yield window.location.reload();
+      yield window.location.reload();
     } else {
       yield put(actions.postLogoutError());
       yield put(actions.hideLoadingAuth());

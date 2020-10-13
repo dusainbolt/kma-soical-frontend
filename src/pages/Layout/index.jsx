@@ -79,14 +79,14 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
 
   const renderChatBoxTablet = useMemo(() => {
     return (
-      isMobile &&
-      openChatBox && (
+      isMobile ||
+      (true && openChatBox && (
         <ModalCommon
           visible={openChatBox}
           onCancel={closeBoxChat}
           content={<BoxChatCommon isMobile={isMobile} className="box-tablet" />}
         />
-      )
+      ))
     );
   }, [isMobile, openChatBox]);
 
@@ -118,24 +118,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
               <Content className="site-layout-background">
                 <Mycomponent {...routeProps} />
               </Content>
-              {!isMobile && (
-                <Sider
-                  className="site-layout__side-bg"
-                  trigger={null}
-                  collapsible
-                  collapsed={collapsed}>
-                  <div className="side-event">
-                    <div className="side-event__notify"></div>
-                    {openChatBox && (
-                      <div className="side-event__top-dashboard side-event__mess-box">
-                        {/* <BoxChatCommon isMobile={isMobile} /> */}
-                        {renderChatBoxPC}
-                      </div>
-                    )}
-                    {!openChatBox && <div className="side-event__top-dashboard"></div>}
-                  </div>
-                </Sider>
-              )}
+
               <Sider
                 className="site-layout__side-friends side-friends"
                 trigger={null}
@@ -153,3 +136,21 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
 }
 
 export default App;
+// {!isMobile && (
+//   <Sider
+//     className="site-layout__side-bg"
+//     trigger={null}
+//     collapsible
+//     collapsed={collapsed}>
+//     <div className="side-event">
+//       <div className="side-event__notify"></div>
+//       {openChatBox && (
+//         <div className="side-event__top-dashboard side-event__mess-box">
+//           {/* <BoxChatCommon isMobile={isMobile} /> */}
+//           {renderChatBoxPC}
+//         </div>
+//       )}
+//       {!openChatBox && <div className="side-event__top-dashboard"></div>}
+//     </div>
+//   </Sider>
+// )}

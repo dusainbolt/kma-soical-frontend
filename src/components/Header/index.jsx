@@ -15,12 +15,13 @@ const { Paragraph } = Typography;
 
 function CommonHeader({ callbackLogout }) {
   const { t } = useTranslation();
-  const [initialValues, setInitialValues] = useState({ searchText: "" });
   const listGroupsSubjectSearch = useSelector(state => state.layoutReducer.listGroupsSubjectSearch);
   const listUserSearch = useSelector(state => state.layoutReducer.listUserSearch);
   const listHistorySearch = useSelector(state => state.layoutReducer.listHistorySearch);
   const isLoadingSearch = useSelector(state => state.layoutReducer.isLoadingSearch);
   const isLoadingChangePassword = useSelector(state => state.loginReducer.isLoadingChangePassword);
+  const initialValues = useSelector(state => state.layoutReducer.initialValuesSearchTop);
+
   const [visiblePopoverSearch, setVisiblePopoverSearch] = useState(false);
   const dispatch = useDispatch();
   const [visiblePopover, setVisiblePopover] = useState(false);
@@ -84,7 +85,6 @@ function CommonHeader({ callbackLogout }) {
   };
 
   const onHandleSearch = values => {
-    setInitialValues(values);
     if (values.searchText.trim()) {
       dispatch(actionLayout.postSearchTopStart(values));
     }

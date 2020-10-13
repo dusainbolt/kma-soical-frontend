@@ -1,4 +1,5 @@
 export const ActionTypes = {
+  GET_LIST_FRIENDS_LOAD: "GET_LIST_FRIENDS_LOAD",
   GET_LIST_FRIENDS_START: "GET_LIST_FRIENDS_START",
   GET_LIST_FRIENDS_SUCCESS: "GET_LIST_FRIENDS_SUCCESS",
   GET_LIST_FRIENDS_ERROR: "GET_LIST_FRIENDS_ERROR",
@@ -8,6 +9,11 @@ export const ActionTypes = {
 };
 
 export const actions = {
+  getListFriendsLoadStart: function () {
+    return {
+      type: ActionTypes.GET_LIST_FRIENDS_LOAD,
+    };
+  },
   getListFriendsStart: function (params) {
     return {
       type: ActionTypes.GET_LIST_FRIENDS_START,

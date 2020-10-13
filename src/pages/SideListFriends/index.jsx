@@ -23,8 +23,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!listFriends.length || searchText)
-      dispatch(actions.getListFriendsStart({ limit: LIMIT.LIST_USER, searchText }));
+    dispatch(actions.getListFriendsStart({ limit: LIMIT.LIST_USER, searchText }));
   }, [searchText]);
 
   const onOpenChat = (item, idUserInbox) => () => {

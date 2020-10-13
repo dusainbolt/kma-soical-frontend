@@ -136,8 +136,8 @@ span.anticon-play-square {
 .layout {
   .site-layout {
     &__side-friends {
-      max-width: 250px !important;
-      min-width: 250px !important;
+      max-width: 300px !important;
+      min-width: 300px !important;
     }
     &__side-bg {
       max-width: 20% !important;
@@ -164,7 +164,7 @@ span.anticon-play-square {
     .input {
       margin: auto;
       .ant-input-search {
-        width: 82%;
+        // width: 82%;
         border-radius: 15px;
       }
       .anticon-search {
@@ -194,14 +194,14 @@ span.anticon-play-square {
     font-size: $font-size + 1;
   }
   &__list {
-    max-height: 550px;
+    max-height: calc(100vh - 200px);
     overflow: auto;
-    width: 80%;
+    width: 90%;
+    margin: 5px auto;
     > div:first-child {
       border-top: solid thin $line-color;
       padding-top: 5px;
     }
-    margin-left: 5px;
     .ant-avatar {
       height: 36px;
       width: 36px;
@@ -258,7 +258,10 @@ span.anticon-play-square {
     height: 70px;
     border-radius: 20px;
     margin-bottom: 25px;
-
+    &:hover {
+      opacity: 0.7;
+      cursor: pointer;
+    }
     &--avatar {
       width: 50px;
       margin: 10px 0 0 20px;

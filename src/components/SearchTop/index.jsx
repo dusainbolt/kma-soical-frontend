@@ -27,23 +27,10 @@ function SearchTop({
 }) {
   const { t } = useTranslation();
 
-  const onSearchByHistory = searchText => {
+  const onSearchByHistory = (searchText, setFieldValue) => {
     callbackSearch({ searchText });
+    setFieldValue("searchText", searchText);
   };
-
-  const genderListHistory = useMemo(() => {
-    return listHistorySearch.map((item, index) => {
-      return (
-        <div
-          key={index}
-          onClick={() => onSearchByHistory(item)}
-          className="search-wrapper__list_history">
-          <ClockCircleOutlined />
-          {item}
-        </div>
-      );
-    });
-  }, [listHistorySearch]);
 
   const renderLoadHistory = useMemo(() => {
     return MENU_DEFAULT.map((item, index) => (
@@ -76,7 +63,9 @@ function SearchTop({
     ));
   }, []);
 
-  const onSearchByResult = (endpoint, value) => {
+  const onSearchByResult = (endpoint, value, searchText) => {
+    callbackSearch({ searchText });
+    onClose();
     onRedirect(`/${endpoint}/${value}`);
   };
 
@@ -84,7 +73,7 @@ function SearchTop({
     return listGroupsSubjectSearch.map((item, index) => (
       <Col key={index} md={12} xs={24}>
         <div
-          onClick={() => onSearchByResult("groups-subject", item.id)}
+          onClick={() => onSearchByResult("groups-subject", item.id, item.name)}
           className="subject-wrapper search-item">
           <BookOutlined />
           {item.name}
@@ -112,14 +101,12 @@ function SearchTop({
   };
 
   return (
-    <Formik
-      onSubmit={callbackSearch}
-      enableReinitialize
-      initialValues={initialValues || (true && initialValues)}>
+    <Formik onSubmit={callbackSearch} initialValues={initialValues}>
       {({ setFieldValue, values, handleSubmit }) => (
         <div className="search-top">
           <div className="side-friends__search-mess">
             <ArrowLeftOutlined onClick={onClose} />
+            {console.log(values.searchText)}
             <Field
               name="searchText"
               maxLength={150}
@@ -143,7 +130,17 @@ function SearchTop({
                 !listHistorySearch.length ? (
                   <Empty description={false} />
                 ) : (
-                  genderListHistory
+                  listHistorySearch.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        onClick={() => onSearchByHistory(item, setFieldValue)}
+                        className="search-wrapper__list_history">
+                        <ClockCircleOutlined />
+                        {item}
+                      </div>
+                    );
+                  })
                 )
               ) : (
                 renderLoadHistory

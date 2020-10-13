@@ -50,7 +50,7 @@ function Sidebar({ userDetail, listSubject, isLoadingSubject }) {
 
   return (
     <Menu mode="inline" theme="light" className="side-event layout-page-sider-menu">
-      <div className="side-event__info">
+      <div className="side-event__info" onClick={() => onRedirect("/my-account")}>
         <LazyloadImg
           className="side-event__info--avatar avatar"
           src={genderAvatarUrl(userDetail?.avatar)}

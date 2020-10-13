@@ -15,6 +15,7 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case ActionTypes.GET_LIST_FRIENDS_START:
+    case ActionTypes.GET_LIST_FRIENDS_LOAD:
       return {
         ...state,
         loadingListUser: true,

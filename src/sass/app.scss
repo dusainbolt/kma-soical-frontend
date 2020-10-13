@@ -14,6 +14,7 @@
 @import "./_popUp";
 @import "./_smallComponent";
 @import "./upload";
+@import "./account";
 @import "~video-react/styles/scss/video-react";
 /* Common style */
 
@@ -45,6 +46,10 @@ html {
   min-height: 100vh;
   padding-top: 89px;
   background: $bg-site-layout;
+
+  min-width: 550px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 .site-layout-web-background {
   margin-top: 30px;
@@ -104,6 +109,8 @@ span.anticon-edit {
   .site-layout .site-layout-background {
     padding: 15px;
     padding-top: 100px;
+    min-width: 100%;
+    max-width: 100%;
   }
 }
 

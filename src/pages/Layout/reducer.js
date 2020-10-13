@@ -9,6 +9,7 @@ const DEFAULT_STATE = {
   listUserSearch: [],
   listGroupsSubjectSearch: [],
   listHistorySearch: [],
+  initialValuesSearchTop: { searchText: "" },
   isLoadingSearch: false,
   isLoadingSubject: false,
 };
@@ -70,6 +71,7 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         isLoadingSearch: true,
+        initialValuesSearchTop: action.body,
       };
     case ActionTypes.POST_SEARCH_TOP_SUCCESS:
       return {

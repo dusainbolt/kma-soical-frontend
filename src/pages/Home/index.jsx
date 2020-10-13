@@ -9,9 +9,10 @@ import PostTop from "../../components/News/PostTop";
 import ContentNew from "../../components/News/ContentNew";
 import LikeInfo from "../../components/News/LikeInfo";
 import ModalCommon from "../../components/Modal";
+import AccountInfo from "../../components/AccountInfo";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
-import { OPTION_LiGHTBOX, TYPE_FEED } from "../../common";
+import { OPTION_LiGHTBOX } from "../../common";
 import FormAddNew from "../../components/FormAddNew";
 import {
   getArrayImg,
@@ -30,15 +31,17 @@ function Home({ ...props }) {
   const { params } = props.match;
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
-  const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
-  const userId = useSelector(state => state.loginReducer.userDetail?.id);
-  const fullName = useSelector(state => state.loginReducer.userDetail?.get_user_info?.fullName);
+
   const listSubject = useSelector(state => state.layoutReducer.listSubject);
   const isLoadingLike = useSelector(state => state.newFeedReducer.isLoadingLike);
   const isLoadingAddNewFeed = useSelector(state => state.newFeedReducer.isLoadingAddNewFeed);
   const isLoadingCommentBox = useSelector(state => state.newFeedReducer.isLoadingCommentBox);
   const listComment = useSelector(state => state.newFeedReducer.listComment);
   const indexLoadComment = useSelector(state => state.newFeedReducer.indexLoadComment);
+  const userDetailReducer = useSelector(state => state.loginReducer.userDetail);
+  const avatarReducer = userDetailReducer?.avatar;
+  const userId = userDetailReducer?.id;
+  const fullName = userDetailReducer?.get_user_info?.fullName;
 
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
@@ -52,14 +55,21 @@ function Home({ ...props }) {
   const [visibleFormAddNew, setVisibleFormAddNew] = useState(false);
   const [typeNew, setTypeNew] = useState(null);
   const [currentValue, setCurrentValue] = useState(null);
-
+  const [viewAccount, setViewAccount] = useState(false);
   useEffect(() => {
-    setFetchData();
+    if (props.match.path.indexOf("my-account") > 0) {
+      setViewAccount(true);
+    } else {
+      setFetchData();
+    }
   }, []);
 
   useEffect(() => {
     const { params } = props.match;
-    if (params?.postId && currentValue?.postId && params.postId !== currentValue.postId) {
+    if (
+      (params?.postId && currentValue?.postId && params.postId !== currentValue.postId) ||
+      (params?.subjectId && currentValue?.subjectId && params.subjectId !== currentValue.subjectId)
+    ) {
       setFetchData();
     }
   }, [props]);
@@ -229,6 +239,7 @@ function Home({ ...props }) {
 
   return (
     <div>
+      {viewAccount && <AccountInfo userDetail={userDetailReducer} />}
       <FormPostTop
         fullName={fullName}
         avatarUrl={avatarUrl}
