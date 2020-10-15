@@ -20,6 +20,7 @@
     "full_name": "Họ tên",
     "gender_1": "Nam",
     "sendCode": "Mã xác nhận",
+    "friends": "Bạn bè",
     "gender_2": "Nữ",
     "confirm": "Xác nhận",
     "gender_3": "Khác",
@@ -87,6 +88,17 @@
     "place_select_subject": "Nhấn vào đây để chọn môn học",
     "place_select_tags": "Nhấn vào đây để tạo tags",
     "note_shared": "Đã chia sẻ"
+  },
+  "account": {
+    "job": "Công việc",
+    "points": "Points",
+    "count_like": "Lượt thích",
+    "rate": "Lượt đánh giá",
+    "rate_medium": "Trạng thái",
+    "hobbit": "Sở thích",
+    "follow": "Người theo dõi",
+    "school": "Trường học",
+    "inbox": "Nhắn tin"
   },
   "time": {
     "day": "ngày",

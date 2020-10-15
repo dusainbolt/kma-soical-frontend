@@ -14,6 +14,9 @@ export const ActionTypes = {
   POST_ADD_NEW_COMMENT_START: "POST_ADD_NEW_COMMENT_START",
   POST_ADD_NEW_COMMENT_SUCCESS: "POST_ADD_NEW_COMMENT_SUCCESS",
   POST_ADD_NEW_COMMENT_ERROR: "POST_ADD_NEW_COMMENT_ERROR",
+  GET_USER_DASHBOARD_START: "GET_USER_DASHBOARD_START",
+  GET_USER_DASHBOARD_SUCCESS: "GET_USER_DASHBOARD_SUCCESS",
+  GET_USER_DASHBOARD_ERROR: "GET_USER_DASHBOARD_ERROR",
 };
 
 export const actions = {
@@ -106,6 +109,24 @@ export const actions = {
     return {
       type: ActionTypes.POST_ADD_NEW_COMMENT_ERROR,
       body,
+    };
+  },
+  getUserDashBoardStart: function (params) {
+    return {
+      type: ActionTypes.GET_USER_DASHBOARD_START,
+      params,
+    };
+  },
+  getUserDashBoardSuccess: function (success) {
+    return {
+      type: ActionTypes.GET_USER_DASHBOARD_SUCCESS,
+      payload: success,
+    };
+  },
+  getUserDashBoardError: function (error) {
+    return {
+      type: ActionTypes.GET_USER_DASHBOARD_ERROR,
+      error,
     };
   },
 };

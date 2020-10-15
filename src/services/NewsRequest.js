@@ -19,3 +19,7 @@ export const getListCommentAPI = params => {
 export const postAddCommentAPI = params => {
   return api.post("/user/add_comment", params);
 };
+
+export const getDetailDashboardAPI = params => {
+  return api.get("/user/get_user_dashboard", params);
+};

@@ -22,13 +22,15 @@ import {
   genderAvatarUrl,
   renderCurrentFilterFeed,
   checkIncludeArray,
+  onRedirect,
 } from "../../utils";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useTranslation } from "react-i18next";
 import { initSocketBoxComment } from "../../utils/socket";
+import { Col } from "antd";
 
 function Home({ ...props }) {
-  const { params } = props.match;
+  const { params, path } = props.match;
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
 
@@ -39,10 +41,11 @@ function Home({ ...props }) {
   const listComment = useSelector(state => state.newFeedReducer.listComment);
   const indexLoadComment = useSelector(state => state.newFeedReducer.indexLoadComment);
   const userDetailReducer = useSelector(state => state.loginReducer.userDetail);
+  const userDashBoard = useSelector(state => state.newFeedReducer.userDashBoard);
+
   const avatarReducer = userDetailReducer?.avatar;
   const userId = userDetailReducer?.id;
   const fullName = userDetailReducer?.get_user_info?.fullName;
-
   const { t } = useTranslation();
   const avatarUrl = genderAvatarUrl(avatarReducer);
   const dispatch = useDispatch();
@@ -56,8 +59,10 @@ function Home({ ...props }) {
   const [typeNew, setTypeNew] = useState(null);
   const [currentValue, setCurrentValue] = useState(null);
   const [viewAccount, setViewAccount] = useState(false);
+  const [userIdDetail, setUserIdDetail] = useState(null);
+
   useEffect(() => {
-    if (props.match.path.indexOf("my-account") > 0) {
+    if (path.indexOf("user-detail") > 0) {
       setViewAccount(true);
     } else {
       setFetchData();
@@ -65,18 +70,24 @@ function Home({ ...props }) {
   }, []);
 
   useEffect(() => {
-    const { params } = props.match;
     if (
-      (params?.postId && currentValue?.postId && params.postId !== currentValue.postId) ||
-      (params?.subjectId && currentValue?.subjectId && params.subjectId !== currentValue.subjectId)
+      (params?.postId && params.postId !== currentValue?.postId) ||
+      (params?.subjectId && params.subjectId !== currentValue?.subjectId)
     ) {
       setFetchData();
+    } else if (viewAccount && params?.userId && params.userId !== userIdDetail) {
+      setFetchDataDetail(params.userId);
     }
   }, [props]);
 
   const setFetchData = () => {
     let cureentFilter = renderCurrentFilterFeed(props, currentValue);
     setCurrentValue(cureentFilter);
+  };
+
+  const setFetchDataDetail = userId => {
+    dispatch(actions.getUserDashBoardStart({ type: userId, userId }));
+    setUserIdDetail(userId);
   };
 
   useEffect(() => {
@@ -194,6 +205,7 @@ function Home({ ...props }) {
                 avatarUrl={genderAvatarUrl(item.avatarUrl)}
                 fullName={item.fullName}
                 created_at={item.created_at}
+                userId={item.userId}
                 note={renderNotePost(item.type, item.content, item.subjectName, listSubject)}
               />
               <ContentNew
@@ -239,7 +251,9 @@ function Home({ ...props }) {
 
   return (
     <div>
-      {viewAccount && <AccountInfo userDetail={userDetailReducer} />}
+      {viewAccount && userDetailReducer?.codeStudent && (
+        <AccountInfo userDashBoard={userDashBoard} userDetail={userDetailReducer} />
+      )}
       <FormPostTop
         fullName={fullName}
         avatarUrl={avatarUrl}

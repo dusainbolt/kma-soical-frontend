@@ -49,7 +49,7 @@ export const Routes = [
   },
   {
     name: "MyAccount",
-    path: "/my-account",
+    path: "/user-detail/:userId",
     exact: true,
     component: Homepage,
   },

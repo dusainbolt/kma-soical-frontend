@@ -6,6 +6,7 @@ import {
   putHandleLikeFeedAPI,
   getListCommentAPI,
   postAddCommentAPI,
+  getDetailDashboardAPI,
 } from "../../services/NewsRequest";
 
 function* getListNewFeed(action) {
@@ -74,10 +75,24 @@ function* postAddComment(action) {
   }
 }
 
+function* getDetailDashBoard(action) {
+  try {
+    const response = yield getDetailDashboardAPI(action.params);
+    if (response.meta.code === 0) {
+      yield put(actions.getUserDashBoardSuccess(response.data));
+    } else {
+      yield put(actions.getUserDashBoardError());
+    }
+  } catch (e) {
+    yield put(actions.getUserDashBoardError());
+  }
+}
+
 export function* watchNewFeed() {
   yield takeLatest(ActionTypes.GET_NEW_FEED_START, getListNewFeed);
   yield takeLatest(ActionTypes.POST_ADD_NEW_FEED_START, postAddNewFeed);
   yield takeLatest(ActionTypes.PUT_LIKE_FEED_START, putLikeFeed);
   yield takeLatest(ActionTypes.GET_LIST_COMMENT_START, getListCommentPost);
   yield takeLatest(ActionTypes.POST_ADD_NEW_COMMENT_START, postAddComment);
+  yield takeLatest(ActionTypes.GET_USER_DASHBOARD_START, getDetailDashBoard);
 }

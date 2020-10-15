@@ -1,6 +1,6 @@
 import { convertFeedWhenAddComment, convertObjectItem } from "../../utils";
 import { ActionTypes } from "./actions";
-import { ActionTypes as ActionSocket } from "../Layout/actions";
+import { actions, ActionTypes as ActionSocket } from "../Layout/actions";
 
 const DEFAULT_STATE = {
   listNewFeed: [],
@@ -10,6 +10,7 @@ const DEFAULT_STATE = {
   indexLoadComment: {},
   isLoadingCommentBox: {},
   listComment: {},
+  userDashBoard: {},
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -95,6 +96,17 @@ export default (state = DEFAULT_STATE, action) => {
           payload.countLikePost,
           payload.countCommentPost
         ),
+      };
+    case ActionTypes.GET_USER_DASHBOARD_START:
+      return {
+        ...state,
+        listNewFeed: [],
+        listComment: {},
+      };
+    case ActionTypes.GET_USER_DASHBOARD_SUCCESS:
+      return {
+        ...state,
+        userDashBoard: action.payload,
       };
     default:
       return state;
