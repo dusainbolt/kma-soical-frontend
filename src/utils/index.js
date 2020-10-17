@@ -26,6 +26,10 @@ export const renderErrorSearch = className => {
   );
 };
 
+export const getContentInfo = value => {
+  return value ? value : i8().t("txt.updating");
+};
+
 export function getTimeNowUnix() {
   return Math.round(new Date().getTime() / 1000);
 }

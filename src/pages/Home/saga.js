@@ -7,6 +7,8 @@ import {
   getListCommentAPI,
   postAddCommentAPI,
   getDetailDashboardAPI,
+  getUserDetailAPI,
+  getFriendsDetailAPI,
 } from "../../services/NewsRequest";
 
 function* getListNewFeed(action) {
@@ -88,6 +90,32 @@ function* getDetailDashBoard(action) {
   }
 }
 
+function* getUserDetail(action) {
+  try {
+    const response = yield getUserDetailAPI(action.params);
+    if (response.meta.code === 0) {
+      yield put(actions.getUserDetailSuccess(response.data));
+    } else {
+      yield put(actions.getUserDetailError());
+    }
+  } catch (e) {
+    yield put(actions.getUserDetailError());
+  }
+}
+
+function* getFriendsDetail(action) {
+  try {
+    const response = yield getFriendsDetailAPI(action.params);
+    if (response.meta.code === 0) {
+      yield put(actions.getFriendsDetailSuccess(response.data));
+    } else {
+      yield put(actions.getFriendsDetailError());
+    }
+  } catch (e) {
+    yield put(actions.getFriendsDetailError());
+  }
+}
+
 export function* watchNewFeed() {
   yield takeLatest(ActionTypes.GET_NEW_FEED_START, getListNewFeed);
   yield takeLatest(ActionTypes.POST_ADD_NEW_FEED_START, postAddNewFeed);
@@ -95,4 +123,6 @@ export function* watchNewFeed() {
   yield takeLatest(ActionTypes.GET_LIST_COMMENT_START, getListCommentPost);
   yield takeLatest(ActionTypes.POST_ADD_NEW_COMMENT_START, postAddComment);
   yield takeLatest(ActionTypes.GET_USER_DASHBOARD_START, getDetailDashBoard);
+  yield takeLatest(ActionTypes.GET_USER_DETAIL_START, getUserDetail);
+  yield takeLatest(ActionTypes.GET_FRIENDS_DETAIL_START, getFriendsDetail);
 }

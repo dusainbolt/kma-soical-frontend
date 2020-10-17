@@ -23,3 +23,11 @@ export const postAddCommentAPI = params => {
 export const getDetailDashboardAPI = params => {
   return api.get("/user/get_user_dashboard", params);
 };
+
+export const getUserDetailAPI = params => {
+  return api.get("/user/get_user_detail", params);
+};
+
+export const getFriendsDetailAPI = params => {
+  return api.get("/user/get_friends_detail", params);
+};

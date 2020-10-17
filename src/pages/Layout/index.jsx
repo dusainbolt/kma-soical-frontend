@@ -7,7 +7,7 @@ import CommonHeader from "../../components/Header";
 import Sidebar from "../SlideBar";
 import BoxChatCommon from "../SideBoxChat";
 import SideListFriends from "../SideListFriends";
-import { END_PC_PIXEL } from "../../common";
+import { END_PC_PIXEL, LIMIT } from "../../common";
 import {
   initSocket,
   logoutSocket,
@@ -68,7 +68,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
     dispatch(actions.changeScreenPixel(isMobileCheck));
   };
 
-  const openBoxChat = (itemUser, params) => {
+  const openBoxChat = (itemUser, params = { offset: 0, limit: LIMIT.LIST_CHAT }) => {
     dispatch(actions.openBoxChatStart(itemUser, params));
     openBoxChatSocket(itemUser);
   };
@@ -116,7 +116,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
                 />
               </Sider>
               <Content className="site-layout-background">
-                <Mycomponent {...routeProps} />
+                <Mycomponent callbackClickMessage={openBoxChat} {...routeProps} />
               </Content>
 
               <Sider

@@ -45,7 +45,7 @@
       position: absolute;
       bottom: 26px;
       right: 10px;
-      z-index: 100;
+      z-index: 3;
       border-radius: 50%;
       padding: 5px 9px;
       background-color: $bg-card-fb;
@@ -60,6 +60,9 @@
       width: 150px;
       height: 150px;
       border: solid 3px white;
+      img {
+        background: white;
+      }
       &:hover {
         img {
           filter: brightness(0.8);
@@ -131,19 +134,65 @@
   }
 
   &__friends {
-    // .title {
-    //   font-size: $font-title-medium;
-    //   font-weight: bold;
-    //   display: flex;
-    // }
     padding: 12px 24px;
     .title-wrapper {
       display: flex;
-      label {
+      align-items: center;
+      div {
         margin-left: auto;
+        &:hover {
+          background-color: $primary-color-light;
+        }
       }
     }
+    .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+      h3.total-friends {
+        margin: 0 4px;
+        font-weight: bold;
+      }
+      span {
+        font-size: $font-size;
+      }
+    }
+    .col-avatar {
+      cursor: pointer;
+      &:hover {
+        opacity: 0.7;
+      }
+      .name {
+        display: -webkit-box;
+        width: 100%;
+        line-height: 18px;
+        max-height: 38px;
+        margin-top: 5px;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+        white-space: normal;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    }
+    .ant-avatar-square {
+      width: 100% !important;
+      height: 144px !important;
+    }
   }
+}
+
+.item-view-all {
+  padding: 5px 0px;
+  height: max-content;
+  transition: 0.3s;
+  cursor: pointer;
+  color: $primary-color;
+  border-radius: 8px;
 }
 
 .info-row {
@@ -196,6 +245,19 @@
   .account {
     &__info-dashboard {
       border-left: none;
+      .account__info--item {
+        text-align: center;
+        white-space: nowrap;
+        label {
+          display: none;
+        }
+      }
+    }
+    &__friends {
+      .ant-avatar-square {
+        width: 100% !important;
+        height: 94px !important;
+      }
     }
   }
 }

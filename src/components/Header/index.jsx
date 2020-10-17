@@ -10,6 +10,7 @@ import Input from "../Input";
 import LogoHeader from "../../resource/image/LogoSidebar.png";
 import { useTranslation } from "react-i18next";
 import { Field, Formik } from "formik";
+import { onRedirect } from "../../utils";
 
 const { Paragraph } = Typography;
 
@@ -119,7 +120,7 @@ function CommonHeader({ callbackLogout }) {
   return (
     <div className="header">
       <div className="header__user">
-        <Paragraph className="header__user--logo" level={4}>
+        <Paragraph onClick={() => onRedirect("/")} className="header__user--logo" level={4}>
           <img width="140" height="55" src={LogoHeader} alt="avatar" />
         </Paragraph>
         <div className="header__search-wrapper">

@@ -28,7 +28,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
 
   const onOpenChat = (item, idUserInbox) => () => {
     if (item.userId === idUserInbox) return;
-    callbackOpenBoxChat(item, { offset: 0, limit: LIMIT.LIST_CHAT });
+    callbackOpenBoxChat(item);
     setVisiblePopoverMess(false);
   };
 

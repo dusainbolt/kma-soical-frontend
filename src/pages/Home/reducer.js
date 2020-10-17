@@ -11,6 +11,12 @@ const DEFAULT_STATE = {
   isLoadingCommentBox: {},
   listComment: {},
   userDashBoard: {},
+  userDetail: {},
+  friendsDetail: {
+    listFriends: [],
+    mutualFriends: "",
+  },
+  isLoadingFriendsDetail: false,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -102,11 +108,35 @@ export default (state = DEFAULT_STATE, action) => {
         ...state,
         listNewFeed: [],
         listComment: {},
+        userDashBoard: {},
       };
     case ActionTypes.GET_USER_DASHBOARD_SUCCESS:
       return {
         ...state,
         userDashBoard: action.payload,
+        friendsDetail: {},
+      };
+    case ActionTypes.GET_USER_DETAIL_START:
+      return {
+        ...state,
+        userDetail: {},
+      };
+    case ActionTypes.GET_USER_DETAIL_SUCCESS:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
+    case ActionTypes.GET_FRIENDS_DETAIL_START:
+      return {
+        ...state,
+        friendsDetail: {},
+        isLoadingFriendsDetail: true,
+      };
+    case ActionTypes.GET_FRIENDS_DETAIL_SUCCESS:
+      return {
+        ...state,
+        friendsDetail: action.payload,
+        isLoadingFriendsDetail: false,
       };
     default:
       return state;

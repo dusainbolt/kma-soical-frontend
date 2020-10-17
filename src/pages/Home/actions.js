@@ -17,6 +17,12 @@ export const ActionTypes = {
   GET_USER_DASHBOARD_START: "GET_USER_DASHBOARD_START",
   GET_USER_DASHBOARD_SUCCESS: "GET_USER_DASHBOARD_SUCCESS",
   GET_USER_DASHBOARD_ERROR: "GET_USER_DASHBOARD_ERROR",
+  GET_FRIENDS_DETAIL_START: "GET_FRIENDS_DETAIL_START",
+  GET_FRIENDS_DETAIL_SUCCESS: "GET_FRIENDS_DETAIL_SUCCESS",
+  GET_FRIENDS_DETAIL_ERROR: "GET_FRIENDS_DETAIL_ERROR",
+  GET_USER_DETAIL_START: "GET_USER_DETAIL_START",
+  GET_USER_DETAIL_SUCCESS: "GET_USER_DETAIL_SUCCESS",
+  GET_USER_DETAIL_ERROR: "GET_USER_DETAIL_ERROR",
 };
 
 export const actions = {
@@ -126,6 +132,42 @@ export const actions = {
   getUserDashBoardError: function (error) {
     return {
       type: ActionTypes.GET_USER_DASHBOARD_ERROR,
+      error,
+    };
+  },
+  getUserDetailStart: function (params) {
+    return {
+      type: ActionTypes.GET_USER_DETAIL_START,
+      params,
+    };
+  },
+  getUserDetailSuccess: function (success) {
+    return {
+      type: ActionTypes.GET_USER_DETAIL_SUCCESS,
+      payload: success,
+    };
+  },
+  getUserDetailError: function (error) {
+    return {
+      type: ActionTypes.GET_USER_DETAIL_ERROR,
+      error,
+    };
+  },
+  getFriendsDetailStart: function (params) {
+    return {
+      type: ActionTypes.GET_FRIENDS_DETAIL_START,
+      params,
+    };
+  },
+  getFriendsDetailSuccess: function (success) {
+    return {
+      type: ActionTypes.GET_FRIENDS_DETAIL_SUCCESS,
+      payload: success,
+    };
+  },
+  getFriendsDetailError: function (error) {
+    return {
+      type: ActionTypes.GET_FRIENDS_DETAIL_ERROR,
       error,
     };
   },

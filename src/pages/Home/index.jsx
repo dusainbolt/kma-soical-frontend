@@ -29,7 +29,7 @@ import { useTranslation } from "react-i18next";
 import { initSocketBoxComment } from "../../utils/socket";
 import { Col } from "antd";
 
-function Home({ ...props }) {
+function Home({ callbackClickMessage, ...props }) {
   const { params, path } = props.match;
   const listNewFeed = useSelector(state => state.newFeedReducer.listNewFeed);
   const isLoadingNewFeed = useSelector(state => state.newFeedReducer.isLoadingNewFeed);
@@ -42,6 +42,7 @@ function Home({ ...props }) {
   const indexLoadComment = useSelector(state => state.newFeedReducer.indexLoadComment);
   const userDetailReducer = useSelector(state => state.loginReducer.userDetail);
   const userDashBoard = useSelector(state => state.newFeedReducer.userDashBoard);
+  const userDetail = useSelector(state => state.newFeedReducer.userDetail);
 
   const avatarReducer = userDetailReducer?.avatar;
   const userId = userDetailReducer?.id;
@@ -76,7 +77,7 @@ function Home({ ...props }) {
     ) {
       setFetchData();
     } else if (viewAccount && params?.userId && params.userId !== userIdDetail) {
-      setFetchDataDetail(params.userId);
+      setFetchDataDetail(params);
     }
   }, [props]);
 
@@ -85,9 +86,15 @@ function Home({ ...props }) {
     setCurrentValue(cureentFilter);
   };
 
-  const setFetchDataDetail = userId => {
-    dispatch(actions.getUserDashBoardStart({ type: userId, userId }));
-    setUserIdDetail(userId);
+  const setFetchDataDetail = params => {
+    const idUser = params.userId;
+    const objectParams = { type: userId, userId: idUser };
+    if (userId != parseInt(idUser)) {
+      dispatch(actions.getUserDetailStart(objectParams));
+    }
+    dispatch(actions.getUserDashBoardStart(objectParams));
+    dispatch(actions.getFriendsDetailStart(objectParams));
+    setUserIdDetail(idUser);
   };
 
   useEffect(() => {
@@ -249,11 +256,31 @@ function Home({ ...props }) {
     });
   };
 
+  const renderAccountInfo = useMemo(() => {
+    const viewMyAccount = userIdDetail == userId ? true : false;
+
+    return viewMyAccount ? (
+      <AccountInfo
+        viewMyAccount={viewMyAccount}
+        callbackClickMessage={callbackClickMessage}
+        userDashBoard={userDashBoard}
+        userDetail={userDetailReducer}
+      />
+    ) : (
+      userDetail?.id && (
+        <AccountInfo
+          callbackClickMessage={callbackClickMessage}
+          viewMyAccount={viewMyAccount}
+          userDashBoard={userDashBoard}
+          userDetail={userDetail}
+        />
+      )
+    );
+  }, [userDetail, userIdDetail, userDashBoard]);
+
   return (
     <div>
-      {viewAccount && userDetailReducer?.codeStudent && (
-        <AccountInfo userDashBoard={userDashBoard} userDetail={userDetailReducer} />
-      )}
+      {renderAccountInfo}
       <FormPostTop
         fullName={fullName}
         avatarUrl={avatarUrl}
