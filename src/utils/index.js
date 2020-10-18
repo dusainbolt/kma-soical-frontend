@@ -18,6 +18,22 @@ import { getI18n as i8 } from "react-i18next";
 import AvatarDefault from "../resource/image/avatar-default.png";
 import { Divider } from "antd";
 
+export const renderTextAVG = avgRate => {
+  if (avgRate >= 1 && avgRate < 1.5) {
+    return i8().t("rate.not_good");
+  } else if (avgRate >= 1.5 && avgRate < 2) {
+    return i8().t("rate.normal");
+  } else if (avgRate >= 2 && avgRate < 2.5) {
+    return i8().t("rate.passable");
+  } else if (avgRate >= 2.5 && avgRate < 3) {
+    return i8().t("rate.good");
+  } else if (avgRate >= 3 && avgRate <= 3.5) {
+    return i8().t("rate.excellent");
+  } else {
+    return "";
+  }
+};
+
 export const renderErrorSearch = className => {
   return (
     <div className={`side-friends__search-mess--error ${className}`}>

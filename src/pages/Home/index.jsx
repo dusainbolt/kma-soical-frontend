@@ -66,6 +66,7 @@ function Home({ callbackClickMessage, ...props }) {
     if (path.indexOf("user-detail") > 0) {
       setViewAccount(true);
     } else {
+      setViewAccount(false);
       setFetchData();
     }
   }, []);

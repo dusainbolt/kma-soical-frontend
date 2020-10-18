@@ -29,6 +29,7 @@
     "you": "Bạn",
     "view_all": "Xem tất cả",
     "user_name": "Tên đăng nhập",
+    "avg": "AVG",
     "nickName": "Nick name:",
     "new_comment_notify_title": "Lượt bình luận mới",
     "new_like_notify_title": "Lượt thích bài viết mới",
@@ -65,6 +66,13 @@
     "confirm_title_CONFIRM_REGISTER": "Xác minh thành công",
     "confirm_content_CONFIRM_REGISTER": "Bây giờ bạn có thể đăng nhập và tham gia cùng cộng đồng KMA nhé.",
     "forgot_pass": "Quên mật khẩu?"
+  },
+  "rate": {
+    "not_good": "BAD",
+    "passable": "PASS",
+    "good": "GOOD",
+    "excellent": "EXCE",
+    "normal": "NOR"
   },
   "news_feed": {
     "image": "Ảnh",

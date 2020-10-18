@@ -117,6 +117,9 @@
     .anticon-signal {
       color: #269aff;
     }
+    .anticon-team {
+      color: #4b00fd;
+    }
     .anticon-smile {
       color: $green-color;
     }
@@ -183,6 +186,14 @@
       width: 100% !important;
       height: 144px !important;
     }
+  }
+}
+
+span.rate-badge {
+  margin-left: 5px;
+  sup {
+    font-size: 10px;
+    font-weight: bold;
   }
 }
 

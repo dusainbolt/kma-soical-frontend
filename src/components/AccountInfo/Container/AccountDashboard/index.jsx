@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Col, Row } from "antd";
+import { Badge, Col, Row } from "antd";
 import {
   CalendarOutlined,
   StarOutlined,
@@ -15,14 +15,15 @@ import {
   WomanOutlined,
   ManOutlined,
 } from "@ant-design/icons";
-import { getContentInfo } from "../../../../utils";
+import { getContentInfo, renderTextAVG } from "../../../../utils";
 
 function AccountDashboard({ userDashBoard, userInfo, userDetail }) {
   const { t } = useTranslation();
   const { gender, birthday, job, hobbies, school, follow } = userInfo;
   console.log(gender);
   const { codeStudent, create_at, userName } = userDetail;
-  const { totalPoint, totalLike, rateCountAVG, totalRate } = userDashBoard;
+  const { totalPoint, totalLike, rateCountAVG, totalRate, totalFollows } = userDashBoard;
+  const AVG = renderTextAVG(rateCountAVG);
   return (
     <Row className="info-row" gutter={[8, 16]}>
       <Col sm={16} xs={24}>
@@ -37,11 +38,7 @@ function AccountDashboard({ userDashBoard, userInfo, userDetail }) {
             <label>{`${t("account.hobbit")}: `}</label>
             <b>{getContentInfo(hobbies)}</b>
           </Col>
-          <Col className="account__info--item" xs={24}>
-            <TeamOutlined />
-            <label>{`${t("account.follow")}: `}</label>
-            <b>Cong Viec</b>
-          </Col>
+
           <Col className="account__info--item" xs={24}>
             <ShopOutlined />
             <label>{`${t("account.school")}: `}</label>
@@ -73,28 +70,33 @@ function AccountDashboard({ userDashBoard, userInfo, userDetail }) {
       </Col>
       <Col className="account__info-dashboard" sm={8} xs={24}>
         <Row className="account__info dashboard">
-          <Col className="account__info--item" sm={24} xs={6}>
+          <Col className="account__info--item" sm={24} xs={8}>
             <SketchCircleFilled />
             <label>{`${t("account.points")}: `}</label>
             <b>{totalPoint}</b>
           </Col>
-          <Col className="account__info--item" sm={24} xs={6}>
+          <Col className="account__info--item" sm={24} xs={8}>
             <HeartFilled />
             <label>{`${t("account.count_like")}: `}</label>
             <b>{totalLike}</b>
           </Col>
-          <Col className="account__info--item" sm={24} xs={6}>
+          <Col className="account__info--item" sm={24} xs={8}>
+            <TeamOutlined />
+            <label>{`${t("account.follow")}: `}</label>
+            <b>{totalFollows}</b>
+          </Col>
+          <Col className="account__info--item" sm={24} xs={8}>
             <SignalFilled />
             <label>{`${t("txt.count_rate")}: `}</label>
             <b>{totalRate}</b>
           </Col>
-          {totalRate > 0 && (
-            <Col className="account__info--item" sm={24} xs={6}>
-              <SmileFilled />
-              <label>{`${t("txt.rate_count_avg")}: `}</label>
-              <b>{rateCountAVG}</b>
-            </Col>
-          )}
+          <Col className="account__info--item" sm={24} xs={8}>
+            <SmileFilled />
+            <label>{`${t("txt.avg")}: `}</label>
+            <b>{rateCountAVG}</b>
+            <Badge className={`rate-badge ${AVG}`} count={`${AVG}`} />
+          </Col>
+          <Col className="account__info--item" sm={24} xs={8}></Col>
         </Row>
       </Col>
     </Row>
