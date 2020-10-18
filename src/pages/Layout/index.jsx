@@ -84,7 +84,9 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
         <ModalCommon
           visible={openChatBox}
           onCancel={closeBoxChat}
-          content={<BoxChatCommon isMobile={isMobile} className="box-tablet" />}
+          content={
+            <BoxChatCommon closeBoxChat={closeBoxChat} isMobile={isMobile} className="box-tablet" />
+          }
         />
       ))
     );

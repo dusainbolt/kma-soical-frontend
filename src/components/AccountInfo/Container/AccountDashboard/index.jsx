@@ -19,9 +19,9 @@ import { getContentInfo, renderTextAVG } from "../../../../utils";
 
 function AccountDashboard({ userDashBoard, userInfo, userDetail }) {
   const { t } = useTranslation();
-  const { gender, birthday, job, hobbies, school, follow } = userInfo;
+  const { gender, birthday, job, hobbies, school } = userInfo;
   console.log(gender);
-  const { codeStudent, create_at, userName } = userDetail;
+  const { codeStudent, userName } = userDetail;
   const { totalPoint, totalLike, rateCountAVG, totalRate, totalFollows } = userDashBoard;
   const AVG = renderTextAVG(rateCountAVG);
   return (

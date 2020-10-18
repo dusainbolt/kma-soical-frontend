@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { validateMessage, TYPE_FEED } from "../../common";
 import { Field, Formik } from "formik";
 import LoadBoxChat from "../LoadBoxChat";
-import { genderAvatarUrl, filterArray, getStatusOnline } from "../../utils";
+import { genderAvatarUrl, filterArray, getStatusOnline, onRedirect } from "../../utils";
 import Input from "../Input";
 import {
   getMessage,
@@ -27,6 +27,7 @@ function BoxChat({
   userInbox,
   myAvatar,
   isLoadingBoxChat,
+  closeBoxChat,
   exact,
   callbackGetListMessage,
   isMobile,
@@ -110,6 +111,11 @@ function BoxChat({
     }
   };
 
+  const onClickViewUserDetail = userId => {
+    closeBoxChat();
+    onRedirect(`/user-detail/${userId}`);
+  };
+
   const renderStatusLastMessage = (myMess, classIsRead) => {
     switch (myMess) {
       case true:
@@ -191,12 +197,16 @@ function BoxChat({
   const renderTopBoxChat = useMemo(() => {
     return (
       <div className="box-chat__top">
-        <div className="box-chat__top--avatar">
+        <div
+          onClick={() => onClickViewUserDetail(userInbox.userId)}
+          className="box-chat__top--avatar">
           <Badge className="active normal" dot={userInbox.isOnline}>
             <Avatar className="avatar" src={genderAvatarUrl(userInbox.avatarUrl)} alt="avatar" />
           </Badge>
         </div>
-        <div className="box-chat__top--info active">
+        <div
+          onClick={() => onClickViewUserDetail(userInbox.userId)}
+          className="box-chat__top--info active">
           {userInbox.fullName}
           <div>{getStatusOnline(userInbox.isOnline)}</div>
         </div>

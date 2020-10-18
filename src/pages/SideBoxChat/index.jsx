@@ -3,7 +3,7 @@ import BoxChat from "../../components/BoxChat";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "./actions";
 
-function BoxChatContainer({ className, isMobile }) {
+function BoxChatContainer({ className, isMobile, closeBoxChat }) {
   const listChat = useSelector(state => state.boxChat.listChat);
   const roomChat = useSelector(state => state.boxChat.roomChat);
   const indexLoad = useSelector(state => state.boxChat.indexLoad);
@@ -34,6 +34,7 @@ function BoxChatContainer({ className, isMobile }) {
       indexLoad={indexLoad}
       listChat={listChat}
       roomChat={roomChat}
+      closeBoxChat={closeBoxChat}
       myAvatar={myAvatar}
       className={className}
       isLoadingBoxChat={isLoadingBoxChat}

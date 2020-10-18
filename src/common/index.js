@@ -134,6 +134,7 @@ export const TYPE_FEED = {
   HOT_NEW: 4,
   ONLY_TEXT: 5,
   ONLY_ID: 6,
+  ONLY_USER: 7,
 };
 
 export const LIMIT = {

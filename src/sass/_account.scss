@@ -141,6 +141,7 @@
     .title-wrapper {
       display: flex;
       align-items: center;
+      margin-bottom: 12px;
       div {
         margin-left: auto;
         &:hover {
@@ -180,6 +181,7 @@
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
         overflow: hidden;
+        text-align: center;
       }
     }
     .ant-avatar-square {

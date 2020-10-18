@@ -25,46 +25,43 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage }) {
   } = userDetail;
 
   const renderFirendsDetail = useMemo(() => {
-    console.log(friendsDetail);
     return <AccountInfoFriends friendsDetail={friendsDetail} />;
   }, [friendsDetail, isLoadingFriendsDetail]);
 
   return (
-    userDetail.id && (
-      <>
-        <div className="account form-feed">
-          <div className="account__cover-wrapper">
-            <LazyloadImg delayThrottle={100} height={390} className="img-cover" src={url_img} />
-            <div className="account__cover-wrapper--btn-upload">
-              <CameraFilled />
-              {t("news_feed.upload_cover_img")}
-            </div>
-          </div>
-          <div className="account__image-avatar">
-            <div className="account__image-avatar--icon-upload">
-              <CameraFilled />
-            </div>
-            <Avatar src={genderAvatarUrl(avatar)} />
-          </div>
-          <div className="account__content-warpper">
-            <div className="account__name">{fullName}</div>
-            <p className="account__sologan">{sologan}</p>
-            <ActionInfo
-              fullName={fullName}
-              userDetail={userDetail}
-              callbackClickMessage={callbackClickMessage}
-            />
-            <Divider />
-            <AccountDashboard
-              userInfo={userDetail.get_user_info}
-              userDetail={userDetail}
-              userDashBoard={userDashBoard}
-            />
+    <>
+      <div className="account form-feed">
+        <div className="account__cover-wrapper">
+          <LazyloadImg delayThrottle={100} height={390} className="img-cover" src={url_img} />
+          <div className="account__cover-wrapper--btn-upload">
+            <CameraFilled />
+            {t("news_feed.upload_cover_img")}
           </div>
         </div>
-        {renderFirendsDetail}
-      </>
-    )
+        <div className="account__image-avatar">
+          <div className="account__image-avatar--icon-upload">
+            <CameraFilled />
+          </div>
+          <Avatar src={genderAvatarUrl(avatar)} />
+        </div>
+        <div className="account__content-warpper">
+          <div className="account__name">{fullName}</div>
+          <p className="account__sologan">{sologan}</p>
+          <ActionInfo
+            fullName={fullName}
+            userDetail={userDetail}
+            callbackClickMessage={callbackClickMessage}
+          />
+          <Divider />
+          <AccountDashboard
+            userInfo={userDetail.get_user_info}
+            userDetail={userDetail}
+            userDashBoard={userDashBoard}
+          />
+        </div>
+      </div>
+      {renderFirendsDetail}
+    </>
   );
 }
 export default AccountInfo;

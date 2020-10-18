@@ -12,7 +12,7 @@ import ModalCommon from "../../components/Modal";
 import AccountInfo from "../../components/AccountInfo";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
-import { OPTION_LiGHTBOX } from "../../common";
+import { OPTION_LiGHTBOX, TYPE_FEED } from "../../common";
 import FormAddNew from "../../components/FormAddNew";
 import {
   getArrayImg,
@@ -22,8 +22,9 @@ import {
   genderAvatarUrl,
   renderCurrentFilterFeed,
   checkIncludeArray,
-  onRedirect,
 } from "../../utils";
+
+import SkeletonUserDetail from "../../components/SkeletonUserDetail";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useTranslation } from "react-i18next";
 import { initSocketBoxComment } from "../../utils/socket";
@@ -43,6 +44,9 @@ function Home({ callbackClickMessage, ...props }) {
   const userDetailReducer = useSelector(state => state.loginReducer.userDetail);
   const userDashBoard = useSelector(state => state.newFeedReducer.userDashBoard);
   const userDetail = useSelector(state => state.newFeedReducer.userDetail);
+  const isLoadingFriendsDetail = useSelector(state => state.newFeedReducer.isLoadingFriendsDetail);
+  const isLoadingDashBoard = useSelector(state => state.newFeedReducer.isLoadingDashBoard);
+  const isLoadingUserDetail = useSelector(state => state.newFeedReducer.isLoadingUserDetail);
 
   const avatarReducer = userDetailReducer?.avatar;
   const userId = userDetailReducer?.id;
@@ -93,9 +97,10 @@ function Home({ callbackClickMessage, ...props }) {
     if (userId != parseInt(idUser)) {
       dispatch(actions.getUserDetailStart(objectParams));
     }
-    dispatch(actions.getUserDashBoardStart(objectParams));
     dispatch(actions.getFriendsDetailStart(objectParams));
+    dispatch(actions.getUserDashBoardStart(objectParams));
     setUserIdDetail(idUser);
+    setCurrentValue({ userId: idUser, type: TYPE_FEED.ONLY_USER });
   };
 
   useEffect(() => {
@@ -259,21 +264,15 @@ function Home({ callbackClickMessage, ...props }) {
 
   const renderAccountInfo = useMemo(() => {
     const viewMyAccount = userIdDetail == userId ? true : false;
+    const userDetailData = viewMyAccount ? userDetailReducer : userDetail;
 
-    return viewMyAccount ? (
-      <AccountInfo
-        viewMyAccount={viewMyAccount}
-        callbackClickMessage={callbackClickMessage}
-        userDashBoard={userDashBoard}
-        userDetail={userDetailReducer}
-      />
-    ) : (
-      userDetail?.id && (
+    return (
+      userDetailData?.id && (
         <AccountInfo
           callbackClickMessage={callbackClickMessage}
           viewMyAccount={viewMyAccount}
           userDashBoard={userDashBoard}
-          userDetail={userDetail}
+          userDetail={userDetailData}
         />
       )
     );
@@ -281,12 +280,21 @@ function Home({ callbackClickMessage, ...props }) {
 
   return (
     <div>
-      {renderAccountInfo}
-      <FormPostTop
-        fullName={fullName}
-        avatarUrl={avatarUrl}
-        callBackOpenFormAddNew={openFormAddNew}
-      />
+      {isLoadingFriendsDetail || isLoadingDashBoard || isLoadingUserDetail ? (
+        <>
+          <SkeletonUserDetail />
+          <SkeletonNewFeed />
+        </>
+      ) : (
+        viewAccount && renderAccountInfo
+      )}
+      {(!viewAccount || userIdDetail == userId) && (
+        <FormPostTop
+          fullName={fullName}
+          avatarUrl={avatarUrl}
+          callBackOpenFormAddNew={openFormAddNew}
+        />
+      )}
       {isView && renderLightBox}
       {listNewFeed.length !== 0 && renderListNewFeed()}
       {isLoadingNewFeed && <SkeletonNewFeed />}

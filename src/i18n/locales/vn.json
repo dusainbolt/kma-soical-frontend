@@ -40,6 +40,8 @@
     "rate_count_avg": "Điểm trung bình",
     "of_me": "của bạn:",
     "count_rate": "Lượt đánh giá",
+    "notify_no_find_user_title": "Thông báo lỗi",
+    "notify_no_find_user_content": "Không tìm thấy người dùng",
     "hobbies": "Sở thích",
     "my_follow": "mà bạn đang theo dõi:",
     "btn_login": "Đăng nhập",

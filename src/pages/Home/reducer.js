@@ -17,6 +17,8 @@ const DEFAULT_STATE = {
     mutualFriends: "",
   },
   isLoadingFriendsDetail: false,
+  isLoadingDashBoard: false,
+  isLoadingUserDetail: false,
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -114,7 +116,6 @@ export default (state = DEFAULT_STATE, action) => {
       return {
         ...state,
         userDashBoard: action.payload,
-        friendsDetail: {},
       };
     case ActionTypes.GET_USER_DETAIL_START:
       return {

@@ -5,6 +5,7 @@ import { actions } from "../pages/Layout/actions";
 import showNotification from "../components/Notification";
 import { ERROR_NETWORK, ERROR_AUTH } from "../common";
 import { logoutSocket } from "../utils/socket";
+import { onRedirect } from "../utils";
 class AxiosServer {
   constructor() {
     const instance = axios.create();
@@ -30,12 +31,14 @@ class AxiosServer {
       if (msg) {
         showNotification(0, `notify_${msg}_title`, `notify_${msg}_content`);
       }
+      if (msg === "no_find_user") {
+        onRedirect("/home");
+      }
     }
     return response.data;
   }
 
   handelError(error) {
-    console.log(error);
     if (error.response && error.response.status === 401) {
       const promiseList = [];
       promiseList.push(localStorage.removeItem("persist:root"));

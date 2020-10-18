@@ -85,7 +85,9 @@ function SearchTop({
   const renderListUserSearch = useMemo(() => {
     return listUserSearch.map((item, index) => (
       <Col key={index} lg={8} md={12} xs={24}>
-        <div className="user-wrapper search-item">
+        <div
+          onClick={() => onSearchByResult("user-detail", item.userId, item.fullName)}
+          className="user-wrapper search-item">
           <Avatar src={genderAvatarUrl(item.avatarUrl)} />
           {item.fullName}
         </div>
