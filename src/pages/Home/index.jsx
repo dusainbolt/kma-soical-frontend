@@ -215,7 +215,7 @@ function Home({ callbackClickMessage, ...props }) {
           <FadeIn delay={100} transitionDuration={500}>
             <div className="form-feed">
               <PostTop
-                avatarUrl={genderAvatarUrl(item.avatarUrl)}
+                avatarUrl={item.userId === userId ? avatarReducer : genderAvatarUrl(item.avatarUrl)}
                 fullName={item.fullName}
                 created_at={item.created_at}
                 userId={item.userId}

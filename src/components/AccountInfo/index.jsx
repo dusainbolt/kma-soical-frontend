@@ -3,13 +3,14 @@ import LazyloadImg from "../LazyLoadingImg";
 import Avatar from "antd/lib/avatar/avatar";
 import { useTranslation } from "react-i18next";
 import { genderAvatarUrl } from "../../utils";
-import { Col, Divider, Row } from "antd";
+import { Col, Divider, Row, Upload } from "antd";
 import ActionInfo from "./Container/ActionInfo";
 import AccountDashboard from "./Container/AccountDashboard";
 import AccountInfoFriends from "./Container/AccountInfoFriends";
 import { CameraFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
+import UploadImage from "../UploadImage";
 
 const url_img =
   "https://img.vn/uploads/thuvien/viber-image-2019-08-06-10-40-38-jpg-20190807145944LO3qbinQdG.jpg";
@@ -28,6 +29,18 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage }) {
     return <AccountInfoFriends friendsDetail={friendsDetail} />;
   }, [friendsDetail, isLoadingFriendsDetail]);
 
+  const onChange = file => {
+    console.log(file);
+  };
+
+  const renderButtonAvatar = () => {
+    return (
+      <div className="account__image-avatar--icon-upload">
+        <CameraFilled />
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="account form-feed">
@@ -39,9 +52,7 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage }) {
           </div>
         </div>
         <div className="account__image-avatar">
-          <div className="account__image-avatar--icon-upload">
-            <CameraFilled />
-          </div>
+          <UploadImage cover={false} content={renderButtonAvatar()} />
           <Avatar src={genderAvatarUrl(avatar)} />
         </div>
         <div className="account__content-warpper">

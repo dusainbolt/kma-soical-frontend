@@ -2,14 +2,27 @@ export const ActionTypes = {
   POST_LOGIN_START: "POST_LOGIN_START",
   POST_LOGIN_SUCCESS: "POST_LOGIN_SUCCESS",
   POST_LOGIN_ERROR: "POST_LOGIN_ERROR",
-  RESET_USER_CONFIRM: "RESET_USER_CONFIRM",
+  RESET_USER_CONFIRM_START: "RESET_USER_CONFIRM_START",
+  RESET_USER_CONFIRM_SUCCESS: "RESET_USER_CONFIRM_SUCCESS",
+  RESET_USER_CONFIRM_ERROR: "RESET_USER_CONFIRM_ERROR",
 };
 
 export const actions = {
-  retSetUserNew: function (body) {
+  resetUserConfirmStart: function () {
     return {
-      type: ActionTypes.RESET_USER_CONFIRM,
-      body,
+      type: ActionTypes.RESET_USER_CONFIRM_START,
+    };
+  },
+  resetUserConfirmSuccess: function (success) {
+    return {
+      type: ActionTypes.RESET_USER_CONFIRM_SUCCESS,
+      payload: success,
+    };
+  },
+  resetUserConfirmError: function (error) {
+    return {
+      type: ActionTypes.RESET_USER_CONFIRM_ERROR,
+      payload: error,
     };
   },
   postLoginStart: function (values) {

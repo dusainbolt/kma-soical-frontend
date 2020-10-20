@@ -18,10 +18,10 @@ function initSocket(dispatchVal, myUserId) {
       console.log("---->>>>>>>>>>>> CONNECT SOCKET <<<<<<<<<--------");
       dispatch = dispatchVal;
       userId = myUserId;
+      baseSocket();
       speakOnline();
       getListOnline();
       getMyInbox();
-      baseSocket();
       receiveBoxChat();
       receiveLikeNewFeed();
       receiveNotification();

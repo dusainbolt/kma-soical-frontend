@@ -43,7 +43,7 @@ a {
 }
 
 .layout {
-  .ant-layout{
+  .ant-layout {
     background-color: #f7f7f8;
   }
   .layout__header {
@@ -57,10 +57,18 @@ a {
   .site-layout {
     overflow: hidden;
   }
-  &__side-bg{
+  &__side-bg {
     background-color: transparent !important;
-    .layout-page-sider-menu{
+    .layout-page-sider-menu {
       background-color: transparent !important;
+    }
+  }
+}
+
+.ant-message {
+  .ant-message-custom-content {
+    span {
+      font-size: $font-size;
     }
   }
 }

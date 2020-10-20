@@ -1,11 +1,57 @@
 .my-upload {
-    button.ant-upload-list-item-card-actions-btn{
-        min-width: unset !important;
-    }
+  button.ant-upload-list-item-card-actions-btn {
+    min-width: unset !important;
+  }
 }
 
-.upload-avatar{
-    .ant-upload-select{
-        width: 100%;
+.upload-avatar {
+  .ant-upload-select {
+    width: 100%;
+  }
+}
+
+.antd-img-crop-modal {
+  .ant-modal-title {
+    font-weight: bold;
+  }
+  .ant-modal-close-x {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    background-color: $bg-site-layout;
+    margin-top: 10px;
+    margin-right: 8px;
+    line-height: 20px;
+    font-weight: bold;
+  }
+
+  .ant-modal-footer {
+    justify-content: center;
+    display: flex;
+    button.ant-btn:last-child {
+      @extend .btn-primary;
+      min-width: 120px;
     }
+    button.ant-btn:first-child {
+      @extend .btn-outline-primary;
+      min-width: 120px;
+    }
+  }
+
+  .ant-slider,
+  div.ant-slider:hover {
+    .ant-slider-track {
+      background-color: $primary-color;
+    }
+
+    .ant-slider-handle,
+    .ant-slider-handle:focus,
+    .ant-slider:hover,
+    .ant-slider-handle:not(.ant-tooltip-open) {
+      border-color: $primary-color;
+      &:focus {
+        box-shadow: $box-shadow-primary;
+      }
+    }
+  }
 }

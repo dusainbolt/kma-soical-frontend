@@ -16,6 +16,10 @@ export const postLoginAPI = body => {
   return api.post("/user/login", body);
 };
 
+export const getUserConfirmAPI = () => {
+  return api.get("/user/auth");
+};
+
 export const postLogoutAPI = body => {
   return api.post("/user/logout", body);
 };

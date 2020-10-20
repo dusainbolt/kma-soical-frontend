@@ -34,6 +34,12 @@ export default (state = DEFAULT_STATE, action) => {
         token: "",
         userDetail: {},
       };
+    case ActionTypes.RESET_USER_CONFIRM_SUCCESS:
+      return {
+        ...state,
+        token: action.payload.token,
+        userDetail: action.payload.userInfo,
+      };
     default:
       return state;
   }

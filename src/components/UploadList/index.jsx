@@ -7,7 +7,7 @@ import { beforeUpload, getBase64 } from "../../utils/upload";
 import ButtonCommon from "../Button";
 import { useTranslation } from "react-i18next";
 
-function UploadList({callbackChangeFileList, fileList}) {
+function UploadList({ callbackChangeFileList, fileList }) {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState(false);
   const [previewTitle, setPreviewTitle] = useState(null);
@@ -29,6 +29,10 @@ function UploadList({callbackChangeFileList, fileList}) {
   const handleChangeUploadList = uploadItem => {
     const fileUpload = uploadItem.fileList;
     const length = fileUpload?.length;
+    if (!beforeUpload(fileUpload[length - 1])) {
+      callbackChangeFileList([]);
+      return;
+    }
     let fileObject = {};
     if (length > LIMIT_UPLOAD_NEW) return;
     if (length && fileUpload[length - 1]?.originFileObj) {
@@ -75,7 +79,6 @@ function UploadList({callbackChangeFileList, fileList}) {
         listType="picture-card"
         multiple
         fileList={mapFileList}
-        beforeUpload={beforeUpload}
         onPreview={handlePreview}
         accept={validateIMG.toString()}
         onChange={handleChangeUploadList}>
