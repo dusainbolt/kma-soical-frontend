@@ -117,16 +117,16 @@ function* getFriendsDetail(action) {
   }
 }
 
-function* postChangeAvatar(action) {
+function* postChangeImageInfo(action) {
   try {
     const response = yield postChangeAvatarAPI(action.body);
     if (response.meta.code === 0) {
-      yield put(actions.postChangeAvatarSuccess(response.data));
+      yield put(actions.postChangeImageInfoSuccess(response.data));
     } else {
-      yield put(actions.postChangeAvatarError());
+      yield put(actions.postChangeImageInfoError());
     }
   } catch (e) {
-    yield put(actions.postChangeAvatarError());
+    yield put(actions.postChangeImageInfoError());
   }
 }
 
@@ -138,6 +138,6 @@ export function* watchNewFeed() {
   yield takeLatest(ActionTypes.POST_ADD_NEW_COMMENT_START, postAddComment);
   yield takeLatest(ActionTypes.GET_USER_DASHBOARD_START, getDetailDashBoard);
   yield takeLatest(ActionTypes.GET_USER_DETAIL_START, getUserDetail);
-  yield takeLatest(ActionTypes.POST_CHANGE_AVATAR_START, postChangeAvatar);
+  yield takeLatest(ActionTypes.POST_CHANGE_IMAGE_INFO_START, postChangeImageInfo);
   yield takeLatest(ActionTypes.GET_FRIENDS_DETAIL_START, getFriendsDetail);
 }

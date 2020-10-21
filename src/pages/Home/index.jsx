@@ -75,6 +75,7 @@ function Home({ callbackClickMessage, ...props }) {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (
       (params?.postId && params.postId !== currentValue?.postId) ||
       (params?.subjectId && params.subjectId !== currentValue?.subjectId)
@@ -206,11 +207,11 @@ function Home({ callbackClickMessage, ...props }) {
     dispatch(actions.postAddNewCommentStart(values));
   };
 
-  const onChangeAvatar = useCallback(originFileObj => {
+  const onChangeImageInfo = useCallback((originFileObj, type) => {
     let bodyFormData = new FormData();
     bodyFormData.append("image", originFileObj);
-    bodyFormData.append("type", TYPE_UPLOAD.AVATAR);
-    dispatch(actions.postChangeAvatarStart(bodyFormData));
+    bodyFormData.append("type", type);
+    dispatch(actions.postChangeImageInfoStart(bodyFormData, type));
   }, []);
 
   const renderListNewFeed = () => {
@@ -276,7 +277,7 @@ function Home({ callbackClickMessage, ...props }) {
       userDetailData?.id && (
         <AccountInfo
           callbackClickMessage={callbackClickMessage}
-          callbackChangeAvatar={onChangeAvatar}
+          callbackChangeImageInfo={onChangeImageInfo}
           viewMyAccount={viewMyAccount}
           userDashBoard={userDashBoard}
           userDetail={userDetailData}

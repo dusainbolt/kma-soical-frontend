@@ -17,7 +17,8 @@ import moment from "moment";
 import { getI18n as i8 } from "react-i18next";
 import AvatarDefault from "../resource/image/avatar-default.png";
 import { Divider } from "antd";
-
+const url_img =
+  "https://img.vn/uploads/thuvien/viber-image-2019-08-06-10-40-38-jpg-20190807145944LO3qbinQdG.jpg";
 export const renderTextAVG = avgRate => {
   if (avgRate >= 1 && avgRate < 1.5) {
     return i8().t("rate.not_good");
@@ -406,6 +407,10 @@ export const renderNoteComment = total => {
 
 export const genderAvatarUrl = avatarUrl => {
   return avatarUrl ? avatarUrl : AvatarDefault;
+};
+
+export const genderCoverImageUrl = url => {
+  return url ? url : url_img;
 };
 
 export const getStatusOnline = status => {

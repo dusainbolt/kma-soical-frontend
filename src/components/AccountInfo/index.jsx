@@ -2,7 +2,7 @@ import React from "react";
 import LazyloadImg from "../LazyLoadingImg";
 import Avatar from "antd/lib/avatar/avatar";
 import { useTranslation } from "react-i18next";
-import { genderAvatarUrl } from "../../utils";
+import { genderAvatarUrl, genderCoverImageUrl } from "../../utils";
 import { Col, Divider, Row, Upload } from "antd";
 import ActionInfo from "./Container/ActionInfo";
 import AccountDashboard from "./Container/AccountDashboard";
@@ -12,25 +12,29 @@ import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import UploadImage from "../UploadImage";
 import { useState } from "react";
+import { TYPE_UPLOAD } from "../../common";
 import { getBase64 } from "../../utils/upload";
 
-const url_img =
-  "https://img.vn/uploads/thuvien/viber-image-2019-08-06-10-40-38-jpg-20190807145944LO3qbinQdG.jpg";
-
 function AccountInfo({
-  userDetail,
   viewMyAccount,
   userDashBoard,
   callbackClickMessage,
-  callbackChangeAvatar,
+  callbackChangeImageInfo,
 }) {
   const { t } = useTranslation();
   const friendsDetail = useSelector(state => state.newFeedReducer.friendsDetail);
   const isLoadingFriendsDetail = useSelector(state => state.newFeedReducer.isLoadingFriendsDetail);
+  const isLoadingAvatar = useSelector(state => state.loginReducer.isLoadingAvatar);
+  const isLoadingCoverImage = useSelector(state => state.loginReducer.isLoadingCoverImage);
+  const userDetail = useSelector(state => state.loginReducer.userDetail);
+
   const [avatarLoad, setAvatarLoad] = useState(null);
+  const [coverImageLoad, setCoverImageLoad] = useState(null);
+
   const {
     get_user_info: { fullName, sologan },
     avatar,
+    coverImage,
   } = userDetail;
 
   const renderFirendsDetail = useMemo(() => {
@@ -38,8 +42,13 @@ function AccountInfo({
   }, [friendsDetail, isLoadingFriendsDetail]);
 
   const handleChangeAvatar = originFileObj => {
-    callbackChangeAvatar(originFileObj);
+    callbackChangeImageInfo(originFileObj, TYPE_UPLOAD.AVATAR);
     renderAvatarLoad(originFileObj);
+  };
+
+  const handleChangeCoverImage = originFileObj => {
+    callbackChangeImageInfo(originFileObj, TYPE_UPLOAD.COVER);
+    renderImageCoverLoad(originFileObj);
   };
 
   const renderButtonAvatar = () => {
@@ -63,29 +72,38 @@ function AccountInfo({
     setAvatarLoad(await getBase64(originFileObj));
   };
 
+  const renderImageCoverLoad = async originFileObj => {
+    setCoverImageLoad(await getBase64(originFileObj));
+  };
+
   return (
     <>
       <div className="account form-feed">
         <div className="account__cover-wrapper">
           {viewMyAccount && (
             <UploadImage
-              callbackUpload={handleChangeAvatar}
-              cover={false}
+              callbackUpload={handleChangeCoverImage}
+              cover={true}
               content={renderButtonCover()}
               className="upload-cover"
             />
           )}
-          <LazyloadImg delayThrottle={100} height={390} className="img-cover" src={url_img} />
+          <LazyloadImg
+            delayThrottle={100}
+            height={390}
+            className={`img-cover ${isLoadingCoverImage ? "loading" : ""}`}
+            src={isLoadingCoverImage ? coverImageLoad : genderCoverImageUrl(coverImage)}
+          />
         </div>
-        <div className="account__image-avatar">
+        <div className={`account__image-avatar ${isLoadingAvatar ? "loading" : ""}`}>
           {viewMyAccount && (
             <UploadImage
               callbackUpload={handleChangeAvatar}
               cover={false}
-              content={renderButtonAvatar()}
+              content={isLoadingCoverImage ? coverImageLoad : renderButtonAvatar()}
             />
           )}
-          <Avatar src={avatarLoad ? avatarLoad : genderAvatarUrl(avatar)} />
+          <Avatar src={isLoadingAvatar ? avatarLoad : genderAvatarUrl(avatar)} />
         </div>
         <div className="account__content-warpper">
           <div className="account__name">{fullName}</div>

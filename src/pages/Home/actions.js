@@ -23,9 +23,9 @@ export const ActionTypes = {
   GET_USER_DETAIL_START: "GET_USER_DETAIL_START",
   GET_USER_DETAIL_SUCCESS: "GET_USER_DETAIL_SUCCESS",
   GET_USER_DETAIL_ERROR: "GET_USER_DETAIL_ERROR",
-  POST_CHANGE_AVATAR_START: "POST_CHANGE_AVATAR_START",
-  POST_CHANGE_AVATAR_SUCCESS: "POST_CHANGE_AVATAR_SUCCESS",
-  POST_CHANGE_AVATAR_ERROR: "POST_CHANGE_AVATAR_ERROR",
+  POST_CHANGE_IMAGE_INFO_START: "POST_CHANGE_IMAGE_INFO_START",
+  POST_CHANGE_IMAGE_INFO_SUCCESS: "POST_CHANGE_IMAGE_INFO_SUCCESS",
+  POST_CHANGE_IMAGE_INFO_ERROR: "POST_CHANGE_IMAGE_INFO_ERROR",
 };
 
 export const actions = {
@@ -174,21 +174,22 @@ export const actions = {
       error,
     };
   },
-  postChangeAvatarStart: function (body) {
+  postChangeImageInfoStart: function (body, typeUpload) {
     return {
-      type: ActionTypes.POST_CHANGE_AVATAR_START,
+      type: ActionTypes.POST_CHANGE_IMAGE_INFO_START,
       body,
+      typeUpload,
     };
   },
-  postChangeAvatarSuccess: function (success) {
+  postChangeImageInfoSuccess: function (success) {
     return {
-      type: ActionTypes.POST_CHANGE_AVATAR_SUCCESS,
+      type: ActionTypes.POST_CHANGE_IMAGE_INFO_SUCCESS,
       payload: success,
     };
   },
-  postChangeAvatarError: function (error) {
+  postChangeImageInfoError: function (error) {
     return {
-      type: ActionTypes.POST_CHANGE_AVATAR_ERROR,
+      type: ActionTypes.POST_CHANGE_IMAGE_INFO_ERROR,
       error,
     };
   },
