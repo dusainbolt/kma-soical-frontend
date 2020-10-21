@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import { validateIMG } from "../../common";
 import { beforeUpload } from "../../utils/upload";
 import { useTranslation } from "react-i18next";
 
-function UploadImage({ content, cover = true }) {
+function UploadImage({ content, cover = true, callbackUpload }) {
   const { t } = useTranslation();
-  const onChangeFile = file => {
-    console.log(file);
+
+  const [fileUpload, setFileUpload] = useState(null);
+
+  const onChangeFile = ({ file }) => {
+    if (file && file?.uid !== fileUpload?.uid && file?.originFileObj) {
+      setFileUpload(file);
+      callbackUpload(file.originFileObj);
+    }
   };
 
   const beforeCrop = file => {

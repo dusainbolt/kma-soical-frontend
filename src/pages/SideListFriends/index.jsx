@@ -18,6 +18,9 @@ function SidebarMessage({ callbackOpenBoxChat }) {
   const idUserShowMess = useSelector(state => state.sideBarMessage.idUserShowMess);
   const userInbox = useSelector(state => state.boxChat.userInbox);
   const isMobile = useSelector(state => state.layoutReducer.isMobile);
+  const avatarReducer = useSelector(state => state.loginReducer.userDetail?.avatar);
+  const myUserId = useSelector(state => state.loginReducer.userDetail?.id);
+
   const [searchText, setSearchText] = useState(null);
   const [visiblePopoverMess, setVisiblePopoverMess] = useState(false);
   const dispatch = useDispatch();
@@ -56,7 +59,10 @@ function SidebarMessage({ callbackOpenBoxChat }) {
               <Badge
                 dot={!item.countMessage && item.isOnline ? true : null}
                 count={item.countMessage ? item.countMessage : null}>
-                <Avatar src={genderAvatarUrl(item.avatarUrl)} alt="avatar" />
+                <Avatar
+                  src={genderAvatarUrl(item.userId === myUserId ? avatarReducer : item.avatarUrl)}
+                  alt="avatar"
+                />
               </Badge>
             </Popover>
             {!isMobile && <span className="side-friends__user-name">{item.fullName}</span>}
@@ -64,7 +70,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
         </FadeIn>
       );
     });
-  }, [listFriends, userInbox, visiblePopoverMess, isMobile]);
+  }, [listFriends, userInbox, visiblePopoverMess, avatarReducer, isMobile]);
 
   useEffect(() => {
     setTimeout(() => setVisiblePopoverMess(true));

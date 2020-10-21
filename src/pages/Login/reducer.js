@@ -40,6 +40,11 @@ export default (state = DEFAULT_STATE, action) => {
         token: action.payload.token,
         userDetail: action.payload.userInfo,
       };
+    case ActionTypes.POST_CHANGE_AVATAR_SUCCESS:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
     default:
       return state;
   }

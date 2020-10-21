@@ -23,6 +23,9 @@ export const ActionTypes = {
   GET_USER_DETAIL_START: "GET_USER_DETAIL_START",
   GET_USER_DETAIL_SUCCESS: "GET_USER_DETAIL_SUCCESS",
   GET_USER_DETAIL_ERROR: "GET_USER_DETAIL_ERROR",
+  POST_CHANGE_AVATAR_START: "POST_CHANGE_AVATAR_START",
+  POST_CHANGE_AVATAR_SUCCESS: "POST_CHANGE_AVATAR_SUCCESS",
+  POST_CHANGE_AVATAR_ERROR: "POST_CHANGE_AVATAR_ERROR",
 };
 
 export const actions = {
@@ -168,6 +171,24 @@ export const actions = {
   getFriendsDetailError: function (error) {
     return {
       type: ActionTypes.GET_FRIENDS_DETAIL_ERROR,
+      error,
+    };
+  },
+  postChangeAvatarStart: function (body) {
+    return {
+      type: ActionTypes.POST_CHANGE_AVATAR_START,
+      body,
+    };
+  },
+  postChangeAvatarSuccess: function (success) {
+    return {
+      type: ActionTypes.POST_CHANGE_AVATAR_SUCCESS,
+      payload: success,
+    };
+  },
+  postChangeAvatarError: function (error) {
+    return {
+      type: ActionTypes.POST_CHANGE_AVATAR_ERROR,
       error,
     };
   },

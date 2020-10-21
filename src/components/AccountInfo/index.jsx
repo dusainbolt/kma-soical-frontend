@@ -11,15 +11,17 @@ import { CameraFilled } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import UploadImage from "../UploadImage";
+import { useState } from "react";
+import { getBase64 } from "../../utils/upload";
 
 const url_img =
   "https://img.vn/uploads/thuvien/viber-image-2019-08-06-10-40-38-jpg-20190807145944LO3qbinQdG.jpg";
 
-function AccountInfo({ userDetail, userDashBoard, callbackClickMessage }) {
+function AccountInfo({ userDetail, userDashBoard, callbackClickMessage, callbackChangeAvatar }) {
   const { t } = useTranslation();
   const friendsDetail = useSelector(state => state.newFeedReducer.friendsDetail);
   const isLoadingFriendsDetail = useSelector(state => state.newFeedReducer.isLoadingFriendsDetail);
-
+  const [avatarLoad, setAvatarLoad] = useState(null);
   const {
     get_user_info: { fullName, sologan },
     avatar,
@@ -29,8 +31,9 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage }) {
     return <AccountInfoFriends friendsDetail={friendsDetail} />;
   }, [friendsDetail, isLoadingFriendsDetail]);
 
-  const onChange = file => {
-    console.log(file);
+  const handleChangeAvatar = originFileObj => {
+    callbackChangeAvatar(originFileObj);
+    renderAvatarLoad(originFileObj);
   };
 
   const renderButtonAvatar = () => {
@@ -39,6 +42,10 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage }) {
         <CameraFilled />
       </div>
     );
+  };
+
+  const renderAvatarLoad = async originFileObj => {
+    setAvatarLoad(await getBase64(originFileObj));
   };
 
   return (
@@ -52,8 +59,12 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage }) {
           </div>
         </div>
         <div className="account__image-avatar">
-          <UploadImage cover={false} content={renderButtonAvatar()} />
-          <Avatar src={genderAvatarUrl(avatar)} />
+          <UploadImage
+            callbackUpload={handleChangeAvatar}
+            cover={false}
+            content={renderButtonAvatar()}
+          />
+          <Avatar src={avatarLoad ? avatarLoad : genderAvatarUrl(avatar)} />
         </div>
         <div className="account__content-warpper">
           <div className="account__name">{fullName}</div>

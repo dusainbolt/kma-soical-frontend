@@ -12,7 +12,7 @@ import ModalCommon from "../../components/Modal";
 import AccountInfo from "../../components/AccountInfo";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
-import { OPTION_LiGHTBOX, TYPE_FEED } from "../../common";
+import { OPTION_LiGHTBOX, TYPE_FEED, TYPE_UPLOAD } from "../../common";
 import FormAddNew from "../../components/FormAddNew";
 import {
   getArrayImg,
@@ -28,7 +28,6 @@ import SkeletonUserDetail from "../../components/SkeletonUserDetail";
 import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 import { useTranslation } from "react-i18next";
 import { initSocketBoxComment } from "../../utils/socket";
-import { Col } from "antd";
 
 function Home({ callbackClickMessage, ...props }) {
   const { params, path } = props.match;
@@ -207,6 +206,13 @@ function Home({ callbackClickMessage, ...props }) {
     dispatch(actions.postAddNewCommentStart(values));
   };
 
+  const onChangeAvatar = useCallback(originFileObj => {
+    let bodyFormData = new FormData();
+    bodyFormData.append("image", originFileObj);
+    bodyFormData.append("type", TYPE_UPLOAD.AVATAR);
+    dispatch(actions.postChangeAvatarStart(bodyFormData));
+  }, []);
+
   const renderListNewFeed = () => {
     return listNewFeed.map((item, index) => {
       const isLikeByMe = checkIncludeArray(userId, item.listUserLike.toString().split(","));
@@ -270,6 +276,7 @@ function Home({ callbackClickMessage, ...props }) {
       userDetailData?.id && (
         <AccountInfo
           callbackClickMessage={callbackClickMessage}
+          callbackChangeAvatar={onChangeAvatar}
           viewMyAccount={viewMyAccount}
           userDashBoard={userDashBoard}
           userDetail={userDetailData}

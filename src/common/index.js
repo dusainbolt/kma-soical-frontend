@@ -227,6 +227,11 @@ export const NOTIFY = {
   COMMENT: 2,
 };
 
+export const TYPE_UPLOAD = {
+  AVATAR: 1,
+  COVER: 2,
+};
+
 export const LIMIT_UPLOAD_NEW = 10;
 export const validateIMG = ["image/png", "image/jpeg", "image/heic"];
 

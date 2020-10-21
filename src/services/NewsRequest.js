@@ -31,3 +31,7 @@ export const getUserDetailAPI = params => {
 export const getFriendsDetailAPI = params => {
   return api.get("/user/get_friends_detail", params);
 };
+
+export const postChangeAvatarAPI = params => {
+  return api.post("/user/change_avatar", params);
+};
