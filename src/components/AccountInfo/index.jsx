@@ -17,7 +17,13 @@ import { getBase64 } from "../../utils/upload";
 const url_img =
   "https://img.vn/uploads/thuvien/viber-image-2019-08-06-10-40-38-jpg-20190807145944LO3qbinQdG.jpg";
 
-function AccountInfo({ userDetail, userDashBoard, callbackClickMessage, callbackChangeAvatar }) {
+function AccountInfo({
+  userDetail,
+  viewMyAccount,
+  userDashBoard,
+  callbackClickMessage,
+  callbackChangeAvatar,
+}) {
   const { t } = useTranslation();
   const friendsDetail = useSelector(state => state.newFeedReducer.friendsDetail);
   const isLoadingFriendsDetail = useSelector(state => state.newFeedReducer.isLoadingFriendsDetail);
@@ -44,6 +50,15 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage, callback
     );
   };
 
+  const renderButtonCover = () => {
+    return (
+      <div className="account__cover-wrapper--btn-upload">
+        <CameraFilled />
+        {t("news_feed.upload_cover_img")}
+      </div>
+    );
+  };
+
   const renderAvatarLoad = async originFileObj => {
     setAvatarLoad(await getBase64(originFileObj));
   };
@@ -52,18 +67,24 @@ function AccountInfo({ userDetail, userDashBoard, callbackClickMessage, callback
     <>
       <div className="account form-feed">
         <div className="account__cover-wrapper">
+          {viewMyAccount && (
+            <UploadImage
+              callbackUpload={handleChangeAvatar}
+              cover={false}
+              content={renderButtonCover()}
+              className="upload-cover"
+            />
+          )}
           <LazyloadImg delayThrottle={100} height={390} className="img-cover" src={url_img} />
-          <div className="account__cover-wrapper--btn-upload">
-            <CameraFilled />
-            {t("news_feed.upload_cover_img")}
-          </div>
         </div>
         <div className="account__image-avatar">
-          <UploadImage
-            callbackUpload={handleChangeAvatar}
-            cover={false}
-            content={renderButtonAvatar()}
-          />
+          {viewMyAccount && (
+            <UploadImage
+              callbackUpload={handleChangeAvatar}
+              cover={false}
+              content={renderButtonAvatar()}
+            />
+          )}
           <Avatar src={avatarLoad ? avatarLoad : genderAvatarUrl(avatar)} />
         </div>
         <div className="account__content-warpper">

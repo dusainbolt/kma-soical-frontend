@@ -5,7 +5,7 @@ import { validateIMG } from "../../common";
 import { beforeUpload } from "../../utils/upload";
 import { useTranslation } from "react-i18next";
 
-function UploadImage({ content, cover = true, callbackUpload }) {
+function UploadImage({ content, cover = true, callbackUpload, className = "" }) {
   const { t } = useTranslation();
 
   const [fileUpload, setFileUpload] = useState(null);
@@ -28,11 +28,10 @@ function UploadImage({ content, cover = true, callbackUpload }) {
       grid
       shape={cover ? "rect" : "round"}
       aspect={cover ? 650 / 365 : 300 / 300}
-      className="upload-avatar"
       modalCancel={t("txt.cancel")}
       modalOk={t("txt.btn_done")}>
       <Upload
-        className="upload-avatar"
+        className={`upload-avatar ${className}`}
         action="/"
         method="GET"
         accept={validateIMG.toString()}
