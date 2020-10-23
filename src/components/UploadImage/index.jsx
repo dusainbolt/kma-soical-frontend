@@ -5,7 +5,7 @@ import { validateIMG } from "../../common";
 import { beforeUpload } from "../../utils/upload";
 import { useTranslation } from "react-i18next";
 
-function UploadImage({ content, cover = true, callbackUpload, className = "" }) {
+function UploadImage({ content, cover = true, callbackUpload, className = "", loading = false }) {
   const { t } = useTranslation();
 
   const [fileUpload, setFileUpload] = useState(null);
@@ -33,6 +33,7 @@ function UploadImage({ content, cover = true, callbackUpload, className = "" }) 
       <Upload
         className={`upload-avatar ${className}`}
         action="/"
+        type
         method="GET"
         accept={validateIMG.toString()}
         onChange={onChangeFile}>

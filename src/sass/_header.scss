@@ -26,7 +26,13 @@
           &--message {
             margin-right: 15px;
             font-size: 20px;
-            font-size: 23px;
+            padding: 7px;
+            background-color: $bg-site-light;
+            border-radius: 50%;
+            cursor: pointer;
+            &:hover {
+              opacity: 0.7;
+            }
           }
           &--avatar {
             cursor: pointer;
@@ -83,4 +89,12 @@
 
 div.ant-popover-inner {
   border-radius: 5px;
+}
+
+@media (max-width: $with-mobile) {
+  .header {
+    &__user {
+      padding: 0 12px;
+    }
+  }
 }

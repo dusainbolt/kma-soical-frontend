@@ -79,8 +79,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
 
   const renderChatBoxTablet = useMemo(() => {
     return (
-      isMobile ||
-      (true && openChatBox && (
+      openChatBox && (
         <ModalCommon
           visible={openChatBox}
           onCancel={closeBoxChat}
@@ -88,7 +87,7 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
             <BoxChatCommon closeBoxChat={closeBoxChat} isMobile={isMobile} className="box-tablet" />
           }
         />
-      ))
+      )
     );
   }, [isMobile, openChatBox]);
 
@@ -103,7 +102,11 @@ function App({ component: Mycomponent, classes, name, path, ...remainProps }) {
         return (
           <Layout className="layout">
             <Header className="layout__header">
-              <CommonHeader callbackLogout={onLogoutUser} toggleMenu={toggleMenu} />
+              <CommonHeader
+                callbackOpenBoxChat={openBoxChat}
+                callbackLogout={onLogoutUser}
+                toggleMenu={toggleMenu}
+              />
             </Header>
             <Layout className="site-layout">
               <Sider

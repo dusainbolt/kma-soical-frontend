@@ -7,21 +7,15 @@ import { Row, Col } from "antd";
 import ButtonCommon from "../../components/Button";
 import LoginForm from "../../components/LoginForm";
 import LazyLoading from "../../components/LazyLoadingImg";
-import { useEffect } from "react";
 
 function Login() {
   const isLoadingLogin = useSelector(state => state.loginReducer.isLoadingLogin);
-
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const submitLogin = values => {
     dispatch(actions.postLoginStart(values));
   };
-
-  useEffect(() => {
-    dispatch(actions.retSetUserNew());
-  }, []);
 
   return (
     <Row className="welcome login">

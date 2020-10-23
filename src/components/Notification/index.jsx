@@ -49,8 +49,6 @@ export default function Notification(
     }
   };
 
-  console.log(urlAction);
-
   const renderContentNewFeed = item => {
     const { fullNameLike, avatarUrl, tag, type, content, caption, totalLike } = item;
     return (
@@ -92,7 +90,7 @@ export default function Notification(
     icon: renderIcon(typeContent, msgContent?.avatarUserNotify),
     description: typeContent ? renderContentNotify(typeContent) : getI18n().t(`txt.${msgContent}`),
     placement: "bottomRight",
-    duration: 5,
+    duration: 12,
   });
   playNotifySound();
 }

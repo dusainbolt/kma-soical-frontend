@@ -65,7 +65,7 @@ function SidebarMessage({ callbackOpenBoxChat }) {
                 />
               </Badge>
             </Popover>
-            {!isMobile && <span className="side-friends__user-name">{item.fullName}</span>}
+            {<span className="side-friends__user-name">{item.fullName}</span>}
           </div>
         </FadeIn>
       );

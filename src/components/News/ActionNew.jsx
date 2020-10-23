@@ -4,7 +4,7 @@ import Dot from "../Dot";
 import { LIKE, NO_LIKE } from "../../common";
 import { useTranslation } from "react-i18next";
 
-function ActionNew({ toggleLike, index, isLoadingLike, isLikeByMe }) {
+function ActionNew({ toggleLike, toggleComment, index, isLoadingLike, isLikeByMe }) {
   const { t } = useTranslation();
 
   return (
@@ -20,7 +20,7 @@ function ActionNew({ toggleLike, index, isLoadingLike, isLikeByMe }) {
         </div>
       )}
 
-      <div className="form-feed__action-post--item">
+      <div onClick={() => toggleComment(index)} className="form-feed__action-post--item">
         <MessageOutlined />
         <span className="action-post">{t("news_feed.comment")}</span>
       </div>

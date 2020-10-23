@@ -3,7 +3,7 @@ import LazyloadImg from "../LazyLoadingImg";
 import Avatar from "antd/lib/avatar/avatar";
 import { useTranslation } from "react-i18next";
 import { genderAvatarUrl, genderCoverImageUrl } from "../../utils";
-import { Col, Divider, Row, Upload } from "antd";
+import { Divider } from "antd";
 import ActionInfo from "./Container/ActionInfo";
 import AccountDashboard from "./Container/AccountDashboard";
 import AccountInfoFriends from "./Container/AccountInfoFriends";
@@ -14,19 +14,20 @@ import UploadImage from "../UploadImage";
 import { useState } from "react";
 import { TYPE_UPLOAD } from "../../common";
 import { getBase64 } from "../../utils/upload";
+import { useEffect } from "react";
 
 function AccountInfo({
   viewMyAccount,
   userDashBoard,
   callbackClickMessage,
   callbackChangeImageInfo,
+  userDetail,
 }) {
   const { t } = useTranslation();
   const friendsDetail = useSelector(state => state.newFeedReducer.friendsDetail);
   const isLoadingFriendsDetail = useSelector(state => state.newFeedReducer.isLoadingFriendsDetail);
   const isLoadingAvatar = useSelector(state => state.loginReducer.isLoadingAvatar);
   const isLoadingCoverImage = useSelector(state => state.loginReducer.isLoadingCoverImage);
-  const userDetail = useSelector(state => state.loginReducer.userDetail);
 
   const [avatarLoad, setAvatarLoad] = useState(null);
   const [coverImageLoad, setCoverImageLoad] = useState(null);
@@ -92,7 +93,11 @@ function AccountInfo({
             delayThrottle={100}
             height={390}
             className={`img-cover ${isLoadingCoverImage ? "loading" : ""}`}
-            src={isLoadingCoverImage ? coverImageLoad : genderCoverImageUrl(coverImage)}
+            src={
+              isLoadingCoverImage && coverImageLoad
+                ? coverImageLoad
+                : genderCoverImageUrl(coverImage)
+            }
           />
         </div>
         <div className={`account__image-avatar ${isLoadingAvatar ? "loading" : ""}`}>
@@ -100,7 +105,8 @@ function AccountInfo({
             <UploadImage
               callbackUpload={handleChangeAvatar}
               cover={false}
-              content={isLoadingCoverImage ? coverImageLoad : renderButtonAvatar()}
+              loading={isLoadingAvatar}
+              content={renderButtonAvatar()}
             />
           )}
           <Avatar src={isLoadingAvatar ? avatarLoad : genderAvatarUrl(avatar)} />

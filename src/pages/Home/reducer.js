@@ -96,7 +96,7 @@ export default (state = DEFAULT_STATE, action) => {
         },
         listComment: {
           ...listComment,
-          [payload.postId]: listComment[payload.postId].concat([payload]),
+          [payload.postId]: listComment[payload.postId]?.concat([payload]),
         },
         listNewFeed: convertFeedWhenAddComment(
           listNewFeed,

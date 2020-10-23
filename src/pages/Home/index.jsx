@@ -12,7 +12,7 @@ import ModalCommon from "../../components/Modal";
 import AccountInfo from "../../components/AccountInfo";
 import ActionNew from "../../components/News/ActionNew";
 import Comment from "../../components/News/Comment";
-import { OPTION_LiGHTBOX, TYPE_FEED, TYPE_UPLOAD } from "../../common";
+import { OPTION_LiGHTBOX, TYPE_FEED } from "../../common";
 import FormAddNew from "../../components/FormAddNew";
 import {
   getArrayImg,
@@ -75,7 +75,7 @@ function Home({ callbackClickMessage, ...props }) {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
     if (
       (params?.postId && params.postId !== currentValue?.postId) ||
       (params?.subjectId && params.subjectId !== currentValue?.subjectId)
@@ -222,7 +222,7 @@ function Home({ callbackClickMessage, ...props }) {
           <FadeIn delay={100} transitionDuration={500}>
             <div className="form-feed">
               <PostTop
-                avatarUrl={item.userId === userId ? avatarReducer : genderAvatarUrl(item.avatarUrl)}
+                avatarUrl={item.userId === userId ? avatarReducer : item.avatarUrl}
                 fullName={item.fullName}
                 created_at={item.created_at}
                 userId={item.userId}
@@ -247,6 +247,7 @@ function Home({ callbackClickMessage, ...props }) {
                 toggleLike={toggleLike}
                 isLoadingLike={isLoadingLike}
                 itemNews={item}
+                toggleComment={toggleViewComment}
                 isLikeByMe={isLikeByMe}
                 index={item.id}
               />
@@ -270,9 +271,8 @@ function Home({ callbackClickMessage, ...props }) {
   };
 
   const renderAccountInfo = useMemo(() => {
-    const viewMyAccount = userIdDetail == userId ? true : false;
+    const viewMyAccount = parseInt(userIdDetail) === userId ? true : false;
     const userDetailData = viewMyAccount ? userDetailReducer : userDetail;
-
     return (
       userDetailData?.id && (
         <AccountInfo
@@ -284,7 +284,7 @@ function Home({ callbackClickMessage, ...props }) {
         />
       )
     );
-  }, [userDetail, userIdDetail, userDashBoard]);
+  }, [userDetailReducer, userDetail, userIdDetail, userDashBoard]);
 
   return (
     <div>

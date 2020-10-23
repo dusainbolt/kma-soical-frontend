@@ -102,6 +102,8 @@ function SearchTop({
     setFieldValue(name, value);
   };
 
+  console.log(isLoadingSearch);
+
   return (
     <Formik onSubmit={callbackSearch} initialValues={initialValues}>
       {({ setFieldValue, values, handleSubmit }) => (

@@ -1,6 +1,6 @@
 import React from "react";
 import { GlobalOutlined, EllipsisOutlined } from "@ant-design/icons";
-import { genderTimeCountNewFeed, onRedirect } from "../../utils";
+import { genderTimeCountNewFeed, onRedirect, genderAvatarUrl } from "../../utils";
 
 function PostTop({ avatarUrl, fullName, created_at, userId, note }) {
   return (
@@ -8,7 +8,7 @@ function PostTop({ avatarUrl, fullName, created_at, userId, note }) {
       <img
         className="avatar"
         onClick={() => onRedirect(`/user-detail/${userId}`)}
-        src={avatarUrl}
+        src={genderAvatarUrl(avatarUrl)}
         alt="avatar"
       />
       <div className="form-feed__top--info">
